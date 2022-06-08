@@ -10,9 +10,13 @@
 		BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B151285076FF00DE7196 /* AppDelegate.swift */; };
 		BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B153285076FF00DE7196 /* SceneDelegate.swift */; };
 		BCB0B156285076FF00DE7196 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B155285076FF00DE7196 /* ViewController.swift */; };
-		BCB0B159285076FF00DE7196 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB0B157285076FF00DE7196 /* Main.storyboard */; };
 		BCB0B15B2850770000DE7196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB0B15A2850770000DE7196 /* Assets.xcassets */; };
 		BCB0B15E2850770000DE7196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB0B15C2850770000DE7196 /* LaunchScreen.storyboard */; };
+		BCB0B16B28507C2300DE7196 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B16A28507C2300DE7196 /* Tabman */; };
+		BCB0B16E28507C7D00DE7196 /* SwiftLintFramework in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B16D28507C7D00DE7196 /* SwiftLintFramework */; };
+		BCB0B17028507C7D00DE7196 /* swiftlint in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B16F28507C7D00DE7196 /* swiftlint */; };
+		BCB0B17328507CB600DE7196 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B17228507CB600DE7196 /* Realm */; };
+		BCB0B17528507CB600DE7196 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B17428507CB600DE7196 /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,7 +24,6 @@
 		BCB0B151285076FF00DE7196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB0B153285076FF00DE7196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BCB0B155285076FF00DE7196 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BCB0B158285076FF00DE7196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BCB0B15A2850770000DE7196 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCB0B15D2850770000DE7196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCB0B15F2850770000DE7196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -31,6 +34,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCB0B16E28507C7D00DE7196 /* SwiftLintFramework in Frameworks */,
+				BCB0B17028507C7D00DE7196 /* swiftlint in Frameworks */,
+				BCB0B17328507CB600DE7196 /* Realm in Frameworks */,
+				BCB0B17528507CB600DE7196 /* RealmSwift in Frameworks */,
+				BCB0B16B28507C2300DE7196 /* Tabman in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,15 +64,46 @@
 		BCB0B150285076FF00DE7196 /* coupleDayProject */ = {
 			isa = PBXGroup;
 			children = (
+				BCB0B16828507BF900DE7196 /* Model */,
+				BCB0B16728507BF500DE7196 /* View */,
+				BCB0B16628507BEE00DE7196 /* Controller */,
+				BCB0B16528507BE600DE7196 /* Resources */,
 				BCB0B151285076FF00DE7196 /* AppDelegate.swift */,
 				BCB0B153285076FF00DE7196 /* SceneDelegate.swift */,
 				BCB0B155285076FF00DE7196 /* ViewController.swift */,
-				BCB0B157285076FF00DE7196 /* Main.storyboard */,
 				BCB0B15A2850770000DE7196 /* Assets.xcassets */,
 				BCB0B15C2850770000DE7196 /* LaunchScreen.storyboard */,
 				BCB0B15F2850770000DE7196 /* Info.plist */,
 			);
 			path = coupleDayProject;
+			sourceTree = "<group>";
+		};
+		BCB0B16528507BE600DE7196 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BCB0B16628507BEE00DE7196 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BCB0B16728507BF500DE7196 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BCB0B16828507BF900DE7196 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +122,13 @@
 			dependencies = (
 			);
 			name = coupleDayProject;
+			packageProductDependencies = (
+				BCB0B16A28507C2300DE7196 /* Tabman */,
+				BCB0B16D28507C7D00DE7196 /* SwiftLintFramework */,
+				BCB0B16F28507C7D00DE7196 /* swiftlint */,
+				BCB0B17228507CB600DE7196 /* Realm */,
+				BCB0B17428507CB600DE7196 /* RealmSwift */,
+			);
 			productName = coupleDayProject;
 			productReference = BCB0B14E285076FF00DE7196 /* coupleDayProject.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +157,11 @@
 				Base,
 			);
 			mainGroup = BCB0B145285076FF00DE7196;
+			packageReferences = (
+				BCB0B16928507C2300DE7196 /* XCRemoteSwiftPackageReference "Tabman" */,
+				BCB0B16C28507C7D00DE7196 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				BCB0B17128507CB600DE7196 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = BCB0B14F285076FF00DE7196 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,7 +178,6 @@
 			files = (
 				BCB0B15E2850770000DE7196 /* LaunchScreen.storyboard in Resources */,
 				BCB0B15B2850770000DE7196 /* Assets.xcassets in Resources */,
-				BCB0B159285076FF00DE7196 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,14 +197,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		BCB0B157285076FF00DE7196 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BCB0B158285076FF00DE7196 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BCB0B15C2850770000DE7196 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -292,9 +334,9 @@
 				INFOPLIST_FILE = coupleDayProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,7 +346,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -320,9 +362,9 @@
 				INFOPLIST_FILE = coupleDayProject/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -332,7 +374,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -358,6 +400,61 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BCB0B16928507C2300DE7196 /* XCRemoteSwiftPackageReference "Tabman" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/uias/Tabman";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		BCB0B16C28507C7D00DE7196 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		BCB0B17128507CB600DE7196 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BCB0B16A28507C2300DE7196 /* Tabman */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCB0B16928507C2300DE7196 /* XCRemoteSwiftPackageReference "Tabman" */;
+			productName = Tabman;
+		};
+		BCB0B16D28507C7D00DE7196 /* SwiftLintFramework */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCB0B16C28507C7D00DE7196 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = SwiftLintFramework;
+		};
+		BCB0B16F28507C7D00DE7196 /* swiftlint */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCB0B16C28507C7D00DE7196 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = swiftlint;
+		};
+		BCB0B17228507CB600DE7196 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCB0B17128507CB600DE7196 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		BCB0B17428507CB600DE7196 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCB0B17128507CB600DE7196 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BCB0B146285076FF00DE7196 /* Project object */;
 }
