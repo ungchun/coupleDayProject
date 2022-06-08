@@ -16,8 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
+        // MARK: 시작(root) 뷰컨 설정
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let rootViewcontroller = UINavigationController(rootViewController: ViewController())
+        let rootViewcontroller = UINavigationController(rootViewController: MainContainerViewController())
         rootViewcontroller.isNavigationBarHidden = true // pushViewController 했을 때 뒤로가기 버튼 생기는 바 숨기기
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = rootViewcontroller
@@ -52,7 +54,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 

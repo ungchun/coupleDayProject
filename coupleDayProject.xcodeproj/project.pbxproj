@@ -7,26 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC8B624F285087B000D46416 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B624E285087B000D46416 /* Realm */; };
+		BC8B6251285087B000D46416 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B6250285087B000D46416 /* RealmSwift */; };
 		BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B151285076FF00DE7196 /* AppDelegate.swift */; };
 		BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B153285076FF00DE7196 /* SceneDelegate.swift */; };
-		BCB0B156285076FF00DE7196 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B155285076FF00DE7196 /* ViewController.swift */; };
 		BCB0B15B2850770000DE7196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB0B15A2850770000DE7196 /* Assets.xcassets */; };
 		BCB0B15E2850770000DE7196 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB0B15C2850770000DE7196 /* LaunchScreen.storyboard */; };
 		BCB0B16B28507C2300DE7196 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B16A28507C2300DE7196 /* Tabman */; };
-		BCB0B16E28507C7D00DE7196 /* SwiftLintFramework in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B16D28507C7D00DE7196 /* SwiftLintFramework */; };
-		BCB0B17028507C7D00DE7196 /* swiftlint in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B16F28507C7D00DE7196 /* swiftlint */; };
-		BCB0B17328507CB600DE7196 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B17228507CB600DE7196 /* Realm */; };
-		BCB0B17528507CB600DE7196 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B17428507CB600DE7196 /* RealmSwift */; };
+		BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17628507D0B00DE7196 /* Constants.swift */; };
+		BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17728507D0B00DE7196 /* Extensions.swift */; };
+		BCB0B18328507D2300DE7196 /* BeginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17A28507D2200DE7196 /* BeginViewController.swift */; };
+		BCB0B18428507D2300DE7196 /* MainTabManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17C28507D2300DE7196 /* MainTabManViewController.swift */; };
+		BCB0B18528507D2300DE7196 /* StoryTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17E28507D2300DE7196 /* StoryTabViewController.swift */; };
+		BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */; };
+		BCB0B18728507D2300DE7196 /* AnniversaryTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18028507D2300DE7196 /* AnniversaryTabViewController.swift */; };
+		BCB0B18828507D2300DE7196 /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18128507D2300DE7196 /* MainContainerViewController.swift */; };
+		BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18228507D2300DE7196 /* SettingViewController.swift */; };
+		BCB0B18B28507D2E00DE7196 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18A28507D2E00DE7196 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BCB0B14E285076FF00DE7196 /* coupleDayProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB0B151285076FF00DE7196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB0B153285076FF00DE7196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BCB0B155285076FF00DE7196 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BCB0B15A2850770000DE7196 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCB0B15D2850770000DE7196 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCB0B15F2850770000DE7196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCB0B17628507D0B00DE7196 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BCB0B17728507D0B00DE7196 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BCB0B17A28507D2200DE7196 /* BeginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeginViewController.swift; sourceTree = "<group>"; };
+		BCB0B17C28507D2300DE7196 /* MainTabManViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabManViewController.swift; sourceTree = "<group>"; };
+		BCB0B17E28507D2300DE7196 /* StoryTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTabViewController.swift; sourceTree = "<group>"; };
+		BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoupleTabViewController.swift; sourceTree = "<group>"; };
+		BCB0B18028507D2300DE7196 /* AnniversaryTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnniversaryTabViewController.swift; sourceTree = "<group>"; };
+		BCB0B18128507D2300DE7196 /* MainContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
+		BCB0B18228507D2300DE7196 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		BCB0B18A28507D2E00DE7196 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,10 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCB0B16E28507C7D00DE7196 /* SwiftLintFramework in Frameworks */,
-				BCB0B17028507C7D00DE7196 /* swiftlint in Frameworks */,
-				BCB0B17328507CB600DE7196 /* Realm in Frameworks */,
-				BCB0B17528507CB600DE7196 /* RealmSwift in Frameworks */,
+				BC8B6251285087B000D46416 /* RealmSwift in Frameworks */,
+				BC8B624F285087B000D46416 /* Realm in Frameworks */,
 				BCB0B16B28507C2300DE7196 /* Tabman in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,7 +84,6 @@
 				BCB0B16528507BE600DE7196 /* Resources */,
 				BCB0B151285076FF00DE7196 /* AppDelegate.swift */,
 				BCB0B153285076FF00DE7196 /* SceneDelegate.swift */,
-				BCB0B155285076FF00DE7196 /* ViewController.swift */,
 				BCB0B15A2850770000DE7196 /* Assets.xcassets */,
 				BCB0B15C2850770000DE7196 /* LaunchScreen.storyboard */,
 				BCB0B15F2850770000DE7196 /* Info.plist */,
@@ -81,6 +94,8 @@
 		BCB0B16528507BE600DE7196 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BCB0B17628507D0B00DE7196 /* Constants.swift */,
+				BCB0B17728507D0B00DE7196 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -88,6 +103,9 @@
 		BCB0B16628507BEE00DE7196 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BCB0B17A28507D2200DE7196 /* BeginViewController.swift */,
+				BCB0B18228507D2300DE7196 /* SettingViewController.swift */,
+				BCB0B17B28507D2300DE7196 /* MainVC */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -102,8 +120,29 @@
 		BCB0B16828507BF900DE7196 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BCB0B18A28507D2E00DE7196 /* User.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BCB0B17B28507D2300DE7196 /* MainVC */ = {
+			isa = PBXGroup;
+			children = (
+				BCB0B17C28507D2300DE7196 /* MainTabManViewController.swift */,
+				BCB0B18128507D2300DE7196 /* MainContainerViewController.swift */,
+				BCB0B17D28507D2300DE7196 /* TabVC */,
+			);
+			path = MainVC;
+			sourceTree = "<group>";
+		};
+		BCB0B17D28507D2300DE7196 /* TabVC */ = {
+			isa = PBXGroup;
+			children = (
+				BCB0B17E28507D2300DE7196 /* StoryTabViewController.swift */,
+				BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */,
+				BCB0B18028507D2300DE7196 /* AnniversaryTabViewController.swift */,
+			);
+			path = TabVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,10 +163,8 @@
 			name = coupleDayProject;
 			packageProductDependencies = (
 				BCB0B16A28507C2300DE7196 /* Tabman */,
-				BCB0B16D28507C7D00DE7196 /* SwiftLintFramework */,
-				BCB0B16F28507C7D00DE7196 /* swiftlint */,
-				BCB0B17228507CB600DE7196 /* Realm */,
-				BCB0B17428507CB600DE7196 /* RealmSwift */,
+				BC8B624E285087B000D46416 /* Realm */,
+				BC8B6250285087B000D46416 /* RealmSwift */,
 			);
 			productName = coupleDayProject;
 			productReference = BCB0B14E285076FF00DE7196 /* coupleDayProject.app */;
@@ -159,8 +196,7 @@
 			mainGroup = BCB0B145285076FF00DE7196;
 			packageReferences = (
 				BCB0B16928507C2300DE7196 /* XCRemoteSwiftPackageReference "Tabman" */,
-				BCB0B16C28507C7D00DE7196 /* XCRemoteSwiftPackageReference "SwiftLint" */,
-				BCB0B17128507CB600DE7196 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				BC8B624D285087B000D46416 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = BCB0B14F285076FF00DE7196 /* Products */;
 			projectDirPath = "";
@@ -188,9 +224,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCB0B156285076FF00DE7196 /* ViewController.swift in Sources */,
+				BCB0B18B28507D2E00DE7196 /* User.swift in Sources */,
+				BCB0B18328507D2300DE7196 /* BeginViewController.swift in Sources */,
+				BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */,
+				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
+				BCB0B18428507D2300DE7196 /* MainTabManViewController.swift in Sources */,
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
+				BCB0B18528507D2300DE7196 /* StoryTabViewController.swift in Sources */,
+				BCB0B18828507D2300DE7196 /* MainContainerViewController.swift in Sources */,
+				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
+				BCB0B18728507D2300DE7196 /* AnniversaryTabViewController.swift in Sources */,
+				BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +303,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -312,7 +357,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -402,6 +447,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BC8B624D285087B000D46416 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		BCB0B16928507C2300DE7196 /* XCRemoteSwiftPackageReference "Tabman" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/uias/Tabman";
@@ -410,49 +463,23 @@
 				kind = branch;
 			};
 		};
-		BCB0B16C28507C7D00DE7196 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		BCB0B17128507CB600DE7196 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-swift.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BC8B624E285087B000D46416 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC8B624D285087B000D46416 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		BC8B6250285087B000D46416 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC8B624D285087B000D46416 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 		BCB0B16A28507C2300DE7196 /* Tabman */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BCB0B16928507C2300DE7196 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
-		};
-		BCB0B16D28507C7D00DE7196 /* SwiftLintFramework */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BCB0B16C28507C7D00DE7196 /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = SwiftLintFramework;
-		};
-		BCB0B16F28507C7D00DE7196 /* swiftlint */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BCB0B16C28507C7D00DE7196 /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = swiftlint;
-		};
-		BCB0B17228507CB600DE7196 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BCB0B17128507CB600DE7196 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
-		};
-		BCB0B17428507CB600DE7196 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BCB0B17128507CB600DE7196 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

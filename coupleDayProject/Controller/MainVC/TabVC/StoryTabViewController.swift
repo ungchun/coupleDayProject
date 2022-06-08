@@ -1,16 +1,16 @@
 //
-//  ViewController.swift
-//  coupleDayProject
+//  StoryTabViewController.swift
+//  trendingProject
 //
-//  Created by 김성훈 on 2022/06/08.
+//  Created by 김성훈 on 2022/06/07.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class StoryTabViewController: UIViewController {
     lazy var tempText: UILabel = {
        let view = UILabel()
-        view.text = "Demo"
+        view.text = "Story"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -24,4 +24,3 @@ class ViewController: UIViewController {
         ])
     }
 }
-
