@@ -14,6 +14,11 @@ class SettingViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false // 상단 NavigationBar 공간 show
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -23,6 +28,7 @@ class SettingViewController: UIViewController {
             tempText.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
     }
+
 }
 
 #if DEBUG

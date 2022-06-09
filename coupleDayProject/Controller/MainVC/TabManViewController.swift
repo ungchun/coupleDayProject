@@ -9,7 +9,8 @@ import UIKit
 import Tabman
 import Pageboy
 
-class MainTabManViewController: TabmanViewController {
+class TabManViewController: TabmanViewController {
+    
     private var viewControllers: Array<UIViewController> = []
     
     // MARK: func
@@ -45,7 +46,7 @@ class MainTabManViewController: TabmanViewController {
     }
 }
 
-extension MainTabManViewController: PageboyViewControllerDataSource, TMBarDataSource {
+extension TabManViewController: PageboyViewControllerDataSource, TMBarDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
         let item = TMBarItem(title: "")
         let title: String = index == 0 ? "커플" : index == 1 ? "스토리" : "기념일"

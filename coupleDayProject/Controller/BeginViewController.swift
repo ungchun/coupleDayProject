@@ -7,75 +7,38 @@
 
 import Foundation
 import UIKit
-import RealmSwift
 
-// 연애 시작일 작성 페이지
 class BeginViewController: UIViewController {
     
-    let realm = try! Realm()
+    private var beginView: BeginView!
     
-    // MARK: UI
-    private lazy var guideText: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.sizeToFit() // label 크기를 text에 맞추기
-        label.text = "인연의 시작을 알려주세요!"
-        label.textColor = TrendingConstants.appMainColor
-        label.font = label.font.withSize(20)
-        return label
-    }()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupHideKeyboardOnTap() // extension: inputView dismiss
+        view.backgroundColor = .white // set background color
+        setupView()
+    }
     
-    private lazy var datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: "ko-KR")
-        datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
-        datePicker.frame.size = CGSize(width: 0, height: 250)
-        return datePicker
-    }()
+    // MARK: func
+    fileprivate func setupView() {
+        let beginView = BeginView(frame: self.view.frame)
+        self.beginView = BeginView()
+        beginView.startBtnTapAction = startBtnTap
+        self.view.addSubview(beginView)
+    }
     
-    private lazy var startBtn: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("시작하기", for: .normal)
-        btn.setTitleColor(UIColor.gray, for: .normal)
-        btn.addTarget(self, action: #selector(startBtnTap), for: .touchUpInside)
-        return btn
-    }()
-    
-    private lazy var coupleBeginDay: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko-KR")
-        formatter.dateFormat = "yyyy-MM-dd"
-        textField.text = formatter.string(from: Date())
-        textField.font = .systemFont(ofSize: 30)
-        return textField
-    }()
-    
-    private lazy var stackView: UIStackView = {
-        var stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        return stackView
-    }()
-    
-    // MARK: @objc
-    @objc
-    func startBtnTap() {
+    fileprivate func startBtnTap() {
         // MARK: temp input realm data
-//        let user = realm.objects(User.self)
-//        if user.isEmpty {
-//            let userDate = User()
-//            userDate.beginCoupleDay = Int(Date().toString.toDate.millisecondsSince1970)
-//            try? self.realm.write({
-//                self.realm.add(userDate)
-//            })
-//        }
-
-        let mainViewController = MainContainerViewController()
+        //        let user = realm.objects(User.self)
+        //        if user.isEmpty {
+        //            let userDate = User()
+        //            userDate.beginCoupleDay = Int(Date().toString.toDate.millisecondsSince1970)
+        //            try? self.realm.write({
+        //                self.realm.add(userDate)
+        //            })
+        //        }
+        
+        let mainViewController = ContainerViewController()
         mainViewController.modalTransitionStyle = .crossDissolve
         mainViewController.modalPresentationStyle = .fullScreen
         self.present(mainViewController, animated: true, completion: nil)
@@ -85,35 +48,6 @@ class BeginViewController: UIViewController {
         // 페이지 나중에 만들어보기 애니메이션으로
     }
     
-    @objc
-    fileprivate func handleDatePicker(_ sender: UIDatePicker) {
-        coupleBeginDay.text = sender.date.toString // yyyy-MM-dd
-    }
-    
-    // MARK: func
-    fileprivate func layoutStackView() {
-        view.addSubview(stackView)
-        coupleBeginDay.inputView = datePicker
-        coupleBeginDay.tintColor = .clear
-        coupleBeginDay.textAlignment = .center
-        guideText.textAlignment = .center
-        NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        ])
-        stackView.addArrangedSubview(guideText)
-        stackView.addArrangedSubview(coupleBeginDay)
-        stackView.addArrangedSubview(startBtn)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupHideKeyboardOnTap() // extension: inputView dismiss
-        view.backgroundColor = .white // set background color
-        layoutStackView() // set view
-        print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" ) // realm url
-//                try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!) // remove realm db
-    }
 }
 
 #if DEBUG

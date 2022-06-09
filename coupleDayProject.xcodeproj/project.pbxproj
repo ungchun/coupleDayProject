@@ -17,13 +17,17 @@
 		BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17628507D0B00DE7196 /* Constants.swift */; };
 		BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17728507D0B00DE7196 /* Extensions.swift */; };
 		BCB0B18328507D2300DE7196 /* BeginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17A28507D2200DE7196 /* BeginViewController.swift */; };
-		BCB0B18428507D2300DE7196 /* MainTabManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17C28507D2300DE7196 /* MainTabManViewController.swift */; };
+		BCB0B18428507D2300DE7196 /* TabManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17C28507D2300DE7196 /* TabManViewController.swift */; };
 		BCB0B18528507D2300DE7196 /* StoryTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17E28507D2300DE7196 /* StoryTabViewController.swift */; };
 		BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */; };
 		BCB0B18728507D2300DE7196 /* AnniversaryTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18028507D2300DE7196 /* AnniversaryTabViewController.swift */; };
-		BCB0B18828507D2300DE7196 /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18128507D2300DE7196 /* MainContainerViewController.swift */; };
+		BCB0B18828507D2300DE7196 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18128507D2300DE7196 /* ContainerViewController.swift */; };
 		BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18228507D2300DE7196 /* SettingViewController.swift */; };
 		BCB0B18B28507D2E00DE7196 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18A28507D2E00DE7196 /* User.swift */; };
+		BCD384A32851D4C000AC5A2D /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384A22851D4C000AC5A2D /* ContainerView.swift */; };
+		BCD384A82852040200AC5A2D /* CoupleTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384A72852040200AC5A2D /* CoupleTabView.swift */; };
+		BCD384AA2852098200AC5A2D /* BeginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384A92852098200AC5A2D /* BeginView.swift */; };
+		BCD384AC28520CC500AC5A2D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384AB28520CC500AC5A2D /* SettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,13 +40,17 @@
 		BCB0B17628507D0B00DE7196 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BCB0B17728507D0B00DE7196 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BCB0B17A28507D2200DE7196 /* BeginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeginViewController.swift; sourceTree = "<group>"; };
-		BCB0B17C28507D2300DE7196 /* MainTabManViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabManViewController.swift; sourceTree = "<group>"; };
+		BCB0B17C28507D2300DE7196 /* TabManViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabManViewController.swift; sourceTree = "<group>"; };
 		BCB0B17E28507D2300DE7196 /* StoryTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTabViewController.swift; sourceTree = "<group>"; };
 		BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoupleTabViewController.swift; sourceTree = "<group>"; };
 		BCB0B18028507D2300DE7196 /* AnniversaryTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnniversaryTabViewController.swift; sourceTree = "<group>"; };
-		BCB0B18128507D2300DE7196 /* MainContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
+		BCB0B18128507D2300DE7196 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		BCB0B18228507D2300DE7196 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		BCB0B18A28507D2E00DE7196 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BCD384A22851D4C000AC5A2D /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
+		BCD384A72852040200AC5A2D /* CoupleTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTabView.swift; sourceTree = "<group>"; };
+		BCD384A92852098200AC5A2D /* BeginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginView.swift; sourceTree = "<group>"; };
+		BCD384AB28520CC500AC5A2D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +121,9 @@
 		BCB0B16728507BF500DE7196 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BCD384A92852098200AC5A2D /* BeginView.swift */,
+				BCD384AB28520CC500AC5A2D /* SettingView.swift */,
+				BCD384A12851D4A800AC5A2D /* MainView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -128,8 +139,8 @@
 		BCB0B17B28507D2300DE7196 /* MainVC */ = {
 			isa = PBXGroup;
 			children = (
-				BCB0B17C28507D2300DE7196 /* MainTabManViewController.swift */,
-				BCB0B18128507D2300DE7196 /* MainContainerViewController.swift */,
+				BCB0B17C28507D2300DE7196 /* TabManViewController.swift */,
+				BCB0B18128507D2300DE7196 /* ContainerViewController.swift */,
 				BCB0B17D28507D2300DE7196 /* TabVC */,
 			);
 			path = MainVC;
@@ -143,6 +154,23 @@
 				BCB0B18028507D2300DE7196 /* AnniversaryTabViewController.swift */,
 			);
 			path = TabVC;
+			sourceTree = "<group>";
+		};
+		BCD384A12851D4A800AC5A2D /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				BCD384A22851D4C000AC5A2D /* ContainerView.swift */,
+				BCD384A6285203EC00AC5A2D /* TabView */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		BCD384A6285203EC00AC5A2D /* TabView */ = {
+			isa = PBXGroup;
+			children = (
+				BCD384A72852040200AC5A2D /* CoupleTabView.swift */,
+			);
+			path = TabView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,13 +256,17 @@
 				BCB0B18328507D2300DE7196 /* BeginViewController.swift in Sources */,
 				BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */,
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
-				BCB0B18428507D2300DE7196 /* MainTabManViewController.swift in Sources */,
+				BCB0B18428507D2300DE7196 /* TabManViewController.swift in Sources */,
+				BCD384AC28520CC500AC5A2D /* SettingView.swift in Sources */,
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
 				BCB0B18528507D2300DE7196 /* StoryTabViewController.swift in Sources */,
-				BCB0B18828507D2300DE7196 /* MainContainerViewController.swift in Sources */,
+				BCB0B18828507D2300DE7196 /* ContainerViewController.swift in Sources */,
 				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
+				BCD384A32851D4C000AC5A2D /* ContainerView.swift in Sources */,
 				BCB0B18728507D2300DE7196 /* AnniversaryTabViewController.swift in Sources */,
+				BCD384A82852040200AC5A2D /* CoupleTabView.swift in Sources */,
+				BCD384AA2852098200AC5A2D /* BeginView.swift in Sources */,
 				BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

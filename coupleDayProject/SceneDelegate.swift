@@ -19,8 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // MARK: 시작(root) 뷰컨 설정
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let rootViewcontroller = UINavigationController(rootViewController: MainContainerViewController())
-        rootViewcontroller.isNavigationBarHidden = true // pushViewController 했을 때 뒤로가기 버튼 생기는 바 숨기기
+        let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = rootViewcontroller
         window?.windowScene = windowScene
