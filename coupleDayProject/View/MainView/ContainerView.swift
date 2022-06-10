@@ -48,7 +48,6 @@ class ContainerView: UIView {
         stackView.axis = .horizontal
         stackView.setCustomSpacing(30, after: setBtn)
         stackView.backgroundColor = .red
-        print("stackView height \(stackView.frame.height)")
         return stackView
     }()
     

@@ -72,6 +72,11 @@ class CoupleTabView: UIView {
     }()
     
     
+    private lazy var testLabel_0: UILabel = {
+        var label = UILabel()
+        label.text = "다가오는 스토리"
+        return label
+    }()
     private lazy var testLabel_1: UILabel = {
         var label = UILabel()
         label.text = "생일"
@@ -89,7 +94,7 @@ class CoupleTabView: UIView {
     }()
     
     private lazy var comingStoryStackView: UIStackView = {
-        var stackView = UIStackView(arrangedSubviews: [testLabel_1, testLabel_2, testLabel_3])
+        var stackView = UIStackView(arrangedSubviews: [testLabel_0, testLabel_1, testLabel_2, testLabel_3])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually
         stackView.axis = .vertical
