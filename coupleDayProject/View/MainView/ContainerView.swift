@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 초반에 디자인했지만 안씀
 class ContainerView: UIView {
  
     var setBtnAction: (() -> Void)? // setBtnAction
@@ -30,6 +31,7 @@ class ContainerView: UIView {
         let label = UILabel()
         label.text = "성훈커플앱"
         label.font = .systemFont(ofSize: 20)
+        print("label \(label.frame.height)")
         return label
     }()
     
@@ -46,8 +48,13 @@ class ContainerView: UIView {
         stackView.axis = .horizontal
         stackView.setCustomSpacing(30, after: setBtn)
         stackView.backgroundColor = .red
+        print("stackView height \(stackView.frame.height)")
         return stackView
     }()
+    
+//    lazy var testView: UIView = {
+//        
+//    }
 
     // MARK: func
     fileprivate func setup() {
@@ -85,7 +92,7 @@ class ContainerView: UIView {
         transition.timingFunction = .init(name: .easeIn) // 애니메이션 곡선
         transition.type = .fade // 효과
         appNameLabel.layer.add(transition, forKey: CATransitionType.fade.rawValue) // 추가
-        appNameLabel.text = labelState ? CoupleTabViewController.publicBeginCoupleDay : "성훈커플앱"
+        appNameLabel.text = labelState ? "\(CoupleTabViewController.publicBeginCoupleDay) days" : "성훈커플앱"
         labelState.toggle()
     }
 }

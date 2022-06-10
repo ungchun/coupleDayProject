@@ -27,6 +27,15 @@ class CoupleTabViewController: UIViewController {
         let coupleTabView = CoupleTabView(frame: self.view.frame)
         self.coupleTabView = CoupleTabView()
         self.view.addSubview(coupleTabView)
+
+        // tabView 안에 있는 View 라서 CoupleTavView 안에서 autolayout 설정하면 전체사이즈로 세팅됨. (비율에 안맞음)
+        coupleTabView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            coupleTabView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            coupleTabView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            coupleTabView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            coupleTabView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+        ])
     }
 
     fileprivate func setBeginCoupleDay() {

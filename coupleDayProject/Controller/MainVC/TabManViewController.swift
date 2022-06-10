@@ -18,6 +18,7 @@ class TabManViewController: TabmanViewController {
         let coupleVC = CoupleTabViewController() // 커플
         let storyVC = StoryTabViewController() // 스토리
         let anniversaryVC = AnniversaryTabViewController() // 기념일
+        
         viewControllers.append(coupleVC)
         viewControllers.append(storyVC)
         viewControllers.append(anniversaryVC)
@@ -35,7 +36,7 @@ class TabManViewController: TabmanViewController {
         bar.layout.interButtonSpacing = 20
         bar.indicator.weight = .custom(value: 2.5) // 얘 없어도 될거 같은데 나중에 두개 비교해보기 (없애려면 value = 0)
         bar.indicator.tintColor = TrendingConstants.appMainColor
-        bar.layout.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        bar.layout.contentInset = UIEdgeInsets(top: 10, left: 16, bottom: 0, right: 16)
         bar.indicator.overscrollBehavior = .bounce
         addBar(bar, dataSource: self, at: .top)
     }

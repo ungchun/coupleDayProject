@@ -12,6 +12,7 @@ class CoupleTabView: UIView {
     
     var realm: Realm!
     
+    var setBtnAction: (() -> Void)? // setBtnAction
     
     // MARK: init
     override init(frame: CGRect) {
@@ -58,13 +59,49 @@ class CoupleTabView: UIView {
         return label
     }()
     
-    private lazy var stackView: UIStackView = {
-        var stackView = UIStackView()
+    private lazy var centerTextStackView: UIStackView = {
+        var stackView = UIStackView(arrangedSubviews: [mainTextSubLabel, mainTextLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        mainTextSubLabel.textAlignment = .center
+        mainTextLabel.textAlignment = .center
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        //        stackView.distribution = .fillProportionally
+        //        stackView.alignment = .center
+        return stackView
+    }()
+    
+    
+    private lazy var testLabel_1: UILabel = {
+        var label = UILabel()
+        label.text = "생일"
+        return label
+    }()
+    private lazy var testLabel_2: UILabel = {
+        var label = UILabel()
+        label.text = "D-100"
+        return label
+    }()
+    private lazy var testLabel_3: UILabel = {
+        var label = UILabel()
+        label.text = "로즈데이"
+        return label
+    }()
+    
+    private lazy var comingStoryStackView: UIStackView = {
+        var stackView = UIStackView(arrangedSubviews: [testLabel_1, testLabel_2, testLabel_3])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fillEqually
         stackView.axis = .vertical
         stackView.spacing = 10
         return stackView
     }()
+    
+    // MARK: objc
+    @objc
+    func setBtnTap() {
+        setBtnAction!()
+    }
     
     // MARK: func
     fileprivate func setup() {
@@ -74,23 +111,35 @@ class CoupleTabView: UIView {
     
     fileprivate func layoutMainImageView() {
         addSubview(mainImageView)
+//        addSubview(setBtn)
         NSLayoutConstraint.activate([
             mainImageView.topAnchor.constraint(equalTo: self.topAnchor),
             mainImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             mainImageView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            mainImageView.rightAnchor.constraint(equalTo: self.rightAnchor)
+            mainImageView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            
+//            setBtn.topAnchor.constraint(equalTo: self.topAnchor, constant: 300),
+//            setBtn.heightAnchor.constraint(equalToConstant: 100),
+//            setBtn.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20)
         ])
         mainTextLabel.text = "\(CoupleTabViewController.publicBeginCoupleDay) days"
     }
     
     fileprivate func layoutStackView() {
-        addSubview(stackView)
+        addSubview(centerTextStackView)
+        addSubview(comingStoryStackView)
+        centerTextStackView.backgroundColor = .blue
+        comingStoryStackView.backgroundColor = .gray
         NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            centerTextStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            centerTextStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            
+            comingStoryStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            comingStoryStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 50)
         ])
-        stackView.addArrangedSubview(mainTextSubLabel)
-        stackView.addArrangedSubview(mainTextLabel)
+        
+        
+        
     }
     
 }

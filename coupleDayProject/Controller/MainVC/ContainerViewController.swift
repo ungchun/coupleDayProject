@@ -20,6 +20,7 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .green // set background color
         setupView() // 뷰 세팅
+        
     }
     
     // MARK: func
@@ -29,16 +30,15 @@ class ContainerViewController: UIViewController {
         self.view.addSubview(containerView)
         containerView.setBtnAction = setBtnTap // containerView 에 있는 btnAction 이랑 setBtnTap 연결
         
-        // 이거 View로 못빼려나 고민해보기
         let mainTabManVC = TabManViewController()
         addChild(mainTabManVC)
         view.addSubview(mainTabManVC.view)
         mainTabManVC.didMove(toParent: self)
         mainTabManVC.view.translatesAutoresizingMaskIntoConstraints = false
         mainTabManVC.view.topAnchor.constraint(equalTo: containerView.stackView.bottomAnchor).isActive = true
-        mainTabManVC.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        mainTabManVC.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        mainTabManVC.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        mainTabManVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        mainTabManVC.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        mainTabManVC.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
     
     fileprivate func setBtnTap() {
