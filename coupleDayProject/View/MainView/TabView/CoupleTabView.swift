@@ -116,16 +116,11 @@ class CoupleTabView: UIView {
     
     fileprivate func layoutMainImageView() {
         addSubview(mainImageView)
-//        addSubview(setBtn)
         NSLayoutConstraint.activate([
             mainImageView.topAnchor.constraint(equalTo: self.topAnchor),
             mainImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             mainImageView.leftAnchor.constraint(equalTo: self.leftAnchor),
             mainImageView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            
-//            setBtn.topAnchor.constraint(equalTo: self.topAnchor, constant: 300),
-//            setBtn.heightAnchor.constraint(equalToConstant: 100),
-//            setBtn.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20)
         ])
         mainTextLabel.text = "\(CoupleTabViewController.publicBeginCoupleDay) days"
     }

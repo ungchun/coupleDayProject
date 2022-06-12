@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC2EDB7E2855D61D003D128B /* StoryTabScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2EDB7D2855D61D003D128B /* StoryTabScrollView.swift */; };
 		BC72C85C28530B8200BDD118 /* StoryTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC72C85B28530B8200BDD118 /* StoryTabView.swift */; };
 		BC8B624F285087B000D46416 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B624E285087B000D46416 /* Realm */; };
 		BC8B6251285087B000D46416 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B6250285087B000D46416 /* RealmSwift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC2EDB7D2855D61D003D128B /* StoryTabScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTabScrollView.swift; sourceTree = "<group>"; };
 		BC72C85B28530B8200BDD118 /* StoryTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTabView.swift; sourceTree = "<group>"; };
 		BCB0B14E285076FF00DE7196 /* coupleDayProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB0B151285076FF00DE7196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			children = (
 				BCD384A72852040200AC5A2D /* CoupleTabView.swift */,
 				BC72C85B28530B8200BDD118 /* StoryTabView.swift */,
+				BC2EDB7D2855D61D003D128B /* StoryTabScrollView.swift */,
 			);
 			path = TabView;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
 				BCB0B18528507D2300DE7196 /* StoryTabViewController.swift in Sources */,
 				BCB0B18828507D2300DE7196 /* ContainerViewController.swift in Sources */,
+				BC2EDB7E2855D61D003D128B /* StoryTabScrollView.swift in Sources */,
 				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
 				BCD384A32851D4C000AC5A2D /* ContainerView.swift in Sources */,
 				BCB0B18728507D2300DE7196 /* AnniversaryTabViewController.swift in Sources */,

@@ -9,8 +9,17 @@ import UIKit
 
 class StoryTabView: UIView {
     
+    var day: Int
+    var tempFormatterDate: String
+    
     // MARK: init
-    override init(frame: CGRect) {
+    // UIView 하위 클래스 초기화 재정의 -> https://stackoverflow.com/questions/24339145/how-do-i-write-a-custom-init-for-a-uiview-subclass-in-swift
+    // override init -> required init
+    required init(frame: CGRect, day: Int) {
+        self.day = day == Int.max ? 0 : day
+        let tempDate = Date().millisecondsSince1970 + self.day.toMillisecondsSince1970 - Int(CoupleTabViewController.publicBeginCoupleDay)!.toMillisecondsSince1970
+        self.tempFormatterDate = Date(timeIntervalSince1970: TimeInterval(tempDate) / 1000).toStoryString // Milliseconds to Date -> toStoryString    
+        
         super.init(frame: frame)
         setup()
     }
@@ -24,7 +33,7 @@ class StoryTabView: UIView {
     private lazy var storyDayText: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = "10일"
+        view.text = self.day == 0 ? "만남의 시작" : "\(self.day) 일"
         view.backgroundColor = .gray
         return view
     }()
@@ -32,15 +41,15 @@ class StoryTabView: UIView {
     private lazy var storyFormatterDayText: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = "2022.06.06(월)"
+        view.text = day == 0 ? CoupleTabViewController.publicBeginCoupleFormatterDay : "\(tempFormatterDate)"
         view.backgroundColor = .blue
         return view
     }()
     // D-10
     private lazy var storyD_DayText: UILabel = {
-       let view = UILabel()
+        let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = "D-10"
+        view.text = day == 0 ? "" : "D-\(self.day-Int(CoupleTabViewController.publicBeginCoupleDay)!)"
         view.backgroundColor = .gray
         return view
     }()
@@ -58,16 +67,12 @@ class StoryTabView: UIView {
         view.backgroundColor = .cyan
         return view
     }()
+    // stackView 상단 패딩
     private lazy var stackViewTopPadding: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .orange
         return view
-    }()
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
     }()
     // stackView 에서 가운데 날짜 관련 택스트 view
     private lazy var textStackView: UIStackView = {
@@ -77,12 +82,12 @@ class StoryTabView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    // 날짜 관련 택스트 vertical 스택 뷰 + D-day 합친 horizontal 스택 뷰
     private lazy var contentHorizontalStackView: UIStackView = {
-       let stackView = UIStackView(arrangedSubviews: [textStackView, storyD_DayText])
+        let stackView = UIStackView(arrangedSubviews: [textStackView, storyD_DayText])
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .equalCentering
-//        stackView.spacing = 50
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -95,40 +100,20 @@ class StoryTabView: UIView {
         stackView.spacing = 30
         return stackView
     }()
-
-
-    
-    // emptyView + scrollView (stackView)
-    private lazy var EntireStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [emptyView, contentVerticalStackView])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        return stackView
-    }()
     
     // MARK: func
     fileprivate func setup() {
-        self.addSubview(scrollView)
-        scrollView.addSubview(EntireStackView)
+        self.addSubview(contentVerticalStackView)
         NSLayoutConstraint.activate([
-            emptyView.topAnchor.constraint(equalTo: self.topAnchor),
-            emptyView.heightAnchor.constraint(equalToConstant: 100),
-            
             stackViewTopPadding.heightAnchor.constraint(equalToConstant: 5),
             
             divider.heightAnchor.constraint(equalToConstant: 5),
             
-            EntireStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            EntireStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            EntireStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            EntireStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            EntireStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            scrollView.topAnchor.constraint(equalTo: self.topAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            contentVerticalStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            contentVerticalStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            contentVerticalStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            contentVerticalStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+//            contentVerticalStackView.heightAnchor.constraint(equalTo: self.heightAnchor),
         ])
     }
 }

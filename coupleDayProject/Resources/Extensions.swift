@@ -37,6 +37,12 @@ extension Date {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: self)
     }
+    var toStoryString: String { // date -> yyyy.MM.dd 형식의 string 으로 변환
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko-KR")
+        dateFormatter.dateFormat = "yyyy.MM.dd(E)"
+        return dateFormatter.string(from: self)
+    }
     func adding(_ component: Calendar.Component, value: Int, using calendar: Calendar = .current) -> Date {
         calendar.date(byAdding: component, value: value, to: self)!
     }
@@ -49,5 +55,12 @@ extension String {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         return dateFormatter.date(from: self)!
+    }
+}
+
+// MARK: Int
+extension Int {
+    var toMillisecondsSince1970: Int64 {
+        Int64(self * 86400000)
     }
 }

@@ -13,6 +13,7 @@ class CoupleTabViewController: UIViewController {
     var realm: Realm!
     
     static var publicBeginCoupleDay = ""
+    static var publicBeginCoupleFormatterDay = ""
     
     private var coupleTabView: CoupleTabView!
 
@@ -46,6 +47,7 @@ class CoupleTabViewController: UIViewController {
         let nowDayDataDate: Date = nowDayDataString.toDate // 현재 날짜 데이트 데이터
         let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay // 현재 - 사귄날짜 = days
         CoupleTabViewController.publicBeginCoupleDay = String(describing: minus / 86400000)
+        CoupleTabViewController.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
     }
 }
 
