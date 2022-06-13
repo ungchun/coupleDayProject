@@ -30,7 +30,7 @@ class TabManViewController: TabmanViewController {
         bar.buttons.customize { (button) in
             button.tintColor = .black // 현재 선택되지않은 탭 글자 컬러
             button.selectedTintColor = TrendingConstants.appMainColor // 현재 선택된 탭 글자 컬러
-//            button.font = UIFont(name: "JejuMyeongjoOTF", size: 14) ?? UIFont.systemFont(ofSize: 14)
+            button.font = UIFont(name: "GangwonEduAllLight", size: 20) ?? UIFont.systemFont(ofSize: 20)
         }
         bar.layout.transitionStyle = .snap
         bar.layout.interButtonSpacing = 20

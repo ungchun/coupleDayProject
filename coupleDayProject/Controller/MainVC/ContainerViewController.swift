@@ -18,7 +18,7 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green // set background color
+        view.backgroundColor = .white // set background color
         setupView() // 뷰 세팅
         
     }

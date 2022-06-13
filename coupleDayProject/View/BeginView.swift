@@ -25,7 +25,8 @@ class BeginView: UIView {
     private lazy var guideText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "EF_Diary", size: 20)
+        label.font = UIFont(name: "GangwonEduAllLight", size: 20)
+//        label.font = .systemFont(ofSize: 20)
         label.sizeToFit() // label 크기를 text에 맞추기
         label.text = "인연의 시작을 알려주세요"
         label.textColor = TrendingConstants.appMainColor
@@ -41,11 +42,11 @@ class BeginView: UIView {
         datePicker.frame.size = CGSize(width: 0, height: 250)
         return datePicker
     }()
-    
+
     private lazy var startBtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("시작하기", for: .normal)
-        btn.titleLabel?.font = UIFont(name: "EF_Diary", size: 20)
+        btn.titleLabel?.font = UIFont(name: "GangwonEduAllLight", size: 25)
         btn.setTitleColor(UIColor.gray, for: .normal)
         btn.addTarget(self, action: #selector(startBtnTap), for: .touchUpInside)
         return btn
@@ -58,7 +59,7 @@ class BeginView: UIView {
         formatter.locale = Locale(identifier: "ko-KR")
         formatter.dateFormat = "yyyy-MM-dd"
         textField.text = formatter.string(from: Date())
-        textField.font = UIFont(name: "EF_Diary", size: 30)
+        textField.font = UIFont(name: "GangwonEduAllBold", size: 40)
         return textField
     }()
     

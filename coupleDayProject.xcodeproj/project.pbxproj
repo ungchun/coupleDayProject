@@ -30,7 +30,8 @@
 		BCD384A82852040200AC5A2D /* CoupleTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384A72852040200AC5A2D /* CoupleTabView.swift */; };
 		BCD384AA2852098200AC5A2D /* BeginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384A92852098200AC5A2D /* BeginView.swift */; };
 		BCD384AC28520CC500AC5A2D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384AB28520CC500AC5A2D /* SettingView.swift */; };
-		BCF7983A285725D50009A78C /* EF_Diary.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79839285725D50009A78C /* EF_Diary.ttf */; };
+		BCF7984A285732780009A78C /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
+		BCF7984C285732850009A78C /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,7 +57,8 @@
 		BCD384A72852040200AC5A2D /* CoupleTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTabView.swift; sourceTree = "<group>"; };
 		BCD384A92852098200AC5A2D /* BeginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginView.swift; sourceTree = "<group>"; };
 		BCD384AB28520CC500AC5A2D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		BCF79839285725D50009A78C /* EF_Diary.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EF_Diary.ttf; sourceTree = "<group>"; };
+		BCF79849285732780009A78C /* GangwonEduAllBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.ttf; sourceTree = "<group>"; };
+		BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,7 +187,8 @@
 		BCF79835285710920009A78C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				BCF79839285725D50009A78C /* EF_Diary.ttf */,
+				BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */,
+				BCF79849285732780009A78C /* GangwonEduAllBold.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -258,8 +261,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB0B15E2850770000DE7196 /* LaunchScreen.storyboard in Resources */,
+				BCF7984A285732780009A78C /* GangwonEduAllBold.ttf in Resources */,
 				BCB0B15B2850770000DE7196 /* Assets.xcassets in Resources */,
-				BCF7983A285725D50009A78C /* EF_Diary.ttf in Resources */,
+				BCF7984C285732850009A78C /* GangwonEduAllLight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

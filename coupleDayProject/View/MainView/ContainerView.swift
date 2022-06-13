@@ -30,8 +30,7 @@ class ContainerView: UIView {
     private lazy var appNameLabel: UILabel = {
         let label = UILabel()
         label.text = "성훈커플앱"
-        label.font = .systemFont(ofSize: 20)
-        print("label \(label.frame.height)")
+        label.font = UIFont(name: "GangwonEduAllLight", size: 20)
         return label
     }()
     
@@ -47,13 +46,9 @@ class ContainerView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.setCustomSpacing(30, after: setBtn)
-        stackView.backgroundColor = .red
+//        stackView.backgroundColor = .white
         return stackView
     }()
-    
-//    lazy var testView: UIView = {
-//        
-//    }
 
     // MARK: func
     fileprivate func setup() {

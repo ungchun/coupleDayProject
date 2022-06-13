@@ -4,7 +4,8 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>EF_Diary.ttf</string>
+		<string>GangwonEduAllLight.ttf</string>
+		<string>GangwonEduAllBold.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

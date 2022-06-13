@@ -45,7 +45,7 @@ class CoupleTabView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "우리가 만난지"
-        label.font = label.font.withSize(20)
+        label.font = UIFont(name: "GangwonEduAllLight", size: 25)
         label.textColor = .white
         return label
     }()
@@ -54,7 +54,7 @@ class CoupleTabView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ""
-        label.font = label.font.withSize(20)
+        label.font = UIFont(name: "GangwonEduAllBold", size: 35)
         label.textColor = .white
         return label
     }()
@@ -128,7 +128,7 @@ class CoupleTabView: UIView {
     fileprivate func layoutStackView() {
         addSubview(centerTextStackView)
 //        addSubview(comingStoryStackView)
-        centerTextStackView.backgroundColor = .blue
+//        centerTextStackView.backgroundColor = .blue
 //        comingStoryStackView.backgroundColor = .gray
         NSLayoutConstraint.activate([
             centerTextStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
