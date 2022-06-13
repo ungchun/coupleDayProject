@@ -9,8 +9,8 @@ import UIKit
 
 class StoryTabView: UIView {
     
-    var day: Int
-    var tempFormatterDate: String
+    var day: Int // ㅁ 일
+    var formatterDate: String // yyyy.MM.dd
     
     // MARK: init
     // UIView 하위 클래스 초기화 재정의 -> https://stackoverflow.com/questions/24339145/how-do-i-write-a-custom-init-for-a-uiview-subclass-in-swift
@@ -18,7 +18,7 @@ class StoryTabView: UIView {
     required init(frame: CGRect, day: Int) {
         self.day = day == Int.max ? 0 : day
         let tempDate = Date().millisecondsSince1970 + self.day.toMillisecondsSince1970 - Int(CoupleTabViewController.publicBeginCoupleDay)!.toMillisecondsSince1970
-        self.tempFormatterDate = Date(timeIntervalSince1970: TimeInterval(tempDate) / 1000).toStoryString // Milliseconds to Date -> toStoryString    
+        self.formatterDate = Date(timeIntervalSince1970: TimeInterval(tempDate) / 1000).toStoryString // Milliseconds to Date -> toStoryString    
         
         super.init(frame: frame)
         setup()
@@ -41,7 +41,7 @@ class StoryTabView: UIView {
     private lazy var storyFormatterDayText: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = day == 0 ? CoupleTabViewController.publicBeginCoupleFormatterDay : "\(tempFormatterDate)"
+        view.text = day == 0 ? CoupleTabViewController.publicBeginCoupleFormatterDay : "\(formatterDate)"
         view.backgroundColor = .blue
         return view
     }()
@@ -113,7 +113,6 @@ class StoryTabView: UIView {
             contentVerticalStackView.topAnchor.constraint(equalTo: self.topAnchor),
             contentVerticalStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             contentVerticalStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-//            contentVerticalStackView.heightAnchor.constraint(equalTo: self.heightAnchor),
         ])
     }
 }

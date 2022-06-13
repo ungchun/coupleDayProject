@@ -6,21 +6,16 @@
 //
 
 import UIKit
-import RealmSwift
 
 class BeginView: UIView {
     
-    let realm = try! Realm()
-    
-    var handleDatePickerAction: (() -> Void)? // handleDatePickerAction
+    var handleDatePickerAction: ((_ date: Date) -> Void)? // handleDatePickerAction
     var startBtnTapAction: (() -> Void)? // startBtnTapAction
     
     // MARK: init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
-        print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" ) // realm url
-//                try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!) // remove realm db
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -30,10 +25,10 @@ class BeginView: UIView {
     private lazy var guideText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "EF_Diary", size: 20)
         label.sizeToFit() // label 크기를 text에 맞추기
-        label.text = "인연의 시작을 알려주세요!"
+        label.text = "인연의 시작을 알려주세요"
         label.textColor = TrendingConstants.appMainColor
-        label.font = label.font.withSize(20)
         return label
     }()
     
@@ -50,6 +45,7 @@ class BeginView: UIView {
     private lazy var startBtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("시작하기", for: .normal)
+        btn.titleLabel?.font = UIFont(name: "EF_Diary", size: 20)
         btn.setTitleColor(UIColor.gray, for: .normal)
         btn.addTarget(self, action: #selector(startBtnTap), for: .touchUpInside)
         return btn
@@ -62,7 +58,7 @@ class BeginView: UIView {
         formatter.locale = Locale(identifier: "ko-KR")
         formatter.dateFormat = "yyyy-MM-dd"
         textField.text = formatter.string(from: Date())
-        textField.font = .systemFont(ofSize: 30)
+        textField.font = UIFont(name: "EF_Diary", size: 30)
         return textField
     }()
     
@@ -71,6 +67,7 @@ class BeginView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
+        
         return stackView
     }()
     
@@ -88,13 +85,14 @@ class BeginView: UIView {
         stackView.addArrangedSubview(guideText)
         stackView.addArrangedSubview(coupleBeginDay)
         stackView.addArrangedSubview(startBtn)
+        stackView.setCustomSpacing(30, after: coupleBeginDay) // coupleBeginDay 밑으로 spacing 30 추가로 더 주기
     }
     
     // MARK: objc
     @objc
     func handleDatePicker(_ sender: UIDatePicker) {
         coupleBeginDay.text = sender.date.toString // yyyy-MM-dd
-        handleDatePickerAction!()
+        handleDatePickerAction!(sender.date)
     }
     @objc
     func startBtnTap() {

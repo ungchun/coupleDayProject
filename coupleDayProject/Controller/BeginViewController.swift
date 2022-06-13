@@ -7,16 +7,23 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 class BeginViewController: UIViewController {
     
+    let realm = try! Realm()
+    
     private var beginView: BeginView!
+    private var handleDateValue = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupHideKeyboardOnTap() // extension: inputView dismiss
-        view.backgroundColor = .white // set background color
+        view.backgroundColor = TrendingConstants.appMainColorAlaph40 // set background color
         setupView()
+        
+        print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" ) // realm url
+        //                try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!) // remove realm db
     }
     
     // MARK: func
@@ -24,20 +31,19 @@ class BeginViewController: UIViewController {
         let beginView = BeginView(frame: self.view.frame)
         self.beginView = BeginView()
         beginView.startBtnTapAction = startBtnTap
+        beginView.handleDatePickerAction = handleDatePicker
         self.view.addSubview(beginView)
     }
-    
     fileprivate func startBtnTap() {
         // MARK: temp input realm data
-        //        let user = realm.objects(User.self)
-        //        if user.isEmpty {
-        //            let userDate = User()
-        //            userDate.beginCoupleDay = Int(Date().toString.toDate.millisecondsSince1970)
-        //            try? self.realm.write({
-        //                self.realm.add(userDate)
-        //            })
-        //        }
-        
+        let user = realm.objects(User.self)
+        if user.isEmpty {
+            let userDate = User()
+            userDate.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
+            try? self.realm.write({
+                self.realm.add(userDate)
+            })
+        }
         let mainViewController = ContainerViewController()
         mainViewController.modalTransitionStyle = .crossDissolve
         mainViewController.modalPresentationStyle = .fullScreen
@@ -46,6 +52,9 @@ class BeginViewController: UIViewController {
         // 당신의 인연에 ~~하길.. -> 명언으로
         // 시작하기
         // 페이지 나중에 만들어보기 애니메이션으로
+    }
+    fileprivate func handleDatePicker(_ date: Date) {
+        handleDateValue = date
     }
     
 }

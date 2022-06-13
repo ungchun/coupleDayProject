@@ -74,7 +74,7 @@ class CoupleTabView: UIView {
     
     private lazy var testLabel_0: UILabel = {
         var label = UILabel()
-        label.text = "다가오는 스토리"
+        label.text = "다가오는 기념일"
         return label
     }()
     private lazy var testLabel_1: UILabel = {
@@ -127,15 +127,15 @@ class CoupleTabView: UIView {
     
     fileprivate func layoutStackView() {
         addSubview(centerTextStackView)
-        addSubview(comingStoryStackView)
+//        addSubview(comingStoryStackView)
         centerTextStackView.backgroundColor = .blue
-        comingStoryStackView.backgroundColor = .gray
+//        comingStoryStackView.backgroundColor = .gray
         NSLayoutConstraint.activate([
             centerTextStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             centerTextStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
-            comingStoryStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
-            comingStoryStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 50)
+//            comingStoryStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+//            comingStoryStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 50)
         ])
         
         
