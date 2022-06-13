@@ -8,12 +8,8 @@
 import UIKit
 
 class SettingViewController: UIViewController {
-    lazy var tempText: UILabel = {
-       let view = UILabel()
-        view.text = "Set"
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    
+    private var settingView: SettingView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -21,14 +17,20 @@ class SettingViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor // back 버튼 컬러 변경
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any], for: .normal) // back 택스트 폰트 변경
+        self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
         view.backgroundColor = .white
-        view.addSubview(tempText)
-        NSLayoutConstraint.activate([
-            tempText.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            tempText.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
-        ])
+        setupView()
     }
-
+    
+    // MARK: func
+    fileprivate func setupView() {
+        let settingView = SettingView(frame: self.view.frame)
+        self.settingView = SettingView()
+        self.view.addSubview(settingView)
+    }
+    
 }
 
 #if DEBUG
