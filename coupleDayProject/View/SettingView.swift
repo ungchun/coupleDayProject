@@ -9,6 +9,8 @@ import UIKit
 
 class SettingView: UIView {
     
+    var setBackgroundImageAction: (() -> Void)? // setBtnAction
+    
     // MARK: init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,6 +34,10 @@ class SettingView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "배경 사진"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
+        // label 에 gesture 추가하기
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backgroundImageTap))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tapGesture)
         return label
     }()
     private lazy var darkModeText: UILabel = {
@@ -58,6 +64,13 @@ class SettingView: UIView {
         view.spacing = 50
         return view
     }()
+    
+    // MARK: objc
+    @objc
+    func backgroundImageTap() {
+        setBackgroundImageAction!()
+    }
+    
 
     // MARK: func
     fileprivate func setup() {

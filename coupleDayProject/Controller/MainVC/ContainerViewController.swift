@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ContainerViewController: UIViewController {
     
@@ -20,7 +21,7 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white // set background color
         setupView() // 뷰 세팅
-        
+        print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" ) // realm url
     }
     
     // MARK: func

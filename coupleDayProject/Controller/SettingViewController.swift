@@ -11,6 +11,8 @@ class SettingViewController: UIViewController {
     
     private var settingView: SettingView!
     
+    let imagePickerController = UIImagePickerController()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false // 상단 NavigationBar 공간 show
@@ -22,6 +24,8 @@ class SettingViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
         view.backgroundColor = .white
         setupView()
+        imagePickerController.allowsEditing = true // 수정 가능 여부
+        imagePickerController.delegate = self
     }
     
     // MARK: func
@@ -29,8 +33,30 @@ class SettingViewController: UIViewController {
         let settingView = SettingView(frame: self.view.frame)
         self.settingView = SettingView()
         self.view.addSubview(settingView)
+        settingView.setBackgroundImageAction = setBackgroundImageTap
     }
     
+    fileprivate func setBackgroundImageTap() {
+        print("배경사진 변경")
+        self.imagePickerController.sourceType = .photoLibrary
+        self.present(imagePickerController, animated: true, completion: nil)
+    }
+}
+
+extension SettingViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            print(info)
+            
+            dismiss(animated: true, completion: nil)
+            let imageCheckVC = ImageCheckViewController()
+            imageCheckVC.image = image
+            self.present(imageCheckVC, animated: true, completion: nil)
+        }
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 #if DEBUG

@@ -12,8 +12,6 @@ class CoupleTabView: UIView {
     
     var realm: Realm!
     
-    var setBtnAction: (() -> Void)? // setBtnAction
-    
     // MARK: init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -101,12 +99,6 @@ class CoupleTabView: UIView {
         stackView.spacing = 10
         return stackView
     }()
-    
-    // MARK: objc
-    @objc
-    func setBtnTap() {
-        setBtnAction!()
-    }
     
     // MARK: func
     fileprivate func setup() {
