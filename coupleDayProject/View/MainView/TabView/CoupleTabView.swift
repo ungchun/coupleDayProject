@@ -11,10 +11,12 @@ import RealmSwift
 class CoupleTabView: UIView {
     
     var realm: Realm!
+    private var mainImageUrl: String!
     
     // MARK: init
-    override init(frame: CGRect) {
+    required init(frame: CGRect, mainImageUrl: String) {
         super.init(frame: frame)
+        self.mainImageUrl = mainImageUrl
         setup()
     }
     
@@ -35,7 +37,7 @@ class CoupleTabView: UIView {
     private lazy var mainImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage(named: "coupleImg")
+        
         return view
     }()
     
@@ -107,6 +109,9 @@ class CoupleTabView: UIView {
     }
     
     fileprivate func layoutMainImageView() {
+        if self.mainImageUrl == "" {
+            mainImageView.image = UIImage(named: "coupleImg")
+        }
         addSubview(mainImageView)
         NSLayoutConstraint.activate([
             mainImageView.topAnchor.constraint(equalTo: self.topAnchor),

@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 // MARK: UIViewController
-
 extension UIViewController {
     func setupHideKeyboardOnTap() { // outSide touch 하면 inputView dismiss
         self.view.addGestureRecognizer(self.endEditingRecognizer())
@@ -64,3 +63,19 @@ extension Int {
         Int64(self * 86400000)
     }
 }
+
+// MARK: UIImageView
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
+}
+

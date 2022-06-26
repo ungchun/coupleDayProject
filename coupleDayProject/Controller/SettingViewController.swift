@@ -6,8 +6,52 @@
 //
 
 import UIKit
+import Photos
+
+extension SettingViewController {
+}
 
 class SettingViewController: UIViewController {
+    
+    var sendImageUrlDelegate: SendImageUrlDelegate?
+    
+    // MARK: 성훈 이거 포토 분기처리 권한설정안해도 갤러리 켜지는데 실기기로 나중에 테스트 해봐야할듯 + 코드 정리
+    private func photoAuthCheck() {
+        let status = PHPhotoLibrary.authorizationStatus().rawValue
+        print("status \(status)")
+        switch status {
+        case 0:
+            // .notDetermined - 사용자가 아직 권한에 대한 설정을 하지 않았을 때
+            print("CALLBACK FAILED: is .notDetermined")
+            self.imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        case 1:
+            // .restricted - 시스템에 의해 앨범에 접근 불가능하고, 권한 변경이 불가능한 상태
+            print("CALLBACK FAILED: is .restricted")
+        case 2:
+            // .denied - 접근이 거부된 경우
+            print("CALLBACK FAILED: is .denied")
+            let alert = UIAlertController(title: "권한요청", message: "권한이 필요합니다. 권한 설정 화면으로 ///Users/sunghun/Library/Developer/CoreSimulator/Devices/D5106B6A-19B0-4332-BA81-F9F58B678D58/data/Containers/Data/Application/DD3C49BF-18A5-4F5C-93F1-83FFB99D2FA0/Documents/default.realm이동합니다.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+                if (UIApplication.shared.canOpenURL(URL(string: UIApplication.openSettingsURLString)!)){
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                }
+            })
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+        case 3:
+            // .authorized - 권한 허용된 상태
+            print("CALLBACK SUCCESS: is .authorized")
+            self.imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        case 4:
+            // .limited (iOS 14 이상 사진 라이브러리 전용) - 갤러리의 접근이 선택한 사진만 허용된 경우
+            print("CALLBACK SUCCESS: is .limited")
+        default:
+            // 그 외의 경우 - 미래에 새로운 권한 추가에 대비
+            print("CALLBACK FAILED: is unknwon state.")
+        }
+    }
     
     private var settingView: SettingView!
     
@@ -38,19 +82,20 @@ class SettingViewController: UIViewController {
     
     fileprivate func setBackgroundImageTap() {
         print("배경사진 변경")
-        self.imagePickerController.sourceType = .photoLibrary
-        self.present(imagePickerController, animated: true, completion: nil)
+        photoAuthCheck()
     }
 }
 
 extension SettingViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+        if info[UIImagePickerController.InfoKey.originalImage] is UIImage{
             print(info)
-            
+            let imageUrl = info[UIImagePickerController.InfoKey.imageURL]
             dismiss(animated: true, completion: nil)
             let imageCheckVC = ImageCheckViewController()
-            imageCheckVC.image = image
+            imageCheckVC.sendImageUrl(imageUrl: imageUrl as! URL)
+            // MARK: 성훈 여기 델리게이트로 넘겨야할듯 ?
+//            imageCheckVC.image = image
             self.present(imageCheckVC, animated: true, completion: nil)
         }
     }

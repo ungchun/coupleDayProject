@@ -71,7 +71,6 @@ class SettingView: UIView {
         setBackgroundImageAction!()
     }
     
-
     // MARK: func
     fileprivate func setup() {
         addSubview(stackView)

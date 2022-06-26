@@ -9,11 +9,14 @@ import UIKit
 
 class ImageCheckView: UIView {
     
-    var image: UIImage
+    var selectBtnTapAction: (() -> Void)?
+    
+//    var image: UIImage
+    var imageUrl: URL
     
     // MARK: init
-    required init(frame: CGRect, image: UIImage) {
-        self.image = image
+    required init(frame: CGRect, imageUrl: URL) {
+        self.imageUrl = imageUrl
         super.init(frame: frame)
         setup()
     }
@@ -26,7 +29,8 @@ class ImageCheckView: UIView {
     private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .red
-        imageView.image = image
+//        imageView.image = image
+        imageView.load(url: self.imageUrl)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -54,7 +58,8 @@ class ImageCheckView: UIView {
     // MARK: objc
     @objc
     func selectionTap() {
-        print("selectionTap")
+        
+        selectBtnTapAction!()
     }
     
     // MARK: func
@@ -72,3 +77,4 @@ class ImageCheckView: UIView {
         stackView.addArrangedSubview(selectionBtn)
     }
 }
+

@@ -36,14 +36,14 @@ class BeginViewController: UIViewController {
     }
     fileprivate func startBtnTap() {
         // MARK: temp input realm data
-        let user = realm.objects(User.self)
-        if user.isEmpty {
-            let userDate = User()
-            userDate.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
-            try? self.realm.write({
-                self.realm.add(userDate)
-            })
-        }
+        let userDate = User()
+        let imageDate = Image()
+        userDate.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
+        imageDate.mainImageUrl = ""
+        try? self.realm.write({
+            self.realm.add(userDate)
+            self.realm.add(imageDate)
+        })
         let mainViewController = ContainerViewController()
         mainViewController.modalTransitionStyle = .crossDissolve
         mainViewController.modalPresentationStyle = .fullScreen
