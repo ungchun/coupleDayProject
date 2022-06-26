@@ -31,7 +31,7 @@ class SettingViewController: UIViewController {
         case 2:
             // .denied - 접근이 거부된 경우
             print("CALLBACK FAILED: is .denied")
-            let alert = UIAlertController(title: "권한요청", message: "권한이 필요합니다. 권한 설정 화면으로 ///Users/sunghun/Library/Developer/CoreSimulator/Devices/D5106B6A-19B0-4332-BA81-F9F58B678D58/data/Containers/Data/Application/DD3C49BF-18A5-4F5C-93F1-83FFB99D2FA0/Documents/default.realm이동합니다.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "권한요청", message: "권한이 필요합니다. 권한 설정 화면으로 이동합니다.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
                 if (UIApplication.shared.canOpenURL(URL(string: UIApplication.openSettingsURLString)!)){
                     UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
@@ -91,12 +91,33 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
         if info[UIImagePickerController.InfoKey.originalImage] is UIImage{
             print(info)
             let imageUrl = info[UIImagePickerController.InfoKey.imageURL]
+            
+            print("info url \(imageUrl!)")
             dismiss(animated: true, completion: nil)
             let imageCheckVC = ImageCheckViewController()
-            imageCheckVC.sendImageUrl(imageUrl: imageUrl as! URL)
-            // MARK: 성훈 여기 델리게이트로 넘겨야할듯 ?
-//            imageCheckVC.image = image
+            imageCheckVC.sendImageUrl(imageUrl: imageUrl! as! URL)
             self.present(imageCheckVC, animated: true, completion: nil)
+            
+//            let imageUrl = info[UIImagePickerController.InfoKey.originalImage]
+
+//            if let imgUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL{
+//                let imgName = imgUrl.lastPathComponent
+//                let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
+//                let localPath = documentDirectory?.appending(imgName)
+//
+//                let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+//                let data = image.pngData()! as NSData
+//                data.write(toFile: localPath!, atomically: true)
+//                //let imageData = NSData(contentsOfFile: localPath!)!
+//                let photoURL = URL.init(fileURLWithPath: localPath!)//NSURL(fileURLWithPath: localPath!)
+//                print("photoURL \(photoURL)")
+//                dismiss(animated: true, completion: nil)
+//                let imageCheckVC = ImageCheckViewController()
+//                imageCheckVC.sendImageUrl(imageUrl: photoURL)
+//                self.present(imageCheckVC, animated: true, completion: nil)
+//            }
+            
+            
         }
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

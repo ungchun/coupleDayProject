@@ -28,15 +28,16 @@ class TabManViewController: TabmanViewController {
         let bar = TMBar.ButtonBar()
         bar.backgroundView.style = .clear
         bar.buttons.customize { (button) in
-            button.tintColor = .black // 현재 선택되지않은 탭 글자 컬러
+            button.tintColor = UIColor(white: 1, alpha: 0.7) // 현재 선택되지않은 탭 글자 컬러
+//            button.tintColor = UIColor.white.withAlphaComponent(0.5)
             button.selectedTintColor = TrendingConstants.appMainColor // 현재 선택된 탭 글자 컬러
-            button.font = UIFont(name: "GangwonEduAllLight", size: 20) ?? UIFont.systemFont(ofSize: 20)
+            button.font = UIFont(name: "GangwonEduAllBold", size: 20) ?? UIFont.systemFont(ofSize: 20)
         }
         bar.layout.transitionStyle = .snap
         bar.layout.interButtonSpacing = 20
         bar.indicator.weight = .custom(value: 2.5) // 얘 없어도 될거 같은데 나중에 두개 비교해보기 (없애려면 value = 0)
         bar.indicator.tintColor = TrendingConstants.appMainColor
-        bar.layout.contentInset = UIEdgeInsets(top: 10, left: 16, bottom: 0, right: 16)
+        bar.layout.contentInset = UIEdgeInsets(top: 10, left: 20, bottom: 0, right: 20)
         bar.indicator.overscrollBehavior = .bounce
         addBar(bar, dataSource: self, at: .top)
     }

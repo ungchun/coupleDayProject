@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol SendImageUrlDelegate {
     func sendImageUrl(imageUrl: URL)
@@ -15,8 +16,10 @@ extension ImageCheckViewController: SendImageUrlDelegate {}
 
 class ImageCheckViewController: UIViewController {
     
+    var realm: Realm!
+    
     private var imageCheckView: ImageCheckView!
-//    var image: UIImage?
+    
     private var imageUrl: URL?
     
     override func viewDidLoad() {
@@ -29,7 +32,6 @@ class ImageCheckViewController: UIViewController {
     
     // MARK: func
     fileprivate func setupView() {
-//        let imageCheckView = ImageCheckView(frame: self.view.frame, image: image!)
         let imageCheckView = ImageCheckView(frame: self.view.frame, imageUrl: self.imageUrl!)
         imageCheckView.selectBtnTapAction = selectionTap
         self.imageCheckView = imageCheckView
@@ -37,9 +39,18 @@ class ImageCheckViewController: UIViewController {
     }
     fileprivate func selectionTap() {
         print("selectTap in VC")
+        realm = try? Realm()
+        let imageData = realm.objects(Image.self)
+        try! realm.write {
+            let data = try? Data(contentsOf: self.imageUrl!)
+            imageData.first?.mainImageUrl = data
+//            CoupleTabViewController().refreshView()
+//            imageData.first?.mainImageUrl = String(describing: self.imageUrl!)
+            dismiss(animated: true, completion: nil)
+        }
         
+        print("self.imageUrl! \(self.imageUrl!)")
     }
-    
     func sendImageUrl(imageUrl: URL) {
         self.imageUrl = imageUrl
     }

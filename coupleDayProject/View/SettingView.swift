@@ -27,6 +27,7 @@ class SettingView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "커플 날짜"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
+        label.textColor = .black
         return label
     }()
     private lazy var backgroundImageText: UILabel = {
@@ -34,6 +35,7 @@ class SettingView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "배경 사진"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
+        label.textColor = .black
         // label 에 gesture 추가하기
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backgroundImageTap))
         label.isUserInteractionEnabled = true
@@ -45,6 +47,7 @@ class SettingView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "다크모드"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
+        label.textColor = .black
         return label
     }()
     private lazy var divider: UIView = {

@@ -10,8 +10,7 @@ import UIKit
 class ImageCheckView: UIView {
     
     var selectBtnTapAction: (() -> Void)?
-    
-//    var image: UIImage
+
     var imageUrl: URL
     
     // MARK: init
@@ -28,10 +27,9 @@ class ImageCheckView: UIView {
     // MARK: UI
     private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
-//        imageView.image = image
         imageView.load(url: self.imageUrl)
         imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -58,7 +56,6 @@ class ImageCheckView: UIView {
     // MARK: objc
     @objc
     func selectionTap() {
-        
         selectBtnTapAction!()
     }
     

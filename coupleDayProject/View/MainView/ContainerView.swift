@@ -31,6 +31,7 @@ class ContainerView: UIView {
         let label = UILabel()
         label.text = "성훈커플앱"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
+        label.textColor = .black
         return label
     }()
     
@@ -38,6 +39,7 @@ class ContainerView: UIView {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(setBtnTap), for: .touchUpInside)
         btn.setImage(UIImage(systemName: "gearshape"), for: .normal)
+//        btn.backgroundColor = .purple
         return btn
     }()
     
@@ -45,21 +47,26 @@ class ContainerView: UIView {
         let stackView = UIStackView(arrangedSubviews: [appNameLabel, setBtn])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.setCustomSpacing(30, after: setBtn)
-//        stackView.backgroundColor = .white
+        stackView.distribution = .equalSpacing
+//        stackView.spacing = 50
+//        stackView.setCustomSpacing(30, after: setBtn)
+//        stackView.backgroundColor = .green
         return stackView
     }()
 
     // MARK: func
     fileprivate func setup() {
-        addSubview(appNameLabel)
-        addSubview(setBtn)
+//        addSubview(appNameLabel)
+//        addSubview(setBtn)
         addSubview(stackView)
         NSLayoutConstraint.activate([
+//            setBtn.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: 20),
             stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             stackView.heightAnchor.constraint(equalToConstant: 50),
             stackView.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor, constant: 20),
             stackView.rightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.rightAnchor, constant: -20)
+//            stackView.leftAnchor.constraint(equalTo: self.leftAnchor),
+//            stackView.rightAnchor.constraint(equalTo: self.rightAnchor),
         ])
         changeAppNameLabel()
     }

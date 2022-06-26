@@ -67,8 +67,11 @@ extension Int {
 // MARK: UIImageView
 extension UIImageView {
     func load(url: URL) {
+//        let url = URL(string: image.url)
         DispatchQueue.global().async { [weak self] in
+            print("before extension")
             if let data = try? Data(contentsOf: url) {
+                print("extension \(data)")
                 if let image = UIImage(data: data) {
                     DispatchQueue.main.async {
                         self?.image = image
