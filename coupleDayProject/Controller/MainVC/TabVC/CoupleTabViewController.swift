@@ -8,9 +8,19 @@
 import UIKit
 import RealmSwift
 
+// ImageCheckViewController -> 이 사진 사용 누르면 넘어오는 델리게이트 값인데 2번 페이지 넘어가서 그런가 제대로 값이 안바뀜
+protocol RefreshImageDelegate {
+    func refreshImage(refreshImageCheck: Bool)
+}
+
+extension CoupleTabViewController: RefreshImageDelegate {}
+
+
 class CoupleTabViewController: UIViewController {
     
     var realm: Realm!
+    
+    var refreshImageCheck: Bool?
     
     static var publicBeginCoupleDay = ""
     static var publicBeginCoupleFormatterDay = ""
@@ -20,22 +30,28 @@ class CoupleTabViewController: UIViewController {
     private var mainImageUrl: Data?
     
     override func viewWillAppear(_ animated: Bool) {
-        print("여기오나 ??")
-        // MARK: 성훈 이거 ImageCheckView -> dismiss 하면 bool 값 넘겨주고 -> setPage에서도 뒤로가기 누르면 받은 bool 값 넘겨주고 여기서 bool 값 확인해서 true 면 밑에 코드로 다시 세팅해주기
+        // 일단 viewWillAppear 이렇게 refresh 세팅해놓고, 나중에 delegate 다시 써보든, 무슨 방법을 강구해보기
         setMainBackgroundImage()
         let coupleTabView = CoupleTabView(frame: self.view.frame, mainImageUrl: self.mainImageUrl!)
         self.view.addSubview(coupleTabView)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setBeginCoupleDay() // 날짜 세팅
         setMainBackgroundImage() // 메인 이미지 세팅
         setupView() // 뷰 세팅
         view.backgroundColor = .gray
+        
+        let imageCheckViewController = ImageCheckViewController()
+        imageCheckViewController.refreshImageCheckDelegate = self
     }
     
     // MARK: func
+    func refreshImage(refreshImageCheck: Bool) {
+        print("call refresh delegate")
+        self.refreshImageCheck = refreshImageCheck
+    }
     fileprivate func setupView() {
         let coupleTabView = CoupleTabView(frame: self.view.frame, mainImageUrl: self.mainImageUrl!)
         self.view.addSubview(coupleTabView)
@@ -63,7 +79,7 @@ class CoupleTabViewController: UIViewController {
         realm = try? Realm()
         let realmImageData = realm.objects(Image.self)
         let mainImageUrl = realmImageData[0].mainImageUrl
-//        let data = try? Data(contentsOf: URL(string: mainImageUrl)!)
+        //        let data = try? Data(contentsOf: URL(string: mainImageUrl)!)
         self.mainImageUrl = mainImageUrl
     }
 }

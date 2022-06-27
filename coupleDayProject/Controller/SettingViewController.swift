@@ -15,7 +15,7 @@ class SettingViewController: UIViewController {
     
     var sendImageUrlDelegate: SendImageUrlDelegate?
     
-    // MARK: 성훈 이거 포토 분기처리 권한설정안해도 갤러리 켜지는데 실기기로 나중에 테스트 해봐야할듯 + 코드 정리
+    // MARK: 포토 권한 분기처리 권한설정안해도 돌아감..
     private func photoAuthCheck() {
         let status = PHPhotoLibrary.authorizationStatus().rawValue
         print("status \(status)")
