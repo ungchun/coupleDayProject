@@ -11,10 +11,10 @@ class ImageCheckView: UIView {
     
     var selectBtnTapAction: (() -> Void)?
 
-    var imageUrl: URL
+    var imageUrl: UIImage
     
     // MARK: init
-    required init(frame: CGRect, imageUrl: URL) {
+    required init(frame: CGRect, imageUrl: UIImage) {
         self.imageUrl = imageUrl
         super.init(frame: frame)
         setup()
@@ -26,8 +26,9 @@ class ImageCheckView: UIView {
     
     // MARK: UI
     private lazy var backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.load(url: self.imageUrl)
+        var imageView = UIImageView()
+//        imageView.load(url: self.imageUrl)
+        imageView.image = self.imageUrl
         imageView.translatesAutoresizingMaskIntoConstraints = false
 //        imageView.contentMode = .scaleAspectFit
         return imageView

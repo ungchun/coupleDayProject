@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 protocol SendImageUrlDelegate {
-    func sendImageUrl(imageUrl: URL)
+    func sendImageUrl(imageUrl: UIImage)
 }
 
 extension ImageCheckViewController: SendImageUrlDelegate {}
@@ -22,7 +22,7 @@ class ImageCheckViewController: UIViewController {
     
     private var imageCheckView: ImageCheckView!
     
-    private var imageUrl: URL?
+    private var imageUrl: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,22 +45,22 @@ class ImageCheckViewController: UIViewController {
         self.view.addSubview(imageCheckView)
     }
     fileprivate func selectionTap() {
-        realm = try? Realm()
-        let imageData = realm.objects(Image.self)
-        try! realm.write {
-            let data = try? Data(contentsOf: imageUrl!)
-            imageData.first?.mainImageUrl = data
-            
-            // present 로 넘어와서 dismiss 하고 네비게이션컨에서 popToRoot
-            guard let pvc = presentingViewController as? UINavigationController else { return }
-            dismiss(animated: true) {
-                let coupleTabViewController = CoupleTabViewController()
-                coupleTabViewController.refreshImage(refreshImageCheck: true)
-                pvc.popToRootViewController(animated: true)
-            }
-        }
+//        realm = try? Realm()
+//        let imageData = realm.objects(Image.self)
+//        try! realm.write {
+//            let data = try? Data(contentsOf: imageUrl!)
+//            imageData.first?.mainImageUrl = data
+//
+//            // present 로 넘어와서 dismiss 하고 네비게이션컨에서 popToRoot
+//            guard let pvc = presentingViewController as? UINavigationController else { return }
+//            dismiss(animated: true) {
+//                let coupleTabViewController = CoupleTabViewController()
+//                coupleTabViewController.refreshImage(refreshImageCheck: true)
+//                pvc.popToRootViewController(animated: true)
+//            }
+//        }
     }
-    func sendImageUrl(imageUrl: URL) {
+    func sendImageUrl(imageUrl: UIImage) {
         self.imageUrl = imageUrl
     }
 }

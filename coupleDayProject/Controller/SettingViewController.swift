@@ -88,37 +88,36 @@ class SettingViewController: UIViewController {
 
 extension SettingViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if info[UIImagePickerController.InfoKey.originalImage] is UIImage{
+        if info[.editedImage] is UIImage {
+            print(info)
+            let imageUrl = info[UIImagePickerController.InfoKey.editedImage]
+            
+            print("info url \(imageUrl!)")
+            dismiss(animated: true, completion: nil)
+            let imageCheckVC = ImageCheckViewController()
+            imageCheckVC.sendImageUrl(imageUrl: imageUrl! as! UIImage)
+            self.present(imageCheckVC, animated: true, completion: nil)
+        } else if info[.originalImage] is UIImage {
             print(info)
             let imageUrl = info[UIImagePickerController.InfoKey.imageURL]
             
             print("info url \(imageUrl!)")
             dismiss(animated: true, completion: nil)
             let imageCheckVC = ImageCheckViewController()
-            imageCheckVC.sendImageUrl(imageUrl: imageUrl! as! URL)
+            imageCheckVC.sendImageUrl(imageUrl: imageUrl! as! UIImage )
             self.present(imageCheckVC, animated: true, completion: nil)
-            
-//            let imageUrl = info[UIImagePickerController.InfoKey.originalImage]
-
-//            if let imgUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL{
-//                let imgName = imgUrl.lastPathComponent
-//                let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
-//                let localPath = documentDirectory?.appending(imgName)
-//
-//                let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-//                let data = image.pngData()! as NSData
-//                data.write(toFile: localPath!, atomically: true)
-//                //let imageData = NSData(contentsOfFile: localPath!)!
-//                let photoURL = URL.init(fileURLWithPath: localPath!)//NSURL(fileURLWithPath: localPath!)
-//                print("photoURL \(photoURL)")
-//                dismiss(animated: true, completion: nil)
-//                let imageCheckVC = ImageCheckViewController()
-//                imageCheckVC.sendImageUrl(imageUrl: photoURL)
-//                self.present(imageCheckVC, animated: true, completion: nil)
-//            }
-            
-            
         }
+        
+        //        if info[UIImagePickerController.InfoKey.originalImage] is UIImage{
+        //            print(info)
+        //            let imageUrl = info[UIImagePickerController.InfoKey.imageURL]
+        //
+        //            print("info url \(imageUrl!)")
+        //            dismiss(animated: true, completion: nil)
+        //            let imageCheckVC = ImageCheckViewController()
+        //            imageCheckVC.sendImageUrl(imageUrl: imageUrl! as! URL)
+        //            self.present(imageCheckVC, animated: true, completion: nil)
+        //        }
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)

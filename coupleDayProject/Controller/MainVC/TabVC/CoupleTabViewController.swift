@@ -41,7 +41,7 @@ class CoupleTabViewController: UIViewController {
         setBeginCoupleDay() // 날짜 세팅
         setMainBackgroundImage() // 메인 이미지 세팅
         setupView() // 뷰 세팅
-        view.backgroundColor = .gray
+        view.backgroundColor = .white
         
         let imageCheckViewController = ImageCheckViewController()
         imageCheckViewController.refreshImageCheckDelegate = self
