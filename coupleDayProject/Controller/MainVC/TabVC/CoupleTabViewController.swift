@@ -7,10 +7,17 @@
 
 import UIKit
 import RealmSwift
+import Photos
+import TOCropViewController
+import CropViewController
 
 class CoupleTabViewController: UIViewController {
     
     var realm: Realm!
+    
+    private let imagePickerController = UIImagePickerController()
+    
+    private var whoProfileChange = "my" // 내 프로필변경인지, 상대 프로필변경인지 체크하는 값
     
     static var publicBeginCoupleDay = ""
     static var publicBeginCoupleFormatterDay = ""
@@ -25,19 +32,36 @@ class CoupleTabViewController: UIViewController {
         setMainBackgroundImage()
         let coupleTabView = CoupleTabView(frame: self.view.frame, mainImageUrl: self.mainImageData!, myProfileImageData: self.myProfileImageData!, partnerProfileImageData: self.partnerProfileImageData!)
         self.view.addSubview(coupleTabView)
+        coupleTabView.myProfileAction = setMyProfileTap
+        coupleTabView.partnerProfileAction = setPartnerProfileTap
     }
-    
-    let settingViewController = SettingViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setBeginCoupleDay() // 날짜 세팅
         setMainBackgroundImage() // 메인 이미지 세팅
         setupView() // 뷰 세팅
+        
         view.backgroundColor = .white
+        
+        imagePickerController.delegate = self
     }
     
     // MARK: func
+    fileprivate func setMyProfileTap() {
+        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
+        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
+            whoProfileChange = "my"
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    fileprivate func setPartnerProfileTap() {
+        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
+        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
+            whoProfileChange = "partner"
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
+    }
     fileprivate func setupView() {
         let coupleTabView = CoupleTabView(frame: self.view.frame, mainImageUrl: self.mainImageData!, myProfileImageData: self.myProfileImageData!, partnerProfileImageData: self.partnerProfileImageData!)
         self.view.addSubview(coupleTabView)
@@ -70,6 +94,43 @@ class CoupleTabViewController: UIViewController {
         self.mainImageData = mainImageData
         self.myProfileImageData = myProfileImageData
         self.partnerProfileImageData = partnerProfileImageData
+    }
+}
+
+// ImagePicker + CropViewController
+extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
+    // CropViewController
+    func presentCropViewController(image: UIImage) {
+        let image: UIImage = image
+        let cropViewController = CropViewController(croppingStyle: .circular, image: image) // cropViewController, 범위 둥근 모양
+        cropViewController.delegate = self
+        cropViewController.aspectRatioLockEnabled = true // 비율 고정
+        cropViewController.aspectRatioPickerButtonHidden = true
+        cropViewController.doneButtonTitle = "완료"
+        cropViewController.cancelButtonTitle = "취소"
+        present(cropViewController, animated: true, completion: nil)
+    }
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        realm = try? Realm()
+        let imageData = realm.objects(Image.self)
+        try! realm.write {
+            if whoProfileChange == "my" {
+                imageData.first?.myProfileImageData = image.pngData()
+            } else {
+                imageData.first?.partnerProfileImageData = image.pngData()
+            }
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    // ImagePicker
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let imageData = info[.editedImage] is UIImage ? info[UIImagePickerController.InfoKey.editedImage] : info[UIImagePickerController.InfoKey.originalImage]
+        dismiss(animated: true) {
+            self.presentCropViewController(image: imageData as! UIImage)
+        }
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }
 

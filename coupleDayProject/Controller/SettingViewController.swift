@@ -16,7 +16,6 @@ class SettingViewController: UIViewController{
     
     var realm: Realm!
     
-    
     let imagePickerController = UIImagePickerController()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,10 +47,11 @@ class SettingViewController: UIViewController{
     }
 }
 
+// ImagePicker + CropViewController
 extension SettingViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
+    // CropViewController
     func presentCropViewController(image: UIImage) {
         let image: UIImage = image
-        
         let cropViewController = CropViewController(image: image) // cropViewController
         cropViewController.delegate = self
         cropViewController.setAspectRatioPreset(.preset4x3, animated: true) // 4x3 비율 set
@@ -61,7 +61,6 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
         cropViewController.cancelButtonTitle = "취소"
         present(cropViewController, animated: true, completion: nil)
     }
-    
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         realm = try? Realm()
         let imageData = realm.objects(Image.self)
@@ -70,7 +69,7 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
             dismiss(animated: true, completion: nil)
         }
     }
-    
+    // ImagePicker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let imageData = info[.editedImage] is UIImage ? info[UIImagePickerController.InfoKey.editedImage] : info[UIImagePickerController.InfoKey.originalImage]
         dismiss(animated: true) {
