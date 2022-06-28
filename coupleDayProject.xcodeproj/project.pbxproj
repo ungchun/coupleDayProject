@@ -26,6 +26,8 @@
 		BCB0B18828507D2300DE7196 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18128507D2300DE7196 /* ContainerViewController.swift */; };
 		BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18228507D2300DE7196 /* SettingViewController.swift */; };
 		BCB0B18B28507D2E00DE7196 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18A28507D2E00DE7196 /* User.swift */; };
+		BCC75699286AA30900CD523A /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BCC75698286AA30900CD523A /* CropViewController */; };
+		BCC7569B286AA30900CD523A /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BCC7569A286AA30900CD523A /* TOCropViewController */; };
 		BCD384A32851D4C000AC5A2D /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384A22851D4C000AC5A2D /* ContainerView.swift */; };
 		BCD384A82852040200AC5A2D /* CoupleTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384A72852040200AC5A2D /* CoupleTabView.swift */; };
 		BCD384AA2852098200AC5A2D /* BeginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384A92852098200AC5A2D /* BeginView.swift */; };
@@ -33,8 +35,6 @@
 		BCF1B3602868237D00641ABD /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1B35F2868237D00641ABD /* Image.swift */; };
 		BCF7984A285732780009A78C /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
 		BCF7984C285732850009A78C /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
-		BCFE01BC2859EAA2007F96DE /* ImageCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE01BB2859EAA2007F96DE /* ImageCheckViewController.swift */; };
-		BCFE01BE2859EAB3007F96DE /* ImageCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE01BD2859EAB3007F96DE /* ImageCheckView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,8 +63,6 @@
 		BCF1B35F2868237D00641ABD /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		BCF79849285732780009A78C /* GangwonEduAllBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.ttf; sourceTree = "<group>"; };
 		BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.ttf; sourceTree = "<group>"; };
-		BCFE01BB2859EAA2007F96DE /* ImageCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCheckViewController.swift; sourceTree = "<group>"; };
-		BCFE01BD2859EAB3007F96DE /* ImageCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCheckView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +71,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC8B6251285087B000D46416 /* RealmSwift in Frameworks */,
+				BCC7569B286AA30900CD523A /* TOCropViewController in Frameworks */,
+				BCC75699286AA30900CD523A /* CropViewController in Frameworks */,
 				BC8B624F285087B000D46416 /* Realm in Frameworks */,
 				BCB0B16B28507C2300DE7196 /* Tabman in Frameworks */,
 			);
@@ -128,7 +128,6 @@
 			children = (
 				BCB0B17A28507D2200DE7196 /* BeginViewController.swift */,
 				BCB0B18228507D2300DE7196 /* SettingViewController.swift */,
-				BCFE01BB2859EAA2007F96DE /* ImageCheckViewController.swift */,
 				BCB0B17B28507D2300DE7196 /* MainVC */,
 			);
 			path = Controller;
@@ -139,7 +138,6 @@
 			children = (
 				BCD384A92852098200AC5A2D /* BeginView.swift */,
 				BCD384AB28520CC500AC5A2D /* SettingView.swift */,
-				BCFE01BD2859EAB3007F96DE /* ImageCheckView.swift */,
 				BCD384A12851D4A800AC5A2D /* MainView */,
 			);
 			path = View;
@@ -222,6 +220,8 @@
 				BCB0B16A28507C2300DE7196 /* Tabman */,
 				BC8B624E285087B000D46416 /* Realm */,
 				BC8B6250285087B000D46416 /* RealmSwift */,
+				BCC75698286AA30900CD523A /* CropViewController */,
+				BCC7569A286AA30900CD523A /* TOCropViewController */,
 			);
 			productName = coupleDayProject;
 			productReference = BCB0B14E285076FF00DE7196 /* coupleDayProject.app */;
@@ -254,6 +254,7 @@
 			packageReferences = (
 				BCB0B16928507C2300DE7196 /* XCRemoteSwiftPackageReference "Tabman" */,
 				BC8B624D285087B000D46416 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				BCC75697286AA30900CD523A /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			productRefGroup = BCB0B14F285076FF00DE7196 /* Products */;
 			projectDirPath = "";
@@ -289,7 +290,6 @@
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
 				BCB0B18428507D2300DE7196 /* TabManViewController.swift in Sources */,
 				BCD384AC28520CC500AC5A2D /* SettingView.swift in Sources */,
-				BCFE01BC2859EAA2007F96DE /* ImageCheckViewController.swift in Sources */,
 				BCF1B3602868237D00641ABD /* Image.swift in Sources */,
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,
 				BC72C85C28530B8200BDD118 /* StoryTabView.swift in Sources */,
@@ -299,7 +299,6 @@
 				BC2EDB7E2855D61D003D128B /* StoryTabScrollView.swift in Sources */,
 				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
 				BCD384A32851D4C000AC5A2D /* ContainerView.swift in Sources */,
-				BCFE01BE2859EAB3007F96DE /* ImageCheckView.swift in Sources */,
 				BCB0B18728507D2300DE7196 /* AnniversaryTabViewController.swift in Sources */,
 				BCD384A82852040200AC5A2D /* CoupleTabView.swift in Sources */,
 				BCD384AA2852098200AC5A2D /* BeginView.swift in Sources */,
@@ -531,6 +530,14 @@
 				kind = branch;
 			};
 		};
+		BCC75697286AA30900CD523A /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TimOliver/TOCropViewController.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -548,6 +555,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BCB0B16928507C2300DE7196 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
+		};
+		BCC75698286AA30900CD523A /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCC75697286AA30900CD523A /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
+		};
+		BCC7569A286AA30900CD523A /* TOCropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCC75697286AA30900CD523A /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = TOCropViewController;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -7,13 +7,13 @@
 
 import UIKit
 import Photos
+import TOCropViewController
+import CropViewController
+import RealmSwift
 
-extension SettingViewController {
-}
-
-class SettingViewController: UIViewController {
+class SettingViewController: UIViewController{
     
-    var sendImageUrlDelegate: SendImageUrlDelegate?
+    var realm: Realm!
     
     // MARK: 포토 권한 분기처리 권한설정안해도 돌아감..
     private func photoAuthCheck() {
@@ -53,8 +53,6 @@ class SettingViewController: UIViewController {
         }
     }
     
-    private var settingView: SettingView!
-    
     let imagePickerController = UIImagePickerController()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,56 +66,49 @@ class SettingViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
         view.backgroundColor = .white
         setupView()
-        imagePickerController.allowsEditing = true // 수정 가능 여부
         imagePickerController.delegate = self
     }
     
     // MARK: func
     fileprivate func setupView() {
         let settingView = SettingView(frame: self.view.frame)
-        self.settingView = SettingView()
         self.view.addSubview(settingView)
         settingView.setBackgroundImageAction = setBackgroundImageTap
     }
     
     fileprivate func setBackgroundImageTap() {
-        print("배경사진 변경")
         photoAuthCheck()
     }
 }
 
-extension SettingViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if info[.editedImage] is UIImage {
-            print(info)
-            let imageUrl = info[UIImagePickerController.InfoKey.editedImage]
-            
-            print("info url \(imageUrl!)")
-            dismiss(animated: true, completion: nil)
-            let imageCheckVC = ImageCheckViewController()
-            imageCheckVC.sendImageUrl(imageUrl: imageUrl! as! UIImage)
-            self.present(imageCheckVC, animated: true, completion: nil)
-        } else if info[.originalImage] is UIImage {
-            print(info)
-            let imageUrl = info[UIImagePickerController.InfoKey.imageURL]
-            
-            print("info url \(imageUrl!)")
-            dismiss(animated: true, completion: nil)
-            let imageCheckVC = ImageCheckViewController()
-            imageCheckVC.sendImageUrl(imageUrl: imageUrl! as! UIImage )
-            self.present(imageCheckVC, animated: true, completion: nil)
-        }
+extension SettingViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
+    func presentCropViewController(image: UIImage) {
+        let image: UIImage = image
         
-        //        if info[UIImagePickerController.InfoKey.originalImage] is UIImage{
-        //            print(info)
-        //            let imageUrl = info[UIImagePickerController.InfoKey.imageURL]
-        //
-        //            print("info url \(imageUrl!)")
-        //            dismiss(animated: true, completion: nil)
-        //            let imageCheckVC = ImageCheckViewController()
-        //            imageCheckVC.sendImageUrl(imageUrl: imageUrl! as! URL)
-        //            self.present(imageCheckVC, animated: true, completion: nil)
-        //        }
+        let cropViewController = CropViewController(image: image) // cropViewController
+        cropViewController.delegate = self
+        cropViewController.setAspectRatioPreset(.preset4x3, animated: true) // 4x3 비율 set
+        cropViewController.aspectRatioLockEnabled = true // 비율 고정
+        cropViewController.aspectRatioPickerButtonHidden = true
+        cropViewController.doneButtonTitle = "완료"
+        cropViewController.cancelButtonTitle = "취소"
+        present(cropViewController, animated: true, completion: nil)
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        realm = try? Realm()
+        let imageData = realm.objects(Image.self)
+        try! realm.write {
+            imageData.first?.mainImageData = image.pngData()
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let imageData = info[.editedImage] is UIImage ? info[UIImagePickerController.InfoKey.editedImage] : info[UIImagePickerController.InfoKey.originalImage]
+        dismiss(animated: true) {
+            self.presentCropViewController(image: imageData as! UIImage)
+        }
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)

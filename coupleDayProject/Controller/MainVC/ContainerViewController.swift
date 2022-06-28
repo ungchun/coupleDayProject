@@ -19,6 +19,7 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .white // set background color
         setupView() // 뷰 세팅
         print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" ) // realm url

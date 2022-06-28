@@ -9,5 +9,5 @@ import Foundation
 import RealmSwift
 
 class Image: Object {
-    @objc dynamic var mainImageUrl: Data? = nil
+    @objc dynamic var mainImageData: Data? = nil
 }

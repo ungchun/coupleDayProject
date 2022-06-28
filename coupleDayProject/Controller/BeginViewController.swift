@@ -39,7 +39,7 @@ class BeginViewController: UIViewController {
         let userDate = User()
         let imageDate = Image()
         userDate.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
-        imageDate.mainImageUrl = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.9)
+        imageDate.mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.9)
         try? self.realm.write({
             self.realm.add(userDate)
             self.realm.add(imageDate)
