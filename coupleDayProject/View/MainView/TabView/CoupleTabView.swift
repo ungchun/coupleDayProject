@@ -10,13 +10,21 @@ import RealmSwift
 
 class CoupleTabView: UIView {
     
+    var myProfileAction: (() -> Void)?
+    var partnerProfileAction: (() -> Void)?
+    
     var realm: Realm!
-    private var mainImageUrl: Data!
+    
+    private var mainImageData: Data!
+    private var myProfileImageData: Data!
+    private var partnerProfileImageData: Data!
     
     // MARK: init
-    required init(frame: CGRect, mainImageUrl: Data) {
+    required init(frame: CGRect, mainImageUrl: Data, myProfileImageData: Data, partnerProfileImageData: Data) {
         super.init(frame: frame)
-        self.mainImageUrl = mainImageUrl
+        self.mainImageData = mainImageUrl
+        self.myProfileImageData = myProfileImageData
+        self.partnerProfileImageData = partnerProfileImageData
         setup()
     }
     
@@ -55,22 +63,27 @@ class CoupleTabView: UIView {
         return view
     }()
     
-    private lazy var manUIImageView: UIImageView = {
+    private lazy var myProfileUIImageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .yellow
-//        view.layer.borderWidth = 1
-//        view.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         view.layer.cornerRadius = 50
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(myProfileTap(_:)))
+        view.addGestureRecognizer(tapGesture)
+        view.isUserInteractionEnabled = true
         view.clipsToBounds = true
+        view.image = UIImage(data: self.myProfileImageData)
+        
         return view
     }()
-    private lazy var womanUIImageView: UIImageView = {
+    private lazy var partnerProfileUIImageView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .purple
-//        view.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-//        view.layer.borderWidth = 1
         view.layer.cornerRadius = 50
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap(_:)))
+        view.addGestureRecognizer(tapGesture)
+        view.isUserInteractionEnabled = true
         view.clipsToBounds = true
+        view.image = UIImage(data: self.partnerProfileImageData)
         return view
     }()
     private var iconDayStackView: UIStackView = {
@@ -82,37 +95,48 @@ class CoupleTabView: UIView {
     private var loveIconView: UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .red
-//        view.layer.borderWidth = 1
-//        view.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         view.layer.cornerRadius = 50
         view.clipsToBounds = true
         return view
     }()
     
+    // MARK: objc
+    @objc
+    func myProfileTap(_ gesture: UITapGestureRecognizer) {
+        print("myProfileTap")
+//        myProfileAction!()
+    }
+    @objc
+    func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
+        print("partnerProfileTap")
+//        partnerProfileAction!()
+    }
     
     // MARK: func
     fileprivate func setup() {
-        
-        
         
         addSubview(demoStackView)
         demoStackView.addArrangedSubview(demoView)
         demoStackView.addArrangedSubview(mainImageView)
         
         demoStackView.addArrangedSubview(coupleStackView)
-        coupleStackView.addArrangedSubview(manUIImageView)
-        coupleStackView.addArrangedSubview(womanUIImageView)
+        coupleStackView.addArrangedSubview(myProfileUIImageView)
         coupleStackView.addArrangedSubview(iconDayStackView)
+        coupleStackView.addArrangedSubview(partnerProfileUIImageView)
         iconDayStackView.addArrangedSubview(loveIconView)
         
-        manUIImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        manUIImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        womanUIImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        womanUIImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        myProfileUIImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        myProfileUIImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+//        let myTapGesture = UITapGestureRecognizer(target: self, action: #selector(myProfileTap(_:)))
+//        myProfileUIImageView.addGestureRecognizer(myTapGesture)
+        
+        partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+//        let partnerTapGesture = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap(_:)))
+//        partnerProfileUIImageView.addGestureRecognizer(partnerTapGesture)
+        
         loveIconView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         loveIconView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        
-        
         
         
         demoStackView.addArrangedSubview(demoView2)
@@ -136,24 +160,13 @@ class CoupleTabView: UIView {
         //        layoutMainImageView()
         //        layoutStackView()
     }
-    
-    
-    
-    private lazy var mySecondeView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
-        view.layer.cornerRadius = 16
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.clipsToBounds = true // cornerRadius -> 이거 관련한것은 clipsToBounds true 해줘야함
-        return view
-    }()
-    
+
     private lazy var mainImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         //        view.contentMode = .scaleAspectFill
         //        view.contentMode = .scaleAspectFit
-        view.image = UIImage(data: self.mainImageUrl)
+        view.image = UIImage(data: self.mainImageData)
         return view
     }()
     

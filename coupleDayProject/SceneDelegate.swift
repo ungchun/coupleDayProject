@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
+    let realm = try! Realm()
+    
     var window: UIWindow?
-
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -19,8 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // MARK: 시작(root) 뷰컨 설정
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())
-//        let rootViewcontroller = UINavigationController(rootViewController: BeginViewController())
+        let rootViewcontroller = realm.isEmpty ? UINavigationController(rootViewController: BeginViewController()) : UINavigationController(rootViewController: ContainerViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = rootViewcontroller
         window?.windowScene = windowScene

@@ -11,47 +11,11 @@ import TOCropViewController
 import CropViewController
 import RealmSwift
 
+
 class SettingViewController: UIViewController{
     
     var realm: Realm!
     
-    // MARK: 포토 권한 분기처리 권한설정안해도 돌아감..
-    private func photoAuthCheck() {
-        let status = PHPhotoLibrary.authorizationStatus().rawValue
-        print("status \(status)")
-        switch status {
-        case 0:
-            // .notDetermined - 사용자가 아직 권한에 대한 설정을 하지 않았을 때
-            print("CALLBACK FAILED: is .notDetermined")
-            self.imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
-        case 1:
-            // .restricted - 시스템에 의해 앨범에 접근 불가능하고, 권한 변경이 불가능한 상태
-            print("CALLBACK FAILED: is .restricted")
-        case 2:
-            // .denied - 접근이 거부된 경우
-            print("CALLBACK FAILED: is .denied")
-            let alert = UIAlertController(title: "권한요청", message: "권한이 필요합니다. 권한 설정 화면으로 이동합니다.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
-                if (UIApplication.shared.canOpenURL(URL(string: UIApplication.openSettingsURLString)!)){
-                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-                }
-            })
-            alert.addAction(okAction)
-            present(alert, animated: true, completion: nil)
-        case 3:
-            // .authorized - 권한 허용된 상태
-            print("CALLBACK SUCCESS: is .authorized")
-            self.imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
-        case 4:
-            // .limited (iOS 14 이상 사진 라이브러리 전용) - 갤러리의 접근이 선택한 사진만 허용된 경우
-            print("CALLBACK SUCCESS: is .limited")
-        default:
-            // 그 외의 경우 - 미래에 새로운 권한 추가에 대비
-            print("CALLBACK FAILED: is unknwon state.")
-        }
-    }
     
     let imagePickerController = UIImagePickerController()
     
@@ -77,7 +41,10 @@ class SettingViewController: UIViewController{
     }
     
     fileprivate func setBackgroundImageTap() {
-        photoAuthCheck()
+        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
+        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
     }
 }
 

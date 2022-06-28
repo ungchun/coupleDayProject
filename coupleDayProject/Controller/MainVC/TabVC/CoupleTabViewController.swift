@@ -17,11 +17,13 @@ class CoupleTabViewController: UIViewController {
     
     private var coupleTabView: CoupleTabView!
     
-    private var mainImageUrl: Data?
+    private var mainImageData: Data?
+    private var myProfileImageData: Data?
+    private var partnerProfileImageData: Data?
     
     override func viewWillAppear(_ animated: Bool) {
         setMainBackgroundImage()
-        let coupleTabView = CoupleTabView(frame: self.view.frame, mainImageUrl: self.mainImageUrl!)
+        let coupleTabView = CoupleTabView(frame: self.view.frame, mainImageUrl: self.mainImageData!, myProfileImageData: self.myProfileImageData!, partnerProfileImageData: self.partnerProfileImageData!)
         self.view.addSubview(coupleTabView)
     }
     
@@ -37,7 +39,7 @@ class CoupleTabViewController: UIViewController {
     
     // MARK: func
     fileprivate func setupView() {
-        let coupleTabView = CoupleTabView(frame: self.view.frame, mainImageUrl: self.mainImageUrl!)
+        let coupleTabView = CoupleTabView(frame: self.view.frame, mainImageUrl: self.mainImageData!, myProfileImageData: self.myProfileImageData!, partnerProfileImageData: self.partnerProfileImageData!)
         self.view.addSubview(coupleTabView)
         
         // tabView 안에 있는 View 라서 CoupleTavView 안에서 autolayout 설정하면 전체사이즈로 세팅됨. (비율에 안맞음)
@@ -63,7 +65,11 @@ class CoupleTabViewController: UIViewController {
         realm = try? Realm()
         let realmImageData = realm.objects(Image.self)
         let mainImageData = realmImageData[0].mainImageData
-        self.mainImageUrl = mainImageData
+        let myProfileImageData = realmImageData[0].myProfileImageData
+        let partnerProfileImageData = realmImageData[0].partnerProfileImageData
+        self.mainImageData = mainImageData
+        self.myProfileImageData = myProfileImageData
+        self.partnerProfileImageData = partnerProfileImageData
     }
 }
 
