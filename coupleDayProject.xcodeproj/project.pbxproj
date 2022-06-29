@@ -32,6 +32,8 @@
 		BCD384A82852040200AC5A2D /* CoupleTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384A72852040200AC5A2D /* CoupleTabView.swift */; };
 		BCD384AA2852098200AC5A2D /* BeginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384A92852098200AC5A2D /* BeginView.swift */; };
 		BCD384AC28520CC500AC5A2D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD384AB28520CC500AC5A2D /* SettingView.swift */; };
+		BCF0443C286C37B100E9CEAD /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */; };
+		BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */; };
 		BCF1B3602868237D00641ABD /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1B35F2868237D00641ABD /* Image.swift */; };
 		BCF7984A285732780009A78C /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
 		BCF7984C285732850009A78C /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
@@ -60,6 +62,8 @@
 		BCD384A72852040200AC5A2D /* CoupleTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTabView.swift; sourceTree = "<group>"; };
 		BCD384A92852098200AC5A2D /* BeginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginView.swift; sourceTree = "<group>"; };
 		BCD384AB28520CC500AC5A2D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModel.swift; sourceTree = "<group>"; };
+		BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTabViewModel.swift; sourceTree = "<group>"; };
 		BCF1B35F2868237D00641ABD /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		BCF79849285732780009A78C /* GangwonEduAllBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.ttf; sourceTree = "<group>"; };
 		BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.ttf; sourceTree = "<group>"; };
@@ -102,6 +106,7 @@
 			children = (
 				BCB0B16828507BF900DE7196 /* Model */,
 				BCB0B16728507BF500DE7196 /* View */,
+				BCF0443A286C36F100E9CEAD /* ViewModel */,
 				BCB0B16628507BEE00DE7196 /* Controller */,
 				BCB0B16528507BE600DE7196 /* Resources */,
 				BCB0B151285076FF00DE7196 /* AppDelegate.swift */,
@@ -189,6 +194,15 @@
 				BC2EDB7D2855D61D003D128B /* StoryTabScrollView.swift */,
 			);
 			path = TabView;
+			sourceTree = "<group>";
+		};
+		BCF0443A286C36F100E9CEAD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */,
+				BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		BCF79835285710920009A78C /* Fonts */ = {
@@ -290,6 +304,7 @@
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
 				BCB0B18428507D2300DE7196 /* TabManViewController.swift in Sources */,
 				BCD384AC28520CC500AC5A2D /* SettingView.swift in Sources */,
+				BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */,
 				BCF1B3602868237D00641ABD /* Image.swift in Sources */,
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,
 				BC72C85C28530B8200BDD118 /* StoryTabView.swift in Sources */,
@@ -302,6 +317,7 @@
 				BCB0B18728507D2300DE7196 /* AnniversaryTabViewController.swift in Sources */,
 				BCD384A82852040200AC5A2D /* CoupleTabView.swift in Sources */,
 				BCD384AA2852098200AC5A2D /* BeginView.swift in Sources */,
+				BCF0443C286C37B100E9CEAD /* ContainerViewModel.swift in Sources */,
 				BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

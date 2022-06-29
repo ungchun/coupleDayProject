@@ -29,7 +29,6 @@ class TabManViewController: TabmanViewController {
         bar.backgroundView.style = .clear
         bar.buttons.customize { (button) in
             button.tintColor = UIColor(white: 1, alpha: 0.7) // 현재 선택되지않은 탭 글자 컬러
-//            button.tintColor = UIColor.white.withAlphaComponent(0.5)
             button.selectedTintColor = TrendingConstants.appMainColor // 현재 선택된 탭 글자 컬러
             button.font = UIFont(name: "GangwonEduAllBold", size: 20) ?? UIFont.systemFont(ofSize: 20)
         }
