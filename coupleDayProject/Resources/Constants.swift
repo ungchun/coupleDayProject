@@ -85,3 +85,25 @@ class ImagePicker {
         }
     }
 }
+
+// MARK: SwiftUI 프리뷰
+//#if DEBUG
+//import SwiftUI
+//struct DemoRepresentable: UIViewControllerRepresentable {
+//    // update
+//    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+//    }
+//    // make UI
+//    @available(iOS 13.0, *)
+//    func makeUIViewController(context: Context) -> some UIViewController {
+//        ControllerName()
+//    }
+//}
+//
+//struct DemoController_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DemoRepresentable()
+//            .edgesIgnoringSafeArea(.all)
+//    }
+//}
+//#endif

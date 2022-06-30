@@ -89,27 +89,3 @@ class ContainerViewController: UIViewController {
         }
     }
 }
-
-
-
-
-#if DEBUG
-import SwiftUI
-struct MainContainerViewControllerRepresentable: UIViewControllerRepresentable {
-    // update
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-    }
-    // make UI
-    @available(iOS 13.0, *)
-    func makeUIViewController(context: Context) -> some UIViewController {
-        ContainerViewController()
-    }
-}
-
-struct MainContainerViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        MainContainerViewControllerRepresentable()
-            .edgesIgnoringSafeArea(.all)
-    }
-}
-#endif

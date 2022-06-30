@@ -123,24 +123,3 @@ class BeginViewController: UIViewController {
     }
     
 }
-
-#if DEBUG
-import SwiftUI
-struct DemoFirstViewControllerRepresentable: UIViewControllerRepresentable {
-    // update
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-    }
-    // make UI
-    @available(iOS 13.0, *)
-    func makeUIViewController(context: Context) -> some UIViewController {
-        BeginViewController()
-    }
-}
-
-struct DemoFirstViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        DemoFirstViewControllerRepresentable()
-            .edgesIgnoringSafeArea(.all)
-    }
-}
-#endif
