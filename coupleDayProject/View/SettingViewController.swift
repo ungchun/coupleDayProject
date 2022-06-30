@@ -17,6 +17,7 @@ class SettingViewController: UIViewController{
     var realm: Realm!
     
     let imagePickerController = UIImagePickerController()
+//    var imageUrl: NSURL?
     
     // MARK: UI
     private lazy var coupleDayText: UILabel = {
@@ -107,9 +108,12 @@ class SettingViewController: UIViewController{
 
 // ImagePicker + CropViewController
 extension SettingViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
+    
     // CropViewController
     func presentCropViewController(image: UIImage) {
         let image: UIImage = image
+//        self.imageUrl = imageUrl
+        
         let cropViewController = CropViewController(image: image) // cropViewController
         cropViewController.delegate = self
         cropViewController.setAspectRatioPreset(.preset4x3, animated: true) // 4x3 비율 set
@@ -122,14 +126,26 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         realm = try? Realm()
         let imageData = realm.objects(Image.self)
+//        let imageUrl = realm.objects(ImageUrl.self)
+        
+//        let imageString = String(describing: self.imageUrl!)
+        
+//        print("complete \(self.imageUrl!)")
+//        print("complete string \(imageString)")
+        
+//        let imageUrlRealm = realm.objects(ImageUrl.self)
+        
         try! realm.write {
             imageData.first?.mainImageData = image.jpegData(compressionQuality: 0.5)
+//            imageUrl.first?.mainImageUrl = imageString
             CoupleTabViewModel.changeMainImageCheck = true
             dismiss(animated: true, completion: nil)
         }
     }
     // ImagePicker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        self.imageUrl = (info[.imageURL] as! NSURL)
+//        print("imageUrl \(self.imageUrl!)")
         let imageData = info[.editedImage] is UIImage ? info[UIImagePickerController.InfoKey.editedImage] : info[UIImagePickerController.InfoKey.originalImage]
         dismiss(animated: true) {
             self.presentCropViewController(image: imageData as! UIImage)

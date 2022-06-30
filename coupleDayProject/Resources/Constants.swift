@@ -84,6 +84,4 @@ class ImagePicker {
             return 5
         }
     }
-
-
 }

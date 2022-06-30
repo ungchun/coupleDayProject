@@ -13,7 +13,6 @@ class BeginViewController: UIViewController {
     
     let realm = try! Realm()
     
-//    private var beginView: BeginView!
     private var handleDateValue = Date()
     
     // MARK: UI
@@ -67,7 +66,7 @@ class BeginViewController: UIViewController {
     }()
     
     // MARK: func
-    fileprivate func setup() {
+    fileprivate func setupView() {
         view.backgroundColor = TrendingConstants.appMainColorAlaph40 // set background color
         view.addSubview(stackView)
         coupleBeginDay.inputView = datePicker
@@ -94,21 +93,10 @@ class BeginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupHideKeyboardOnTap() // extension: inputView dismiss
-        setup()
-//        setupView()
+        setupView()
         print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" ) // realm url
         //                try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!) // remove realm db
     }
-    
-    // MARK: func
-//    fileprivate func setupView() {
-//        view.backgroundColor = TrendingConstants.appMainColorAlaph40 // set background color
-//        let beginView = BeginView(frame: self.view.frame)
-//        self.beginView = BeginView()
-//        beginView.startBtnTapAction = startBtnTap
-//        beginView.handleDatePickerAction = handleDatePicker
-//        self.view.addSubview(beginView)
-//    }
     
     @objc
     func startBtnTap() {
@@ -119,6 +107,7 @@ class BeginViewController: UIViewController {
         imageDate.mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
         imageDate.myProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
         imageDate.partnerProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
+        
         try? self.realm.write({
             self.realm.add(userDate)
             self.realm.add(imageDate)
@@ -132,9 +121,6 @@ class BeginViewController: UIViewController {
         // 시작하기
         // 페이지 나중에 만들어보기 애니메이션으로
     }
-//    fileprivate func handleDatePicker(_ date: Date) {
-//        handleDateValue = date
-//    }
     
 }
 

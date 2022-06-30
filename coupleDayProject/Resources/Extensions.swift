@@ -14,7 +14,7 @@ extension UIViewController {
         self.view.addGestureRecognizer(self.endEditingRecognizer())
         self.navigationController?.navigationBar.addGestureRecognizer(self.endEditingRecognizer())
     }
-
+    
     private func endEditingRecognizer() -> UIGestureRecognizer {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing(_:)))
         tap.cancelsTouchesInView = false
@@ -67,7 +67,7 @@ extension Int {
 // MARK: UIImageView
 extension UIImageView {
     func load(url: URL) {
-//        let url = URL(string: image.url)
+        //        let url = URL(string: image.url)
         DispatchQueue.global().async { [weak self] in
             print("before extension")
             if let data = try? Data(contentsOf: url) {

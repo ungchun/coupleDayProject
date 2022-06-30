@@ -20,6 +20,10 @@ class CoupleTabViewController: UIViewController {
     private var whoProfileChange = "my" // 내 프로필변경인지, 상대 프로필변경인지 체크하는 값
     private let imagePickerController = UIImagePickerController()
     
+    let mainImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 메인 이미지 로딩 뷰
+    let myProfileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 내 프로필 이미지 로딩 뷰
+    let profileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 상대 프로필 이미지 로딩 뷰
+    
     // MARK: UI
     private lazy var coupleTabStackView: UIStackView = { // 커플 탭 전체 뷰
         let view = UIStackView()
@@ -141,8 +145,71 @@ class CoupleTabViewController: UIViewController {
     }
     
     // MARK: func
-    fileprivate func setupView() {
+    // 이미지 불러오는동안 보이는 임시 뷰
+    fileprivate func beforeLoadingSetupView() {
         view.backgroundColor = .white
+        // 이미지 로딩 뷰
+        mainImageActivityIndicatorView.startAnimating()
+        mainImageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        myProfileImageActivityIndicatorView.startAnimating()
+        myProfileImageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        profileImageActivityIndicatorView.startAnimating()
+        profileImageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(coupleTabStackView)
+        
+        coupleTabStackView.addArrangedSubview(topTabBackView)
+        coupleTabStackView.addArrangedSubview(mainImageActivityIndicatorView)
+        coupleTabStackView.addArrangedSubview(coupleStackView)
+        coupleTabStackView.addArrangedSubview(emptyView)
+        
+        coupleStackView.addArrangedSubview(myProfileImageActivityIndicatorView)
+        
+        coupleStackView.addArrangedSubview(iconDayStackView)
+        
+        coupleStackView.addArrangedSubview(profileImageActivityIndicatorView)
+        
+        iconDayStackView.addArrangedSubview(loveIconView)
+        iconDayStackView.addArrangedSubview(mainTextLabel)
+        
+        NSLayoutConstraint.activate([
+            myProfileUIImageView.widthAnchor.constraint(equalToConstant: 100),
+            myProfileUIImageView.heightAnchor.constraint(equalToConstant: 100),
+            
+            partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: 100),
+            partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: 100),
+            
+            myProfileImageActivityIndicatorView.widthAnchor.constraint(equalToConstant: 100),
+            myProfileImageActivityIndicatorView.heightAnchor.constraint(equalToConstant: 100),
+            
+            profileImageActivityIndicatorView.widthAnchor.constraint(equalToConstant: 100),
+            profileImageActivityIndicatorView.heightAnchor.constraint(equalToConstant: 100),
+            
+            loveIconView.widthAnchor.constraint(equalToConstant: 30),
+            loveIconView.heightAnchor.constraint(equalToConstant: 30),
+            
+            topTabBackView.topAnchor.constraint(equalTo: view.topAnchor),
+            topTabBackView.heightAnchor.constraint(equalToConstant: 80),
+            
+            mainImageActivityIndicatorView.heightAnchor.constraint(equalToConstant: 300),
+            
+            coupleStackView.heightAnchor.constraint(equalToConstant: 100),
+            
+            coupleTabStackView.topAnchor.constraint(equalTo: view.topAnchor),
+            coupleTabStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            coupleTabStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            coupleTabStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
+        ])
+    }
+    
+    // 이미지 불러오고나서 보이는 뷰
+    fileprivate func afterLoadingSetupView() {
+        view.backgroundColor = .white
+        // 이미지 로딩 뷰 제거
+        profileImageActivityIndicatorView.stopAnimating()
+        myProfileImageActivityIndicatorView.stopAnimating()
+        mainImageActivityIndicatorView.stopAnimating()
+        
         view.addSubview(coupleTabStackView)
         
         coupleTabStackView.addArrangedSubview(topTabBackView)
@@ -152,6 +219,7 @@ class CoupleTabViewController: UIViewController {
         
         coupleStackView.addArrangedSubview(myProfileUIImageView)
         coupleStackView.addArrangedSubview(iconDayStackView)
+        
         coupleStackView.addArrangedSubview(partnerProfileUIImageView)
         
         iconDayStackView.addArrangedSubview(loveIconView)
@@ -164,6 +232,7 @@ class CoupleTabViewController: UIViewController {
             partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: 100),
             partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: 100),
             
+            
             loveIconView.widthAnchor.constraint(equalToConstant: 30),
             loveIconView.heightAnchor.constraint(equalToConstant: 30),
             
@@ -171,6 +240,7 @@ class CoupleTabViewController: UIViewController {
             topTabBackView.heightAnchor.constraint(equalToConstant: 80),
             
             mainImageView.heightAnchor.constraint(equalToConstant: 300),
+            
             coupleStackView.heightAnchor.constraint(equalToConstant: 100),
             
             coupleTabStackView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -178,13 +248,12 @@ class CoupleTabViewController: UIViewController {
             coupleTabStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
             coupleTabStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
-        
     }
 
+    // MARK: init
     override func viewWillAppear(_ animated: Bool) {
-        print("viewWillAppear viewWillAppear viewWillAppear")
+        // 배경사진이 변경됐을때
         if CoupleTabViewModel.changeMainImageCheck {
-            print("if if viewWillAppear viewWillAppear viewWillAppear")
             coupleTabViewModel.updateMainBackgroundImage()
             CoupleTabViewModel.changeMainImageCheck = false
         }
@@ -192,27 +261,25 @@ class CoupleTabViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupView() // 뷰 세팅
+        
+        beforeLoadingSetupView() // 로딩 뷰 세팅
 
         imagePickerController.delegate = self
         
         // 바인딩
         coupleTabViewModel.onMainImageDataUpdated = {
-            DispatchQueue.main.async {
-                print("coupleTabViewModel.onMainImageDataUpdated")
+            DispatchQueue.main.async { [self] in
                 self.mainImageView.image = UIImage(data: self.coupleTabViewModel.mainImageData!)
+                afterLoadingSetupView() // 제일 큰 사진 로딩 끝나면 beforeLoadingSetupView -> afterLoadingSetupView
             }
         }
         coupleTabViewModel.onMyProfileImageDataUpdated = {
             DispatchQueue.main.async {
-                print("coupleTabViewModel.onMyProfileImageDataUpdated")
                 self.myProfileUIImageView.image = UIImage(data: self.coupleTabViewModel.myProfileImageData!)
             }
         }
         coupleTabViewModel.onPartnerProfileImageDataUpdated = {
             DispatchQueue.main.async {
-                print("coupleTabViewModel.onPartnerProfileImageDataUpdated")
                 self.partnerProfileUIImageView.image = UIImage(data: self.coupleTabViewModel.partnerProfileImageData!)
             }
         }
@@ -222,7 +289,6 @@ class CoupleTabViewController: UIViewController {
 
             }
         }
-        
         coupleTabViewModel.setMainBackgroundImage()
         coupleTabViewModel.setBeginCoupleDay()
     }

@@ -27,6 +27,7 @@
 		BCB0B18B28507D2E00DE7196 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18A28507D2E00DE7196 /* User.swift */; };
 		BCC75699286AA30900CD523A /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BCC75698286AA30900CD523A /* CropViewController */; };
 		BCC7569B286AA30900CD523A /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BCC7569A286AA30900CD523A /* TOCropViewController */; };
+		BCF03FE0286D6C0100C28F71 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BCF03FDF286D6C0100C28F71 /* Kingfisher */; };
 		BCF0443C286C37B100E9CEAD /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */; };
 		BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */; };
 		BCF1B3602868237D00641ABD /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1B35F2868237D00641ABD /* Image.swift */; };
@@ -64,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCF03FE0286D6C0100C28F71 /* Kingfisher in Frameworks */,
 				BC8B6251285087B000D46416 /* RealmSwift in Frameworks */,
 				BCC7569B286AA30900CD523A /* TOCropViewController in Frameworks */,
 				BCC75699286AA30900CD523A /* CropViewController in Frameworks */,
@@ -221,6 +223,7 @@
 				BC8B6250285087B000D46416 /* RealmSwift */,
 				BCC75698286AA30900CD523A /* CropViewController */,
 				BCC7569A286AA30900CD523A /* TOCropViewController */,
+				BCF03FDF286D6C0100C28F71 /* Kingfisher */,
 			);
 			productName = coupleDayProject;
 			productReference = BCB0B14E285076FF00DE7196 /* coupleDayProject.app */;
@@ -254,6 +257,7 @@
 				BCB0B16928507C2300DE7196 /* XCRemoteSwiftPackageReference "Tabman" */,
 				BC8B624D285087B000D46416 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				BCC75697286AA30900CD523A /* XCRemoteSwiftPackageReference "TOCropViewController" */,
+				BCF03FDE286D6C0100C28F71 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = BCB0B14F285076FF00DE7196 /* Products */;
 			projectDirPath = "";
@@ -534,6 +538,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		BCF03FDE286D6C0100C28F71 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -561,6 +573,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BCC75697286AA30900CD523A /* XCRemoteSwiftPackageReference "TOCropViewController" */;
 			productName = TOCropViewController;
+		};
+		BCF03FDF286D6C0100C28F71 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCF03FDE286D6C0100C28F71 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

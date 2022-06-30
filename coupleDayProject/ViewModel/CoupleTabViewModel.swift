@@ -20,6 +20,7 @@ class CoupleTabViewModel {
     var onMainImageDataUpdated: () -> Void = {}
     var onMyProfileImageDataUpdated: () -> Void = {}
     var onPartnerProfileImageDataUpdated: () -> Void = {}
+    
     var onPublicBeginCoupleFormatterDayUpdated: () -> Void = {}
     var onPublicBeginCoupleDayUpdated: () -> Void = {}
     
@@ -28,7 +29,6 @@ class CoupleTabViewModel {
             onMainImageDataUpdated()
         }
     }
-    
     var myProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5) {
         didSet {
             onMyProfileImageDataUpdated()
@@ -39,7 +39,6 @@ class CoupleTabViewModel {
             onPartnerProfileImageDataUpdated()
         }
     }
-    
     var beginCoupleFormatterDay = "" {
         didSet {
             onPublicBeginCoupleFormatterDayUpdated()
@@ -47,7 +46,6 @@ class CoupleTabViewModel {
     }
     var beginCoupleDay = "" {
         didSet {
-            
             onPublicBeginCoupleDayUpdated()
         }
     }
@@ -98,6 +96,7 @@ class CoupleTabViewModel {
         let myProfileImageData = realmImageData[0].myProfileImageData
         self.myProfileImageData = myProfileImageData
     }
+    
     // update 상대 프로필
     func updatePartnerProfileImage() {
         realm = try? Realm()
