@@ -18,32 +18,90 @@ class SettingViewController: UIViewController{
     
     let imagePickerController = UIImagePickerController()
     
+    // MARK: UI
+    private lazy var coupleDayText: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "커플 날짜"
+        label.font = UIFont(name: "GangwonEduAllLight", size: 20)
+        label.textColor = .black
+        return label
+    }()
+    private lazy var backgroundImageText: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "배경 사진"
+        label.font = UIFont(name: "GangwonEduAllLight", size: 20)
+        label.textColor = .black
+        // label 에 gesture 추가하기
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setBackgroundImageTap))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tapGesture)
+        return label
+    }()
+    private lazy var darkModeText: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "다크모드"
+        label.font = UIFont(name: "GangwonEduAllLight", size: 20)
+        label.textColor = .black
+        return label
+    }()
+    private lazy var divider: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        view.contentMode = .scaleToFill
+        return view
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [coupleDayText, backgroundImageText, divider, darkModeText])
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .vertical
+        view.distribution = .fill
+        view.alignment = .center
+        view.spacing = 50
+        return view
+    }()
+    
+    // MARK: func
+    fileprivate func setup() {
+        self.view.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            
+            divider.widthAnchor.constraint(equalToConstant: 10),
+            divider.heightAnchor.constraint(equalToConstant: 1),
+            
+            stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+        ])
+    }
+    
+    // MARK: objc
+    @objc
+    func setBackgroundImageTap() {
+        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
+        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false // 상단 NavigationBar 공간 show
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor // back 버튼 컬러 변경
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any], for: .normal) // back 택스트 폰트 변경
         self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
         view.backgroundColor = .white
-        setupView()
+        setup()
         imagePickerController.delegate = self
-    }
-    
-    // MARK: func
-    fileprivate func setupView() {
-        let settingView = SettingView(frame: self.view.frame)
-        self.view.addSubview(settingView)
-        settingView.setBackgroundImageAction = setBackgroundImageTap
-    }
-    
-    fileprivate func setBackgroundImageTap() {
-        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
-        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
-            self.present(imagePickerController, animated: true, completion: nil)
-        }
     }
 }
 
@@ -65,7 +123,8 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
         realm = try? Realm()
         let imageData = realm.objects(Image.self)
         try! realm.write {
-            imageData.first?.mainImageData = image.pngData()
+            imageData.first?.mainImageData = image.jpegData(compressionQuality: 0.5)
+            CoupleTabViewModel.changeMainImageCheck = true
             dismiss(animated: true, completion: nil)
         }
     }

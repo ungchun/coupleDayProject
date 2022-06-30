@@ -13,11 +13,11 @@ import CropViewController
 
 class CoupleTabViewController: UIViewController {
     
-    var realm: Realm!
-
-    private var whoProfileChange = "my" // 내 프로필변경인지, 상대 프로필변경인지 체크하는 값
-    
     let coupleTabViewModel = CoupleTabViewModel()
+    
+    var realm: Realm!
+    
+    private var whoProfileChange = "my" // 내 프로필변경인지, 상대 프로필변경인지 체크하는 값
     private let imagePickerController = UIImagePickerController()
     
     // MARK: UI
@@ -36,7 +36,6 @@ class CoupleTabViewController: UIViewController {
     private lazy var mainImageView: UIImageView = { // 메인 이미지 뷰
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.image = UIImage(data: self.mainImageData)
         return view
     }()
     private lazy var emptyView: UIView = { // 하단 빈 공간 채우는 뷰
@@ -60,7 +59,6 @@ class CoupleTabViewController: UIViewController {
         view.layer.cornerRadius = 50 // 둥글게
         view.clipsToBounds = true
         view.isUserInteractionEnabled = true
-//        view.image = UIImage(data: self.myProfileImageData)
         return view
     }()
     private lazy var partnerProfileUIImageView: UIImageView = { // 상대 프로필 뷰
@@ -70,7 +68,6 @@ class CoupleTabViewController: UIViewController {
         view.layer.cornerRadius = 50 // 둥글게
         view.clipsToBounds = true
         view.isUserInteractionEnabled = true
-//        view.image = UIImage(data: self.partnerProfileImageData)
         return view
     }()
     private lazy var iconDayStackView: UIStackView = { // 하트 아이콘 + day
@@ -145,7 +142,9 @@ class CoupleTabViewController: UIViewController {
     
     // MARK: func
     fileprivate func setupView() {
+        view.backgroundColor = .white
         view.addSubview(coupleTabStackView)
+        
         coupleTabStackView.addArrangedSubview(topTabBackView)
         coupleTabStackView.addArrangedSubview(mainImageView)
         coupleTabStackView.addArrangedSubview(coupleStackView)
@@ -183,6 +182,12 @@ class CoupleTabViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear viewWillAppear viewWillAppear")
+        if CoupleTabViewModel.changeMainImageCheck {
+            print("if if viewWillAppear viewWillAppear viewWillAppear")
+            coupleTabViewModel.updateMainBackgroundImage()
+            CoupleTabViewModel.changeMainImageCheck = false
+        }
     }
 
     override func viewDidLoad() {
@@ -190,128 +195,37 @@ class CoupleTabViewController: UIViewController {
 
         setupView() // 뷰 세팅
 
-        view.backgroundColor = .white
-
         imagePickerController.delegate = self
         
+        // 바인딩
         coupleTabViewModel.onMainImageDataUpdated = {
             DispatchQueue.main.async {
+                print("coupleTabViewModel.onMainImageDataUpdated")
                 self.mainImageView.image = UIImage(data: self.coupleTabViewModel.mainImageData!)
             }
         }
         coupleTabViewModel.onMyProfileImageDataUpdated = {
             DispatchQueue.main.async {
+                print("coupleTabViewModel.onMyProfileImageDataUpdated")
                 self.myProfileUIImageView.image = UIImage(data: self.coupleTabViewModel.myProfileImageData!)
             }
         }
         coupleTabViewModel.onPartnerProfileImageDataUpdated = {
             DispatchQueue.main.async {
+                print("coupleTabViewModel.onPartnerProfileImageDataUpdated")
                 self.partnerProfileUIImageView.image = UIImage(data: self.coupleTabViewModel.partnerProfileImageData!)
             }
         }
-        
         coupleTabViewModel.onPublicBeginCoupleDayUpdated = {
             DispatchQueue.main.async {
-                self.mainTextLabel.text = self.coupleTabViewModel.publicBeginCoupleDay
+                self.mainTextLabel.text = self.coupleTabViewModel.beginCoupleDay
 
             }
         }
         
         coupleTabViewModel.setMainBackgroundImage()
         coupleTabViewModel.setBeginCoupleDay()
-
     }
-
-    
-
-//    var realm: Realm!
-
-//    private let imagePickerController = UIImagePickerController()
-
-//    private var whoProfileChange = "my" // 내 프로필변경인지, 상대 프로필변경인지 체크하는 값
-
-//    static var publicBeginCoupleDay = ""
-//    static var publicBeginCoupleFormatterDay = ""
-
-//    private var coupleTabView: CoupleTabView!
-
-//    private var mainImageData: Data?
-//    private var myProfileImageData: Data?
-//    private var partnerProfileImageData: Data?
-
-//    override func viewWillAppear(_ animated: Bool) {
-//        setMainBackgroundImage()
-//        let coupleTabView = CoupleTabView(frame: self.view.frame, mainImageUrl: self.mainImageData!, myProfileImageData: self.myProfileImageData!, partnerProfileImageData: self.partnerProfileImageData!)
-//        self.view.addSubview(coupleTabView)
-//        coupleTabView.myProfileAction = setMyProfileTap
-//        coupleTabView.partnerProfileAction = setPartnerProfileTap
-//    }
-
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-////        setBeginCoupleDay() // 날짜 세팅
-////        setMainBackgroundImage() // 메인 이미지 세팅
-////        setupView() // 뷰 세팅
-//
-//        view.backgroundColor = .white
-//
-//        imagePickerController.delegate = self
-//    }
-
-//    // MARK: func
-//    fileprivate func setMyProfileTap() {
-//        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
-//        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
-//            whoProfileChange = "my"
-//            self.present(imagePickerController, animated: true, completion: nil)
-//        }
-//    }
-//    fileprivate func setPartnerProfileTap() {
-//        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
-//        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
-//            whoProfileChange = "partner"
-//            self.present(imagePickerController, animated: true, completion: nil)
-//        }
-//    }
-//
-//    // 뷰 세팅
-//    fileprivate func setupView() {
-//        let coupleTabView = CoupleTabView(frame: self.view.frame, mainImageUrl: self.mainImageData!, myProfileImageData: self.myProfileImageData!, partnerProfileImageData: self.partnerProfileImageData!)
-//        self.view.addSubview(coupleTabView)
-//
-//        // tabView 안에 있는 View 라서 CoupleTavView 안에서 autolayout 설정하면 전체사이즈로 세팅됨. (비율에 안맞음)
-//        coupleTabView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            coupleTabView.topAnchor.constraint(equalTo: self.view.topAnchor),
-//            coupleTabView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-//            coupleTabView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-//            coupleTabView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-//        ])
-//    }
-
-//    // 날짜 세팅
-//    fileprivate func setBeginCoupleDay() {
-//        realm = try? Realm()
-//        let realmUserData = realm.objects(User.self)
-//        let beginCoupleDay = realmUserData[0].beginCoupleDay
-//        let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
-//        let nowDayDataDate: Date = nowDayDataString.toDate // 현재 날짜 데이트 데이터
-//        let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay // 현재 - 사귄날짜 = days
-//        CoupleTabViewController.publicBeginCoupleDay = String(describing: minus / 86400000)
-//        CoupleTabViewController.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
-//    }
-//
-//    // 메인 이미지 세팅
-//    fileprivate func setMainBackgroundImage() {
-//        realm = try? Realm()
-//        let realmImageData = realm.objects(Image.self)
-//        let mainImageData = realmImageData[0].mainImageData
-//        let myProfileImageData = realmImageData[0].myProfileImageData
-//        let partnerProfileImageData = realmImageData[0].partnerProfileImageData
-//        self.mainImageData = mainImageData
-//        self.myProfileImageData = myProfileImageData
-//        self.partnerProfileImageData = partnerProfileImageData
-//    }
 }
 
 
@@ -333,11 +247,9 @@ extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigati
         let imageData = realm.objects(Image.self)
         try! realm.write {
             if whoProfileChange == "my" {
-                print("if whoProfileChange")
                 imageData.first?.myProfileImageData = image.jpegData(compressionQuality: 0.5)
                 self.coupleTabViewModel.updateMyProfileImage()
             } else {
-                print("else whoProfileChange")
                 imageData.first?.partnerProfileImageData = image.jpegData(compressionQuality: 0.5)
                 self.coupleTabViewModel.updatePartnerProfileImage()
             }

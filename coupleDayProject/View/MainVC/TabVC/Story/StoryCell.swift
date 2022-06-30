@@ -7,9 +7,8 @@
 
 import UIKit
 
-class StoryTabView: UIView {
-    
-    let coupleTabViewModel = CoupleTabViewModel()
+// cell
+class StoryCell: UIView {
     
     var day: Int // ㅁ 일
     var formatterDate: String // yyyy.MM.dd
@@ -19,12 +18,11 @@ class StoryTabView: UIView {
     // override init -> required init
     required init(frame: CGRect, day: Int) {
         self.day = day == Int.max ? 0 : day
-//        let tempDate = Date().millisecondsSince1970 + self.day.toMillisecondsSince1970 - Int(CoupleTabViewController.publicBeginCoupleDay)!.toMillisecondsSince1970
-        let tempDate = Date().millisecondsSince1970 + self.day.toMillisecondsSince1970 - Int(coupleTabViewModel.publicBeginCoupleDay)!.toMillisecondsSince1970
+        let tempDate = Date().millisecondsSince1970 + self.day.toMillisecondsSince1970 - Int(CoupleTabViewModel.publicBeginCoupleDay)!.toMillisecondsSince1970
         self.formatterDate = Date(timeIntervalSince1970: TimeInterval(tempDate) / 1000).toStoryString // Milliseconds to Date -> toStoryString    
         
         super.init(frame: frame)
-        setup()
+        setupView()
     }
     
     required init?(coder: NSCoder) {
@@ -44,8 +42,7 @@ class StoryTabView: UIView {
     private lazy var storyFormatterDayText: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.text = day == 0 ? CoupleTabViewController.publicBeginCoupleFormatterDay : "\(formatterDate)"
-        view.text = day == 0 ? coupleTabViewModel.publicBeginCoupleFormatterDay : "\(formatterDate)"
+        view.text = day == 0 ? CoupleTabViewModel.publicBeginCoupleFormatterDay : "\(formatterDate)"
         view.backgroundColor = .blue
         return view
     }()
@@ -53,8 +50,7 @@ class StoryTabView: UIView {
     private lazy var storyD_DayText: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.text = day == 0 ? "" : "D-\(self.day-Int(CoupleTabViewController.publicBeginCoupleDay)!)"
-        view.text = day == 0 ? "" : "D-\(self.day-Int(coupleTabViewModel.publicBeginCoupleDay)!)"
+        view.text = day == 0 ? "" : "D-\(self.day-Int(CoupleTabViewModel.publicBeginCoupleDay)!)"
         view.backgroundColor = .gray
         return view
     }()
@@ -107,7 +103,7 @@ class StoryTabView: UIView {
     }()
     
     // MARK: func
-    fileprivate func setup() {
+    fileprivate func setupView() {
         self.addSubview(contentVerticalStackView)
         NSLayoutConstraint.activate([
             stackViewTopPadding.heightAnchor.constraint(equalToConstant: 5),

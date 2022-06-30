@@ -11,6 +11,10 @@ import UIKit
 
 class CoupleTabViewModel {
     
+    static var publicBeginCoupleDay = ""
+    static var publicBeginCoupleFormatterDay = ""
+    static var changeMainImageCheck = false
+    
     var realm: Realm!
     
     var onMainImageDataUpdated: () -> Void = {}
@@ -36,20 +40,21 @@ class CoupleTabViewModel {
         }
     }
     
-    var publicBeginCoupleFormatterDay = "" {
+    var beginCoupleFormatterDay = "" {
         didSet {
             onPublicBeginCoupleFormatterDayUpdated()
         }
     }
-    var publicBeginCoupleDay = "" {
+    var beginCoupleDay = "" {
         didSet {
+            
             onPublicBeginCoupleDayUpdated()
         }
     }
     
     init() {
-        setMainBackgroundImage()
-        setBeginCoupleDay()
+        //        setMainBackgroundImage()
+        //        setBeginCoupleDay()
     }
     
     // 날짜 세팅
@@ -60,10 +65,12 @@ class CoupleTabViewModel {
         let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
         let nowDayDataDate: Date = nowDayDataString.toDate // 현재 날짜 데이트 데이터
         let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay // 현재 - 사귄날짜 = days
-        self.publicBeginCoupleDay = String(describing: minus / 86400000)
-        self.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
+        self.beginCoupleDay = String(describing: minus / 86400000)
+        CoupleTabViewModel.publicBeginCoupleDay = String(describing: minus / 86400000)
+        self.beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
+        CoupleTabViewModel.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
     }
-
+    
     // 메인 이미지 세팅
     func setMainBackgroundImage() {
         realm = try? Realm()
@@ -107,6 +114,16 @@ class CoupleTabViewModel {
         let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
         let nowDayDataDate: Date = nowDayDataString.toDate // 현재 날짜 데이트 데이터
         let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay // 현재 - 사귄날짜 = days
-        self.publicBeginCoupleDay = String(describing: minus / 86400000)
+        self.beginCoupleDay = String(describing: minus / 86400000)
+        CoupleTabViewModel.publicBeginCoupleDay = String(describing: minus / 86400000)
+    }
+    
+    // update PublicBeginCoupleFormatterDay
+    func updatePublicBeginCoupleFormatterDay() {
+        realm = try? Realm()
+        let realmUserData = realm.objects(User.self)
+        let beginCoupleDay = realmUserData[0].beginCoupleDay
+        self.beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
+        CoupleTabViewModel.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
     }
 }

@@ -1,23 +1,13 @@
 //
-//  StoryTabScrollView.swift
-//  coupleDayProject
+//  StoryTabViewController.swift
+//  trendingProject
 //
-//  Created by 김성훈 on 2022/06/12.
+//  Created by 김성훈 on 2022/06/07.
 //
 
 import UIKit
 
-class StoryTabScrollView: UIView {
-    
-    // MARK: init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+class StoryTabViewController: UIViewController {
     
     // MARK: UI
     private lazy var scrollView: UIScrollView = {
@@ -55,26 +45,26 @@ class StoryTabScrollView: UIView {
     }()
     
     // MARK: func
-    fileprivate func setup() {
-        self.addSubview(entireStackView)
+    fileprivate func setupView() {
+        view.addSubview(scrollView)
+        view.addSubview(entireStackView)
         entireStackView.addArrangedSubview(emptyView)
         entireStackView.addArrangedSubview(scrollView)
 
         for i in stride(from: 0, to: 100, by: 10) {
             if i == 0 {
-                let storyTabView = StoryTabView(frame: self.frame, day: Int.max)
+                let storyTabView = StoryCell(frame: view.frame, day: Int.max)
                 contentStackView.addArrangedSubview(storyTabView)
             } else {
-                let storyTabView = StoryTabView(frame: self.frame, day: i)
+                let storyTabView = StoryCell(frame: view.frame, day: i)
                 contentStackView.addArrangedSubview(storyTabView)
             }
-            
         }
         
         scrollView.addSubview(contentStackView)
         NSLayoutConstraint.activate([
             
-            emptyView.topAnchor.constraint(equalTo: self.topAnchor),
+            emptyView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyView.heightAnchor.constraint(equalToConstant: 100),
             
             contentStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -83,13 +73,14 @@ class StoryTabScrollView: UIView {
             contentStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             scrollView.topAnchor.constraint(equalTo: emptyView.bottomAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        
     }
     
+    override func viewDidLoad() {
+        setupView()
+    }
 }

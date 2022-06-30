@@ -23,5 +23,4 @@ class AnniversaryTabViewController: UIViewController {
             tempText.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         ])
     }
-
 }
