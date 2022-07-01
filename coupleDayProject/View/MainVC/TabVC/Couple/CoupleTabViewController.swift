@@ -252,10 +252,19 @@ class CoupleTabViewController: UIViewController {
 
     // MARK: init
     override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear viewWillAppear")
+        print("CoupleTabViewModel.changeCoupleDayMainCheck \(CoupleTabViewModel.changeCoupleDayMainCheck)")
         // 배경사진이 변경됐을때
         if CoupleTabViewModel.changeMainImageCheck {
             coupleTabViewModel.updateMainBackgroundImage()
             CoupleTabViewModel.changeMainImageCheck = false
+        }
+        // 커플날짜 변경됐을때
+        if CoupleTabViewModel.changeCoupleDayMainCheck {
+            print("!!!!")
+            coupleTabViewModel.updatePublicBeginCoupleDay()
+            coupleTabViewModel.updatePublicBeginCoupleFormatterDay()
+            CoupleTabViewModel.changeCoupleDayMainCheck = false
         }
     }
 

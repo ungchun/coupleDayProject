@@ -99,7 +99,7 @@ class BeginViewController: UIViewController {
     }
     
     @objc
-    func startBtnTap() {
+    func startBtnTap(completion: @escaping () -> Void) {
         // MARK: temp input realm data
         let userDate = User()
         let imageDate = Image()
@@ -111,15 +111,17 @@ class BeginViewController: UIViewController {
         try? self.realm.write({
             self.realm.add(userDate)
             self.realm.add(imageDate)
+            
+            // begin -> main 으로 넘어가고나서 set 터치 안먹힘
+            let mainViewController = ContainerViewController()
+            mainViewController.modalTransitionStyle = .crossDissolve
+            mainViewController.modalPresentationStyle = .fullScreen
+            self.present(mainViewController, animated: true, completion: nil)
         })
-        let mainViewController = ContainerViewController()
-        mainViewController.modalTransitionStyle = .crossDissolve
-        mainViewController.modalPresentationStyle = .fullScreen
-        self.present(mainViewController, animated: true, completion: nil)
+        
         // 환영합니다.
         // 당신의 인연에 ~~하길.. -> 명언으로
         // 시작하기
         // 페이지 나중에 만들어보기 애니메이션으로
     }
-    
 }

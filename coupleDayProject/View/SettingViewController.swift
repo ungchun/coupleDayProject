@@ -99,11 +99,19 @@ class SettingViewController: UIViewController{
         let dateChooserAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet) // dateChooserAlert
         dateChooserAlert.view.addSubview(datePicker) // dateChooserAlert에 datePicker 추가
         dateChooserAlert.addAction(UIAlertAction(title: "선택완료", style: .default, handler: { (action:UIAlertAction!) in // 선택완료 버튼
-            print("선택완료")
-            print("datePicker.date.toString \(datePicker.date.toString)")
+            self.realm = try? Realm()
+            let userDate = self.realm.objects(User.self)
+            
+            try? self.realm.write({
+                print("????")
+                userDate.first?.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
+                CoupleTabViewModel.changeCoupleDayMainCheck = true
+                CoupleTabViewModel.changeCoupleDayStoryCheck = true
+                print("CoupleTabViewModel.changeCoupleDayMainCheck \(CoupleTabViewModel.changeCoupleDayMainCheck)")
+            })
         }))
         dateChooserAlert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction!) in // 취소 버튼 + 밖에 터치 시 disable
-            print("취소")
+            print("cancel")
         }))
         
         // set datePicker center

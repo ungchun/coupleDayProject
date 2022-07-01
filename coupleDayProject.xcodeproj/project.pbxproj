@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BC72C85C28530B8200BDD118 /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC72C85B28530B8200BDD118 /* StoryCell.swift */; };
+		BC8190C5286EE73100FAD555 /* StoryTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C4286EE73100FAD555 /* StoryTabViewModel.swift */; };
 		BC8B624F285087B000D46416 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B624E285087B000D46416 /* Realm */; };
 		BC8B6251285087B000D46416 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B6250285087B000D46416 /* RealmSwift */; };
 		BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B151285076FF00DE7196 /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		BC72C85B28530B8200BDD118 /* StoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCell.swift; sourceTree = "<group>"; };
+		BC8190C4286EE73100FAD555 /* StoryTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTabViewModel.swift; sourceTree = "<group>"; };
 		BCB0B14E285076FF00DE7196 /* coupleDayProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB0B151285076FF00DE7196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB0B153285076FF00DE7196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			children = (
 				BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */,
 				BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */,
+				BC8190C4286EE73100FAD555 /* StoryTabViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB0B18B28507D2E00DE7196 /* User.swift in Sources */,
+				BC8190C5286EE73100FAD555 /* StoryTabViewModel.swift in Sources */,
 				BCB0B18328507D2300DE7196 /* BeginViewController.swift in Sources */,
 				BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */,
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,

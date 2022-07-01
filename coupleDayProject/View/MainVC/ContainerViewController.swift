@@ -69,6 +69,7 @@ class ContainerViewController: UIViewController {
     
     // MARK: init
     override func viewWillAppear(_ animated: Bool) {
+        print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" ) // realm url
         self.navigationController?.isNavigationBarHidden = true // 상단 NavigationBar 공간 hide
     }
     

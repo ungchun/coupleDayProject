@@ -14,6 +14,8 @@ class CoupleTabViewModel {
     static var publicBeginCoupleDay = ""
     static var publicBeginCoupleFormatterDay = ""
     static var changeMainImageCheck = false
+    static var changeCoupleDayMainCheck = false
+    static var changeCoupleDayStoryCheck = false
     
     var realm: Realm!
     
@@ -107,6 +109,7 @@ class CoupleTabViewModel {
     
     // update PublicBeginCoupleDay
     func updatePublicBeginCoupleDay() {
+        print("AAAAA")
         realm = try? Realm()
         let realmUserData = realm.objects(User.self)
         let beginCoupleDay = realmUserData[0].beginCoupleDay
