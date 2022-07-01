@@ -8,7 +8,7 @@
 import UIKit
 
 class StoryTabViewController: UIViewController {
-    
+   
     let storyTabViewModel = StoryTabViewModel()
     
     var testA = CoupleTabViewModel.publicBeginCoupleDay
@@ -49,6 +49,11 @@ class StoryTabViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        return tableView
+    }()
+    
     // MARK: func
     fileprivate func setupView() {
         print("story setUpView")
@@ -56,11 +61,6 @@ class StoryTabViewController: UIViewController {
         view.addSubview(entireStackView)
         entireStackView.addArrangedSubview(emptyView)
         entireStackView.addArrangedSubview(scrollView)
-        
-        // 400 -> 1, % -> > 100
-        // 500 -> 1, % -> < 100
-        // 700 -> 1, % -> < 100
-        // 800 -> 2, % -> > 100
         
         for i in stride(from: 0, to: 100, by: 10) {
             if i == 0 {
@@ -136,6 +136,8 @@ class StoryTabViewController: UIViewController {
         }
     }
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         print("story viewDidLoad 11111")
         storyTabViewModel.onUpdatedLabels = {
             DispatchQueue.main.async { [self] in
