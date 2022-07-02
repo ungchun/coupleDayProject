@@ -7,12 +7,26 @@
 
 import UIKit
 
-class StoryTabViewController: UIViewController {
-   
-    let storyTabViewModel = StoryTabViewModel()
+struct DemoData {
+    var storyArray = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 365, 400, 500, 600, 700, 730]
+}
+
+extension StoryTabViewController: UITableViewDelegate, UITableViewDataSource {
     
-    var testA = CoupleTabViewModel.publicBeginCoupleDay
-    var testB = CoupleTabViewModel.publicBeginCoupleFormatterDay
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return DemoData().storyArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CodingCustomTableViewCell", for: indexPath) as? StoryCell ?? StoryCell()
+        cell.bind(index: DemoData().storyArray[indexPath.row])
+        cell.selectionStyle = .none
+        
+        return cell
+    }
+}
+
+class StoryTabViewController: UIViewController {
     
     // MARK: UI
     private lazy var scrollView: UIScrollView = {
@@ -32,7 +46,6 @@ class StoryTabViewController: UIViewController {
     // scrollView (stackView)
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView()
-        //        let stackView = UIStackView(arrangedSubviews: [emptyView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
@@ -49,108 +62,48 @@ class StoryTabViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
     
-    // MARK: func
-    fileprivate func setupView() {
-        print("story setUpView")
-        view.addSubview(scrollView)
-        view.addSubview(entireStackView)
-        entireStackView.addArrangedSubview(emptyView)
-        entireStackView.addArrangedSubview(scrollView)
-        
-        for i in stride(from: 0, to: 100, by: 10) {
-            if i == 0 {
-                let storyTabView = StoryCell(frame: view.frame, day: Int.max, testA: self.testA, testB: self.testB)
-                contentStackView.addArrangedSubview(storyTabView)
-            } else {
-                let storyTabView = StoryCell(frame: view.frame, day: i, testA: self.testA, testB: self.testB)
-                contentStackView.addArrangedSubview(storyTabView)
-            }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async { [self] in
+            print("DispatchQueue")
+            tableView.reloadData()
         }
+//        if CoupleTabViewModel.changeCoupleDayStoryCheck {
+//            DispatchQueue.main.async { [self] in
+//                tableView.reloadData()
+//            }
+//            CoupleTabViewModel.changeCoupleDayStoryCheck = false
+//        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.register(StoryCell.self, forCellReuseIdentifier: "CodingCustomTableViewCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
         
-        for i in stride(from: 100, to: 3000, by: 100) {
-            let dividerValue = i / 365
-            let demoDividerValue = i % 365
-            if dividerValue >= 1 && demoDividerValue < 100 {
-                let storyTabView = StoryCell(frame: view.frame, day: dividerValue * 365, testA: self.testA, testB: self.testB)
-                contentStackView.addArrangedSubview(storyTabView)
-            }
-            let storyTabView = StoryCell(frame: view.frame, day: i, testA: self.testA, testB: self.testB)
-            contentStackView.addArrangedSubview(storyTabView)
-        }
+        self.view.addSubview(contentStackView)
+        contentStackView.addArrangedSubview(emptyView)
+        contentStackView.addArrangedSubview(tableView)
         
-        scrollView.addSubview(contentStackView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            
             emptyView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyView.heightAnchor.constraint(equalToConstant: 100),
             
-            contentStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            scrollView.topAnchor.constraint(equalTo: emptyView.bottomAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.topAnchor.constraint(equalTo: self.emptyView.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
-        //        self.view.setNeedsLayout()
-        //        self.view.layoutIfNeeded()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //        setupView()
-        //         커플날짜 변경됐을때
-        if CoupleTabViewModel.changeCoupleDayStoryCheck {
-            CoupleTabViewModel().updatePublicBeginCoupleDay()
-            CoupleTabViewModel().updatePublicBeginCoupleFormatterDay()
-            
-            storyTabViewModel.updateTest()
-            
-            print("BBBB \(CoupleTabViewModel.publicBeginCoupleDay)")
-            
-            
-//            setupView()
-//            self.view.setNeedsDisplay()
-//            self.view.layoutIfNeeded()
-            
-            //            self.loadView()
-            
-            
-            //            entireStackView.reloadInputViews()
-            
-            //            //                        scrollView.setNeedsLayout()
-            //            contentStackView.layoutIfNeeded()
-            //            scrollView.layoutIfNeeded()
-            //            //                        entireStackView.setNeedsLayout()
-            //            entireStackView.layoutIfNeeded()
-            CoupleTabViewModel.changeCoupleDayStoryCheck = false
-            //            self.view.setNeedsLayout()
-            
-        }
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        print("story viewDidLoad 11111")
-        storyTabViewModel.onUpdatedLabels = {
-            DispatchQueue.main.async { [self] in
-                testA = CoupleTabViewModel.publicBeginCoupleDay
-                testB = CoupleTabViewModel.publicBeginCoupleFormatterDay
-            }
-        }
-        testA = CoupleTabViewModel.publicBeginCoupleDay
-        testB = CoupleTabViewModel.publicBeginCoupleFormatterDay
-        print("story viewDidLoad 22222")
-        print("CoupleTabViewModel.publicBeginCoupleDay \(CoupleTabViewModel.publicBeginCoupleDay)")
-        print("testA \(testA)")
-        setupView()
-        
+        tableView.rowHeight = 100
+        tableView.estimatedRowHeight = UITableView.automaticDimension   
     }
 }

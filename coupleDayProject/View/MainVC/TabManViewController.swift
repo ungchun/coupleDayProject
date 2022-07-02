@@ -16,7 +16,7 @@ class TabManViewController: TabmanViewController {
     // MARK: func
     fileprivate func layoutBar() {
         let coupleVC = CoupleTabViewController() // 커플
-        let storyVC = StoryTabDemoViewController() // 스토리
+        let storyVC = StoryTabViewController() // 스토리
 //        let storyVC = StoryTabViewController() // 스토리
         let anniversaryVC = AnniversaryTabViewController() // 기념일
         

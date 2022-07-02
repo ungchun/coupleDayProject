@@ -109,6 +109,10 @@ class SettingViewController: UIViewController{
                 CoupleTabViewModel.changeCoupleDayStoryCheck = true
                 print("CoupleTabViewModel.changeCoupleDayMainCheck \(CoupleTabViewModel.changeCoupleDayMainCheck)")
             })
+            
+//            DispatchQueue.main.async { [self] in
+//                StoryTabDemoViewController().tableView.reloadData()
+//            }
         }))
         dateChooserAlert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction!) in // 취소 버튼 + 밖에 터치 시 disable
             print("cancel")

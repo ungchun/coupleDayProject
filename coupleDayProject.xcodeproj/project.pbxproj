@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BC72C85C28530B8200BDD118 /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC72C85B28530B8200BDD118 /* StoryCell.swift */; };
-		BC8190C5286EE73100FAD555 /* StoryTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C4286EE73100FAD555 /* StoryTabViewModel.swift */; };
-		BC8190C7286EFE3600FAD555 /* StoryTabDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C6286EFE3600FAD555 /* StoryTabDemoViewController.swift */; };
-		BC8190C9286EFE6D00FAD555 /* StoryDemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C8286EFE6D00FAD555 /* StoryDemoCell.swift */; };
+		BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */; };
+		BC8190C9286EFE6D00FAD555 /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C8286EFE6D00FAD555 /* StoryCell.swift */; };
 		BC8B624F285087B000D46416 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B624E285087B000D46416 /* Realm */; };
 		BC8B6251285087B000D46416 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B6250285087B000D46416 /* RealmSwift */; };
 		BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B151285076FF00DE7196 /* AppDelegate.swift */; };
@@ -22,7 +20,6 @@
 		BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17728507D0B00DE7196 /* Extensions.swift */; };
 		BCB0B18328507D2300DE7196 /* BeginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17A28507D2200DE7196 /* BeginViewController.swift */; };
 		BCB0B18428507D2300DE7196 /* TabManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17C28507D2300DE7196 /* TabManViewController.swift */; };
-		BCB0B18528507D2300DE7196 /* StoryTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17E28507D2300DE7196 /* StoryTabViewController.swift */; };
 		BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */; };
 		BCB0B18728507D2300DE7196 /* AnniversaryTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18028507D2300DE7196 /* AnniversaryTabViewController.swift */; };
 		BCB0B18828507D2300DE7196 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18128507D2300DE7196 /* ContainerViewController.swift */; };
@@ -39,10 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BC72C85B28530B8200BDD118 /* StoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCell.swift; sourceTree = "<group>"; };
-		BC8190C4286EE73100FAD555 /* StoryTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTabViewModel.swift; sourceTree = "<group>"; };
-		BC8190C6286EFE3600FAD555 /* StoryTabDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTabDemoViewController.swift; sourceTree = "<group>"; };
-		BC8190C8286EFE6D00FAD555 /* StoryDemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDemoCell.swift; sourceTree = "<group>"; };
+		BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTabViewController.swift; sourceTree = "<group>"; };
+		BC8190C8286EFE6D00FAD555 /* StoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCell.swift; sourceTree = "<group>"; };
 		BCB0B14E285076FF00DE7196 /* coupleDayProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB0B151285076FF00DE7196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB0B153285076FF00DE7196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,7 +48,6 @@
 		BCB0B17728507D0B00DE7196 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BCB0B17A28507D2200DE7196 /* BeginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeginViewController.swift; sourceTree = "<group>"; };
 		BCB0B17C28507D2300DE7196 /* TabManViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabManViewController.swift; sourceTree = "<group>"; };
-		BCB0B17E28507D2300DE7196 /* StoryTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTabViewController.swift; sourceTree = "<group>"; };
 		BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoupleTabViewController.swift; sourceTree = "<group>"; };
 		BCB0B18028507D2300DE7196 /* AnniversaryTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnniversaryTabViewController.swift; sourceTree = "<group>"; };
 		BCB0B18128507D2300DE7196 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -167,10 +161,8 @@
 		BCF03FDB286D618200C28F71 /* Story */ = {
 			isa = PBXGroup;
 			children = (
-				BCB0B17E28507D2300DE7196 /* StoryTabViewController.swift */,
-				BC72C85B28530B8200BDD118 /* StoryCell.swift */,
-				BC8190C6286EFE3600FAD555 /* StoryTabDemoViewController.swift */,
-				BC8190C8286EFE6D00FAD555 /* StoryDemoCell.swift */,
+				BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */,
+				BC8190C8286EFE6D00FAD555 /* StoryCell.swift */,
 			);
 			path = Story;
 			sourceTree = "<group>";
@@ -196,7 +188,6 @@
 			children = (
 				BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */,
 				BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */,
-				BC8190C4286EE73100FAD555 /* StoryTabViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -297,7 +288,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB0B18B28507D2E00DE7196 /* User.swift in Sources */,
-				BC8190C5286EE73100FAD555 /* StoryTabViewModel.swift in Sources */,
 				BCB0B18328507D2300DE7196 /* BeginViewController.swift in Sources */,
 				BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */,
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
@@ -305,13 +295,11 @@
 				BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */,
 				BCF1B3602868237D00641ABD /* Image.swift in Sources */,
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,
-				BC72C85C28530B8200BDD118 /* StoryCell.swift in Sources */,
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
-				BCB0B18528507D2300DE7196 /* StoryTabViewController.swift in Sources */,
-				BC8190C7286EFE3600FAD555 /* StoryTabDemoViewController.swift in Sources */,
+				BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */,
 				BCB0B18828507D2300DE7196 /* ContainerViewController.swift in Sources */,
 				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
-				BC8190C9286EFE6D00FAD555 /* StoryDemoCell.swift in Sources */,
+				BC8190C9286EFE6D00FAD555 /* StoryCell.swift in Sources */,
 				BCB0B18728507D2300DE7196 /* AnniversaryTabViewController.swift in Sources */,
 				BCF0443C286C37B100E9CEAD /* ContainerViewModel.swift in Sources */,
 				BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */,

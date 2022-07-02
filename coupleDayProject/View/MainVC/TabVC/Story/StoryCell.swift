@@ -8,49 +8,24 @@
 import UIKit
 
 // cell
-class StoryCell: UIView {
+class StoryCell: UITableViewCell {
     
-    var day: Int // ㅁ 일
-    var formatterDate: String // yyyy.MM.dd
-    
-    var testA = ""
-    var testB = ""
-    
-    // MARK: init
-    // UIView 하위 클래스 초기화 재정의 -> https://stackoverflow.com/questions/24339145/how-do-i-write-a-custom-init-for-a-uiview-subclass-in-swift
-    // override init -> required init
-    required init(frame: CGRect, day: Int, testA: String, testB: String) {
-        self.testA = testA
-        self.testB = testB
-        
-        self.day = day == Int.max ? 0 : day
-//        let tempDate = Date().millisecondsSince1970 + self.day.toMillisecondsSince1970 - Int(CoupleTabViewModel.publicBeginCoupleDay)!.toMillisecondsSince1970
-        let tempDate = Date().millisecondsSince1970 + self.day.toMillisecondsSince1970 - Int(self.testA)!.toMillisecondsSince1970
-        self.formatterDate = Date(timeIntervalSince1970: TimeInterval(tempDate) / 1000).toStoryString // Milliseconds to Date -> toStoryString
-        
-        super.init(frame: frame)
-        setupView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var formatterDate = "" // yyyy.MM.dd
     
     // MARK: UI
     // ㅁ 일
     lazy var storyDayText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = (day % 365 == 0 && day != 0) ? "\(day/365) 주년" : day == 0 ? "만남의 시작" : "\(self.day) 일"
-        label.font = UIFont(name: "GangwonEduAllLight", size: 25)
+        label.text = "storyDayText"
+        label.font = UIFont(name: "GangwonEduAllBold", size: 25)
         return label
     }()
     // yyyy.MM.dd
     lazy var storyFormatterDayText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-//        label.text = day == 0 ? CoupleTabViewModel.publicBeginCoupleFormatterDay : "\(formatterDate)"
-        label.text = day == 0 ? self.testB : "\(formatterDate)"
+        label.text = "storyFormatterDayText"
         label.font = UIFont(name: "GangwonEduAllLight", size: 15)
         label.textColor = .gray
         return label
@@ -59,7 +34,7 @@ class StoryCell: UIView {
     lazy var storyD_DayText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = day-Int(self.testA)! == 0 ? "D-day" : (day % 365 == 0 && day != 0 && (day-Int(self.testA)! > 0 )) ? "D-\(day-Int(self.testA)!)" : (day == 0 || (self.day-Int(self.testA)!) <= 0) ? "" : "D-\(self.day-Int(self.testA)!)"
+        label.text = "storyD_DayText"
         label.font = UIFont(name: "GangwonEduAllBold", size: 25)
         label.textColor = TrendingConstants.appMainColor
         return label
@@ -69,13 +44,6 @@ class StoryCell: UIView {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
-        return view
-    }()
-    // 상단 탭이랑 안겹치게 주는 뷰
-    private lazy var emptyView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .cyan
         return view
     }()
     // stackView 상단 패딩
@@ -107,22 +75,38 @@ class StoryCell: UIView {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 30
+        stackView.spacing = 20
         return stackView
     }()
-    
+
     // MARK: func
-    fileprivate func setupView() {
-        self.addSubview(contentVerticalStackView)
+    public func bind(index: Int) {
+        let tempDate = Date().millisecondsSince1970 + (index).toMillisecondsSince1970 - Int(CoupleTabViewModel.publicBeginCoupleDay)!.toMillisecondsSince1970
+        self.formatterDate = Date(timeIntervalSince1970: TimeInterval(tempDate) / 1000).toStoryString // Milliseconds to Date -> toStoryString
+        storyDayText.text = index == 0 ? "만남의 시작" : index % 365 == 0 ? "\(index/365)주년" : "\(index) 일"
+        storyFormatterDayText.text = index == 0 ? CoupleTabViewModel.publicBeginCoupleFormatterDay : "\(formatterDate)"
+        storyD_DayText.text = index == 0 || (index)-Int(CoupleTabViewModel.publicBeginCoupleDay)! <= 0 ? "" : "D-\((index)-Int(CoupleTabViewModel.publicBeginCoupleDay)!)"
+     }
+    
+    // MARK: init
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        contentView.addSubview(contentVerticalStackView)
+
         NSLayoutConstraint.activate([
-            stackViewTopPadding.heightAnchor.constraint(equalToConstant: 0),
             
             divider.heightAnchor.constraint(equalToConstant: 1),
-            
-            contentVerticalStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            contentVerticalStackView.topAnchor.constraint(equalTo: self.topAnchor),
-            contentVerticalStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            contentVerticalStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+
+            contentVerticalStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30),
+            contentVerticalStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -30),
+            contentVerticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            contentVerticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
         ])
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
