@@ -28,6 +28,7 @@
 		BCC75699286AA30900CD523A /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BCC75698286AA30900CD523A /* CropViewController */; };
 		BCC7569B286AA30900CD523A /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BCC7569A286AA30900CD523A /* TOCropViewController */; };
 		BCC9F97928729B4900809A26 /* StoryDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC9F97828729B4900809A26 /* StoryDay.swift */; };
+		BCC9F97B2872C15600809A26 /* Anniversary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC9F97A2872C15600809A26 /* Anniversary.swift */; };
 		BCF03FE0286D6C0100C28F71 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BCF03FDF286D6C0100C28F71 /* Kingfisher */; };
 		BCF0443C286C37B100E9CEAD /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */; };
 		BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */; };
@@ -55,6 +56,7 @@
 		BCB0B18228507D2300DE7196 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		BCB0B18A28507D2E00DE7196 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BCC9F97828729B4900809A26 /* StoryDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDay.swift; sourceTree = "<group>"; };
+		BCC9F97A2872C15600809A26 /* Anniversary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anniversary.swift; sourceTree = "<group>"; };
 		BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModel.swift; sourceTree = "<group>"; };
 		BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTabViewModel.swift; sourceTree = "<group>"; };
 		BCF1B35F2868237D00641ABD /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				BCB0B18A28507D2E00DE7196 /* User.swift */,
 				BCF1B35F2868237D00641ABD /* Image.swift */,
 				BCC9F97828729B4900809A26 /* StoryDay.swift */,
+				BCC9F97A2872C15600809A26 /* Anniversary.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
 				BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */,
 				BCB0B18828507D2300DE7196 /* ContainerViewController.swift in Sources */,
+				BCC9F97B2872C15600809A26 /* Anniversary.swift in Sources */,
 				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
 				BC8190C9286EFE6D00FAD555 /* StoryCell.swift in Sources */,
 				BCB0B18728507D2300DE7196 /* AnniversaryTabViewController.swift in Sources */,

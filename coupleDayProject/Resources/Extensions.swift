@@ -42,6 +42,12 @@ extension Date {
         dateFormatter.dateFormat = "yyyy.MM.dd(E)"
         return dateFormatter.string(from: self)
     }
+    var toAnniversaryString: String { // date -> MM/dd 형식의 string 으로 변환
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko-KR")
+        dateFormatter.dateFormat = "MM/dd"
+        return dateFormatter.string(from: self)
+    }
     func adding(_ component: Calendar.Component, value: Int, using calendar: Calendar = .current) -> Date {
         calendar.date(byAdding: component, value: value, to: self)!
     }

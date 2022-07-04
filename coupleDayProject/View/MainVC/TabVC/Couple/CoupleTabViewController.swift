@@ -24,11 +24,15 @@ class CoupleTabViewController: UIViewController {
     let myProfileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 내 프로필 이미지 로딩 뷰
     let profileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 상대 프로필 이미지 로딩 뷰
     
+    let textBigSize = UIScreen.main.bounds.size.height > 750 ? 30.0 : 25.0
+    let textSmallSize = UIScreen.main.bounds.size.height > 750 ? 20.0 : 15.0
+    
     // MARK: UI
     private lazy var coupleTabStackView: UIStackView = { // 커플 탭 전체 뷰
         let view = UIStackView()
         view.axis = .vertical
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.distribution = .fill
         return view
     }()
     private lazy var topTabBackView: UIView = { // 상단 탭 뒤에 뷰
@@ -44,7 +48,6 @@ class CoupleTabViewController: UIViewController {
     }()
     private lazy var emptyView: UIView = { // 하단 빈 공간 채우는 뷰
         let view = UIView()
-        view.backgroundColor = .gray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -60,7 +63,7 @@ class CoupleTabViewController: UIViewController {
         let view = UIImageView()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(myProfileTap(_:))) // 이미지 변경 제스쳐
         view.addGestureRecognizer(tapGesture)
-        view.layer.cornerRadius = 50 // 둥글게
+        view.layer.cornerRadius = 55 // 둥글게
         view.clipsToBounds = true
         view.isUserInteractionEnabled = true
         return view
@@ -69,7 +72,7 @@ class CoupleTabViewController: UIViewController {
         let view = UIImageView()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap(_:))) // 이미지 변경 제스쳐
         view.addGestureRecognizer(tapGesture)
-        view.layer.cornerRadius = 50 // 둥글게
+        view.layer.cornerRadius = 55 // 둥글게
         view.clipsToBounds = true
         view.isUserInteractionEnabled = true
         return view
@@ -97,32 +100,39 @@ class CoupleTabViewController: UIViewController {
         return label
     }()
     
-    private lazy var testLabel_0: UILabel = {
+    private lazy var titleAnniversary: UILabel = {
         var label = UILabel()
         label.text = "다가오는 기념일"
+        label.font = UIFont(name: "GangwonEduAllBold", size: textBigSize)
+        label.textColor = .black
         return label
     }()
-    private lazy var testLabel_1: UILabel = {
+    private lazy var contentAnniversaryOne: UILabel = {
         var label = UILabel()
-        label.text = "생일"
+        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
         return label
     }()
-    private lazy var testLabel_2: UILabel = {
+    private lazy var contentAnniversaryTwo: UILabel = {
         var label = UILabel()
-        label.text = "D-100"
+        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
         return label
     }()
-    private lazy var testLabel_3: UILabel = {
+    private lazy var contentAnniversaryThree: UILabel = {
         var label = UILabel()
-        label.text = "로즈데이"
+        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
+        return label
+    }()
+    private lazy var contentAnniversaryEmpty: UILabel = {
+        var label = UILabel()
         return label
     }()
     private lazy var comingStoryStackView: UIStackView = {
-        var stackView = UIStackView(arrangedSubviews: [testLabel_0, testLabel_1, testLabel_2, testLabel_3])
+        var stackView = UIStackView(arrangedSubviews: [titleAnniversary, contentAnniversaryOne, contentAnniversaryTwo, contentAnniversaryThree, contentAnniversaryEmpty])
+        stackView.setCustomSpacing(10, after: titleAnniversary)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually
         stackView.axis = .vertical
-        stackView.spacing = 10
+        stackView.spacing = 0
         return stackView
     }()
     
@@ -156,50 +166,7 @@ class CoupleTabViewController: UIViewController {
         profileImageActivityIndicatorView.startAnimating()
         profileImageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(coupleTabStackView)
-        
-        coupleTabStackView.addArrangedSubview(topTabBackView)
-        coupleTabStackView.addArrangedSubview(mainImageActivityIndicatorView)
-        coupleTabStackView.addArrangedSubview(coupleStackView)
-        coupleTabStackView.addArrangedSubview(emptyView)
-        
-        coupleStackView.addArrangedSubview(myProfileImageActivityIndicatorView)
-        
-        coupleStackView.addArrangedSubview(iconDayStackView)
-        
-        coupleStackView.addArrangedSubview(profileImageActivityIndicatorView)
-        
-        iconDayStackView.addArrangedSubview(loveIconView)
-        iconDayStackView.addArrangedSubview(mainTextLabel)
-        
-        NSLayoutConstraint.activate([
-            myProfileUIImageView.widthAnchor.constraint(equalToConstant: 100),
-            myProfileUIImageView.heightAnchor.constraint(equalToConstant: 100),
-            
-            partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: 100),
-            partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: 100),
-            
-            myProfileImageActivityIndicatorView.widthAnchor.constraint(equalToConstant: 100),
-            myProfileImageActivityIndicatorView.heightAnchor.constraint(equalToConstant: 100),
-            
-            profileImageActivityIndicatorView.widthAnchor.constraint(equalToConstant: 100),
-            profileImageActivityIndicatorView.heightAnchor.constraint(equalToConstant: 100),
-            
-            loveIconView.widthAnchor.constraint(equalToConstant: 30),
-            loveIconView.heightAnchor.constraint(equalToConstant: 30),
-            
-            topTabBackView.topAnchor.constraint(equalTo: view.topAnchor),
-            topTabBackView.heightAnchor.constraint(equalToConstant: 80),
-            
-            mainImageActivityIndicatorView.heightAnchor.constraint(equalToConstant: 300),
-            
-            coupleStackView.heightAnchor.constraint(equalToConstant: 100),
-            
-            coupleTabStackView.topAnchor.constraint(equalTo: view.topAnchor),
-            coupleTabStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            coupleTabStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            coupleTabStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
-        ])
+        setUpView(imageLoadingFlag: false)
     }
     
     // 이미지 불러오고나서 보이는 뷰
@@ -210,28 +177,36 @@ class CoupleTabViewController: UIViewController {
         myProfileImageActivityIndicatorView.stopAnimating()
         mainImageActivityIndicatorView.stopAnimating()
         
+        setUpView(imageLoadingFlag: true)
+    }
+    
+    fileprivate func setUpView(imageLoadingFlag: Bool) {
+        
+        let imagePartView = imageLoadingFlag ? self.mainImageView : self.mainImageActivityIndicatorView
+        
         view.addSubview(coupleTabStackView)
         
         coupleTabStackView.addArrangedSubview(topTabBackView)
-        coupleTabStackView.addArrangedSubview(mainImageView)
+        coupleTabStackView.addArrangedSubview(imagePartView)
         coupleTabStackView.addArrangedSubview(coupleStackView)
-        coupleTabStackView.addArrangedSubview(emptyView)
+        coupleTabStackView.addArrangedSubview(comingStoryStackView)
         
         coupleStackView.addArrangedSubview(myProfileUIImageView)
         coupleStackView.addArrangedSubview(iconDayStackView)
-        
         coupleStackView.addArrangedSubview(partnerProfileUIImageView)
         
         iconDayStackView.addArrangedSubview(loveIconView)
         iconDayStackView.addArrangedSubview(mainTextLabel)
         
+        coupleTabStackView.setCustomSpacing(25, after: imagePartView)
+        coupleTabStackView.setCustomSpacing(25, after: coupleStackView)
+        
         NSLayoutConstraint.activate([
-            myProfileUIImageView.widthAnchor.constraint(equalToConstant: 100),
-            myProfileUIImageView.heightAnchor.constraint(equalToConstant: 100),
+            myProfileUIImageView.widthAnchor.constraint(equalToConstant: 110),
+            myProfileUIImageView.heightAnchor.constraint(equalToConstant: 110),
             
-            partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: 100),
-            partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: 100),
-            
+            partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: 110),
+            partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: 110),
             
             loveIconView.widthAnchor.constraint(equalToConstant: 30),
             loveIconView.heightAnchor.constraint(equalToConstant: 30),
@@ -239,19 +214,27 @@ class CoupleTabViewController: UIViewController {
             topTabBackView.topAnchor.constraint(equalTo: view.topAnchor),
             topTabBackView.heightAnchor.constraint(equalToConstant: 80),
             
-            mainImageView.heightAnchor.constraint(equalToConstant: 300),
+            imagePartView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 3),
+            imagePartView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            imagePartView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             
-            coupleStackView.heightAnchor.constraint(equalToConstant: 100),
-            
+            coupleStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            coupleStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            coupleStackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 7),
+                    
+            comingStoryStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            comingStoryStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+        
             coupleTabStackView.topAnchor.constraint(equalTo: view.topAnchor),
-            coupleTabStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            coupleTabStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             coupleTabStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
             coupleTabStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
     }
-
+    
     // MARK: init
     override func viewWillAppear(_ animated: Bool) {
+        print("UIScreen.main.bounds.size.height \(UIScreen.main.bounds.size.height)")
         // 배경사진이 변경됐을때
         if CoupleTabViewModel.changeMainImageCheck {
             coupleTabViewModel.updateMainBackgroundImage()
@@ -289,14 +272,33 @@ class CoupleTabViewController: UIViewController {
                 self.partnerProfileUIImageView.image = UIImage(data: self.coupleTabViewModel.partnerProfileImageData!)
             }
         }
+        
         coupleTabViewModel.onPublicBeginCoupleDayUpdated = {
             DispatchQueue.main.async {
                 self.mainTextLabel.text = self.coupleTabViewModel.beginCoupleDay
-
             }
         }
+        
+        coupleTabViewModel.onAnniversaryOneUpdated = {
+            DispatchQueue.main.async {
+                self.contentAnniversaryOne.text = self.coupleTabViewModel.anniversaryOne
+            }
+        }
+        coupleTabViewModel.onAnniversaryTwoUpdated = {
+            DispatchQueue.main.async {
+                self.contentAnniversaryTwo.text = self.coupleTabViewModel.anniversaryTwo
+            }
+        }
+        coupleTabViewModel.onAnniversaryThreeUpdated = {
+            DispatchQueue.main.async {
+                self.contentAnniversaryThree.text = self.coupleTabViewModel.anniversaryThree
+            }
+        }
+        
+        // viewModel init
         coupleTabViewModel.setMainBackgroundImage()
         coupleTabViewModel.setBeginCoupleDay()
+        coupleTabViewModel.setAnniversary()
     }
 }
 

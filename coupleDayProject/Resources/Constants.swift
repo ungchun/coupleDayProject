@@ -15,6 +15,27 @@ struct TrendingConstants {
     static let appMainColorAlaph40 = UIColor(red: 234/255, green: 188/255, blue: 188/255, alpha: 1)
 }
 
+// MARK: return year string
+class DateValues {
+    // 올해 year -> yyyy 형태로 return
+    static func GetOnlyYear() -> String {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
+        let yearString = dateFormatter.string(from: date)
+        return yearString
+    }
+    // 내년 year -> yyyy 형태로 return
+    static func GetOnlyNextYear() -> String {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
+        let yearString = dateFormatter.string(from: date)
+        let nextYearString = String(describing: Int(yearString)!+1)
+        return nextYearString
+    }
+}
+
 // MARK: Loading
 class LoadingIndicator {
     static func showLoading() {

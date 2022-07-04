@@ -26,6 +26,10 @@ class CoupleTabViewModel {
     var onPublicBeginCoupleFormatterDayUpdated: () -> Void = {}
     var onPublicBeginCoupleDayUpdated: () -> Void = {}
     
+    var onAnniversaryOneUpdated: () -> Void = {}
+    var onAnniversaryTwoUpdated: () -> Void = {}
+    var onAnniversaryThreeUpdated: () -> Void = {}
+    
     var mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5) {
         didSet {
             onMainImageDataUpdated()
@@ -49,6 +53,22 @@ class CoupleTabViewModel {
     var beginCoupleDay = "" {
         didSet {
             onPublicBeginCoupleDayUpdated()
+        }
+    }
+    
+    var anniversaryOne = "" {
+        didSet {
+            onAnniversaryOneUpdated()
+        }
+    }
+    var anniversaryTwo = "" {
+        didSet {
+            onAnniversaryTwoUpdated()
+        }
+    }
+    var anniversaryThree = "" {
+        didSet {
+            onAnniversaryThreeUpdated()
         }
     }
     
@@ -81,6 +101,36 @@ class CoupleTabViewModel {
         self.mainImageData = mainImageData
         self.myProfileImageData = myProfileImageData
         self.partnerProfileImageData = partnerProfileImageData
+    }
+    
+    // 다가오는 기념일 세팅
+    func setAnniversary() {
+        print("11111")
+        print("DateValues.GetOnlyYear() \(DateValues.GetOnlyYear())")
+        print("GetOnlyNextYear \(DateValues.GetOnlyNextYear())")
+        let nowDate = Date().millisecondsSince1970
+        let demoFilter = Anniversary().AnniversaryModel.filter { dictValue in
+            print("dictValue \(dictValue)")
+            let keyValue = dictValue.keys.first
+            if nowDate < (keyValue?.toDate.millisecondsSince1970)! {
+                return true
+            } else {
+                return false
+            }
+        }
+        print("22222 \(demoFilter.count)")
+        if demoFilter.count >= 3 {
+            self.anniversaryOne = "\(demoFilter[0].keys.first!.toDate.toAnniversaryString) \(demoFilter[0].values.first!)"
+            self.anniversaryTwo = "\(demoFilter[1].keys.first!.toDate.toAnniversaryString) \(demoFilter[1].values.first!)"
+            self.anniversaryThree = "\(demoFilter[2].keys.first!.toDate.toAnniversaryString) \(demoFilter[2].values.first!)"
+        } else if demoFilter.count == 2 {
+            self.anniversaryOne = "\(demoFilter[0].keys.first!.toDate.toAnniversaryString) \(demoFilter[0].values.first!)"
+            self.anniversaryTwo = "\(demoFilter[1].keys.first!.toDate.toAnniversaryString) \(demoFilter[1].values.first!)"
+        } else if demoFilter.count == 1 {
+            self.anniversaryOne = "\(demoFilter[0].keys.first!.toDate.toAnniversaryString) \(demoFilter[0].values.first!)"
+        } else {
+            self.anniversaryOne = "\(DateValues.GetOnlyNextYear())년"
+        }
     }
     
     // update 메인 이미지

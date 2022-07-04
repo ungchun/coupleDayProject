@@ -119,6 +119,7 @@ class BeginViewController: UIViewController {
             self.present(mainViewController, animated: true, completion: nil)
         })
         
+        // 성훈 시작페이지 추가
         // 환영합니다.
         // 당신의 인연에 ~~하길.. -> 명언으로
         // 시작하기
