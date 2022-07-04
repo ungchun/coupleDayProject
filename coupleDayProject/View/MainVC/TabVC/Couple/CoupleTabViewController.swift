@@ -33,7 +33,7 @@ class CoupleTabViewController: UIViewController {
     }()
     private lazy var topTabBackView: UIView = { // 상단 탭 뒤에 뷰
         let view = UIView()
-        view.backgroundColor = .green
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -252,8 +252,6 @@ class CoupleTabViewController: UIViewController {
 
     // MARK: init
     override func viewWillAppear(_ animated: Bool) {
-        print("viewWillAppear viewWillAppear")
-        print("CoupleTabViewModel.changeCoupleDayMainCheck \(CoupleTabViewModel.changeCoupleDayMainCheck)")
         // 배경사진이 변경됐을때
         if CoupleTabViewModel.changeMainImageCheck {
             coupleTabViewModel.updateMainBackgroundImage()
@@ -261,7 +259,6 @@ class CoupleTabViewController: UIViewController {
         }
         // 커플날짜 변경됐을때
         if CoupleTabViewModel.changeCoupleDayMainCheck {
-            print("!!!!")
             coupleTabViewModel.updatePublicBeginCoupleDay()
             coupleTabViewModel.updatePublicBeginCoupleFormatterDay()
             CoupleTabViewModel.changeCoupleDayMainCheck = false

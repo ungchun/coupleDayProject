@@ -86,6 +86,11 @@ class StoryCell: UITableViewCell {
         storyDayText.text = index == 0 ? "만남의 시작" : index % 365 == 0 ? "\(index/365)주년" : "\(index) 일"
         storyFormatterDayText.text = index == 0 ? CoupleTabViewModel.publicBeginCoupleFormatterDay : "\(formatterDate)"
         storyD_DayText.text = index == 0 || (index)-Int(CoupleTabViewModel.publicBeginCoupleDay)! <= 0 ? "" : "D-\((index)-Int(CoupleTabViewModel.publicBeginCoupleDay)!)"
+        
+        if index <= Int(CoupleTabViewModel.publicBeginCoupleDay)! {
+            storyDayText.textColor = UIColor(white: 0.5, alpha: 0.3)
+        }
+
      }
     
     // MARK: init

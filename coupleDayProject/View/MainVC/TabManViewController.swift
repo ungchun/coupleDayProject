@@ -17,19 +17,18 @@ class TabManViewController: TabmanViewController {
     fileprivate func layoutBar() {
         let coupleVC = CoupleTabViewController() // 커플
         let storyVC = StoryTabViewController() // 스토리
-//        let storyVC = StoryTabViewController() // 스토리
-        let anniversaryVC = AnniversaryTabViewController() // 기념일
+//        let anniversaryVC = AnniversaryTabViewController() // 기념일
         
         viewControllers.append(coupleVC)
         viewControllers.append(storyVC)
-        viewControllers.append(anniversaryVC)
+//        viewControllers.append(anniversaryVC)
         
         self.dataSource = self
         
         let bar = TMBar.ButtonBar()
         bar.backgroundView.style = .clear
         bar.buttons.customize { (button) in
-            button.tintColor = UIColor(white: 1, alpha: 0.7) // 현재 선택되지않은 탭 글자 컬러
+            button.tintColor = UIColor(white: 0.5, alpha: 0.3) // 현재 선택되지않은 탭 글자 컬러
             button.selectedTintColor = TrendingConstants.appMainColor // 현재 선택된 탭 글자 컬러
             button.font = UIFont(name: "GangwonEduAllBold", size: 20) ?? UIFont.systemFont(ofSize: 20)
         }
