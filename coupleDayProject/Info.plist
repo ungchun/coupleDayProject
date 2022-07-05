@@ -7,8 +7,6 @@
 		<string>GangwonEduAllLight.ttf</string>
 		<string>GangwonEduAllBold.ttf</string>
 	</array>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>이미지 권한이 필요합니다</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

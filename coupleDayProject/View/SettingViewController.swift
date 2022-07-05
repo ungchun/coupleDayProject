@@ -17,6 +17,8 @@ class SettingViewController: UIViewController{
     var realm: Realm!
     
     let imagePickerController = UIImagePickerController()
+    
+    let defaults = UserDefaults.standard
 
     // MARK: UI
     private lazy var coupleDayText: UILabel = {
@@ -44,8 +46,11 @@ class SettingViewController: UIViewController{
     private lazy var darkModeText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "다크모드"
+        label.text = "화면 설정"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setDarkModeTap)) // label 에 gesture 추가하기
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tapGesture)
         label.textColor = .black
         return label
     }()
@@ -88,6 +93,33 @@ class SettingViewController: UIViewController{
 //        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
 //            self.present(imagePickerController, animated: true, completion: nil)
 //        }
+    }
+    @objc
+    func setDarkModeTap() {
+        let alert = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
+        let lightMode = UIAlertAction(title: "주간모드", style: .default) {(action) in
+            if let window = UIApplication.shared.windows.first {
+                if #available(iOS 13.0, *) {
+                    window.overrideUserInterfaceStyle = .light
+                    self.defaults.set(false, forKey: "darkModeState")
+                }
+            }
+        }
+        let darkMode = UIAlertAction(title: "야간모드", style: .default) {(action) in
+            if let window = UIApplication.shared.windows.first {
+                if #available(iOS 13.0, *) {
+                    window.overrideUserInterfaceStyle = .dark
+                    self.defaults.set(true, forKey: "darkModeState")
+                }
+            }
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) {(action) in
+            print("cancel")
+        }
+        alert.addAction(lightMode)
+        alert.addAction(darkMode)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
     @objc
     func setCoupleDayTap() {
