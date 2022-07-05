@@ -83,10 +83,11 @@ class SettingViewController: UIViewController{
     // MARK: objc
     @objc
     func setBackgroundImageTap() {
-        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
-        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
-            self.present(imagePickerController, animated: true, completion: nil)
-        }
+        self.present(imagePickerController, animated: true, completion: nil)
+//        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
+//        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
+//            self.present(imagePickerController, animated: true, completion: nil)
+//        }
     }
     @objc
     func setCoupleDayTap() {
@@ -158,8 +159,9 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
         realm = try? Realm()
         let imageData = realm.objects(Image.self)
         
+        // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 16000000 으로 맞춰서 예외처리, 16000000 보다 작으면 0.5 퀄리티 16000000 크면 0.25 퀄리티, pngData로 하면 위험부담이 생겨서 배제
         try! realm.write {
-            imageData.first?.mainImageData = image.jpegData(compressionQuality: 0.5)
+            imageData.first?.mainImageData = (image.pngData()?.count)! > 16000000 ? image.jpegData(compressionQuality: 0.25) : image.jpegData(compressionQuality: 0.5)
             CoupleTabViewModel.changeMainImageCheck = true
             dismiss(animated: true, completion: nil)
         }

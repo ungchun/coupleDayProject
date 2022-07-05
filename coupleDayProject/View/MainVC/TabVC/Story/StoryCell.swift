@@ -10,6 +10,13 @@ import UIKit
 // cell
 class StoryCell: UITableViewCell {
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+//        self.accessoryType = .none
+        self.storyDayText.textColor = .black
+    }
+    
     var formatterDate = "" // yyyy.MM.dd
     
     // MARK: UI

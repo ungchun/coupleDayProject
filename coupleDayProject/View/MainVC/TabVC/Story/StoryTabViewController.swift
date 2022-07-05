@@ -98,7 +98,7 @@ extension StoryTabViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CodingCustomTableViewCell", for: indexPath) as? StoryCell ?? StoryCell()
         // 여기서 textColor black 으로 안해주면 cell 재사용하기때문에 날짜 지난 컬러 셀을 재사용해서 gray textColor가 원하지 않는 곳에 들어감
-        cell.storyDayText.textColor = .black
+//        cell.storyDayText.textColor = .black
         cell.bind(index: StoryDay().storyArray[indexPath.row])
         cell.selectionStyle = .none
         

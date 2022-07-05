@@ -65,7 +65,7 @@ class LoadingIndicator {
 
 // MARK: ImagePicker
 class ImagePicker {
-    // MARK: 포토 권한 분기처리 권한설정안해도 돌아감..
+    // https://eeyatho.tistory.com/141 -> iOS 11 부터, UIImagePickerController 라이브러리 권한 필요없음..
     static func photoAuthCheck(imagePickerController: UIImagePickerController) -> Int{
         let status = PHPhotoLibrary.authorizationStatus().rawValue
         print("status \(status)")

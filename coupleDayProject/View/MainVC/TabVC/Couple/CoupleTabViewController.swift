@@ -139,19 +139,23 @@ class CoupleTabViewController: UIViewController {
     // MARK: objc
     @objc
     func myProfileTap(_ gesture: UITapGestureRecognizer) { // 내 사진 변경
-        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
-        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
-            whoProfileChange = "my"
-            self.present(imagePickerController, animated: true, completion: nil)
-        }
+        whoProfileChange = "my"
+        self.present(imagePickerController, animated: true, completion: nil)
+//        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
+//        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
+//            whoProfileChange = "my"
+//            self.present(imagePickerController, animated: true, completion: nil)
+//        }
     }
     @objc
     func partnerProfileTap(_ gesture: UITapGestureRecognizer) { // 상대 사진 변경
-        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
-        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
-            whoProfileChange = "partner"
-            self.present(imagePickerController, animated: true, completion: nil)
-        }
+        whoProfileChange = "partner"
+        self.present(imagePickerController, animated: true, completion: nil)
+//        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
+//        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
+//            whoProfileChange = "partner"
+//            self.present(imagePickerController, animated: true, completion: nil)
+//        }
     }
     
     // MARK: func
@@ -201,6 +205,7 @@ class CoupleTabViewController: UIViewController {
         coupleTabStackView.setCustomSpacing(25, after: imagePartView)
         coupleTabStackView.setCustomSpacing(25, after: coupleStackView)
         
+        // UIScreen.main.bounds.size.height -> 디바이스 별 height 이용해서 해상도 비율 맞춤
         NSLayoutConstraint.activate([
             myProfileUIImageView.widthAnchor.constraint(equalToConstant: 110),
             myProfileUIImageView.heightAnchor.constraint(equalToConstant: 110),
@@ -234,7 +239,6 @@ class CoupleTabViewController: UIViewController {
     
     // MARK: init
     override func viewWillAppear(_ animated: Bool) {
-        print("UIScreen.main.bounds.size.height \(UIScreen.main.bounds.size.height)")
         // 배경사진이 변경됐을때
         if CoupleTabViewModel.changeMainImageCheck {
             coupleTabViewModel.updateMainBackgroundImage()
@@ -319,12 +323,14 @@ extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigati
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         realm = try? Realm()
         let imageData = realm.objects(Image.self)
+        
+        // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 16000000 으로 맞춰서 예외처리, 16000000 보다 작으면 0.5 퀄리티 16000000 크면 0.25 퀄리티, pngData로 하면 위험부담이 생겨서 배제
         try! realm.write {
             if whoProfileChange == "my" {
-                imageData.first?.myProfileImageData = image.jpegData(compressionQuality: 0.5)
+                imageData.first?.myProfileImageData = (image.pngData()?.count)! > 16000000 ? image.jpegData(compressionQuality: 0.25) : image.jpegData(compressionQuality: 0.5)
                 self.coupleTabViewModel.updateMyProfileImage()
             } else {
-                imageData.first?.partnerProfileImageData = image.jpegData(compressionQuality: 0.5)
+                imageData.first?.partnerProfileImageData = (image.pngData()?.count)! > 16000000 ? image.jpegData(compressionQuality: 0.25) : image.jpegData(compressionQuality: 0.55)
                 self.coupleTabViewModel.updatePartnerProfileImage()
             }
             dismiss(animated: true, completion: nil)
