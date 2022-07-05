@@ -107,27 +107,65 @@ class CoupleTabViewController: UIViewController {
         label.textColor = .black
         return label
     }()
-    private lazy var contentAnniversaryOne: UILabel = {
+    
+    private lazy var anniversaryOneContent: UILabel = {
         var label = UILabel()
         label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
         return label
     }()
-    private lazy var contentAnniversaryTwo: UILabel = {
+    private lazy var anniversaryOneD_Day: UILabel = {
         var label = UILabel()
         label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
         return label
     }()
-    private lazy var contentAnniversaryThree: UILabel = {
+    private lazy var anniversaryOneStackView: UIStackView = {
+        var stackView = UIStackView(arrangedSubviews: [anniversaryOneContent, anniversaryOneD_Day])
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private lazy var anniversaryTwoContent: UILabel = {
         var label = UILabel()
         label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
         return label
     }()
-    private lazy var contentAnniversaryEmpty: UILabel = {
+    private lazy var anniversaryTwoD_Day: UILabel = {
+        var label = UILabel()
+        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
+        return label
+    }()
+    private lazy var anniversaryTwoStackView: UIStackView = {
+        var stackView = UIStackView(arrangedSubviews: [anniversaryTwoContent, anniversaryTwoD_Day])
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private lazy var anniversaryThreeContent: UILabel = {
+        var label = UILabel()
+        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
+        return label
+    }()
+    private lazy var anniversaryThreeD_Day: UILabel = {
+        var label = UILabel()
+        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
+        return label
+    }()
+    private lazy var anniversaryThreeStackView: UIStackView = {
+        var stackView = UIStackView(arrangedSubviews: [anniversaryThreeContent, anniversaryThreeD_Day])
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private lazy var anniversaryEmpty: UILabel = {
         var label = UILabel()
         return label
     }()
     private lazy var comingStoryStackView: UIStackView = {
-        var stackView = UIStackView(arrangedSubviews: [titleAnniversary, contentAnniversaryOne, contentAnniversaryTwo, contentAnniversaryThree, contentAnniversaryEmpty])
+//        var stackView = UIStackView(arrangedSubviews: [titleAnniversary, anniversaryOneContent, anniversaryTwoContent, anniversaryThreeContent, anniversaryEmpty])
+        var stackView = UIStackView(arrangedSubviews: [titleAnniversary, anniversaryOneStackView, anniversaryTwoStackView, anniversaryThreeStackView, anniversaryEmpty])
         stackView.setCustomSpacing(10, after: titleAnniversary)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually
@@ -285,17 +323,34 @@ class CoupleTabViewController: UIViewController {
         
         coupleTabViewModel.onAnniversaryOneUpdated = {
             DispatchQueue.main.async {
-                self.contentAnniversaryOne.text = self.coupleTabViewModel.anniversaryOne
+                self.anniversaryOneContent.text = self.coupleTabViewModel.anniversaryOne
             }
         }
+        coupleTabViewModel.onAnniversaryOneD_DayUpdated = {
+            DispatchQueue.main.async {
+                self.anniversaryOneD_Day.text = self.coupleTabViewModel.anniversaryOneD_Day
+            }
+        }
+        
         coupleTabViewModel.onAnniversaryTwoUpdated = {
             DispatchQueue.main.async {
-                self.contentAnniversaryTwo.text = self.coupleTabViewModel.anniversaryTwo
+                self.anniversaryTwoContent.text = self.coupleTabViewModel.anniversaryTwo
             }
         }
+        coupleTabViewModel.onAnniversaryTwoD_DayUpdated = {
+            DispatchQueue.main.async {
+                self.anniversaryTwoD_Day.text = self.coupleTabViewModel.anniversaryTwoD_Day
+            }
+        }
+        
         coupleTabViewModel.onAnniversaryThreeUpdated = {
             DispatchQueue.main.async {
-                self.contentAnniversaryThree.text = self.coupleTabViewModel.anniversaryThree
+                self.anniversaryThreeContent.text = self.coupleTabViewModel.anniversaryThree
+            }
+        }
+        coupleTabViewModel.onAnniversaryThreeD_DayUpdated = {
+            DispatchQueue.main.async {
+                self.anniversaryThreeD_Day.text = self.coupleTabViewModel.anniversaryThreeD_Day
             }
         }
         
