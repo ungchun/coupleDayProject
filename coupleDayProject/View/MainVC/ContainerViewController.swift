@@ -11,7 +11,7 @@ import RealmSwift
 class ContainerViewController: UIViewController {
     
     let containerViewModel = ContainerViewModel()
-//    let coupleTabViewModel = CoupleTabViewModel()
+    //    let coupleTabViewModel = CoupleTabViewModel()
     
     // MARK: UI
     private lazy var appNameLabel: UILabel = {
@@ -21,14 +21,14 @@ class ContainerViewController: UIViewController {
         label.textColor = .black
         return label
     }()
-
+    
     private lazy var setBtn: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(setBtnTap), for: .touchUpInside)
         btn.setImage(UIImage(systemName: "gearshape"), for: .normal)
         return btn
     }()
-
+    
     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [appNameLabel, setBtn])
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +36,7 @@ class ContainerViewController: UIViewController {
         stackView.distribution = .equalSpacing
         return stackView
     }()
-
+    
     // MARK: func
     fileprivate func setupView() {
         view.backgroundColor = .white // set background color
@@ -69,6 +69,40 @@ class ContainerViewController: UIViewController {
     
     // MARK: init
     override func viewWillAppear(_ animated: Bool) {
+        // System.appVersion // marketingVersion
+        // System.buildNumber // currentProjectVersion
+        let marketingVersion = "1.0.5"
+        let currentProjectVersion = "1.0.0"
+        let splitMarketingVersion = marketingVersion.split(separator: ".").map {$0}
+        let splitCurrentProjectVersion = currentProjectVersion.split(separator: ".").map {$0}
+        print("splitMarketingVersionDemo \(splitMarketingVersion)")
+        print("splitCurrentProjectVersionDemo \(splitCurrentProjectVersion)")
+        
+        // 가장 앞자리가 다르면 -> 업데이트 필요
+        if splitCurrentProjectVersion[0] < splitMarketingVersion[0] {
+            // 메시지창 컨트롤러 인스턴스 생성
+            let alert = UIAlertController(title: "업데이트 알림", message: "ㅁㅁ의 새로운 버전이 있습니다. \(splitMarketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
+            let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in // 메시지 창 컨트롤러에 들어갈 버튼 액션 객체 생성
+                // 버튼 클릭시 실행되는 코드
+                print("update alert if")
+//                System().openAppStore(urlStr: System.appStoreOpenUrlString)
+            }
+            alert.addAction(destructiveAction) //메시지 창 컨트롤러에 버튼 액션을 추가
+            self.present(alert, animated: false) //메시지 창 컨트롤러를 표시
+        } else {
+            if  splitCurrentProjectVersion[1] < splitMarketingVersion[1] { // 두번째 자리가 달라도 업데이트 필요
+                let alert = UIAlertController(title: "업데이트 알림", message: "ㅁㅁ의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
+                let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
+                    print("update alert else if")
+//                    System().openAppStore(urlStr: System.appStoreOpenUrlString)
+                }
+                alert.addAction(destructiveAction)
+                self.present(alert, animated: false)
+            } else {
+                // 그 이외에는 업데이트 필요 없음
+            }
+        }
+        
         print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" ) // realm url
         self.navigationController?.isNavigationBarHidden = true // 상단 NavigationBar 공간 hide
     }

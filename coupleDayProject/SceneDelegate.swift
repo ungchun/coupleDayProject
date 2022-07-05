@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    
+
     let realm = try! Realm()
     
     var window: UIWindow?
@@ -26,6 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = rootViewcontroller
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
