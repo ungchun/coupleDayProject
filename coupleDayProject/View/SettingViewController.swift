@@ -195,17 +195,17 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
         try! realm.write {
             imageData.first?.mainImageData = (image.pngData()?.count)! > 16000000 ? image.jpegData(compressionQuality: 0.25) : image.jpegData(compressionQuality: 0.5)
             CoupleTabViewModel.changeMainImageCheck = true
-            dismiss(animated: true, completion: nil)
+//            dismiss(animated: true, completion: nil)
         }
     }
     // ImagePicker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let imageData = info[.editedImage] is UIImage ? info[UIImagePickerController.InfoKey.editedImage] : info[UIImagePickerController.InfoKey.originalImage]
-        dismiss(animated: true) {
+        self.dismiss(animated: true) { // 이미지피커 dismiis 하고 presentCropViewController 띄우기
             self.presentCropViewController(image: imageData as! UIImage)
         }
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 }

@@ -35,7 +35,7 @@ class BeginViewController: UIViewController {
         datePicker.frame.size = CGSize(width: 0, height: 250)
         return datePicker
     }()
-
+    
     private lazy var startBtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("시작하기", for: .normal)
@@ -103,6 +103,9 @@ class BeginViewController: UIViewController {
         // MARK: temp input realm data
         let userDate = User()
         let imageDate = Image()
+        
+        var window: UIWindow?
+        
         userDate.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
         imageDate.mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
         imageDate.myProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
@@ -112,11 +115,15 @@ class BeginViewController: UIViewController {
             self.realm.add(userDate)
             self.realm.add(imageDate)
             
-            // begin -> main 으로 넘어가고나서 set 터치 안먹힘
-            let mainViewController = ContainerViewController()
-            mainViewController.modalTransitionStyle = .crossDissolve
-            mainViewController.modalPresentationStyle = .fullScreen
-            self.present(mainViewController, animated: true, completion: nil)
+            // rootViewcontroller -> ContainerViewController 로 변경
+            let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.rootViewController = rootViewcontroller
+            window?.makeKeyAndVisible()
+            
+            rootViewcontroller.modalTransitionStyle = .crossDissolve
+            rootViewcontroller.modalPresentationStyle = .fullScreen
+            self.present(rootViewcontroller, animated: true, completion: nil)
         })
         
         // 성훈 시작페이지 추가

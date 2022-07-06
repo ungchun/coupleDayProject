@@ -11,7 +11,8 @@ import RealmSwift
 class ContainerViewController: UIViewController {
     
     let containerViewModel = ContainerViewModel()
-    //    let coupleTabViewModel = CoupleTabViewModel()
+    
+    let realm = try! Realm()
     
     // MARK: UI
     private lazy var appNameLabel: UILabel = {
@@ -22,15 +23,19 @@ class ContainerViewController: UIViewController {
         return label
     }()
     
-    private lazy var setBtn: UIButton = {
-        let btn = UIButton()
-        btn.addTarget(self, action: #selector(setBtnTap), for: .touchUpInside)
-        btn.setImage(UIImage(systemName: "gearshape"), for: .normal)
+    lazy var demoSetBtn: UIImageView = {
+        let btn = UIImageView()
+        btn.isUserInteractionEnabled = true
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.image = UIImage(systemName: "gearshape")
+        btn.contentMode = .center
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setBtnTap(_:))) // 이미지 변경 제스쳐
+        btn.addGestureRecognizer(tapGesture)
         return btn
     }()
     
     lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [appNameLabel, setBtn])
+        let stackView = UIStackView(arrangedSubviews: [appNameLabel, demoSetBtn])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
@@ -45,7 +50,7 @@ class ContainerViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             stackView.heightAnchor.constraint(equalToConstant: 50),
             stackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            stackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20)
+            stackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
         ])
         
         let mainTabManVC = TabManViewController()
@@ -63,14 +68,13 @@ class ContainerViewController: UIViewController {
     
     // MARK: objc
     @objc
-    func setBtnTap() {
-        self.navigationController?.pushViewController(SettingViewController(), animated: true)
+    func setBtnTap(_ gesture: UITapGestureRecognizer) {
+        let settingViewController = SettingViewController()
+        self.navigationController?.pushViewController(settingViewController, animated: true)
     }
     
     // MARK: init
     override func viewWillAppear(_ animated: Bool) {
-        // System.appVersion // marketingVersion
-        // System.buildNumber // currentProjectVersion
         let marketingVersion = "1.0.5"
         let currentProjectVersion = "1.0.0"
         let splitMarketingVersion = marketingVersion.split(separator: ".").map {$0}
@@ -85,7 +89,7 @@ class ContainerViewController: UIViewController {
             let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in // 메시지 창 컨트롤러에 들어갈 버튼 액션 객체 생성
                 // 버튼 클릭시 실행되는 코드
                 print("update alert if")
-//                System().openAppStore(urlStr: System.appStoreOpenUrlString)
+                //                System().openAppStore(urlStr: System.appStoreOpenUrlString)
             }
             alert.addAction(destructiveAction) //메시지 창 컨트롤러에 버튼 액션을 추가
             self.present(alert, animated: false) //메시지 창 컨트롤러를 표시
@@ -94,7 +98,7 @@ class ContainerViewController: UIViewController {
                 let alert = UIAlertController(title: "업데이트 알림", message: "ㅁㅁ의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
                 let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
                     print("update alert else if")
-//                    System().openAppStore(urlStr: System.appStoreOpenUrlString)
+                    //                    System().openAppStore(urlStr: System.appStoreOpenUrlString)
                 }
                 alert.addAction(destructiveAction)
                 self.present(alert, animated: false)
