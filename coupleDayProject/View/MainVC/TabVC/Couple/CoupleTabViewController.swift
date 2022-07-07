@@ -67,6 +67,7 @@ class CoupleTabViewController: UIViewController {
         view.isUserInteractionEnabled = true
         return view
     }()
+    //                UIColor(red: 243/255, green: 129/255, blue: 129/255, alpha: 1)
     private lazy var partnerProfileUIImageView: UIImageView = { // 상대 프로필 뷰
         let view = UIImageView()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap(_:))) // 이미지 변경 제스쳐
@@ -161,7 +162,6 @@ class CoupleTabViewController: UIViewController {
         return label
     }()
     private lazy var comingStoryStackView: UIStackView = {
-//        var stackView = UIStackView(arrangedSubviews: [titleAnniversary, anniversaryOneContent, anniversaryTwoContent, anniversaryThreeContent, anniversaryEmpty])
         var stackView = UIStackView(arrangedSubviews: [titleAnniversary, anniversaryOneStackView, anniversaryTwoStackView, anniversaryThreeStackView, anniversaryEmpty])
         stackView.setCustomSpacing(10, after: titleAnniversary)
         stackView.translatesAutoresizingMaskIntoConstraints = false

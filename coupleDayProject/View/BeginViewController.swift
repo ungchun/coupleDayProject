@@ -11,7 +11,7 @@ import RealmSwift
 
 class BeginViewController: UIViewController {
     
-    let realm = try! Realm()
+    var realm = try! Realm()
     
     private var handleDateValue = Date()
     
@@ -111,9 +111,14 @@ class BeginViewController: UIViewController {
         imageDate.myProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
         imageDate.partnerProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
         
-        try? self.realm.write({
-            self.realm.add(userDate)
-            self.realm.add(imageDate)
+        // 성훈 realm 처리
+        let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")?.appendingPathComponent("default.realm")
+        let config = Realm.Configuration(fileURL: path)
+        self.realm = try! Realm(configuration: config)
+        
+        try? realm.write({
+            realm.add(userDate)
+            realm.add(imageDate)
             
             // rootViewcontroller -> ContainerViewController 로 변경
             let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())

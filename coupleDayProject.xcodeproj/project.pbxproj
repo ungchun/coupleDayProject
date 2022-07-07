@@ -12,6 +12,13 @@
 		BC83F8942876AC170027235E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BC83F8932876AC170027235E /* Lottie */; };
 		BC83F8962876ACD30027235E /* lottieFile.json in Resources */ = {isa = PBXBuildFile; fileRef = BC83F8952876ACD30027235E /* lottieFile.json */; };
 		BC83F8982876AD210027235E /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC83F8972876AD210027235E /* LoadingViewController.swift */; };
+		BC83F8CA2876D2200027235E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC83F89F2876C70A0027235E /* WidgetKit.framework */; };
+		BC83F8CB2876D2200027235E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC83F8A12876C70A0027235E /* SwiftUI.framework */; };
+		BC83F8CE2876D2200027235E /* coupleDayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC83F8CD2876D2200027235E /* coupleDayWidget.swift */; };
+		BC83F8D02876D2200027235E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC83F8CF2876D2200027235E /* Assets.xcassets */; };
+		BC83F8D42876D2200027235E /* coupleDayWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BC83F8C92876D2200027235E /* coupleDayWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BC83F8DB28770EC40027235E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC83F8DA28770EC40027235E /* Realm */; };
+		BC83F8DD28770EC40027235E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC83F8DC28770EC40027235E /* RealmSwift */; };
 		BC8B624F285087B000D46416 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B624E285087B000D46416 /* Realm */; };
 		BC8B6251285087B000D46416 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B6250285087B000D46416 /* RealmSwift */; };
 		BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B151285076FF00DE7196 /* AppDelegate.swift */; };
@@ -40,11 +47,43 @@
 		BCF7984C285732850009A78C /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BC83F8D22876D2200027235E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BCB0B146285076FF00DE7196 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BC83F8C82876D2200027235E;
+			remoteInfo = coupleDayWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BC83F8B22876C70B0027235E /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BC83F8D42876D2200027235E /* coupleDayWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTabViewController.swift; sourceTree = "<group>"; };
 		BC8190C8286EFE6D00FAD555 /* StoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCell.swift; sourceTree = "<group>"; };
 		BC83F8952876ACD30027235E /* lottieFile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieFile.json; sourceTree = "<group>"; };
 		BC83F8972876AD210027235E /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		BC83F89F2876C70A0027235E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		BC83F8A12876C70A0027235E /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		BC83F8C92876D2200027235E /* coupleDayWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = coupleDayWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC83F8CD2876D2200027235E /* coupleDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coupleDayWidget.swift; sourceTree = "<group>"; };
+		BC83F8CF2876D2200027235E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BC83F8D12876D2200027235E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC83F8D828770C600027235E /* coupleDayProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = coupleDayProject.entitlements; sourceTree = "<group>"; };
+		BC83F8D928770CA20027235E /* coupleDayWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = coupleDayWidgetExtension.entitlements; sourceTree = "<group>"; };
 		BCB0B14E285076FF00DE7196 /* coupleDayProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB0B151285076FF00DE7196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB0B153285076FF00DE7196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +109,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BC83F8C62876D2200027235E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC83F8DD28770EC40027235E /* RealmSwift in Frameworks */,
+				BC83F8DB28770EC40027235E /* Realm in Frameworks */,
+				BC83F8CB2876D2200027235E /* SwiftUI.framework in Frameworks */,
+				BC83F8CA2876D2200027235E /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BCB0B14B285076FF00DE7196 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -87,10 +137,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC83F89E2876C70A0027235E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BC83F89F2876C70A0027235E /* WidgetKit.framework */,
+				BC83F8A12876C70A0027235E /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC83F8CC2876D2200027235E /* coupleDayWidget */ = {
+			isa = PBXGroup;
+			children = (
+				BC83F8CD2876D2200027235E /* coupleDayWidget.swift */,
+				BC83F8CF2876D2200027235E /* Assets.xcassets */,
+				BC83F8D12876D2200027235E /* Info.plist */,
+			);
+			path = coupleDayWidget;
+			sourceTree = "<group>";
+		};
 		BCB0B145285076FF00DE7196 = {
 			isa = PBXGroup;
 			children = (
+				BC83F8D928770CA20027235E /* coupleDayWidgetExtension.entitlements */,
 				BCB0B150285076FF00DE7196 /* coupleDayProject */,
+				BC83F8CC2876D2200027235E /* coupleDayWidget */,
+				BC83F89E2876C70A0027235E /* Frameworks */,
 				BCB0B14F285076FF00DE7196 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB0B14E285076FF00DE7196 /* coupleDayProject.app */,
+				BC83F8C92876D2200027235E /* coupleDayWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +179,7 @@
 		BCB0B150285076FF00DE7196 /* coupleDayProject */ = {
 			isa = PBXGroup;
 			children = (
+				BC83F8D828770C600027235E /* coupleDayProject.entitlements */,
 				BC83F8952876ACD30027235E /* lottieFile.json */,
 				BCB0B16828507BF900DE7196 /* Model */,
 				BCB0B16628507BEE00DE7196 /* View */,
@@ -218,6 +292,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BC83F8C82876D2200027235E /* coupleDayWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC83F8D52876D2200027235E /* Build configuration list for PBXNativeTarget "coupleDayWidgetExtension" */;
+			buildPhases = (
+				BC83F8C52876D2200027235E /* Sources */,
+				BC83F8C62876D2200027235E /* Frameworks */,
+				BC83F8C72876D2200027235E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = coupleDayWidgetExtension;
+			packageProductDependencies = (
+				BC83F8DA28770EC40027235E /* Realm */,
+				BC83F8DC28770EC40027235E /* RealmSwift */,
+			);
+			productName = coupleDayWidgetExtension;
+			productReference = BC83F8C92876D2200027235E /* coupleDayWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		BCB0B14D285076FF00DE7196 /* coupleDayProject */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BCB0B1622850770000DE7196 /* Build configuration list for PBXNativeTarget "coupleDayProject" */;
@@ -225,10 +320,12 @@
 				BCB0B14A285076FF00DE7196 /* Sources */,
 				BCB0B14B285076FF00DE7196 /* Frameworks */,
 				BCB0B14C285076FF00DE7196 /* Resources */,
+				BC83F8B22876C70B0027235E /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BC83F8D32876D2200027235E /* PBXTargetDependency */,
 			);
 			name = coupleDayProject;
 			packageProductDependencies = (
@@ -251,9 +348,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1330;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
+					BC83F8C82876D2200027235E = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
 					BCB0B14D285076FF00DE7196 = {
 						CreatedOnToolsVersion = 13.3;
 					};
@@ -280,11 +380,20 @@
 			projectRoot = "";
 			targets = (
 				BCB0B14D285076FF00DE7196 /* coupleDayProject */,
+				BC83F8C82876D2200027235E /* coupleDayWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BC83F8C72876D2200027235E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC83F8D02876D2200027235E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BCB0B14C285076FF00DE7196 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -300,6 +409,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BC83F8C52876D2200027235E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC83F8CE2876D2200027235E /* coupleDayWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BCB0B14A285076FF00DE7196 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -328,6 +445,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BC83F8D32876D2200027235E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BC83F8C82876D2200027235E /* coupleDayWidgetExtension */;
+			targetProxy = BC83F8D22876D2200027235E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		BCB0B15C2850770000DE7196 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -340,6 +465,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BC83F8D62876D2200027235E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = coupleDayWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F92UQYH2RA;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = coupleDayWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = coupleDayWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ungchun.coupleDayProject.coupleDayWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BC83F8D72876D2200027235E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = coupleDayWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = F92UQYH2RA;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = coupleDayWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = coupleDayWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ungchun.coupleDayProject.coupleDayWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		BCB0B1602850770000DE7196 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -457,8 +640,10 @@
 		BCB0B1632850770000DE7196 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = coupleDayProject/coupleDayProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F92UQYH2RA;
@@ -487,8 +672,10 @@
 		BCB0B1642850770000DE7196 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = coupleDayProject/coupleDayProject.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F92UQYH2RA;
@@ -517,6 +704,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BC83F8D52876D2200027235E /* Build configuration list for PBXNativeTarget "coupleDayWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC83F8D62876D2200027235E /* Debug */,
+				BC83F8D72876D2200027235E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BCB0B149285076FF00DE7196 /* Build configuration list for PBXProject "coupleDayProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -585,6 +781,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BC83F8922876AC170027235E /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		BC83F8DA28770EC40027235E /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC8B624D285087B000D46416 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		BC83F8DC28770EC40027235E /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC8B624D285087B000D46416 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		BC8B624E285087B000D46416 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
