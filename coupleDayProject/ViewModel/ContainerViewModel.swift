@@ -40,7 +40,7 @@ class ContainerViewModel {
     private var changeLabelCheck = false // 타이머 시작은 딱 한번만 해야함 -> 체크하는 변수
     private var changeLabelTimer = Timer() // 자동으로 함수 실행하기 위한 타이머
     
-    var appNameLabelValue: String = "app Name" {
+    var appNameLabelValue: String = "너랑나랑" {
         didSet {
             onUpdatedLabel() // appNameLabelValue 변경되면 onUpdated 실행
         }
@@ -59,7 +59,7 @@ class ContainerViewModel {
     // MARK: objc
     @objc // 라벨: 앱 이름 <> 연애 날짜 변경
     fileprivate func updateLabel() {
-        self.appNameLabelValue = labelState ? "\(CoupleTabViewModel.publicBeginCoupleDay) days" : "app Name"
+        self.appNameLabelValue = labelState ? "\(CoupleTabViewModel.publicBeginCoupleDay) days" : "너랑나랑"
         labelState.toggle()
     }
     

@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "lottie-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airbnb/lottie-ios",
+      "state" : {
+        "branch" : "master",
+        "revision" : "6f2e4da4b55e66e0b1822b4feaafaff386052f1f"
+      }
+    },
+    {
       "identity" : "pageboy",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/uias/Pageboy",

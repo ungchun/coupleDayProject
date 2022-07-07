@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */; };
 		BC8190C9286EFE6D00FAD555 /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C8286EFE6D00FAD555 /* StoryCell.swift */; };
+		BC83F8942876AC170027235E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BC83F8932876AC170027235E /* Lottie */; };
+		BC83F8962876ACD30027235E /* lottieFile.json in Resources */ = {isa = PBXBuildFile; fileRef = BC83F8952876ACD30027235E /* lottieFile.json */; };
+		BC83F8982876AD210027235E /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC83F8972876AD210027235E /* LoadingViewController.swift */; };
 		BC8B624F285087B000D46416 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B624E285087B000D46416 /* Realm */; };
 		BC8B6251285087B000D46416 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B6250285087B000D46416 /* RealmSwift */; };
 		BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B151285076FF00DE7196 /* AppDelegate.swift */; };
@@ -40,6 +43,8 @@
 /* Begin PBXFileReference section */
 		BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTabViewController.swift; sourceTree = "<group>"; };
 		BC8190C8286EFE6D00FAD555 /* StoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCell.swift; sourceTree = "<group>"; };
+		BC83F8952876ACD30027235E /* lottieFile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieFile.json; sourceTree = "<group>"; };
+		BC83F8972876AD210027235E /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		BCB0B14E285076FF00DE7196 /* coupleDayProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB0B151285076FF00DE7196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB0B153285076FF00DE7196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCF03FE0286D6C0100C28F71 /* Kingfisher in Frameworks */,
+				BC83F8942876AC170027235E /* Lottie in Frameworks */,
 				BC8B6251285087B000D46416 /* RealmSwift in Frameworks */,
 				BCC7569B286AA30900CD523A /* TOCropViewController in Frameworks */,
 				BCC75699286AA30900CD523A /* CropViewController in Frameworks */,
@@ -100,6 +106,7 @@
 		BCB0B150285076FF00DE7196 /* coupleDayProject */ = {
 			isa = PBXGroup;
 			children = (
+				BC83F8952876ACD30027235E /* lottieFile.json */,
 				BCB0B16828507BF900DE7196 /* Model */,
 				BCB0B16628507BEE00DE7196 /* View */,
 				BCF0443A286C36F100E9CEAD /* ViewModel */,
@@ -126,6 +133,7 @@
 		BCB0B16628507BEE00DE7196 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BC83F8972876AD210027235E /* LoadingViewController.swift */,
 				BCB0B17A28507D2200DE7196 /* BeginViewController.swift */,
 				BCB0B18228507D2300DE7196 /* SettingViewController.swift */,
 				BCB0B17B28507D2300DE7196 /* MainVC */,
@@ -230,6 +238,7 @@
 				BCC75698286AA30900CD523A /* CropViewController */,
 				BCC7569A286AA30900CD523A /* TOCropViewController */,
 				BCF03FDF286D6C0100C28F71 /* Kingfisher */,
+				BC83F8932876AC170027235E /* Lottie */,
 			);
 			productName = coupleDayProject;
 			productReference = BCB0B14E285076FF00DE7196 /* coupleDayProject.app */;
@@ -264,6 +273,7 @@
 				BC8B624D285087B000D46416 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				BCC75697286AA30900CD523A /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				BCF03FDE286D6C0100C28F71 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				BC83F8922876AC170027235E /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = BCB0B14F285076FF00DE7196 /* Products */;
 			projectDirPath = "";
@@ -281,6 +291,7 @@
 			files = (
 				BCB0B15E2850770000DE7196 /* LaunchScreen.storyboard in Resources */,
 				BCF7984A285732780009A78C /* GangwonEduAllBold.ttf in Resources */,
+				BC83F8962876ACD30027235E /* lottieFile.json in Resources */,
 				BCB0B15B2850770000DE7196 /* Assets.xcassets in Resources */,
 				BCF7984C285732850009A78C /* GangwonEduAllLight.ttf in Resources */,
 			);
@@ -304,6 +315,7 @@
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
 				BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */,
+				BC83F8982876AD210027235E /* LoadingViewController.swift in Sources */,
 				BCB0B18828507D2300DE7196 /* ContainerViewController.swift in Sources */,
 				BCC9F97B2872C15600809A26 /* Anniversary.swift in Sources */,
 				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
@@ -526,6 +538,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BC83F8922876AC170027235E /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		BC8B624D285087B000D46416 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -561,6 +581,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BC83F8932876AC170027235E /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC83F8922876AC170027235E /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		BC8B624E285087B000D46416 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC8B624D285087B000D46416 /* XCRemoteSwiftPackageReference "realm-swift" */;

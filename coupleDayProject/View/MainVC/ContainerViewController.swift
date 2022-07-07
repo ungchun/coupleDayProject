@@ -17,7 +17,7 @@ class ContainerViewController: UIViewController {
     // MARK: UI
     private lazy var appNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "app name"
+        label.text = "너랑나랑"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
         return label
     }()

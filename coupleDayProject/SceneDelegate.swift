@@ -23,7 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // MARK: 시작(root) 뷰컨 설정
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let rootViewcontroller = realm.isEmpty ? UINavigationController(rootViewController: BeginViewController()) : UINavigationController(rootViewController: ContainerViewController())
+//        let rootViewcontroller = realm.isEmpty ? UINavigationController(rootViewController: BeginViewController()) : UINavigationController(rootViewController: ContainerViewController())
+        let rootViewcontroller = LoadingViewController()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = rootViewcontroller
         window?.windowScene = windowScene
