@@ -37,7 +37,6 @@ class CoupleTabViewController: UIViewController {
     }()
     private lazy var topTabBackView: UIView = { // 상단 탭 뒤에 뷰
         let view = UIView()
-        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -96,7 +95,6 @@ class CoupleTabViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ""
         label.font = UIFont(name: "GangwonEduAllLight", size: 25)
-        label.textColor = .black
         return label
     }()
     
@@ -104,7 +102,6 @@ class CoupleTabViewController: UIViewController {
         var label = UILabel()
         label.text = "다가오는 기념일"
         label.font = UIFont(name: "GangwonEduAllBold", size: textBigSize)
-        label.textColor = .black
         return label
     }()
     
@@ -199,7 +196,7 @@ class CoupleTabViewController: UIViewController {
     // MARK: func
     // 이미지 불러오는동안 보이는 임시 뷰
     fileprivate func beforeLoadingSetupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "bgColor")
         // 이미지 로딩 뷰
         mainImageActivityIndicatorView.startAnimating()
         mainImageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -213,7 +210,7 @@ class CoupleTabViewController: UIViewController {
     
     // 이미지 불러오고나서 보이는 뷰
     fileprivate func afterLoadingSetupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "bgColor")
         // 이미지 로딩 뷰 제거
         profileImageActivityIndicatorView.stopAnimating()
         myProfileImageActivityIndicatorView.stopAnimating()

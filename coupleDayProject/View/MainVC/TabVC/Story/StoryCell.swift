@@ -96,7 +96,6 @@ class StoryCell: UITableViewCell {
     // MARK: init
     override func prepareForReuse() { // cell 초기화
         super.prepareForReuse()
-        self.storyDayText.textColor = .black
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

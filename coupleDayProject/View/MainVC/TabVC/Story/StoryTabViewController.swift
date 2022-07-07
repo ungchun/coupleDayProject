@@ -21,7 +21,6 @@ class StoryTabViewController: UIViewController {
     private lazy var emptyView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
         return view
     }()
     

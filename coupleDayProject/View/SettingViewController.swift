@@ -26,7 +26,6 @@ class SettingViewController: UIViewController{
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "커플 날짜"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
-        label.textColor = .black
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setCoupleDayTap)) // label 에 gesture 추가하기
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(tapGesture)
@@ -37,7 +36,6 @@ class SettingViewController: UIViewController{
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "배경 사진"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
-        label.textColor = .black
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setBackgroundImageTap)) // label 에 gesture 추가하기
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(tapGesture)
@@ -51,14 +49,13 @@ class SettingViewController: UIViewController{
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setDarkModeTap)) // label 에 gesture 추가하기
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(tapGesture)
-        label.textColor = .black
         return label
     }()
     private lazy var divider: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .black
         view.contentMode = .scaleToFill
+        view.backgroundColor = UIColor(named: "reversebgColor")
         return view
     }()
     
@@ -128,13 +125,13 @@ class SettingViewController: UIViewController{
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.locale = NSLocale(localeIdentifier: "ko_KO") as Locale // datePicker의 default 값이 영어이기 때문에 한글로 바꿔줘야한다. 그래서 이 방식으로 변경할 수 있다.
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-    
+
         let dateChooserAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet) // dateChooserAlert
         dateChooserAlert.view.addSubview(datePicker) // dateChooserAlert에 datePicker 추가
         dateChooserAlert.addAction(UIAlertAction(title: "선택완료", style: .default, handler: { (action:UIAlertAction!) in // 선택완료 버튼
             self.realm = try? Realm()
             let userDate = self.realm.objects(User.self)
-            
+
             try? self.realm.write({
                 userDate.first?.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
                 CoupleTabViewModel.changeCoupleDayMainCheck = true
@@ -144,15 +141,15 @@ class SettingViewController: UIViewController{
         dateChooserAlert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction!) in // 취소 버튼 + 밖에 터치 시 disable
             print("cancel")
         }))
-        
+
         // set datePicker center
         dateChooserAlert.view.addConstraint(NSLayoutConstraint(item: datePicker, attribute: .centerX, relatedBy: .equal, toItem: dateChooserAlert.view, attribute: .centerX, multiplier: 1, constant: 0))
         dateChooserAlert.view.addConstraint(NSLayoutConstraint(item: datePicker, attribute: .centerY, relatedBy: .equal, toItem: dateChooserAlert.view, attribute: .centerY, multiplier: 1, constant: -50)) // -50 하는 이유는 버튼 2개 높이만큼 띄워줘야하는듯..?
-        
+
         // alert content 높이 (datePicker)
         let height: NSLayoutConstraint = NSLayoutConstraint(item: dateChooserAlert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 350)
         dateChooserAlert.view.addConstraint(height)
-        
+
         present(dateChooserAlert, animated: true, completion: nil)
     }
     
@@ -166,7 +163,7 @@ class SettingViewController: UIViewController{
         self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor // back 버튼 컬러 변경
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any], for: .normal) // back 택스트 폰트 변경
         self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
-        view.backgroundColor = .white
+        self.view.backgroundColor = UIColor(named: "bgColor")
         setupView()
         imagePickerController.delegate = self
     }

@@ -19,23 +19,23 @@ class ContainerViewController: UIViewController {
         let label = UILabel()
         label.text = "app name"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
-        label.textColor = .black
         return label
     }()
     
-    lazy var demoSetBtn: UIImageView = {
-        let btn = UIImageView()
-        btn.isUserInteractionEnabled = true
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.image = UIImage(systemName: "gearshape")
-        btn.contentMode = .center
+    lazy var setBtn: UIImageView = {
+        let imageView = UIImageView()
+        imageView.isUserInteractionEnabled = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: "gearshape")
+        imageView.tintColor = TrendingConstants.appMainColor
+        imageView.contentMode = .center
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setBtnTap(_:))) // 이미지 변경 제스쳐
-        btn.addGestureRecognizer(tapGesture)
-        return btn
+        imageView.addGestureRecognizer(tapGesture)
+        return imageView
     }()
     
     lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [appNameLabel, demoSetBtn])
+        let stackView = UIStackView(arrangedSubviews: [appNameLabel, setBtn])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
@@ -44,7 +44,7 @@ class ContainerViewController: UIViewController {
     
     // MARK: func
     fileprivate func setupView() {
-        view.backgroundColor = .white // set background color
+        view.backgroundColor = UIColor(named: "bgColor")
         view.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

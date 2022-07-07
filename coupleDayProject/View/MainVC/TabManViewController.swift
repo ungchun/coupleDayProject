@@ -27,6 +27,7 @@ class TabManViewController: TabmanViewController {
         
         let bar = TMBar.ButtonBar()
         bar.backgroundView.style = .clear
+        bar.backgroundColor = UIColor(named: "bgColor")
         bar.buttons.customize { (button) in
             button.tintColor = UIColor(white: 0.5, alpha: 0.3) // 현재 선택되지않은 탭 글자 컬러
             button.selectedTintColor = TrendingConstants.appMainColor // 현재 선택된 탭 글자 컬러
@@ -43,6 +44,7 @@ class TabManViewController: TabmanViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        view.backgroundColor = UIColor(named: "bgColor")
         layoutBar()
     }
 }
