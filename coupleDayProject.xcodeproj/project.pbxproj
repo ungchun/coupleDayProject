@@ -42,7 +42,7 @@
 		BCF03FE0286D6C0100C28F71 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BCF03FDF286D6C0100C28F71 /* Kingfisher */; };
 		BCF0443C286C37B100E9CEAD /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */; };
 		BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */; };
-		BCF1B3602868237D00641ABD /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1B35F2868237D00641ABD /* Image.swift */; };
+		BCF1B3602868237D00641ABD /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1B35F2868237D00641ABD /* ImageModel.swift */; };
 		BCF7984A285732780009A78C /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
 		BCF7984C285732850009A78C /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 /* End PBXBuildFile section */
@@ -103,7 +103,7 @@
 		BCC9F97A2872C15600809A26 /* Anniversary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anniversary.swift; sourceTree = "<group>"; };
 		BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModel.swift; sourceTree = "<group>"; };
 		BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTabViewModel.swift; sourceTree = "<group>"; };
-		BCF1B35F2868237D00641ABD /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		BCF1B35F2868237D00641ABD /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		BCF79849285732780009A78C /* GangwonEduAllBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.ttf; sourceTree = "<group>"; };
 		BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -219,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB0B18A28507D2E00DE7196 /* User.swift */,
-				BCF1B35F2868237D00641ABD /* Image.swift */,
+				BCF1B35F2868237D00641ABD /* ImageModel.swift */,
 				BCC9F97828729B4900809A26 /* StoryDay.swift */,
 				BCC9F97A2872C15600809A26 /* Anniversary.swift */,
 			);
@@ -428,7 +428,7 @@
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
 				BCB0B18428507D2300DE7196 /* TabManViewController.swift in Sources */,
 				BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */,
-				BCF1B3602868237D00641ABD /* Image.swift in Sources */,
+				BCF1B3602868237D00641ABD /* ImageModel.swift in Sources */,
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
 				BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */,

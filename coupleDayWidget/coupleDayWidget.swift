@@ -8,17 +8,17 @@
 import WidgetKit
 import SwiftUI
 import UIKit
-
+import RealmSwift
 
 struct Provider: TimelineProvider {
-
+    
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), day: "day", image: UIImage(named: "coupleImg")!, size: context.displaySize)
+        SimpleEntry(date: Date(), size: context.displaySize)
     }
     
     // WidgetKit은 위젯을 추가할 때와 같이 일시적인 상황에서 위젯을 표시하기 위해서 Snapshot 요청
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), day: "day", image: UIImage(named: "coupleImg")!, size: context.displaySize)
+        let entry = SimpleEntry(date: Date(), size: context.displaySize)
         completion(entry)
     }
     
@@ -30,7 +30,7 @@ struct Provider: TimelineProvider {
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .minute, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, day: "day", image: UIImage(named: "coupleImg")!, size: context.displaySize)
+            let entry = SimpleEntry(date: entryDate, size: context.displaySize)
             entries.append(entry)
         }
         
@@ -41,92 +41,14 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     var date: Date
-    
-    let day: String
-    let image: UIImage
     let size: CGSize
 }
 
-
-//struct Provider: TimelineProvider {
-//    func placeholder(in context: Context) -> SimpleEntry {
-//        SimpleEntry(date: Date())
-//    }
-//
-//    // WidgetKit은 위젯을 추가할 때와 같이 일시적인 상황에서 위젯을 표시하기 위해서 Snapshot 요청
-//    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-//        let entry = SimpleEntry(date: Date())
-//        completion(entry)
-//    }
-//
-//    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-//        var entries: [SimpleEntry] = []
-//
-//        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-//        let currentDate = Date()
-//        for hourOffset in 0 ..< 5 {
-//            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-//            let entry = SimpleEntry(date: entryDate)
-//            entries.append(entry)
-//        }
-//
-//        let timeline = Timeline(entries: entries, policy: .atEnd)
-//        completion(timeline)
-//    }
-//}
-
-//struct SimpleEntry: TimelineEntry {
-//    let date: Date
-//}
-
-import RealmSwift
-
-extension Color {
-    static let appMainColor = Color("appMainColor")
-}
-
-let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")?.appendingPathComponent("shared.realm")
-let config = Realm.Configuration(fileURL: path)
-
 struct coupleDayWidgetEntryView : View {
     
-    let realm = try? Realm(configuration: config)
-    
-//    let fileURL = FileManager.default
-//        .containerURL(forSecurityApplicationGroupIdentifier: "group.io.realm.app_group")!
-//        .appendingPathComponent("default.realm")
-//    let config = Realm.Configuration(fileURL: fileURL)
-//    let realm = try Realm(configuration: config)
-//
-//    let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupID)?.appendingPathComponent("\(fileName).realm")
-//    let config = Realm.Configuration(fileURL: path)
-//    realm = try? Realm(configuration: config)
-    
-    
-//    var realm: Realm!
-//
-//    // 날짜 세팅
-//    func setBeginCoupleDay() {
-//        realm = try? Realm()
-//        let realmUserData = realm.objects(User.self)
-//        let beginCoupleDay = realmUserData[0].beginCoupleDay
-//        let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
-//        let nowDayDataDate: Date = nowDayDataString.toDate // 현재 날짜 데이트 데이터
-//        let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay // 현재 - 사귄날짜 = days
-//        self.beginCoupleDay = String(describing: minus / 86400000)
-//        CoupleTabViewModel.publicBeginCoupleDay = String(describing: minus / 86400000)
-//        self.beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
-//        CoupleTabViewModel.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
-//    }
-    
-
     @Environment(\.widgetFamily) private var widgetFamily
     
     var entry: Provider.Entry
-    
-    //    var body: some View {
-    //        Text(entry.date, style: .time)
-    //    }
     
     var body: some View {
         switch widgetFamily {
@@ -136,12 +58,11 @@ struct coupleDayWidgetEntryView : View {
                     Image(uiImage: UIImage(systemName: "heart.fill")!)
                         .renderingMode(.template)
                         .foregroundColor(.appMainColor)
-//                        .foregroundColor(Color("appMainColor"))
-                    Text("Hello")
+                    Text("\(RealmManager.shared.getBeginCoupleDay())")
                 }
             }
             .background(
-                Image(uiImage: entry.image)
+                Image(uiImage: UIImage(data: RealmManager.shared.getMainBackgroundImage())!)
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
                     .aspectRatio(contentMode: .fill)
@@ -150,10 +71,15 @@ struct coupleDayWidgetEntryView : View {
             )
         case .systemMedium:
             ZStack {
-                Text("Hello")
+                VStack {
+                    Image(uiImage: UIImage(systemName: "heart.fill")!)
+                        .renderingMode(.template)
+                        .foregroundColor(.appMainColor)
+                    Text("\(RealmManager.shared.getBeginCoupleDay())")
+                }
             }
             .background(
-                Image(uiImage: entry.image)
+                Image(uiImage: UIImage(data: RealmManager.shared.getMainBackgroundImage())!)
                     .resizable()
                     .edgesIgnoringSafeArea(.all)
                     .aspectRatio(contentMode: .fill)
@@ -184,9 +110,90 @@ struct coupleDayWidget: Widget {
     }
 }
 
-//struct coupleDayWidget_Previews: PreviewProvider {
-//    static var previews: some View {
-//        coupleDayWidgetEntryView(entry: SimpleEntry(date: Date(), day: "day", image: UIImage(named: "coupleImg")!))
-//            .previewContext(WidgetPreviewContext(family: .systemSmall))
-//    }
-//}
+class RealmManager {
+    // realm db 삭제
+    // try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!) // remove realm db
+    
+    // Singleton object
+    static let shared: RealmManager = .init()
+    
+    // Realm instance
+    private var realm: Realm {
+        print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" )
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")
+        let realmURL = container?.appendingPathComponent("default.realm")
+        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+        return try! Realm(configuration: config)
+    }
+    
+    func getBeginCoupleDay() -> String {
+        let realmUserData = realm.objects(User.self)
+        let beginCoupleDay = realmUserData[0].beginCoupleDay
+        let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
+        let nowDayDataDate: Date = nowDayDataString.toDate // 현재 날짜 데이트 데이터
+        let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay // 현재 - 사귄날짜 = days
+        return String(describing: minus / 86400000)
+    }
+    func getMainBackgroundImage() -> Data {
+        let realmImageData = realm.objects(ImageModel.self)
+        let mainImageData = realmImageData[0].mainImageData
+        //        let myProfileImageData = realmImageData[0].myProfileImageData
+        //        let partnerProfileImageData = realmImageData[0].partnerProfileImageData
+        return mainImageData!
+    }
+}
+
+class User: Object {
+    @objc dynamic var beginCoupleDay = 0
+}
+class ImageModel: Object {
+    @objc dynamic var mainImageData: Data? = nil
+    @objc dynamic var myProfileImageData: Data? = nil
+    @objc dynamic var partnerProfileImageData: Data? = nil
+}
+
+extension Color {
+    static let appMainColor = Color("appMainColor")
+}
+
+// MARK: Date
+extension Date {
+    init(milliseconds: Int64) {
+        self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
+    }
+    var millisecondsSince1970: Int64 {
+        Int64((self.timeIntervalSince1970 * 1000.0).rounded())
+    }
+    var toString: String { // date -> yyyy-MM-dd 형식의 string 으로 변환
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko-KR")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: self)
+    }
+    var toStoryString: String { // date -> yyyy.MM.dd 형식의 string 으로 변환
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko-KR")
+        dateFormatter.dateFormat = "yyyy.MM.dd(E)"
+        return dateFormatter.string(from: self)
+    }
+    var toAnniversaryString: String { // date -> MM/dd 형식의 string 으로 변환
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko-KR")
+        dateFormatter.dateFormat = "MM/dd"
+        return dateFormatter.string(from: self)
+    }
+    func adding(_ component: Calendar.Component, value: Int, using calendar: Calendar = .current) -> Date {
+        calendar.date(byAdding: component, value: value, to: self)!
+    }
+}
+
+// MARK: String
+extension String {
+    var toDate: Date { // yyyy-MM-dd 형식 string -> date 로 변환
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+        return dateFormatter.date(from: self)!
+    }
+}
+

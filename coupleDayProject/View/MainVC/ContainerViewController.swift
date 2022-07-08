@@ -6,13 +6,10 @@
 //
 
 import UIKit
-import RealmSwift
 
 class ContainerViewController: UIViewController {
     
     let containerViewModel = ContainerViewModel()
-    
-    let realm = try! Realm()
     
     // MARK: UI
     private lazy var appNameLabel: UILabel = {
@@ -106,8 +103,6 @@ class ContainerViewController: UIViewController {
                 // 그 이외에는 업데이트 필요 없음
             }
         }
-        
-        print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" ) // realm url
         self.navigationController?.isNavigationBarHidden = true // 상단 NavigationBar 공간 hide
     }
     

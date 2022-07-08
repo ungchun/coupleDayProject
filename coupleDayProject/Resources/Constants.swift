@@ -8,11 +8,69 @@
 import Foundation
 import UIKit
 import Photos
+import RealmSwift
 
 //enum AppstoreOpenError: Error {
 //    case invalidAppStoreURL
 //    case cantOpenAppStoreURL
 //}
+
+
+class RealmManager {
+    // realm db 삭제
+    // try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!) // remove realm db
+    
+    // Singleton object
+    static let shared: RealmManager = .init()
+
+    // Realm instance
+    private var realm: Realm {
+        print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" )
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")
+        let realmURL = container?.appendingPathComponent("default.realm")
+        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+        return try! Realm(configuration: config)
+    }
+    
+    func getUserDatas() -> [User] {
+        Array(realm.objects(User.self))
+    }
+    func getImageDatas() -> [ImageModel] {
+        Array(realm.objects(ImageModel.self))
+    }
+    func writeUserData(userData: User) {
+        try? realm.write({
+            realm.add(userData)
+        })
+    }
+    func writeImageData(imageData: ImageModel) {
+        try? realm.write({
+            realm.add(imageData)
+        })
+    }
+    func updateBeginCoupleDay(datePicker: UIDatePicker) {
+        try? realm.write({
+            RealmManager.shared.getUserDatas().first!.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
+        })
+    }
+    // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 16000000 으로 맞춰서 예외처리, 16000000 보다 작으면 0.5 퀄리티 16000000 크면 0.25 퀄리티, pngData로 하면 위험부담이 생겨서 배제
+    func updateMainImage(mainImage: UIImage) {
+        try? realm.write({
+            RealmManager.shared.getImageDatas().first!.mainImageData = (mainImage.pngData()?.count)! > 16000000 ? mainImage.jpegData(compressionQuality: 0.25) : mainImage.jpegData(compressionQuality: 0.5)
+        })
+    }
+    func updateMyProfileImage(myProfileImage: UIImage) {
+        try? realm.write({
+            RealmManager.shared.getImageDatas().first!.myProfileImageData = (myProfileImage.pngData()?.count)! > 16000000 ? myProfileImage.jpegData(compressionQuality: 0.25) : myProfileImage.jpegData(compressionQuality: 0.5)
+        })
+    }
+    func updatePartnerProfileImage(partnerProfileImage: UIImage) {
+        try? realm.write({
+            RealmManager.shared.getImageDatas().first!.myProfileImageData = (partnerProfileImage.pngData()?.count)! > 16000000 ? partnerProfileImage.jpegData(compressionQuality: 0.25) : partnerProfileImage.jpegData(compressionQuality: 0.5)
+        })
+    }
+}
+
 
 // MARK: app version 확인, 앱 업데이트 관련
 struct System {

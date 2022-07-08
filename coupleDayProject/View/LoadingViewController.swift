@@ -8,11 +8,9 @@
 import Foundation
 import UIKit
 import Lottie
-import RealmSwift
 
 class LoadingViewController: UIViewController {
     
-    let realm = try! Realm()
     var window: UIWindow?
     
     var animationView: AnimationView = {
@@ -40,6 +38,7 @@ class LoadingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view.backgroundColor = TrendingConstants.appMainColorAlaph40
         
         // 너랑나랑 중에서 너, 나 textColor 변경
@@ -64,7 +63,7 @@ class LoadingViewController: UIViewController {
         // lottie 애니메이션
         animationView.play {(finish) in
             self.animationView.play()
-            if self.realm.isEmpty {
+            if RealmManager.shared.getUserDatas().isEmpty {
                 let rootViewcontroller = UINavigationController(rootViewController: BeginViewController())
                 self.window = UIWindow(frame: UIScreen.main.bounds)
                 self.window?.rootViewController = rootViewcontroller

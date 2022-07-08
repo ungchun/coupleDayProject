@@ -9,12 +9,8 @@ import UIKit
 import Photos
 import TOCropViewController
 import CropViewController
-import RealmSwift
-
 
 class SettingViewController: UIViewController{
-    
-    var realm: Realm!
     
     let imagePickerController = UIImagePickerController()
     
@@ -129,14 +125,17 @@ class SettingViewController: UIViewController{
         let dateChooserAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet) // dateChooserAlert
         dateChooserAlert.view.addSubview(datePicker) // dateChooserAlert에 datePicker 추가
         dateChooserAlert.addAction(UIAlertAction(title: "선택완료", style: .default, handler: { (action:UIAlertAction!) in // 선택완료 버튼
-            self.realm = try? Realm()
-            let userDate = self.realm.objects(User.self)
+//            self.realm = try? Realm()
+//            let userDate = self.realm.objects(User.self)
 
-            try? self.realm.write({
-                userDate.first?.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
-                CoupleTabViewModel.changeCoupleDayMainCheck = true
-                CoupleTabViewModel.changeCoupleDayStoryCheck = true
-            })
+//            try? self.realm.write({
+//                userDate.first?.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
+//                CoupleTabViewModel.changeCoupleDayMainCheck = true
+//                CoupleTabViewModel.changeCoupleDayStoryCheck = true
+//            })
+            RealmManager.shared.updateBeginCoupleDay(datePicker: datePicker)
+            CoupleTabViewModel.changeCoupleDayMainCheck = true
+            CoupleTabViewModel.changeCoupleDayStoryCheck = true
         }))
         dateChooserAlert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction!) in // 취소 버튼 + 밖에 터치 시 disable
             print("cancel")
@@ -185,15 +184,9 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
         present(cropViewController, animated: true, completion: nil)
     }
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        realm = try? Realm()
-        let imageData = realm.objects(Image.self)
-        
-        // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 16000000 으로 맞춰서 예외처리, 16000000 보다 작으면 0.5 퀄리티 16000000 크면 0.25 퀄리티, pngData로 하면 위험부담이 생겨서 배제
-        try! realm.write {
-            imageData.first?.mainImageData = (image.pngData()?.count)! > 16000000 ? image.jpegData(compressionQuality: 0.25) : image.jpegData(compressionQuality: 0.5)
-            CoupleTabViewModel.changeMainImageCheck = true
-//            dismiss(animated: true, completion: nil)
-        }
+        RealmManager.shared.updateMainImage(mainImage: image)
+        CoupleTabViewModel.changeMainImageCheck = true
+        dismiss(animated: true, completion: nil)
     }
     // ImagePicker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

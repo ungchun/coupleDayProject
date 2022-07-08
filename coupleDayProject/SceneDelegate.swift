@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import RealmSwift
+//import RealmSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
     
-    let realm = try! Realm()
+//    let realm = try! Realm()
     
     var window: UIWindow?
     

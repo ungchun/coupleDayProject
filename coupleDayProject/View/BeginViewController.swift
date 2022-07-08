@@ -7,11 +7,8 @@
 
 import Foundation
 import UIKit
-import RealmSwift
 
 class BeginViewController: UIViewController {
-    
-    var realm = try! Realm()
     
     private var handleDateValue = Date()
     
@@ -94,43 +91,34 @@ class BeginViewController: UIViewController {
         super.viewDidLoad()
         self.setupHideKeyboardOnTap() // extension: inputView dismiss
         setupView()
-        print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" ) // realm url
-        //                try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!) // remove realm db
-    }
-    
+    }                
+                
     @objc
     func startBtnTap(completion: @escaping () -> Void) {
         // MARK: temp input realm data
-        let userDate = User()
-        let imageDate = Image()
+        let userData = User()
+        let imageData = ImageModel()
         
         var window: UIWindow?
         
-        userDate.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
-        imageDate.mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
-        imageDate.myProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
-        imageDate.partnerProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
+        userData.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
+        imageData.mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
+        imageData.myProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
+        imageData.partnerProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
         
-        // 성훈 realm 처리
-        let path = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")?.appendingPathComponent("default.realm")
-        let config = Realm.Configuration(fileURL: path)
-        self.realm = try! Realm(configuration: config)
+        RealmManager.shared.writeUserData(userData: userData)
+        RealmManager.shared.writeImageData(imageData: imageData)
         
-        try? realm.write({
-            realm.add(userDate)
-            realm.add(imageDate)
-            
-            // rootViewcontroller -> ContainerViewController 로 변경
-            let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())
-            window = UIWindow(frame: UIScreen.main.bounds)
-            window?.rootViewController = rootViewcontroller
-            window?.makeKeyAndVisible()
-            
-            rootViewcontroller.modalTransitionStyle = .crossDissolve
-            rootViewcontroller.modalPresentationStyle = .fullScreen
-            self.present(rootViewcontroller, animated: true, completion: nil)
-        })
+        // rootViewcontroller -> ContainerViewController 로 변경
+        let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = rootViewcontroller
+        window?.makeKeyAndVisible()
         
+        rootViewcontroller.modalTransitionStyle = .crossDissolve
+        rootViewcontroller.modalPresentationStyle = .fullScreen
+        self.present(rootViewcontroller, animated: true, completion: nil)
+                
         // 성훈 시작페이지 추가
         // 환영합니다.
         // 당신의 인연에 ~~하길.. -> 명언으로

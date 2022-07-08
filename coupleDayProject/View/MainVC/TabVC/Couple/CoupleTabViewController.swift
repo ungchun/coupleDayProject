@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 import Photos
 import TOCropViewController
 import CropViewController
@@ -14,8 +13,6 @@ import CropViewController
 class CoupleTabViewController: UIViewController {
     
     let coupleTabViewModel = CoupleTabViewModel()
-    
-    var realm: Realm!
     
     private var whoProfileChange = "my" // 내 프로필변경인지, 상대 프로필변경인지 체크하는 값
     private let imagePickerController = UIImagePickerController()
@@ -373,20 +370,14 @@ extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigati
         present(cropViewController, animated: true, completion: nil)
     }
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        realm = try? Realm()
-        let imageData = realm.objects(Image.self)
-        
-        // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 16000000 으로 맞춰서 예외처리, 16000000 보다 작으면 0.5 퀄리티 16000000 크면 0.25 퀄리티, pngData로 하면 위험부담이 생겨서 배제
-        try! realm.write {
-            if whoProfileChange == "my" {
-                imageData.first?.myProfileImageData = (image.pngData()?.count)! > 16000000 ? image.jpegData(compressionQuality: 0.25) : image.jpegData(compressionQuality: 0.5)
-                self.coupleTabViewModel.updateMyProfileImage()
-            } else {
-                imageData.first?.partnerProfileImageData = (image.pngData()?.count)! > 16000000 ? image.jpegData(compressionQuality: 0.25) : image.jpegData(compressionQuality: 0.55)
-                self.coupleTabViewModel.updatePartnerProfileImage()
-            }
-            dismiss(animated: true, completion: nil)
+        if whoProfileChange == "my" { // 내 프로필 변경
+            RealmManager.shared.updateMyProfileImage(myProfileImage: image)
+            self.coupleTabViewModel.updateMyProfileImage()
+        } else { // 상대 프로필 변경
+            RealmManager.shared.updatePartnerProfileImage(partnerProfileImage: image)
+            self.coupleTabViewModel.updatePartnerProfileImage()
         }
+        dismiss(animated: true, completion: nil)
     }
     // ImagePicker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

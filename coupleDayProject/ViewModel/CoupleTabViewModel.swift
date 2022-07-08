@@ -6,18 +6,17 @@
 //
 
 import Foundation
-import RealmSwift
 import UIKit
 
 class CoupleTabViewModel {
+    
+    init() { }
     
     static var publicBeginCoupleDay = ""
     static var publicBeginCoupleFormatterDay = ""
     static var changeMainImageCheck = false
     static var changeCoupleDayMainCheck = false
     static var changeCoupleDayStoryCheck = false
-    
-    var realm: Realm!
     
     var onMainImageDataUpdated: () -> Void = {}
     var onMyProfileImageDataUpdated: () -> Void = {}
@@ -94,40 +93,26 @@ class CoupleTabViewModel {
         }
     }
     
-    init() {
-        //        setMainBackgroundImage()
-        //        setBeginCoupleDay()
-    }
-    
     // 날짜 세팅
     func setBeginCoupleDay() {
-        realm = try? Realm()
-        let realmUserData = realm.objects(User.self)
-        let beginCoupleDay = realmUserData[0].beginCoupleDay
         let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
         let nowDayDataDate: Date = nowDayDataString.toDate // 현재 날짜 데이트 데이터
-        let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay // 현재 - 사귄날짜 = days
+        let minus = Int(nowDayDataDate.millisecondsSince1970)-RealmManager.shared.getUserDatas().first!.beginCoupleDay // 현재 - 사귄날짜 = days
         self.beginCoupleDay = String(describing: minus / 86400000)
         CoupleTabViewModel.publicBeginCoupleDay = String(describing: minus / 86400000)
-        self.beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
-        CoupleTabViewModel.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
+        self.beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(RealmManager.shared.getUserDatas().first!.beginCoupleDay) / 1000).toStoryString
+        CoupleTabViewModel.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(RealmManager.shared.getUserDatas().first!.beginCoupleDay) / 1000).toStoryString
     }
     
     // 메인 이미지 세팅
     func setMainBackgroundImage() {
-        realm = try? Realm()
-        let realmImageData = realm.objects(Image.self)
-        let mainImageData = realmImageData[0].mainImageData
-        let myProfileImageData = realmImageData[0].myProfileImageData
-        let partnerProfileImageData = realmImageData[0].partnerProfileImageData
-        self.mainImageData = mainImageData
-        self.myProfileImageData = myProfileImageData
-        self.partnerProfileImageData = partnerProfileImageData
+        self.mainImageData = RealmManager.shared.getImageDatas().first!.mainImageData
+        self.myProfileImageData = RealmManager.shared.getImageDatas().first!.myProfileImageData
+        self.partnerProfileImageData = RealmManager.shared.getImageDatas().first!.partnerProfileImageData
     }
     
     // 다가오는 기념일 세팅
     func setAnniversary() {
-        
         let nowDate = Date().millisecondsSince1970
         let demoFilter = Anniversary().AnniversaryModel.filter { dictValue in
             let keyValue = dictValue.keys.first
@@ -179,47 +164,31 @@ class CoupleTabViewModel {
     
     // update 메인 이미지
     func updateMainBackgroundImage() {
-        realm = try? Realm()
-        let realmImageData = realm.objects(Image.self)
-        let mainImageData = realmImageData[0].mainImageData
-        self.mainImageData = mainImageData
+        self.mainImageData = RealmManager.shared.getImageDatas().first!.mainImageData
     }
     
     // update 나의 프로필
     func updateMyProfileImage() {
-        realm = try? Realm()
-        let realmImageData = realm.objects(Image.self)
-        let myProfileImageData = realmImageData[0].myProfileImageData
-        self.myProfileImageData = myProfileImageData
+        self.myProfileImageData = RealmManager.shared.getImageDatas().first!.myProfileImageData
     }
     
     // update 상대 프로필
     func updatePartnerProfileImage() {
-        realm = try? Realm()
-        let realmImageData = realm.objects(Image.self)
-        let partnerProfileImageData = realmImageData[0].partnerProfileImageData
-        self.partnerProfileImageData = partnerProfileImageData
+        self.partnerProfileImageData = RealmManager.shared.getImageDatas().first!.partnerProfileImageData
     }
     
     // update PublicBeginCoupleDay
     func updatePublicBeginCoupleDay() {
-        print("AAAAA")
-        realm = try? Realm()
-        let realmUserData = realm.objects(User.self)
-        let beginCoupleDay = realmUserData[0].beginCoupleDay
         let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
         let nowDayDataDate: Date = nowDayDataString.toDate // 현재 날짜 데이트 데이터
-        let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay // 현재 - 사귄날짜 = days
+        let minus = Int(nowDayDataDate.millisecondsSince1970)-RealmManager.shared.getUserDatas().first!.beginCoupleDay // 현재 - 사귄날짜 = days
         self.beginCoupleDay = String(describing: minus / 86400000)
         CoupleTabViewModel.publicBeginCoupleDay = String(describing: minus / 86400000)
     }
     
     // update PublicBeginCoupleFormatterDay
     func updatePublicBeginCoupleFormatterDay() {
-        realm = try? Realm()
-        let realmUserData = realm.objects(User.self)
-        let beginCoupleDay = realmUserData[0].beginCoupleDay
-        self.beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
-        CoupleTabViewModel.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(beginCoupleDay) / 1000).toStoryString
+        self.beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(RealmManager.shared.getUserDatas().first!.beginCoupleDay) / 1000).toStoryString
+        CoupleTabViewModel.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(RealmManager.shared.getUserDatas().first!.beginCoupleDay) / 1000).toStoryString
     }
 }
