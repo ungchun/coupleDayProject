@@ -58,7 +58,9 @@ struct coupleDayWidgetEntryView : View {
                     Image(uiImage: UIImage(systemName: "heart.fill")!)
                         .renderingMode(.template)
                         .foregroundColor(.appMainColor)
-                    Text("\(RealmManager.shared.getBeginCoupleDay())")
+                    Text("\(RealmManager.shared.getBeginCoupleDay()) days")
+                        .font(.custom("GangwonEduAllLight", size: 25))
+                        .foregroundColor(.white)
                 }
             }
             .background(
@@ -75,7 +77,9 @@ struct coupleDayWidgetEntryView : View {
                     Image(uiImage: UIImage(systemName: "heart.fill")!)
                         .renderingMode(.template)
                         .foregroundColor(.appMainColor)
-                    Text("\(RealmManager.shared.getBeginCoupleDay())")
+                    Text("\(RealmManager.shared.getBeginCoupleDay()) days")
+                        .font(.custom("GangwonEduAllLight", size: 30))
+                        .foregroundColor(.white)
                 }
             }
             .background(

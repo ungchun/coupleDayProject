@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
+		BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
 		BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */; };
 		BC8190C9286EFE6D00FAD555 /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C8286EFE6D00FAD555 /* StoryCell.swift */; };
 		BC83F8942876AC170027235E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BC83F8932876AC170027235E /* Lottie */; };
@@ -390,6 +392,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */,
+				BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */,
 				BC83F8D02876D2200027235E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,7 +482,7 @@
 				INFOPLIST_FILE = coupleDayWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = coupleDayWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -490,7 +494,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -507,7 +511,7 @@
 				INFOPLIST_FILE = coupleDayWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = coupleDayWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -519,7 +523,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

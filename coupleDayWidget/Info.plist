@@ -7,5 +7,10 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widgetkit-extension</string>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>GangwonEduAllLight.ttf</string>
+		<string>GangwonEduAllBold.ttf</string>
+	</array>
 </dict>
 </plist>
