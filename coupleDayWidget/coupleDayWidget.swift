@@ -36,8 +36,8 @@ struct Provider: TimelineProvider {
         // byAdding: .minute -> 1분마다 업데이트
         var entries: [coupleDayEntry] = []
         let currentDate = Date()
-        for offset in 0..<60 * 24 {
-            let entryDate = Calendar.current.date(byAdding: .minute, value: offset, to: currentDate)!
+        for minOffset in 0..<3 {
+            let entryDate = Calendar.current.date(byAdding: .minute, value: minOffset, to: currentDate)!
             let entry = coupleDayEntry(date: entryDate, size: context.displaySize)
             entries.append(entry)
         }
@@ -132,7 +132,7 @@ class RealmManager {
         print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" )
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")
         let realmURL = container?.appendingPathComponent("default.realm")
-        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 2)
+        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
         return try! Realm(configuration: config)
     }
     
@@ -142,6 +142,7 @@ class RealmManager {
         let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
         let nowDayDataDate: Date = nowDayDataString.toDate // 현재 날짜 데이트 데이터
         let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay // 현재 - 사귄날짜 = days
+//        print("String(describing: minus / 86400000) \(String(describing: minus / 86400000))")
         return String(describing: minus / 86400000)
     }
     func getMainBackgroundImage() -> Data {
@@ -149,6 +150,7 @@ class RealmManager {
         let mainImageData = realmImageData[0].mainImageData
         //        let myProfileImageData = realmImageData[0].myProfileImageData
         //        let partnerProfileImageData = realmImageData[0].partnerProfileImageData
+//        print("mainImageData \(mainImageData!)")
         return mainImageData!
     }
 }
