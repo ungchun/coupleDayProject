@@ -10,27 +10,35 @@ import SwiftUI
 import UIKit
 import RealmSwift
 
+// StaticConfiguration 으로 만듬 -> 사용자가 구성할 필요 없이 보기만하는 구성
+
+struct coupleDayEntry: TimelineEntry {
+    var date: Date // date 필수로 요구
+    let size: CGSize // widget view size
+}
+
+// provider : 위젯을 새로고침할 타임라인을 결정하는 객체
 struct Provider: TimelineProvider {
     
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), size: context.displaySize)
+    func placeholder(in context: Context) -> coupleDayEntry {
+        coupleDayEntry(date: Date(), size: context.displaySize)
     }
     
     // WidgetKit은 위젯을 추가할 때와 같이 일시적인 상황에서 위젯을 표시하기 위해서 Snapshot 요청
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), size: context.displaySize)
+    func getSnapshot(in context: Context, completion: @escaping (coupleDayEntry) -> ()) {
+        let entry = coupleDayEntry(date: Date(), size: context.displaySize)
         completion(entry)
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         
-        var entries: [SimpleEntry] = []
-        
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
+        // date 라는 뷰 업데이트해야하는 시간을 넘겨주면 그 시간이 되면 위젯은 알아서 뷰를 업데이트한다.
+        // byAdding: .minute -> 1분마다 업데이트
+        var entries: [coupleDayEntry] = []
         let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .minute, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, size: context.displaySize)
+        for offset in 0..<60 * 24 {
+            let entryDate = Calendar.current.date(byAdding: .minute, value: offset, to: currentDate)!
+            let entry = coupleDayEntry(date: entryDate, size: context.displaySize)
             entries.append(entry)
         }
         
@@ -39,11 +47,7 @@ struct Provider: TimelineProvider {
     }
 }
 
-struct SimpleEntry: TimelineEntry {
-    var date: Date
-    let size: CGSize
-}
-
+// view
 struct coupleDayWidgetEntryView : View {
     
     @Environment(\.widgetFamily) private var widgetFamily
@@ -102,7 +106,9 @@ struct coupleDayWidgetEntryView : View {
 
 @main
 struct coupleDayWidget: Widget {
-    let kind: String = "coupleDayWidget"
+    // kind : 모든 Widget에는 고유한 문자열이 존재, 이 문자열을 가지고 위젯을 식별 가능
+    let kind: String = "ungchun.coupleDayProject"
+//    let kind: String = "coupleDayWidget"
     
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
@@ -126,7 +132,7 @@ class RealmManager {
         print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" )
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")
         let realmURL = container?.appendingPathComponent("default.realm")
-        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 2)
         return try! Realm(configuration: config)
     }
     
@@ -147,8 +153,10 @@ class RealmManager {
     }
 }
 
+// realm model
 class User: Object {
     @objc dynamic var beginCoupleDay = 0
+    @objc dynamic var zeroDayStart = false
 }
 class ImageModel: Object {
     @objc dynamic var mainImageData: Data? = nil
@@ -156,6 +164,7 @@ class ImageModel: Object {
     @objc dynamic var partnerProfileImageData: Data? = nil
 }
 
+// MARK: color
 extension Color {
     static let appMainColor = Color("appMainColor")
 }

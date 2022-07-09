@@ -15,7 +15,7 @@ class SettingViewController: UIViewController{
     let imagePickerController = UIImagePickerController()
     
     let defaults = UserDefaults.standard
-
+    
     // MARK: UI
     private lazy var coupleDayText: UILabel = {
         let label = UILabel()
@@ -82,10 +82,10 @@ class SettingViewController: UIViewController{
     @objc
     func setBackgroundImageTap() {
         self.present(imagePickerController, animated: true, completion: nil)
-//        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
-//        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
-//            self.present(imagePickerController, animated: true, completion: nil)
-//        }
+        //        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
+        //        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
+        //            self.present(imagePickerController, animated: true, completion: nil)
+        //        }
     }
     @objc
     func setDarkModeTap() {
@@ -121,18 +121,28 @@ class SettingViewController: UIViewController{
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.locale = NSLocale(localeIdentifier: "ko_KO") as Locale // datePicker의 default 값이 영어이기 때문에 한글로 바꿔줘야한다. 그래서 이 방식으로 변경할 수 있다.
         datePicker.translatesAutoresizingMaskIntoConstraints = false
+        
+        let calendar = Calendar(identifier: .gregorian)
+        let currentDate = Date()
+        var components = DateComponents()
+        components.calendar = calendar
+        
+        // 최대 날짜 세팅
+        components.year = -1
+        components.month = 12
+        let maxDate = calendar.date(byAdding: components, to: currentDate)!
+        
+        // 최소 날짜 세팅
+        components.year = -10
+        let minDate = calendar.date(byAdding: components, to: currentDate)!
+        
+        datePicker.minimumDate = minDate
+        datePicker.maximumDate = maxDate
 
         let dateChooserAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet) // dateChooserAlert
         dateChooserAlert.view.addSubview(datePicker) // dateChooserAlert에 datePicker 추가
         dateChooserAlert.addAction(UIAlertAction(title: "선택완료", style: .default, handler: { (action:UIAlertAction!) in // 선택완료 버튼
-//            self.realm = try? Realm()
-//            let userDate = self.realm.objects(User.self)
-
-//            try? self.realm.write({
-//                userDate.first?.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
-//                CoupleTabViewModel.changeCoupleDayMainCheck = true
-//                CoupleTabViewModel.changeCoupleDayStoryCheck = true
-//            })
+            
             RealmManager.shared.updateBeginCoupleDay(datePicker: datePicker)
             CoupleTabViewModel.changeCoupleDayMainCheck = true
             CoupleTabViewModel.changeCoupleDayStoryCheck = true
@@ -140,15 +150,15 @@ class SettingViewController: UIViewController{
         dateChooserAlert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction!) in // 취소 버튼 + 밖에 터치 시 disable
             print("cancel")
         }))
-
+        
         // set datePicker center
         dateChooserAlert.view.addConstraint(NSLayoutConstraint(item: datePicker, attribute: .centerX, relatedBy: .equal, toItem: dateChooserAlert.view, attribute: .centerX, multiplier: 1, constant: 0))
         dateChooserAlert.view.addConstraint(NSLayoutConstraint(item: datePicker, attribute: .centerY, relatedBy: .equal, toItem: dateChooserAlert.view, attribute: .centerY, multiplier: 1, constant: -50)) // -50 하는 이유는 버튼 2개 높이만큼 띄워줘야하는듯..?
-
+        
         // alert content 높이 (datePicker)
         let height: NSLayoutConstraint = NSLayoutConstraint(item: dateChooserAlert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 350)
         dateChooserAlert.view.addConstraint(height)
-
+        
         present(dateChooserAlert, animated: true, completion: nil)
     }
     

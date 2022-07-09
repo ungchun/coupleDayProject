@@ -11,6 +11,7 @@ import UIKit
 class BeginViewController: UIViewController {
     
     private var handleDateValue = Date()
+    private var checkValue = false
     
     // MARK: UI
     private lazy var guideText: UILabel = {
@@ -30,6 +31,24 @@ class BeginViewController: UIViewController {
         datePicker.locale = Locale(identifier: "ko-KR")
         datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         datePicker.frame.size = CGSize(width: 0, height: 250)
+        
+        let calendar = Calendar(identifier: .gregorian)
+        let currentDate = Date()
+        var components = DateComponents()
+        components.calendar = calendar
+        
+        // 최대 날짜 세팅
+        components.year = -1
+        components.month = 12
+        let maxDate = calendar.date(byAdding: components, to: currentDate)!
+        
+        // 최소 날짜 세팅
+        components.year = -10
+        let minDate = calendar.date(byAdding: components, to: currentDate)!
+        
+        datePicker.minimumDate = minDate
+        datePicker.maximumDate = maxDate
+        
         return datePicker
     }()
     
@@ -40,6 +59,43 @@ class BeginViewController: UIViewController {
         btn.setTitleColor(UIColor.gray, for: .normal)
         btn.addTarget(self, action: #selector(startBtnTap), for: .touchUpInside)
         return btn
+    }()
+    
+    private lazy var divider: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleToFill
+        view.backgroundColor = TrendingConstants.appMainColor
+        return view
+    }()
+    
+    private lazy var checkButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        // set text
+        button.setTitle("0일부터 시작", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "GangwonEduAllLight", size: 20)
+        
+        // set image
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: UIImage.SymbolWeight.medium, scale: UIImage.SymbolScale.large)
+        let largeImage = UIImage(systemName: "square", withConfiguration: largeConfig)
+        button.setImage(largeImage, for: .normal)
+        let titleSize = button.titleLabel?.text!.size(withAttributes: [
+            NSAttributedString.Key.font: button.titleLabel?.font as Any
+        ])
+        button.imageView?.contentMode = .scaleAspectFit
+        button.imageView?.tintColor = TrendingConstants.appMainColor
+        
+        button.contentHorizontalAlignment = .center
+        button.contentVerticalAlignment = .bottom
+        button.semanticContentAttribute = .forceLeftToRight
+        
+        button.imageEdgeInsets = UIEdgeInsets(top:0, left:-10, bottom:0, right:0)
+        button.titleEdgeInsets = UIEdgeInsets(top:0, left:10, bottom:0, right:0)
+        
+        button.addTarget(self, action: #selector(checkButtonTap), for: .touchUpInside)
+        return button
     }()
     
     private lazy var coupleBeginDay: UITextField = {
@@ -77,7 +133,15 @@ class BeginViewController: UIViewController {
         stackView.addArrangedSubview(guideText)
         stackView.addArrangedSubview(coupleBeginDay)
         stackView.addArrangedSubview(startBtn)
-        stackView.setCustomSpacing(30, after: coupleBeginDay) // coupleBeginDay 밑으로 spacing 30 추가로 더 주기
+        stackView.addArrangedSubview(divider)
+        stackView.addArrangedSubview(checkButton)
+        stackView.setCustomSpacing(25, after: coupleBeginDay) // coupleBeginDay 밑으로 spacing 25 추가로 더 주기
+        
+        divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        stackView.setCustomSpacing(25, after: startBtn)
+        stackView.setCustomSpacing(25, after: divider)
+        
+        
     }
     
     // MARK: objc
@@ -86,13 +150,27 @@ class BeginViewController: UIViewController {
         coupleBeginDay.text = sender.date.toString // yyyy-MM-dd
         handleDateValue = sender.date
     }
+    @objc
+    func checkButtonTap() {
+        if checkValue {
+            checkValue.toggle()
+            let largeConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: UIImage.SymbolWeight.medium, scale: UIImage.SymbolScale.large)
+            let largeImage = UIImage(systemName: "square", withConfiguration: largeConfig)
+            checkButton.setImage(largeImage, for: .normal)
+        } else {
+            checkValue.toggle()
+            let largeConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: UIImage.SymbolWeight.medium, scale: UIImage.SymbolScale.large)
+            let largeImage = UIImage(systemName: "checkmark.square", withConfiguration: largeConfig)
+            checkButton.setImage(largeImage, for: .normal)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupHideKeyboardOnTap() // extension: inputView dismiss
         setupView()
-    }                
-                
+    }
+    
     @objc
     func startBtnTap(completion: @escaping () -> Void) {
         // MARK: temp input realm data
@@ -100,8 +178,14 @@ class BeginViewController: UIViewController {
         let imageData = ImageModel()
         
         var window: UIWindow?
+
+        if checkValue {
+            userData.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
+        } else {
+            userData.beginCoupleDay = Int(Calendar.current.date(byAdding: .day, value: -1, to: handleDateValue.toString.toDate)!.millisecondsSince1970)
+        }
         
-        userData.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
+        userData.zeroDayStart = checkValue
         imageData.mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
         imageData.myProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
         imageData.partnerProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
@@ -118,7 +202,7 @@ class BeginViewController: UIViewController {
         rootViewcontroller.modalTransitionStyle = .crossDissolve
         rootViewcontroller.modalPresentationStyle = .fullScreen
         self.present(rootViewcontroller, animated: true, completion: nil)
-                
+        
         // 성훈 시작페이지 추가
         // 환영합니다.
         // 당신의 인연에 ~~하길.. -> 명언으로

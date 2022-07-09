@@ -10,4 +10,5 @@ import RealmSwift
 
 class User: Object {
     @objc dynamic var beginCoupleDay = 0
+    @objc dynamic var zeroDayStart = false
 }

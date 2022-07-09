@@ -18,17 +18,17 @@ import RealmSwift
 
 class RealmManager {
     // realm db 삭제
-    // try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!) // remove realm db
+    //     try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!) // remove realm db
     
     // Singleton object
     static let shared: RealmManager = .init()
-
+    
     // Realm instance
     private var realm: Realm {
         print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" )
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")
         let realmURL = container?.appendingPathComponent("default.realm")
-        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
+        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 2) // realm db 삭제없이 model 변경하고싶으면 schemaVersion 변경 하면 됨. 대신 전 버전보다는 커야함
         return try! Realm(configuration: config)
     }
     
@@ -50,7 +50,12 @@ class RealmManager {
     }
     func updateBeginCoupleDay(datePicker: UIDatePicker) {
         try? realm.write({
-            RealmManager.shared.getUserDatas().first!.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
+            if RealmManager.shared.getUserDatas().first!.zeroDayStart {
+                RealmManager.shared.getUserDatas().first!.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
+            } else {
+                RealmManager.shared.getUserDatas().first!.beginCoupleDay = Int(Calendar.current.date(byAdding: .day, value: -1, to: datePicker.date.toString.toDate)!.millisecondsSince1970)
+            }
+            
         })
     }
     // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 16000000 으로 맞춰서 예외처리, 16000000 보다 작으면 0.5 퀄리티 16000000 크면 0.25 퀄리티, pngData로 하면 위험부담이 생겨서 배제
