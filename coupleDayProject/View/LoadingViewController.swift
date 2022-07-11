@@ -13,13 +13,13 @@ class LoadingViewController: UIViewController {
     
     var window: UIWindow?
     
-    var animationView: AnimationView = {
+    private let animationView: AnimationView = {
         let lottieView = AnimationView(name: "lottieFile")
         lottieView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         return lottieView
     }()
     
-    lazy var label: UILabel = {
+    private let label: UILabel = {
        let label = UILabel()
         label.text = "너랑나랑"
         label.font = UIFont(name: "GangwonEduAllLight", size: 50)
@@ -27,7 +27,7 @@ class LoadingViewController: UIViewController {
         return label
     }()
     
-    lazy var stackView: UIStackView = { // 너랑나랑 + lottie
+    private let stackView: UIStackView = { // 너랑나랑 + lottie
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false

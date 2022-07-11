@@ -10,11 +10,11 @@ import UIKit
 // cell
 class StoryCell: UITableViewCell {
     
-    var formatterDate = "" // yyyy.MM.dd
+    private var formatterDate = "" // yyyy.MM.dd
     
     // MARK: UI
     // ㅁ 일
-    lazy var storyDayText: UILabel = {
+    private let storyDayText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "storyDayText"
@@ -22,7 +22,7 @@ class StoryCell: UITableViewCell {
         return label
     }()
     // yyyy.MM.dd
-    lazy var storyFormatterDayText: UILabel = {
+    private let storyFormatterDayText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "storyFormatterDayText"
@@ -31,7 +31,7 @@ class StoryCell: UITableViewCell {
         return label
     }()
     // D-10
-    lazy var storyD_DayText: UILabel = {
+    private let storyD_DayText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "storyD_DayText"
@@ -40,14 +40,14 @@ class StoryCell: UITableViewCell {
         return label
     }()
     // 하단 divider
-    private lazy var divider: UILabel = {
+    private let divider: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
         return view
     }()
     // stackView 상단 패딩
-    private lazy var stackViewTopPadding: UILabel = {
+    private let stackViewTopPadding: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

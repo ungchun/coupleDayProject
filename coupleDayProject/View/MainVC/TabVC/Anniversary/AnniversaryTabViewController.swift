@@ -8,7 +8,7 @@
 import UIKit
 
 class AnniversaryTabViewController: UIViewController {
-    lazy var tempText: UILabel = {
+    private let tempText: UILabel = {
        let view = UILabel()
         view.text = "Anniversary"
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -14,7 +14,7 @@ class BeginViewController: UIViewController {
     private var checkValue = false
     
     // MARK: UI
-    private lazy var guideText: UILabel = {
+    private let guideText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
@@ -24,12 +24,11 @@ class BeginViewController: UIViewController {
         return label
     }()
     
-    private lazy var datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
         datePicker.locale = Locale(identifier: "ko-KR")
-        datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
         datePicker.frame.size = CGSize(width: 0, height: 250)
         
         let calendar = Calendar(identifier: .gregorian)
@@ -37,12 +36,12 @@ class BeginViewController: UIViewController {
         var components = DateComponents()
         components.calendar = calendar
         
-        // 최대 날짜 세팅
+        // datePicker max 날짜 세팅 -> 오늘 날짜 에서
         components.year = -1
         components.month = 12
         let maxDate = calendar.date(byAdding: components, to: currentDate)!
         
-        // 최소 날짜 세팅
+        // datePicker min 날짜 세팅 -> 10년 전 까지
         components.year = -10
         let minDate = calendar.date(byAdding: components, to: currentDate)!
         
@@ -52,16 +51,15 @@ class BeginViewController: UIViewController {
         return datePicker
     }()
     
-    private lazy var startBtn: UIButton = {
+    private let startBtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("시작하기", for: .normal)
         btn.titleLabel?.font = UIFont(name: "GangwonEduAllLight", size: 25)
         btn.setTitleColor(UIColor.gray, for: .normal)
-        btn.addTarget(self, action: #selector(startBtnTap), for: .touchUpInside)
         return btn
     }()
     
-    private lazy var divider: UIView = {
+    private let divider: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleToFill
@@ -69,7 +67,7 @@ class BeginViewController: UIViewController {
         return view
     }()
     
-    private lazy var checkButton: UIButton = {
+    private let checkButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         // set text
@@ -94,11 +92,10 @@ class BeginViewController: UIViewController {
         button.imageEdgeInsets = UIEdgeInsets(top:0, left:-10, bottom:0, right:0)
         button.titleEdgeInsets = UIEdgeInsets(top:0, left:10, bottom:0, right:0)
         
-        button.addTarget(self, action: #selector(checkButtonTap), for: .touchUpInside)
         return button
     }()
     
-    private lazy var coupleBeginDay: UITextField = {
+    private let coupleBeginDay: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         let formatter = DateFormatter()
@@ -120,6 +117,11 @@ class BeginViewController: UIViewController {
     
     // MARK: func
     fileprivate func setupView() {
+        
+        datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged) // 날짜 변경 클릭
+        checkButton.addTarget(self, action: #selector(checkButtonTap), for: .touchUpInside) // 0일부터 시작 버튼 클릭
+        startBtn.addTarget(self, action: #selector(startBtnTap), for: .touchUpInside) // 시작하기 버튼 클릭
+        
         view.backgroundColor = TrendingConstants.appMainColorAlaph40 // set background color
         view.addSubview(stackView)
         coupleBeginDay.inputView = datePicker

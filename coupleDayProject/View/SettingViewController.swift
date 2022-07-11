@@ -12,42 +12,33 @@ import CropViewController
 
 class SettingViewController: UIViewController{
     
-    let imagePickerController = UIImagePickerController()
+    private let imagePickerController = UIImagePickerController()
     
-    let defaults = UserDefaults.standard
+    private let defaults = UserDefaults.standard
     
     // MARK: UI
-    private lazy var coupleDayText: UILabel = {
+    private let coupleDayText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "커플 날짜"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setCoupleDayTap)) // label 에 gesture 추가하기
-        label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(tapGesture)
         return label
     }()
-    private lazy var backgroundImageText: UILabel = {
+    private let backgroundImageText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "배경 사진"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setBackgroundImageTap)) // label 에 gesture 추가하기
-        label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(tapGesture)
         return label
     }()
-    private lazy var darkModeText: UILabel = {
+    private let darkModeText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "화면 설정"
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setDarkModeTap)) // label 에 gesture 추가하기
-        label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(tapGesture)
         return label
     }()
-    private lazy var divider: UIView = {
+    private let divider: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleToFill
@@ -68,6 +59,22 @@ class SettingViewController: UIViewController{
     // MARK: func
     fileprivate func setupView() {
         self.view.addSubview(stackView)
+        
+        // 날짜 변경 제스처
+        let tapGestureCoupleDayText = UITapGestureRecognizer(target: self, action: #selector(setCoupleDayTap)) // label 에 gesture 추가하기
+        coupleDayText.isUserInteractionEnabled = true
+        coupleDayText.addGestureRecognizer(tapGestureCoupleDayText)
+        
+        // 배경 사진 변경 제스처
+        let tapGestureBackgroundImageText = UITapGestureRecognizer(target: self, action: #selector(setBackgroundImageTap)) // label 에 gesture 추가하기
+        backgroundImageText.isUserInteractionEnabled = true
+        backgroundImageText.addGestureRecognizer(tapGestureBackgroundImageText)
+        
+        // 다크모드 제스처
+        let tapGestureDarkModeText = UITapGestureRecognizer(target: self, action: #selector(setDarkModeTap)) // label 에 gesture 추가하기
+        darkModeText.isUserInteractionEnabled = true
+        darkModeText.addGestureRecognizer(tapGestureDarkModeText)
+        
         NSLayoutConstraint.activate([
             
             divider.widthAnchor.constraint(equalToConstant: 10),
@@ -127,12 +134,12 @@ class SettingViewController: UIViewController{
         var components = DateComponents()
         components.calendar = calendar
         
-        // 최대 날짜 세팅
+        // datePicker max 날짜 세팅 -> 오늘 날짜 에서
         components.year = -1
         components.month = 12
         let maxDate = calendar.date(byAdding: components, to: currentDate)!
         
-        // 최소 날짜 세팅
+        // datePicker min 날짜 세팅 -> 10년 전 까지
         components.year = -10
         let minDate = calendar.date(byAdding: components, to: currentDate)!
         
