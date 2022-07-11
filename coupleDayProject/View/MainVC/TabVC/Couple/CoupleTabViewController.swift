@@ -9,6 +9,7 @@ import UIKit
 import Photos
 import TOCropViewController
 import CropViewController
+import GoogleMobileAds
 
 class CoupleTabViewController: UIViewController {
     
@@ -23,6 +24,10 @@ class CoupleTabViewController: UIViewController {
     
     private let textBigSize = UIScreen.main.bounds.size.height > 750 ? 30.0 : 25.0
     private let textSmallSize = UIScreen.main.bounds.size.height > 750 ? 20.0 : 15.0
+    
+    private let profileSize = UIScreen.main.bounds.size.height > 750 ? 90.0 : 60.0
+    
+    private let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 750 ? UIScreen.main.bounds.size.height / 7 : UIScreen.main.bounds.size.height / 9
     
     // MARK: UI
     private let coupleTabStackView: UIStackView = { // 커플 탭 전체 뷰
@@ -57,14 +62,10 @@ class CoupleTabViewController: UIViewController {
     }()
     private let myProfileUIImageView: UIImageView = { // 내 프로필 뷰
         let view = UIImageView()
-        view.layer.cornerRadius = 45 // 둥글게
-        view.clipsToBounds = true
         return view
     }()
     private let partnerProfileUIImageView: UIImageView = { // 상대 프로필 뷰
         let view = UIImageView()
-        view.layer.cornerRadius = 45 // 둥글게
-        view.clipsToBounds = true
         return view
     }()
     private let iconDayStackView: UIStackView = { // 하트 아이콘 + day
@@ -151,6 +152,21 @@ class CoupleTabViewController: UIViewController {
         var label = UILabel()
         return label
     }()
+    
+    // MARK: admob 부분
+    private let demoAdmobView: UIView = {
+        var view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .green
+        return view
+    }()
+    
+//    private let demoAdmobView: GADBannerView = {
+//        var view = GADBannerView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
+    
     private lazy var comingStoryStackView: UIStackView = {
         var stackView = UIStackView(arrangedSubviews: [titleAnniversary, anniversaryOneStackView, anniversaryTwoStackView, anniversaryThreeStackView, anniversaryEmpty])
         stackView.setCustomSpacing(10, after: titleAnniversary)
@@ -215,11 +231,15 @@ class CoupleTabViewController: UIViewController {
         let tapGestureMyProfileUIImageView = UITapGestureRecognizer(target: self, action: #selector(myProfileTap(_:))) // 이미지 변경 제스쳐
         myProfileUIImageView.addGestureRecognizer(tapGestureMyProfileUIImageView)
         myProfileUIImageView.isUserInteractionEnabled = true
+        myProfileUIImageView.layer.cornerRadius = profileSize/2 // 둥글게
+        myProfileUIImageView.clipsToBounds = true
         
         // 상대방 사진 변경
         let tapGesturePartnerProfileUIImageView = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap(_:))) // 이미지 변경 제스쳐
         partnerProfileUIImageView.isUserInteractionEnabled = true
         partnerProfileUIImageView.addGestureRecognizer(tapGesturePartnerProfileUIImageView)
+        partnerProfileUIImageView.layer.cornerRadius = profileSize/2 // 둥글게
+        partnerProfileUIImageView.clipsToBounds = true
         
         let imagePartView = imageLoadingFlag ? self.mainImageView : self.mainImageActivityIndicatorView
         
@@ -230,6 +250,16 @@ class CoupleTabViewController: UIViewController {
         coupleTabStackView.addArrangedSubview(coupleStackView)
         coupleTabStackView.addArrangedSubview(comingStoryStackView)
         
+        coupleTabStackView.addArrangedSubview(demoAdmobView)
+        
+//        coupleTabStackView.addArrangedSubview(demoAdmobView)
+        
+//        demoAdmobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
+//        demoAdmobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
+//        demoAdmobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//        demoAdmobView.rootViewController = self
+//        demoAdmobView.load(GADRequest())
+        
         coupleStackView.addArrangedSubview(myProfileUIImageView)
         coupleStackView.addArrangedSubview(iconDayStackView)
         coupleStackView.addArrangedSubview(partnerProfileUIImageView)
@@ -237,16 +267,16 @@ class CoupleTabViewController: UIViewController {
         iconDayStackView.addArrangedSubview(loveIconView)
         iconDayStackView.addArrangedSubview(mainTextLabel)
         
-        coupleTabStackView.setCustomSpacing(25, after: imagePartView)
-        coupleTabStackView.setCustomSpacing(25, after: coupleStackView)
+        coupleTabStackView.setCustomSpacing(15, after: imagePartView)
+        coupleTabStackView.setCustomSpacing(15, after: coupleStackView)
         
         // UIScreen.main.bounds.size.height -> 디바이스 별 height 이용해서 해상도 비율 맞춤
         NSLayoutConstraint.activate([
-            myProfileUIImageView.widthAnchor.constraint(equalToConstant: 90),
-            myProfileUIImageView.heightAnchor.constraint(equalToConstant: 90),
+            myProfileUIImageView.widthAnchor.constraint(equalToConstant: profileSize),
+            myProfileUIImageView.heightAnchor.constraint(equalToConstant: profileSize),
             
-            partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: 90),
-            partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: 90),
+            partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: profileSize),
+            partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: profileSize),
             
             loveIconView.widthAnchor.constraint(equalToConstant: 30),
             loveIconView.heightAnchor.constraint(equalToConstant: 30),
@@ -260,7 +290,7 @@ class CoupleTabViewController: UIViewController {
             
             coupleStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 30),
             coupleStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -30),
-            coupleStackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 7),
+            coupleStackView.heightAnchor.constraint(equalToConstant: coupleStackViewHeightSize),
             
             comingStoryStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
             comingStoryStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),

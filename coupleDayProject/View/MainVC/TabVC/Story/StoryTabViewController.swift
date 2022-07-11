@@ -7,16 +7,9 @@
 
 import UIKit
 
-
 class StoryTabViewController: UIViewController {
-    
+
     // MARK: UI
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-    
     // 상단 탭이랑 안겹치게 주는 뷰
     private let emptyView: UIView = {
         let view = UIView()
@@ -32,14 +25,6 @@ class StoryTabViewController: UIViewController {
         stackView.alignment = .fill
         stackView.distribution = .equalSpacing
         stackView.spacing = 0
-        return stackView
-    }()
-    
-    // emptyView + contentStackView
-    private let entireStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
         return stackView
     }()
     

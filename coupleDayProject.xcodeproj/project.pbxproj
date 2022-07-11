@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 		BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
+		BC2CDEFB287C32EA002433DC /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = BC2CDEFA287C32EA002433DC /* GoogleMobileAds */; };
 		BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */; };
 		BC8190C9286EFE6D00FAD555 /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C8286EFE6D00FAD555 /* StoryCell.swift */; };
 		BC83F8942876AC170027235E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BC83F8932876AC170027235E /* Lottie */; };
@@ -130,6 +131,7 @@
 				BC83F8942876AC170027235E /* Lottie in Frameworks */,
 				BC8B6251285087B000D46416 /* RealmSwift in Frameworks */,
 				BCC7569B286AA30900CD523A /* TOCropViewController in Frameworks */,
+				BC2CDEFB287C32EA002433DC /* GoogleMobileAds in Frameworks */,
 				BCC75699286AA30900CD523A /* CropViewController in Frameworks */,
 				BC8B624F285087B000D46416 /* Realm in Frameworks */,
 				BCB0B16B28507C2300DE7196 /* Tabman in Frameworks */,
@@ -338,6 +340,7 @@
 				BCC7569A286AA30900CD523A /* TOCropViewController */,
 				BCF03FDF286D6C0100C28F71 /* Kingfisher */,
 				BC83F8932876AC170027235E /* Lottie */,
+				BC2CDEFA287C32EA002433DC /* GoogleMobileAds */,
 			);
 			productName = coupleDayProject;
 			productReference = BCB0B14E285076FF00DE7196 /* coupleDayProject.app */;
@@ -376,6 +379,7 @@
 				BCC75697286AA30900CD523A /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				BCF03FDE286D6C0100C28F71 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				BC83F8922876AC170027235E /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				BC2CDEF9287C32EA002433DC /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = BCB0B14F285076FF00DE7196 /* Products */;
 			projectDirPath = "";
@@ -738,6 +742,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BC2CDEF9287C32EA002433DC /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		BC83F8922876AC170027235E /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -781,6 +793,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BC2CDEFA287C32EA002433DC /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC2CDEF9287C32EA002433DC /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
 		BC83F8932876AC170027235E /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC83F8922876AC170027235E /* XCRemoteSwiftPackageReference "lottie-ios" */;
