@@ -17,6 +17,7 @@ class CoupleTabViewModel {
     static var changeMainImageCheck = false
     static var changeCoupleDayMainCheck = false
     static var changeCoupleDayStoryCheck = false
+    static var changeDarkModeCheck = false
     
     var onMainImageDataUpdated: () -> Void = {}
     var onMyProfileImageDataUpdated: () -> Void = {}
@@ -34,17 +35,17 @@ class CoupleTabViewModel {
     var onAnniversaryThreeUpdated: () -> Void = {}
     var onAnniversaryThreeD_DayUpdated: () -> Void = {}
     
-    var mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5) {
+    var mainImageData = UIImage(named: "coupleImg_3")?.jpegData(compressionQuality: 0.5) {
         didSet {
             onMainImageDataUpdated()
         }
     }
-    var myProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5) {
+    var myProfileImageData = UIImage(named: "smile_black")?.jpegData(compressionQuality: 0.5) {
         didSet {
             onMyProfileImageDataUpdated()
         }
     }
-    var partnerProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5) {
+    var partnerProfileImageData = UIImage(named: "smile_black")?.jpegData(compressionQuality: 0.5) {
         didSet {
             onPartnerProfileImageDataUpdated()
         }
@@ -106,9 +107,26 @@ class CoupleTabViewModel {
     
     // 메인 이미지 세팅
     func setMainBackgroundImage() {
+        let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
         self.mainImageData = RealmManager.shared.getImageDatas().first!.mainImageData
-        self.myProfileImageData = RealmManager.shared.getImageDatas().first!.myProfileImageData
-        self.partnerProfileImageData = RealmManager.shared.getImageDatas().first!.partnerProfileImageData
+        if RealmManager.shared.getImageDatas().first!.myProfileImageData == nil {
+            if isDark {
+                self.myProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
+            } else {
+                self.myProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
+            }
+        } else {
+            self.myProfileImageData = RealmManager.shared.getImageDatas().first!.myProfileImageData
+        }
+        if RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil {
+            if isDark {
+                self.partnerProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
+            } else {
+                self.partnerProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
+            }
+        } else {
+            self.partnerProfileImageData = RealmManager.shared.getImageDatas().first!.partnerProfileImageData
+        }
     }
     
     // 다가오는 기념일 세팅
@@ -159,6 +177,28 @@ class CoupleTabViewModel {
             self.anniversaryOneD_Day = "D-\(D_DayValue)"
         } else {
             self.anniversaryOne = "\(DateValues.GetOnlyNextYear())년"
+        }
+    }
+    
+    func updateProfileIcon() {
+        let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
+        if RealmManager.shared.getImageDatas().first!.myProfileImageData == nil {
+            if isDark {
+                self.myProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
+            } else {
+                self.myProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
+            }
+        } else {
+            self.myProfileImageData = RealmManager.shared.getImageDatas().first!.myProfileImageData
+        }
+        if RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil {
+            if isDark {
+                self.partnerProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
+            } else {
+                self.partnerProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
+            }
+        } else {
+            self.partnerProfileImageData = RealmManager.shared.getImageDatas().first!.partnerProfileImageData
         }
     }
     

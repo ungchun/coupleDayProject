@@ -74,7 +74,7 @@ class RealmManager {
     }
     func updatePartnerProfileImage(partnerProfileImage: UIImage) {
         try? realm.write({
-            RealmManager.shared.getImageDatas().first!.myProfileImageData = (partnerProfileImage.pngData()?.count)! > 16000000 ? partnerProfileImage.jpegData(compressionQuality: 0.25) : partnerProfileImage.jpegData(compressionQuality: 0.5)
+            RealmManager.shared.getImageDatas().first!.partnerProfileImageData = (partnerProfileImage.pngData()?.count)! > 16000000 ? partnerProfileImage.jpegData(compressionQuality: 0.25) : partnerProfileImage.jpegData(compressionQuality: 0.5)
         })
     }
 }

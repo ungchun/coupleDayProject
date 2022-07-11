@@ -62,6 +62,9 @@ class StoryTabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(named: "bgColor")
+        tableView.backgroundColor = UIColor(named: "bgColor")
+        
         tableView.register(StoryCell.self, forCellReuseIdentifier: "CodingCustomTableViewCell")
         tableView.delegate = self
         tableView.dataSource = self
@@ -98,6 +101,7 @@ extension StoryTabViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CodingCustomTableViewCell", for: indexPath) as? StoryCell ?? StoryCell()
         cell.bind(index: StoryDay().storyArray[indexPath.row])
         cell.selectionStyle = .none
+        cell.backgroundColor = UIColor(named: "bgColor")
         
         return cell
     }

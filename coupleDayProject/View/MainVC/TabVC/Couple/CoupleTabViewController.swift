@@ -57,29 +57,27 @@ class CoupleTabViewController: UIViewController {
     }()
     private let myProfileUIImageView: UIImageView = { // 내 프로필 뷰
         let view = UIImageView()
-        view.layer.cornerRadius = 55 // 둥글게
+        view.layer.cornerRadius = 45 // 둥글게
         view.clipsToBounds = true
-        
         return view
     }()
     private let partnerProfileUIImageView: UIImageView = { // 상대 프로필 뷰
         let view = UIImageView()
-        view.layer.cornerRadius = 55 // 둥글게
+        view.layer.cornerRadius = 45 // 둥글게
         view.clipsToBounds = true
-        
         return view
     }()
     private let iconDayStackView: UIStackView = { // 하트 아이콘 + day
-       let view = UIStackView()
+        let view = UIStackView()
         view.axis = .vertical
         view.alignment = .center
-        view.spacing = 0
+        view.spacing = 5
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     private let loveIconView: UIImageView = { // 하트 아이콘
         let view = UIImageView()
-        view.image = UIImage(systemName: "heart.fill")
+        view.image = UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: UIImage.SymbolWeight.light))
         view.tintColor = TrendingConstants.appMainColor
         return view
     }()
@@ -168,21 +166,21 @@ class CoupleTabViewController: UIViewController {
     func myProfileTap(_ gesture: UITapGestureRecognizer) { // 내 사진 변경
         whoProfileChange = "my"
         self.present(imagePickerController, animated: true, completion: nil)
-//        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
-//        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
-//            whoProfileChange = "my"
-//            self.present(imagePickerController, animated: true, completion: nil)
-//        }
+        //        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
+        //        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
+        //            whoProfileChange = "my"
+        //            self.present(imagePickerController, animated: true, completion: nil)
+        //        }
     }
     @objc
     func partnerProfileTap(_ gesture: UITapGestureRecognizer) { // 상대 사진 변경
         whoProfileChange = "partner"
         self.present(imagePickerController, animated: true, completion: nil)
-//        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
-//        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
-//            whoProfileChange = "partner"
-//            self.present(imagePickerController, animated: true, completion: nil)
-//        }
+        //        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
+        //        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
+        //            whoProfileChange = "partner"
+        //            self.present(imagePickerController, animated: true, completion: nil)
+        //        }
     }
     
     // MARK: func
@@ -244,11 +242,11 @@ class CoupleTabViewController: UIViewController {
         
         // UIScreen.main.bounds.size.height -> 디바이스 별 height 이용해서 해상도 비율 맞춤
         NSLayoutConstraint.activate([
-            myProfileUIImageView.widthAnchor.constraint(equalToConstant: 110),
-            myProfileUIImageView.heightAnchor.constraint(equalToConstant: 110),
+            myProfileUIImageView.widthAnchor.constraint(equalToConstant: 90),
+            myProfileUIImageView.heightAnchor.constraint(equalToConstant: 90),
             
-            partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: 110),
-            partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: 110),
+            partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: 90),
+            partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: 90),
             
             loveIconView.widthAnchor.constraint(equalToConstant: 30),
             loveIconView.heightAnchor.constraint(equalToConstant: 30),
@@ -260,13 +258,13 @@ class CoupleTabViewController: UIViewController {
             imagePartView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             imagePartView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             
-            coupleStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            coupleStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            coupleStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 30),
+            coupleStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -30),
             coupleStackView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 7),
-                    
+            
             comingStoryStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
             comingStoryStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
-        
+            
             coupleTabStackView.topAnchor.constraint(equalTo: view.topAnchor),
             coupleTabStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             coupleTabStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -276,6 +274,11 @@ class CoupleTabViewController: UIViewController {
     
     // MARK: init
     override func viewWillAppear(_ animated: Bool) {
+        if CoupleTabViewModel.changeDarkModeCheck && (RealmManager.shared.getImageDatas().first!.myProfileImageData == nil || RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil) {
+            coupleTabViewModel.updateProfileIcon()
+            CoupleTabViewModel.changeDarkModeCheck = false
+        }
+        
         // 배경사진이 변경됐을때
         if CoupleTabViewModel.changeMainImageCheck {
             coupleTabViewModel.updateMainBackgroundImage()
@@ -288,12 +291,13 @@ class CoupleTabViewController: UIViewController {
             CoupleTabViewModel.changeCoupleDayMainCheck = false
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         beforeLoadingSetupView() // 로딩 뷰 세팅
-
+        //        afterLoadingSetupView()
+        
         imagePickerController.delegate = self
         
         // 바인딩

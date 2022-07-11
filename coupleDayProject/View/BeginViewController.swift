@@ -189,8 +189,6 @@ class BeginViewController: UIViewController {
         
         userData.zeroDayStart = checkValue
         imageData.mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
-        imageData.myProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
-        imageData.partnerProfileImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
         
         RealmManager.shared.writeUserData(userData: userData)
         RealmManager.shared.writeImageData(imageData: imageData)

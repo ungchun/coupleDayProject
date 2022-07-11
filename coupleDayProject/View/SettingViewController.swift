@@ -102,6 +102,7 @@ class SettingViewController: UIViewController{
                 if #available(iOS 13.0, *) {
                     window.overrideUserInterfaceStyle = .light
                     self.defaults.set(false, forKey: "darkModeState")
+                    CoupleTabViewModel.changeDarkModeCheck = true
                 }
             }
         }
@@ -110,6 +111,7 @@ class SettingViewController: UIViewController{
                 if #available(iOS 13.0, *) {
                     window.overrideUserInterfaceStyle = .dark
                     self.defaults.set(true, forKey: "darkModeState")
+                    CoupleTabViewModel.changeDarkModeCheck = true
                 }
             }
         }

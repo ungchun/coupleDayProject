@@ -103,6 +103,8 @@ class StoryCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         contentView.addSubview(contentVerticalStackView)
+        
+        self.contentVerticalStackView.backgroundColor = UIColor(named: "bgColor")
 
         NSLayoutConstraint.activate([
             
