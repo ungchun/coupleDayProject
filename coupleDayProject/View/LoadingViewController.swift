@@ -60,9 +60,9 @@ class LoadingViewController: UIViewController {
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
         
+        
         // lottie 애니메이션
         animationView.play {(finish) in
-            self.animationView.play()
             if RealmManager.shared.getUserDatas().isEmpty {
                 let rootViewcontroller = UINavigationController(rootViewController: BeginViewController())
                 self.window = UIWindow(frame: UIScreen.main.bounds)
