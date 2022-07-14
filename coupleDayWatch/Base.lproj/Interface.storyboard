@@ -5,6 +5,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="20006"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="GangwonEduAllBold.otf">
+            <string>GangwonEduAll-OTFBold</string>
+        </array>
+        <array key="GangwonEduAllLight.otf">
+            <string>GangwonEduAll-OTFLight</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
@@ -13,20 +21,29 @@
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="center" layout="overlap" id="Tss-JI-Pzp">
                             <items>
-                                <imageView width="1" height="1" alignment="left" id="sjL-4i-Rmg"/>
-                                <group width="1" alignment="center" layout="vertical" id="XJu-xb-Nfi">
+                                <imageView width="1" height="1" alignment="left" id="sjL-4i-Rmg" userLabel="demoImage"/>
+                                <group width="1" alignment="center" layout="vertical" spacing="10" id="XJu-xb-Nfi">
                                     <items>
-                                        <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="DgM-pb-587"/>
+                                        <label alignment="center" verticalAlignment="center" text="Label" id="iMQ-vG-QYH">
+                                            <fontDescription key="font" name="GangwonEduAll-OTFLight" family="GangwonEduAll OTF" pointSize="20"/>
+                                        </label>
+                                        <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="DgM-pb-587">
+                                            <fontDescription key="font" name="GangwonEduAll-OTFBold" family="GangwonEduAll OTF" pointSize="30"/>
+                                        </label>
+                                        <label alignment="center" verticalAlignment="center" text="Label" id="D1C-MM-98I">
+                                            <fontDescription key="font" name="GangwonEduAll-OTFLight" family="GangwonEduAll OTF" pointSize="20"/>
+                                        </label>
                                     </items>
                                 </group>
                             </items>
-                            <color key="backgroundColor" red="0.60649567839999996" green="0.1100397483" blue="0.1225878373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </group>
                     </items>
                     <connections>
                         <outlet property="demoImage" destination="sjL-4i-Rmg" id="seD-xe-aoV"/>
                         <outlet property="demoLabel" destination="DgM-pb-587" id="rZn-MR-tE7"/>
                         <outlet property="group" destination="Tss-JI-Pzp" id="fhM-a1-T7l"/>
+                        <outlet property="todayLabel" destination="D1C-MM-98I" id="LeM-LS-g4l"/>
+                        <outlet property="topTitle" destination="iMQ-vG-QYH" id="CWQ-DM-VB4"/>
                     </connections>
                 </controller>
             </objects>

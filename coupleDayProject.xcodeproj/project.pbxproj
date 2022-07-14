@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 		BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
+		BC0CFD9028804011000A009D /* GangwonEduAllBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */; };
+		BC0CFD9128804011000A009D /* GangwonEduAllBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */; };
+		BC0CFD9228804011000A009D /* GangwonEduAllLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */; };
+		BC0CFD9328804011000A009D /* GangwonEduAllLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */; };
 		BC2CDEFB287C32EA002433DC /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = BC2CDEFA287C32EA002433DC /* GoogleMobileAds */; };
 		BC78B4EB287D7B1A00DF10C6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC78B4E9287D7B1A00DF10C6 /* Interface.storyboard */; };
 		BC78B4ED287D7B1A00DF10C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC78B4EC287D7B1A00DF10C6 /* Assets.xcassets */; };
@@ -120,6 +124,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.otf; sourceTree = "<group>"; };
+		BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.otf; sourceTree = "<group>"; };
 		BC78B4E7287D7B1A00DF10C6 /* coupleDayWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC78B4EA287D7B1A00DF10C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		BC78B4EC287D7B1A00DF10C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -204,6 +210,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC0CFD8D28803F5D000A009D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */,
+				BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		BC78B4E8287D7B1A00DF10C6 /* coupleDayWatch */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +231,7 @@
 		BC78B4F6287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				BC0CFD8D28803F5D000A009D /* Fonts */,
 				BC78B4F7287D7B1A00DF10C6 /* InterfaceController.swift */,
 				BC78B4F9287D7B1A00DF10C6 /* ExtensionDelegate.swift */,
 				BC78B4FB287D7B1A00DF10C6 /* NotificationController.swift */,
@@ -531,6 +547,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC78B4ED287D7B1A00DF10C6 /* Assets.xcassets in Resources */,
+				BC0CFD9228804011000A009D /* GangwonEduAllLight.otf in Resources */,
+				BC0CFD9028804011000A009D /* GangwonEduAllBold.otf in Resources */,
 				BC78B4EB287D7B1A00DF10C6 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,6 +558,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC78B500287D7B1B00DF10C6 /* Assets.xcassets in Resources */,
+				BC0CFD9128804011000A009D /* GangwonEduAllBold.otf in Resources */,
+				BC0CFD9328804011000A009D /* GangwonEduAllLight.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

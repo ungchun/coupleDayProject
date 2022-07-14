@@ -7,15 +7,32 @@
 
 import UIKit
 import GoogleMobileAds
+import WatchConnectivity
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        
+    }
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        
+    }
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         // 구글 광고 초기화 -> 모바일 광고 SDK 초기화해줘야함. 이 작업은 한 번만 수행하면 됨 (최대한 빨리 호출하는게 좋다)
         GADMobileAds.sharedInstance().start(completionHandler: nil)
+        
+        assert(WCSession.isSupported(), "This sample requires Watch Connectivity support!")
+        WCSession.default.delegate = self
+        WCSession.default.activate()
         
         return true
     }
