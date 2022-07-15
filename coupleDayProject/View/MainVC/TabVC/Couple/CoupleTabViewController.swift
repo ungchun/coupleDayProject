@@ -10,8 +10,31 @@ import Photos
 import TOCropViewController
 import CropViewController
 import GoogleMobileAds
+import WatchConnectivity
 
 class CoupleTabViewController: UIViewController {
+    //    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    //    }
+    //
+    //    func sessionDidBecomeInactive(_ session: WCSession) {
+    //
+    //    }
+    //
+    //    func sessionDidDeactivate(_ session: WCSession) {
+    //
+    //    }
+    //
+    //
+    //    var session: WCSession?
+    //
+    //    func configureWatchKitSesstion() {
+    //
+    //        if WCSession.isSupported() {
+    //            session = WCSession.default
+    //            session?.delegate = self
+    //            session?.activate()
+    //        }
+    //    }
     
     private let coupleTabViewModel = CoupleTabViewModel()
     
@@ -22,12 +45,12 @@ class CoupleTabViewController: UIViewController {
     private let myProfileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 내 프로필 이미지 로딩 뷰
     private let profileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 상대 프로필 이미지 로딩 뷰
     
-    private let textBigSize = UIScreen.main.bounds.size.height > 750 ? 30.0 : 25.0
-    private let textSmallSize = UIScreen.main.bounds.size.height > 750 ? 20.0 : 15.0
+    private let textBigSize = UIScreen.main.bounds.size.height > 900 ? 33.0 : UIScreen.main.bounds.size.height > 840 ? 27.0 : UIScreen.main.bounds.size.height > 750 ? 23.0 : 20.0
+    private let textSmallSize = UIScreen.main.bounds.size.height > 900 ? 22.0 : UIScreen.main.bounds.size.height > 840 ? 20.0 : UIScreen.main.bounds.size.height > 840 ? 17.0 : 15.0
     
-    private let profileSize = UIScreen.main.bounds.size.height > 750 ? 90.0 : 60.0
+    private let profileSize = UIScreen.main.bounds.size.height > 750 ? 70.0 : 60.0
     
-    private let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 750 ? UIScreen.main.bounds.size.height / 7 : UIScreen.main.bounds.size.height / 9
+    private let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 750 ? UIScreen.main.bounds.size.height / 8 : UIScreen.main.bounds.size.height / 10
     
     // MARK: UI
     private let coupleTabStackView: UIStackView = { // 커플 탭 전체 뷰
@@ -161,11 +184,11 @@ class CoupleTabViewController: UIViewController {
         return view
     }()
     
-//    private let demoAdmobView: GADBannerView = {
-//        var view = GADBannerView()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//    }()
+    //    private let demoAdmobView: GADBannerView = {
+    //        var view = GADBannerView()
+    //        view.translatesAutoresizingMaskIntoConstraints = false
+    //        return view
+    //    }()
     
     private lazy var comingStoryStackView: UIStackView = {
         var stackView = UIStackView(arrangedSubviews: [titleAnniversary, anniversaryOneStackView, anniversaryTwoStackView, anniversaryThreeStackView, anniversaryEmpty])
@@ -252,13 +275,13 @@ class CoupleTabViewController: UIViewController {
         
         coupleTabStackView.addArrangedSubview(demoAdmobView)
         
-//        coupleTabStackView.addArrangedSubview(demoAdmobView)
+        //        coupleTabStackView.addArrangedSubview(demoAdmobView)
         
-//        demoAdmobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
-//        demoAdmobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
-//        demoAdmobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-//        demoAdmobView.rootViewController = self
-//        demoAdmobView.load(GADRequest())
+        demoAdmobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
+        demoAdmobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
+        //        demoAdmobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        //        demoAdmobView.rootViewController = self
+        //        demoAdmobView.load(GADRequest())
         
         coupleStackView.addArrangedSubview(myProfileUIImageView)
         coupleStackView.addArrangedSubview(iconDayStackView)
@@ -288,8 +311,8 @@ class CoupleTabViewController: UIViewController {
             imagePartView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             imagePartView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             
-            coupleStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 30),
-            coupleStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -30),
+            coupleStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 45),
+            coupleStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -45),
             coupleStackView.heightAnchor.constraint(equalToConstant: coupleStackViewHeightSize),
             
             comingStoryStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
@@ -310,11 +333,13 @@ class CoupleTabViewController: UIViewController {
         }
         
         // 배경사진이 변경됐을때
+        //
         if CoupleTabViewModel.changeMainImageCheck {
             coupleTabViewModel.updateMainBackgroundImage()
             CoupleTabViewModel.changeMainImageCheck = false
         }
         // 커플날짜 변경됐을때
+        //
         if CoupleTabViewModel.changeCoupleDayMainCheck {
             coupleTabViewModel.updatePublicBeginCoupleDay()
             coupleTabViewModel.updatePublicBeginCoupleFormatterDay()
@@ -325,17 +350,44 @@ class CoupleTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        beforeLoadingSetupView() // 로딩 뷰 세팅
+        //        self.configureWatchKitSesstion()
+        
+        // 로딩 뷰 세팅
+        //
+        beforeLoadingSetupView()
         //        afterLoadingSetupView()
         
         imagePickerController.delegate = self
         
-        // 바인딩
         coupleTabViewModel.onMainImageDataUpdated = {
             DispatchQueue.main.async { [self] in
                 self.mainImageView.image = UIImage(data: self.coupleTabViewModel.mainImageData!)
                 afterLoadingSetupView() // 제일 큰 사진 로딩 끝나면 beforeLoadingSetupView -> afterLoadingSetupView
+                
+                print("@@@@ self.coupleTabViewModel.mainImageData! \(self.coupleTabViewModel.mainImageData!)")
+                let data = UIImage(data: self.coupleTabViewModel.mainImageData!)?.jpegData(compressionQuality: 0.1)
+                print("@@@@ after data 0.1 \(data!)")
+                let data2 = UIImage(data: self.coupleTabViewModel.mainImageData!)?.jpegData(compressionQuality: 0.01)
+                print("@@@@ after data 0.01 \(data2!)")
+                let data3 = UIImage(data: self.coupleTabViewModel.mainImageData!)?.jpegData(compressionQuality: 0.001)
+                print("@@@@ after data 0.01 \(data3!)")
+                
+                guard WCSession.default.activationState == .activated else { return }
+                do {
+                    print("do do do")
+                    //                    let imageData: [String: Any] = ["sunghun": self.coupleTabViewModel.mainImageData!]
+                    let imageData: [String: Any] = ["sunghun": data!]
+                    try WCSession.default.updateApplicationContext(imageData)
+                } catch {
+                    print("catch error \(error.localizedDescription)")
+                }
+                
             }
+            
+            //            if let validSession = self.session {
+            //                let data: [String: Any] = ["imageData": RealmManager.shared.getImageDatas().first!.mainImageData!]
+            //                validSession.transferUserInfo(data)
+            //            }
         }
         coupleTabViewModel.onMyProfileImageDataUpdated = {
             DispatchQueue.main.async {
@@ -352,6 +404,16 @@ class CoupleTabViewController: UIViewController {
             DispatchQueue.main.async {
                 self.mainTextLabel.text = self.coupleTabViewModel.beginCoupleDay
             }
+            
+            // transferUserInfo
+            //
+            let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
+            WCSession.default.transferUserInfo(dayData)
+            
+            //            if let validSession = self.session {
+            //                let data: [String: Any] = ["dayData": self.coupleTabViewModel.beginCoupleDay]
+            //                validSession.transferUserInfo(data)
+            //            }
         }
         
         coupleTabViewModel.onAnniversaryOneUpdated = {
@@ -393,7 +455,6 @@ class CoupleTabViewController: UIViewController {
         coupleTabViewModel.setAnniversary()
     }
 }
-
 
 // ImagePicker + CropViewController
 extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
