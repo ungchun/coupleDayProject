@@ -13,28 +13,28 @@ import GoogleMobileAds
 import WatchConnectivity
 
 class CoupleTabViewController: UIViewController {
-//    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-//    }
-//
-//    func sessionDidBecomeInactive(_ session: WCSession) {
-//
-//    }
-//
-//    func sessionDidDeactivate(_ session: WCSession) {
-//
-//    }
-//
-//
-//    var session: WCSession?
-//
-//    func configureWatchKitSesstion() {
-//
-//        if WCSession.isSupported() {
-//            session = WCSession.default
-//            session?.delegate = self
-//            session?.activate()
-//        }
-//    }
+    //    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    //    }
+    //
+    //    func sessionDidBecomeInactive(_ session: WCSession) {
+    //
+    //    }
+    //
+    //    func sessionDidDeactivate(_ session: WCSession) {
+    //
+    //    }
+    //
+    //
+    //    var session: WCSession?
+    //
+    //    func configureWatchKitSesstion() {
+    //
+    //        if WCSession.isSupported() {
+    //            session = WCSession.default
+    //            session?.delegate = self
+    //            session?.activate()
+    //        }
+    //    }
     
     private let coupleTabViewModel = CoupleTabViewModel()
     
@@ -45,12 +45,12 @@ class CoupleTabViewController: UIViewController {
     private let myProfileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 내 프로필 이미지 로딩 뷰
     private let profileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 상대 프로필 이미지 로딩 뷰
     
-    private let textBigSize = UIScreen.main.bounds.size.height > 750 ? 30.0 : 25.0
-    private let textSmallSize = UIScreen.main.bounds.size.height > 750 ? 20.0 : 15.0
+    private let textBigSize = UIScreen.main.bounds.size.height > 900 ? 33.0 : UIScreen.main.bounds.size.height > 840 ? 27.0 : UIScreen.main.bounds.size.height > 750 ? 23.0 : 20.0
+    private let textSmallSize = UIScreen.main.bounds.size.height > 900 ? 22.0 : UIScreen.main.bounds.size.height > 840 ? 20.0 : UIScreen.main.bounds.size.height > 840 ? 17.0 : 15.0
     
-    private let profileSize = UIScreen.main.bounds.size.height > 750 ? 90.0 : 60.0
+    private let profileSize = UIScreen.main.bounds.size.height > 750 ? 70.0 : 60.0
     
-    private let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 750 ? UIScreen.main.bounds.size.height / 7 : UIScreen.main.bounds.size.height / 9
+    private let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 750 ? UIScreen.main.bounds.size.height / 8 : UIScreen.main.bounds.size.height / 10
     
     // MARK: UI
     private let coupleTabStackView: UIStackView = { // 커플 탭 전체 뷰
@@ -311,8 +311,8 @@ class CoupleTabViewController: UIViewController {
             imagePartView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             imagePartView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             
-            coupleStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 30),
-            coupleStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -30),
+            coupleStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 45),
+            coupleStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -45),
             coupleStackView.heightAnchor.constraint(equalToConstant: coupleStackViewHeightSize),
             
             comingStoryStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
@@ -350,7 +350,7 @@ class CoupleTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.configureWatchKitSesstion()
+        //        self.configureWatchKitSesstion()
         
         // 로딩 뷰 세팅
         //
@@ -375,7 +375,7 @@ class CoupleTabViewController: UIViewController {
                 guard WCSession.default.activationState == .activated else { return }
                 do {
                     print("do do do")
-//                    let imageData: [String: Any] = ["sunghun": self.coupleTabViewModel.mainImageData!]
+                    //                    let imageData: [String: Any] = ["sunghun": self.coupleTabViewModel.mainImageData!]
                     let imageData: [String: Any] = ["sunghun": data!]
                     try WCSession.default.updateApplicationContext(imageData)
                 } catch {
@@ -407,7 +407,7 @@ class CoupleTabViewController: UIViewController {
             
             // transferUserInfo
             //
-            let dayData: [String: Any] = ["dayData": self.coupleTabViewModel.beginCoupleDay]
+            let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
             WCSession.default.transferUserInfo(dayData)
             
             //            if let validSession = self.session {

@@ -97,8 +97,11 @@ class CoupleTabViewModel {
     // 날짜 세팅
     func setBeginCoupleDay() {
         let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
+        print("sunghun \(nowDayDataString)")
         let nowDayDataDate: Date = nowDayDataString.toDate // 현재 날짜 데이트 데이터
+        print("sunghun \(nowDayDataDate)")
         let minus = Int(nowDayDataDate.millisecondsSince1970)-RealmManager.shared.getUserDatas().first!.beginCoupleDay // 현재 - 사귄날짜 = days
+        print("sunghun \(minus)")
         self.beginCoupleDay = String(describing: minus / 86400000)
         CoupleTabViewModel.publicBeginCoupleDay = String(describing: minus / 86400000)
         self.beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(RealmManager.shared.getUserDatas().first!.beginCoupleDay) / 1000).toStoryString

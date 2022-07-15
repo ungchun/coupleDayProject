@@ -9,19 +9,7 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-enum Command: String {
-    case updateAppContext = "UpdateAppContext"
-    case sendMessage = "SendMessage"
-    case sendMessageData = "SendMessageData"
-    case transferUserInfo = "TransferUserInfo"
-    case transferFile = "TransferFile"
-    case transferCurrentComplicationUserInfo = "TransferComplicationUserInfo"
-}
-
-
 class InterfaceController: WKInterfaceController, WCSessionDelegate {
-    
-    private var command: Command!
     
     @IBOutlet weak var demoImage: WKInterfaceImage!
     @IBOutlet weak var demoLabel: WKInterfaceLabel!
@@ -36,11 +24,15 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     }
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
         if let data = userInfo["dayData"] as? String {
+            let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
+            let nowDayDataDate = nowDayDataString.toDate // 현재 날짜 데이트 데이터
+            let minus = nowDayDataDate.millisecondsSince1970-Int64(data)! // 현재 - 사귄날짜 = days
+            let value = String(describing: minus / 86400000)
             DispatchQueue.main.async {
-                self.demoLabel.setText("\(data) days")
+                self.demoLabel.setText("\(value) days")
             }
         } else {
-            self.demoLabel.setText("sibal")
+            self.demoLabel.setText("days")
         }
     }
     
@@ -67,7 +59,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         dateFormatter.dateFormat = "yyyy.MM.dd"
         self.todayLabel.setText(dateFormatter.string(from: Date.now))
         
-//        return dateFormatter.string(from: self)
+        //        return dateFormatter.string(from: self)
         
         // updateApplicationContext
         //
@@ -85,5 +77,35 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
+    }
+}
+
+extension Date { // MARK: Date
+    init(milliseconds: Int64) {
+        self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
+    }
+    var millisecondsSince1970: Int64 {
+        Int64((self.timeIntervalSince1970 * 1000.0).rounded())
+    }
+    
+    // date -> yyyy-MM-dd 형식의 string 으로 변환
+    //
+    var toString: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko-KR")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: self)
+    }
+}
+
+extension String { // MARK: String
+    
+    // yyyy-MM-dd 형식 string -> date 로 변환
+    //
+    var toDate: Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+        return dateFormatter.date(from: self)!
     }
 }
