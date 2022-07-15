@@ -96,6 +96,14 @@ class StoryCell: UITableViewCell {
     // MARK: init
     override func prepareForReuse() { // cell 초기화
         super.prepareForReuse()
+        
+        let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
+        if isDark {
+            self.storyDayText.textColor = .white
+        } else {
+            self.storyDayText.textColor = .black
+        }
+        
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

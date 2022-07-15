@@ -202,11 +202,5 @@ class BeginViewController: UIViewController {
         rootViewcontroller.modalTransitionStyle = .crossDissolve
         rootViewcontroller.modalPresentationStyle = .fullScreen
         self.present(rootViewcontroller, animated: true, completion: nil)
-        
-        // 성훈 시작페이지 추가
-        // 환영합니다.
-        // 당신의 인연에 ~~하길.. -> 명언으로
-        // 시작하기
-        // 페이지 나중에 만들어보기 애니메이션으로
     }
 }
