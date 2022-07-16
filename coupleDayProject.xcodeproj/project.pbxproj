@@ -37,6 +37,7 @@
 		BC83F8DD28770EC40027235E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC83F8DC28770EC40027235E /* RealmSwift */; };
 		BC8B624F285087B000D46416 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B624E285087B000D46416 /* Realm */; };
 		BC8B6251285087B000D46416 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B6250285087B000D46416 /* RealmSwift */; };
+		BC9493B7288142E9003FF1DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC9493B9288142E9003FF1DB /* InfoPlist.strings */; };
 		BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B151285076FF00DE7196 /* AppDelegate.swift */; };
 		BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B153285076FF00DE7196 /* SceneDelegate.swift */; };
 		BCB0B15B2850770000DE7196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB0B15A2850770000DE7196 /* Assets.xcassets */; };
@@ -149,6 +150,9 @@
 		BC83F8D12876D2200027235E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC83F8D828770C600027235E /* coupleDayProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = coupleDayProject.entitlements; sourceTree = "<group>"; };
 		BC83F8D928770CA20027235E /* coupleDayWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = coupleDayWidgetExtension.entitlements; sourceTree = "<group>"; };
+		BC9493BA288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		BC9493BB288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Interface.strings; sourceTree = "<group>"; };
+		BC9493BC288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCB0B14E285076FF00DE7196 /* coupleDayProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB0B151285076FF00DE7196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB0B153285076FF00DE7196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -300,6 +304,7 @@
 				BCB0B15A2850770000DE7196 /* Assets.xcassets */,
 				BCB0B15C2850770000DE7196 /* LaunchScreen.storyboard */,
 				BCB0B15F2850770000DE7196 /* Info.plist */,
+				BC9493B9288142E9003FF1DB /* InfoPlist.strings */,
 			);
 			path = coupleDayProject;
 			sourceTree = "<group>";
@@ -514,11 +519,12 @@
 			};
 			buildConfigurationList = BCB0B149285076FF00DE7196 /* Build configuration list for PBXProject "coupleDayProject" */;
 			compatibilityVersion = "Xcode 13.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ko,
+				en,
 			);
 			mainGroup = BCB0B145285076FF00DE7196;
 			packageReferences = (
@@ -578,6 +584,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB0B15E2850770000DE7196 /* LaunchScreen.storyboard in Resources */,
+				BC9493B7288142E9003FF1DB /* InfoPlist.strings in Resources */,
 				BCF7984A285732780009A78C /* GangwonEduAllBold.ttf in Resources */,
 				BC83F8962876ACD30027235E /* lottieFile.json in Resources */,
 				BCB0B15B2850770000DE7196 /* Assets.xcassets in Resources */,
@@ -658,14 +665,24 @@
 			isa = PBXVariantGroup;
 			children = (
 				BC78B4EA287D7B1A00DF10C6 /* Base */,
+				BC9493BB288143D4003FF1DB /* ko */,
 			);
 			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+		BC9493B9288142E9003FF1DB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC9493BC288143D4003FF1DB /* ko */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		BCB0B15C2850770000DE7196 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BCB0B15D2850770000DE7196 /* Base */,
+				BC9493BA288143D4003FF1DB /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -847,6 +864,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -907,6 +925,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

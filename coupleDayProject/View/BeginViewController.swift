@@ -1,10 +1,3 @@
-//
-//  DemoFirstPage.swift
-//  trendingProject
-//
-//  Created by 김성훈 on 2022/06/05.
-//
-
 import Foundation
 import UIKit
 
@@ -14,6 +7,7 @@ class BeginViewController: UIViewController {
     private var checkValue = false
     
     // MARK: UI
+    //
     private let guideText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -23,7 +17,6 @@ class BeginViewController: UIViewController {
         label.textColor = TrendingConstants.appMainColor
         return label
     }()
-    
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
@@ -37,11 +30,13 @@ class BeginViewController: UIViewController {
         components.calendar = calendar
         
         // datePicker max 날짜 세팅 -> 오늘 날짜 에서
+        //
         components.year = -1
         components.month = 12
         let maxDate = calendar.date(byAdding: components, to: currentDate)!
         
         // datePicker min 날짜 세팅 -> 10년 전 까지
+        //
         components.year = -10
         let minDate = calendar.date(byAdding: components, to: currentDate)!
         
@@ -50,7 +45,6 @@ class BeginViewController: UIViewController {
         
         return datePicker
     }()
-    
     private let startBtn: UIButton = {
         let btn = UIButton()
         btn.setTitle("시작하기", for: .normal)
@@ -58,7 +52,6 @@ class BeginViewController: UIViewController {
         btn.setTitleColor(UIColor.gray, for: .normal)
         return btn
     }()
-    
     private let divider: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -66,16 +59,15 @@ class BeginViewController: UIViewController {
         view.backgroundColor = TrendingConstants.appMainColor
         return view
     }()
-    
-    private let checkButton: UIButton = {
+    private let checkButton: UIButton = { // 0일부터 시작 체크버튼 + 택스트 같이 묶어서 버튼으로 만듬
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        // set text
         button.setTitle("0일부터 시작", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont(name: "GangwonEduAllLight", size: 20)
         
-        // set image
+        // 0일부터 시작 왼쪽 체크버튼
+        //
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: UIImage.SymbolWeight.medium, scale: UIImage.SymbolScale.large)
         let largeImage = UIImage(systemName: "square", withConfiguration: largeConfig)
         button.setImage(largeImage, for: .normal)
@@ -84,17 +76,13 @@ class BeginViewController: UIViewController {
         ])
         button.imageView?.contentMode = .scaleAspectFit
         button.imageView?.tintColor = TrendingConstants.appMainColor
-        
         button.contentHorizontalAlignment = .center
         button.contentVerticalAlignment = .bottom
         button.semanticContentAttribute = .forceLeftToRight
-        
         button.imageEdgeInsets = UIEdgeInsets(top:0, left:-10, bottom:0, right:0)
         button.titleEdgeInsets = UIEdgeInsets(top:0, left:10, bottom:0, right:0)
-        
         return button
     }()
-    
     private let coupleBeginDay: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -105,29 +93,38 @@ class BeginViewController: UIViewController {
         textField.font = UIFont(name: "GangwonEduAllBold", size: 40)
         return textField
     }()
-    
-    private lazy var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = { // 전체 UI
         var stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
-        
         return stackView
     }()
     
+    // MARK: init
+    //
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupHideKeyboardOnTap()
+        setupView()
+    }
     // MARK: func
+    //
     fileprivate func setupView() {
+        // 날짜 변경 클릭, 0일부터 시작 버튼 클릭, 시작하기 버튼 클릭
+        //
+        datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
+        checkButton.addTarget(self, action: #selector(checkButtonTap), for: .touchUpInside)
+        startBtn.addTarget(self, action: #selector(startBtnTap), for: .touchUpInside)
         
-        datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged) // 날짜 변경 클릭
-        checkButton.addTarget(self, action: #selector(checkButtonTap), for: .touchUpInside) // 0일부터 시작 버튼 클릭
-        startBtn.addTarget(self, action: #selector(startBtnTap), for: .touchUpInside) // 시작하기 버튼 클릭
+        view.backgroundColor = TrendingConstants.appMainColorAlaph40
         
-        view.backgroundColor = TrendingConstants.appMainColorAlaph40 // set background color
-        view.addSubview(stackView)
         coupleBeginDay.inputView = datePicker
         coupleBeginDay.tintColor = .clear
         coupleBeginDay.textAlignment = .center
         guideText.textAlignment = .center
+        
+        view.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
@@ -137,19 +134,21 @@ class BeginViewController: UIViewController {
         stackView.addArrangedSubview(startBtn)
         stackView.addArrangedSubview(divider)
         stackView.addArrangedSubview(checkButton)
-        stackView.setCustomSpacing(25, after: coupleBeginDay) // coupleBeginDay 밑으로 spacing 25 추가로 더 주기
         
         divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        // stackView에서 주는 space 말고도 추가로 spacing 25 추가로 더 주기
+        //
+        stackView.setCustomSpacing(25, after: coupleBeginDay)
         stackView.setCustomSpacing(25, after: startBtn)
         stackView.setCustomSpacing(25, after: divider)
-        
-        
     }
     
     // MARK: objc
+    //
     @objc
     func handleDatePicker(_ sender: UIDatePicker) {
-        coupleBeginDay.text = sender.date.toString // yyyy-MM-dd
+        coupleBeginDay.text = sender.date.toString
         handleDateValue = sender.date
     }
     @objc
@@ -166,47 +165,36 @@ class BeginViewController: UIViewController {
             checkButton.setImage(largeImage, for: .normal)
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupHideKeyboardOnTap() // extension: inputView dismiss
-        setupView()
-    }
-    
     @objc
     func startBtnTap(completion: @escaping () -> Void) {
-        // MARK: temp input realm data
+        var window: UIWindow?
+        
         let userData = User()
         let imageData = ImageModel()
         
-        var window: UIWindow?
-
+        // 0일부터 시작 체크 or not
+        //
         if checkValue {
             userData.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
         } else {
             userData.beginCoupleDay = Int(Calendar.current.date(byAdding: .day, value: -1, to: handleDateValue.toString.toDate)!.millisecondsSince1970)
         }
-        
         userData.zeroDayStart = checkValue
         imageData.mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
         
+        // add Realm db init
+        //
         RealmManager.shared.writeUserData(userData: userData)
         RealmManager.shared.writeImageData(imageData: imageData)
         
-        // rootViewcontroller -> ContainerViewController 로 변경
+        // rootViewcontroller -> ContainerViewController 로 변경하고 메인으로 이동
+        //
         let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = rootViewcontroller
         window?.makeKeyAndVisible()
-        
         rootViewcontroller.modalTransitionStyle = .crossDissolve
         rootViewcontroller.modalPresentationStyle = .fullScreen
         self.present(rootViewcontroller, animated: true, completion: nil)
-        
-        // 성훈 시작페이지 추가
-        // 환영합니다.
-        // 당신의 인연에 ~~하길.. -> 명언으로
-        // 시작하기
-        // 페이지 나중에 만들어보기 애니메이션으로
     }
 }

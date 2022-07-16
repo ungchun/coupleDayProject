@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  trendingProject
-//
-//  Created by 김성훈 on 2022/05/22.
-//
-
 import UIKit
 import Photos
 import TOCropViewController
@@ -13,33 +6,12 @@ import GoogleMobileAds
 import WatchConnectivity
 
 class CoupleTabViewController: UIViewController {
-    //    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-    //    }
-    //
-    //    func sessionDidBecomeInactive(_ session: WCSession) {
-    //
-    //    }
-    //
-    //    func sessionDidDeactivate(_ session: WCSession) {
-    //
-    //    }
-    //
-    //
-    //    var session: WCSession?
-    //
-    //    func configureWatchKitSesstion() {
-    //
-    //        if WCSession.isSupported() {
-    //            session = WCSession.default
-    //            session?.delegate = self
-    //            session?.activate()
-    //        }
-    //    }
     
     private let coupleTabViewModel = CoupleTabViewModel()
     
-    private var whoProfileChange = "my" // 내 프로필변경인지, 상대 프로필변경인지 체크하는 값
     private let imagePickerController = UIImagePickerController()
+    
+    private var whoProfileChange = "my" // 내 프로필변경인지, 상대 프로필변경인지 체크하는 값
     
     private let mainImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 메인 이미지 로딩 뷰
     private let myProfileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 내 프로필 이미지 로딩 뷰
@@ -47,12 +19,11 @@ class CoupleTabViewController: UIViewController {
     
     private let textBigSize = UIScreen.main.bounds.size.height > 900 ? 33.0 : UIScreen.main.bounds.size.height > 840 ? 27.0 : UIScreen.main.bounds.size.height > 750 ? 23.0 : 20.0
     private let textSmallSize = UIScreen.main.bounds.size.height > 900 ? 22.0 : UIScreen.main.bounds.size.height > 840 ? 20.0 : UIScreen.main.bounds.size.height > 840 ? 17.0 : 15.0
-    
     private let profileSize = UIScreen.main.bounds.size.height > 750 ? 70.0 : 60.0
-    
     private let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 750 ? UIScreen.main.bounds.size.height / 8 : UIScreen.main.bounds.size.height / 10
     
     // MARK: UI
+    //
     private let coupleTabStackView: UIStackView = { // 커플 탭 전체 뷰
         let view = UIStackView()
         view.axis = .vertical
@@ -112,14 +83,12 @@ class CoupleTabViewController: UIViewController {
         label.font = UIFont(name: "GangwonEduAllLight", size: 25)
         return label
     }()
-    
     private lazy var titleAnniversary: UILabel = {
         var label = UILabel()
         label.text = "다가오는 기념일"
         label.font = UIFont(name: "GangwonEduAllBold", size: textBigSize)
         return label
     }()
-    
     private lazy var anniversaryOneContent: UILabel = {
         var label = UILabel()
         label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
@@ -136,7 +105,6 @@ class CoupleTabViewController: UIViewController {
         stackView.distribution = .fill
         return stackView
     }()
-    
     private lazy var anniversaryTwoContent: UILabel = {
         var label = UILabel()
         label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
@@ -170,27 +138,23 @@ class CoupleTabViewController: UIViewController {
         stackView.distribution = .fill
         return stackView
     }()
-    
     private let anniversaryEmpty: UILabel = {
         var label = UILabel()
         return label
     }()
-    
-    // MARK: admob 부분
-    private let demoAdmobView: UIView = {
+    private let demoAdmobView: UIView = { // admob 부분
         var view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .green
         return view
     }()
-    
+    // admob 제대로 달고 위에 demo 버전 UIView 삭제
     //    private let demoAdmobView: GADBannerView = {
     //        var view = GADBannerView()
     //        view.translatesAutoresizingMaskIntoConstraints = false
     //        return view
     //    }()
-    
-    private lazy var comingStoryStackView: UIStackView = {
+    private lazy var comingStoryStackView: UIStackView = { // 다가오는 기념일 stackView
         var stackView = UIStackView(arrangedSubviews: [titleAnniversary, anniversaryOneStackView, anniversaryTwoStackView, anniversaryThreeStackView, anniversaryEmpty])
         stackView.setCustomSpacing(10, after: titleAnniversary)
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -200,33 +164,134 @@ class CoupleTabViewController: UIViewController {
         return stackView
     }()
     
-    // MARK: objc
-    @objc
-    func myProfileTap(_ gesture: UITapGestureRecognizer) { // 내 사진 변경
-        whoProfileChange = "my"
-        self.present(imagePickerController, animated: true, completion: nil)
-        //        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
-        //        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
-        //            whoProfileChange = "my"
-        //            self.present(imagePickerController, animated: true, completion: nil)
+    // MARK: init
+    //
+    override func viewWillAppear(_ animated: Bool) {
+        //  성훈 최종 디버그 하고 이상없으면 이 부분 삭제
+        //        if CoupleTabViewModel.changeDarkModeCheck && (RealmManager.shared.getImageDatas().first!.myProfileImageData == nil || RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil) {
+        //            coupleTabViewModel.updateProfileIcon()
+        //            CoupleTabViewModel.changeDarkModeCheck = false
         //        }
+        
+        // 배경사진이 변경됐을때
+        //
+        if CoupleTabViewModel.changeMainImageCheck {
+            coupleTabViewModel.updateMainBackgroundImage()
+            CoupleTabViewModel.changeMainImageCheck = false
+        }
+        // 커플날짜 변경됐을때
+        //
+        if CoupleTabViewModel.changeCoupleDayMainCheck {
+            coupleTabViewModel.updatePublicBeginCoupleDay()
+            coupleTabViewModel.updatePublicBeginCoupleFormatterDay()
+            CoupleTabViewModel.changeCoupleDayMainCheck = false
+        }
     }
-    @objc
-    func partnerProfileTap(_ gesture: UITapGestureRecognizer) { // 상대 사진 변경
-        whoProfileChange = "partner"
-        self.present(imagePickerController, animated: true, completion: nil)
-        //        let photoAuthCheckValue = ImagePicker.photoAuthCheck(imagePickerController: self.imagePickerController)
-        //        if photoAuthCheckValue == 0 || photoAuthCheckValue == 3 {
-        //            whoProfileChange = "partner"
-        //            self.present(imagePickerController, animated: true, completion: nil)
-        //        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        imagePickerController.delegate = self
+        
+        // 로딩 뷰 세팅, 제일 큰 사진 로딩 끝나면 beforeLoadingSetupView -> afterLoadingSetupView 변경
+        // coupleTabViewModel 바인딩 (연결)
+        //
+        beforeLoadingSetupView()
+        coupleTabViewModel.onMainImageDataUpdated = {
+            DispatchQueue.main.async { [self] in
+                self.mainImageView.image = UIImage(data: self.coupleTabViewModel.mainImageData!)
+                afterLoadingSetupView()
+                
+                // watch, 메인 이미지는 updateApplicationContext 방법으로 이미지 연동
+                // watch 앱에 보내는 image, 크기 제한이 심해서 0.1 화질로 보냄 -> 0.1이 제일 작은 크기인 듯..? 0.1이 0.01, 0.001 이랑 차이없음
+                //
+                let data = UIImage(data: self.coupleTabViewModel.mainImageData!)?.jpegData(compressionQuality: 0.1)
+                guard WCSession.default.activationState == .activated else { return }
+                do {
+                    let imageData: [String: Any] = ["imageData": data!]
+                    try WCSession.default.updateApplicationContext(imageData)
+                } catch {
+                    print("catch error \(error.localizedDescription)")
+                }
+            }
+            
+            // guard WCSession.default.activationState 말고 이렇게도 가능함, 블로그 작성 후 요부분 삭제
+            //            if let validSession = self.session {
+            //                let data: [String: Any] = ["imageData": RealmManager.shared.getImageDatas().first!.mainImageData!]
+            //                validSession.transferUserInfo(data)
+            //            }
+        }
+        coupleTabViewModel.onMyProfileImageDataUpdated = {
+            DispatchQueue.main.async {
+                self.myProfileUIImageView.image = UIImage(data: self.coupleTabViewModel.myProfileImageData!)
+            }
+        }
+        coupleTabViewModel.onPartnerProfileImageDataUpdated = {
+            DispatchQueue.main.async {
+                self.partnerProfileUIImageView.image = UIImage(data: self.coupleTabViewModel.partnerProfileImageData!)
+            }
+        }
+        coupleTabViewModel.onPublicBeginCoupleDayUpdated = {
+            DispatchQueue.main.async {
+                self.mainTextLabel.text = self.coupleTabViewModel.beginCoupleDay
+            }
+            
+            // watch, days 택스트 value는 transferUserInfo 방법으로 연동
+            //
+            let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
+            WCSession.default.transferUserInfo(dayData)
+            
+            // WCSession.default.transferUserInfo(dayData) 말고 이렇게도 가능함, 블로그 작성 후 요부분 삭제
+            //            if let validSession = self.session {
+            //                let data: [String: Any] = ["dayData": self.coupleTabViewModel.beginCoupleDay]
+            //                validSession.transferUserInfo(data)
+            //            }
+        }
+        coupleTabViewModel.onAnniversaryOneUpdated = {
+            DispatchQueue.main.async {
+                self.anniversaryOneContent.text = self.coupleTabViewModel.anniversaryOne
+            }
+        }
+        coupleTabViewModel.onAnniversaryOneD_DayUpdated = {
+            DispatchQueue.main.async {
+                self.anniversaryOneD_Day.text = self.coupleTabViewModel.anniversaryOneD_Day
+            }
+        }
+        coupleTabViewModel.onAnniversaryTwoUpdated = {
+            DispatchQueue.main.async {
+                self.anniversaryTwoContent.text = self.coupleTabViewModel.anniversaryTwo
+            }
+        }
+        coupleTabViewModel.onAnniversaryTwoD_DayUpdated = {
+            DispatchQueue.main.async {
+                self.anniversaryTwoD_Day.text = self.coupleTabViewModel.anniversaryTwoD_Day
+            }
+        }
+        coupleTabViewModel.onAnniversaryThreeUpdated = {
+            DispatchQueue.main.async {
+                self.anniversaryThreeContent.text = self.coupleTabViewModel.anniversaryThree
+            }
+        }
+        coupleTabViewModel.onAnniversaryThreeD_DayUpdated = {
+            DispatchQueue.main.async {
+                self.anniversaryThreeD_Day.text = self.coupleTabViewModel.anniversaryThreeD_Day
+            }
+        }
+        
+        // viewModel init
+        //
+        coupleTabViewModel.setMainBackgroundImage()
+        coupleTabViewModel.setBeginCoupleDay()
+        coupleTabViewModel.setAnniversary()
     }
     
     // MARK: func
+    //
     // 이미지 불러오는동안 보이는 임시 뷰
+    //
     fileprivate func beforeLoadingSetupView() {
         view.backgroundColor = UIColor(named: "bgColor")
-        // 이미지 로딩 뷰
+        
+        // 이미지 로딩 뷰 세팅
+        //
         mainImageActivityIndicatorView.startAnimating()
         mainImageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         myProfileImageActivityIndicatorView.startAnimating()
@@ -238,9 +303,12 @@ class CoupleTabViewController: UIViewController {
     }
     
     // 이미지 불러오고나서 보이는 뷰
+    //
     fileprivate func afterLoadingSetupView() {
         view.backgroundColor = UIColor(named: "bgColor")
+        
         // 이미지 로딩 뷰 제거
+        //
         profileImageActivityIndicatorView.stopAnimating()
         myProfileImageActivityIndicatorView.stopAnimating()
         mainImageActivityIndicatorView.stopAnimating()
@@ -250,15 +318,17 @@ class CoupleTabViewController: UIViewController {
     
     fileprivate func setUpView(imageLoadingFlag: Bool) {
         
-        // 내 사진 변경
-        let tapGestureMyProfileUIImageView = UITapGestureRecognizer(target: self, action: #selector(myProfileTap(_:))) // 이미지 변경 제스쳐
+        // 내 프로필 사진 변경 제스처
+        //
+        let tapGestureMyProfileUIImageView = UITapGestureRecognizer(target: self, action: #selector(myProfileTap(_:)))
         myProfileUIImageView.addGestureRecognizer(tapGestureMyProfileUIImageView)
         myProfileUIImageView.isUserInteractionEnabled = true
         myProfileUIImageView.layer.cornerRadius = profileSize/2 // 둥글게
         myProfileUIImageView.clipsToBounds = true
         
-        // 상대방 사진 변경
-        let tapGesturePartnerProfileUIImageView = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap(_:))) // 이미지 변경 제스쳐
+        // 상대방 프로필 사진 변경 제스처
+        //
+        let tapGesturePartnerProfileUIImageView = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap(_:)))
         partnerProfileUIImageView.isUserInteractionEnabled = true
         partnerProfileUIImageView.addGestureRecognizer(tapGesturePartnerProfileUIImageView)
         partnerProfileUIImageView.layer.cornerRadius = profileSize/2 // 둥글게
@@ -267,14 +337,11 @@ class CoupleTabViewController: UIViewController {
         let imagePartView = imageLoadingFlag ? self.mainImageView : self.mainImageActivityIndicatorView
         
         view.addSubview(coupleTabStackView)
-        
         coupleTabStackView.addArrangedSubview(topTabBackView)
         coupleTabStackView.addArrangedSubview(imagePartView)
         coupleTabStackView.addArrangedSubview(coupleStackView)
         coupleTabStackView.addArrangedSubview(comingStoryStackView)
-        
         coupleTabStackView.addArrangedSubview(demoAdmobView)
-        
         //        coupleTabStackView.addArrangedSubview(demoAdmobView)
         
         demoAdmobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
@@ -293,7 +360,9 @@ class CoupleTabViewController: UIViewController {
         coupleTabStackView.setCustomSpacing(15, after: imagePartView)
         coupleTabStackView.setCustomSpacing(15, after: coupleStackView)
         
+        // set autolayout
         // UIScreen.main.bounds.size.height -> 디바이스 별 height 이용해서 해상도 비율 맞춤
+        //
         NSLayoutConstraint.activate([
             myProfileUIImageView.widthAnchor.constraint(equalToConstant: profileSize),
             myProfileUIImageView.heightAnchor.constraint(equalToConstant: profileSize),
@@ -325,168 +394,65 @@ class CoupleTabViewController: UIViewController {
         ])
     }
     
-    // MARK: init
-    override func viewWillAppear(_ animated: Bool) {
-        if CoupleTabViewModel.changeDarkModeCheck && (RealmManager.shared.getImageDatas().first!.myProfileImageData == nil || RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil) {
-            coupleTabViewModel.updateProfileIcon()
-            CoupleTabViewModel.changeDarkModeCheck = false
-        }
-        
-        // 배경사진이 변경됐을때
-        //
-        if CoupleTabViewModel.changeMainImageCheck {
-            coupleTabViewModel.updateMainBackgroundImage()
-            CoupleTabViewModel.changeMainImageCheck = false
-        }
-        // 커플날짜 변경됐을때
-        //
-        if CoupleTabViewModel.changeCoupleDayMainCheck {
-            coupleTabViewModel.updatePublicBeginCoupleDay()
-            coupleTabViewModel.updatePublicBeginCoupleFormatterDay()
-            CoupleTabViewModel.changeCoupleDayMainCheck = false
-        }
+    // MARK: objc
+    //
+    @objc
+    func myProfileTap(_ gesture: UITapGestureRecognizer) {
+        whoProfileChange = "my"
+        self.present(imagePickerController, animated: true, completion: nil)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        //        self.configureWatchKitSesstion()
-        
-        // 로딩 뷰 세팅
-        //
-        beforeLoadingSetupView()
-        //        afterLoadingSetupView()
-        
-        imagePickerController.delegate = self
-        
-        coupleTabViewModel.onMainImageDataUpdated = {
-            DispatchQueue.main.async { [self] in
-                self.mainImageView.image = UIImage(data: self.coupleTabViewModel.mainImageData!)
-                afterLoadingSetupView() // 제일 큰 사진 로딩 끝나면 beforeLoadingSetupView -> afterLoadingSetupView
-                
-                print("@@@@ self.coupleTabViewModel.mainImageData! \(self.coupleTabViewModel.mainImageData!)")
-                let data = UIImage(data: self.coupleTabViewModel.mainImageData!)?.jpegData(compressionQuality: 0.1)
-                print("@@@@ after data 0.1 \(data!)")
-                let data2 = UIImage(data: self.coupleTabViewModel.mainImageData!)?.jpegData(compressionQuality: 0.01)
-                print("@@@@ after data 0.01 \(data2!)")
-                let data3 = UIImage(data: self.coupleTabViewModel.mainImageData!)?.jpegData(compressionQuality: 0.001)
-                print("@@@@ after data 0.01 \(data3!)")
-                
-                guard WCSession.default.activationState == .activated else { return }
-                do {
-                    print("do do do")
-                    //                    let imageData: [String: Any] = ["sunghun": self.coupleTabViewModel.mainImageData!]
-                    let imageData: [String: Any] = ["sunghun": data!]
-                    try WCSession.default.updateApplicationContext(imageData)
-                } catch {
-                    print("catch error \(error.localizedDescription)")
-                }
-                
-            }
-            
-            //            if let validSession = self.session {
-            //                let data: [String: Any] = ["imageData": RealmManager.shared.getImageDatas().first!.mainImageData!]
-            //                validSession.transferUserInfo(data)
-            //            }
-        }
-        coupleTabViewModel.onMyProfileImageDataUpdated = {
-            DispatchQueue.main.async {
-                self.myProfileUIImageView.image = UIImage(data: self.coupleTabViewModel.myProfileImageData!)
-            }
-        }
-        coupleTabViewModel.onPartnerProfileImageDataUpdated = {
-            DispatchQueue.main.async {
-                self.partnerProfileUIImageView.image = UIImage(data: self.coupleTabViewModel.partnerProfileImageData!)
-            }
-        }
-        
-        coupleTabViewModel.onPublicBeginCoupleDayUpdated = {
-            DispatchQueue.main.async {
-                self.mainTextLabel.text = self.coupleTabViewModel.beginCoupleDay
-            }
-            
-            // transferUserInfo
-            //
-            let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
-            WCSession.default.transferUserInfo(dayData)
-            
-            //            if let validSession = self.session {
-            //                let data: [String: Any] = ["dayData": self.coupleTabViewModel.beginCoupleDay]
-            //                validSession.transferUserInfo(data)
-            //            }
-        }
-        
-        coupleTabViewModel.onAnniversaryOneUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryOneContent.text = self.coupleTabViewModel.anniversaryOne
-            }
-        }
-        coupleTabViewModel.onAnniversaryOneD_DayUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryOneD_Day.text = self.coupleTabViewModel.anniversaryOneD_Day
-            }
-        }
-        
-        coupleTabViewModel.onAnniversaryTwoUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryTwoContent.text = self.coupleTabViewModel.anniversaryTwo
-            }
-        }
-        coupleTabViewModel.onAnniversaryTwoD_DayUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryTwoD_Day.text = self.coupleTabViewModel.anniversaryTwoD_Day
-            }
-        }
-        
-        coupleTabViewModel.onAnniversaryThreeUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryThreeContent.text = self.coupleTabViewModel.anniversaryThree
-            }
-        }
-        coupleTabViewModel.onAnniversaryThreeD_DayUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryThreeD_Day.text = self.coupleTabViewModel.anniversaryThreeD_Day
-            }
-        }
-        
-        // viewModel init
-        coupleTabViewModel.setMainBackgroundImage()
-        coupleTabViewModel.setBeginCoupleDay()
-        coupleTabViewModel.setAnniversary()
+    @objc
+    func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
+        whoProfileChange = "partner"
+        self.present(imagePickerController, animated: true, completion: nil)
     }
 }
 
+// MARK: extension
+//
 // ImagePicker + CropViewController
+//
 extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
-    // CropViewController
-    func presentCropViewController(image: UIImage) {
-        let image: UIImage = image
-        let cropViewController = CropViewController(croppingStyle: .circular, image: image) // cropViewController, 이미지 범위 둥근 모양
-        cropViewController.delegate = self
-        cropViewController.aspectRatioLockEnabled = true // 비율 고정
-        cropViewController.aspectRatioPickerButtonHidden = true // 비율 설정하는 프리셋 버튼 hidden
-        cropViewController.doneButtonTitle = "완료"
-        cropViewController.cancelButtonTitle = "취소"
-        present(cropViewController, animated: true, completion: nil)
-    }
-    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        if whoProfileChange == "my" { // 내 프로필 변경
-            RealmManager.shared.updateMyProfileImage(myProfileImage: image)
-            self.coupleTabViewModel.updateMyProfileImage()
-        } else { // 상대 프로필 변경
-            RealmManager.shared.updatePartnerProfileImage(partnerProfileImage: image)
-            self.coupleTabViewModel.updatePartnerProfileImage()
-        }
-        dismiss(animated: true, completion: nil)
-    }
+    
     // ImagePicker
+    //
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let imageData = info[.editedImage] is UIImage ? info[UIImagePickerController.InfoKey.editedImage] : info[UIImagePickerController.InfoKey.originalImage]
+        
+        // 이미지 고르면 이미지피커 dismiis 하고 이미지 데이터 넘기면서 presentCropViewController 띄우기
+        //
         dismiss(animated: true) {
             self.presentCropViewController(image: imageData as! UIImage)
         }
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // CropViewController
+    // circular -> 범위 둥글게, aspectRatioLockEnabled-> 비율 고정
+    //
+    func presentCropViewController(image: UIImage) {
+        let image: UIImage = image
+        let cropViewController = CropViewController(croppingStyle: .circular, image: image)
+        cropViewController.delegate = self
+        cropViewController.aspectRatioLockEnabled = true
+        cropViewController.aspectRatioPickerButtonHidden = true
+        cropViewController.doneButtonTitle = "완료"
+        cropViewController.cancelButtonTitle = "취소"
+        present(cropViewController, animated: true, completion: nil)
+    }
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        
+        // 내 프로필 변경, 상대 프로필 변경
+        //
+        if whoProfileChange == "my" {
+            RealmManager.shared.updateMyProfileImage(myProfileImage: image)
+            self.coupleTabViewModel.updateMyProfileImage()
+        } else {
+            RealmManager.shared.updatePartnerProfileImage(partnerProfileImage: image)
+            self.coupleTabViewModel.updatePartnerProfileImage()
+        }
         dismiss(animated: true, completion: nil)
     }
 }
