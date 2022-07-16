@@ -21,13 +21,13 @@
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="center" layout="overlap" id="Tss-JI-Pzp">
                             <items>
-                                <imageView width="1" height="1" alignment="left" id="sjL-4i-Rmg" userLabel="demoImage"/>
+                                <imageView width="1" height="1" alignment="left" alpha="0.59999999999999998" id="sjL-4i-Rmg" userLabel="demoImage"/>
                                 <group width="1" alignment="center" layout="vertical" spacing="10" id="XJu-xb-Nfi">
                                     <items>
                                         <label alignment="center" verticalAlignment="center" text="Label" id="iMQ-vG-QYH">
                                             <fontDescription key="font" name="GangwonEduAll-OTFLight" family="GangwonEduAll OTF" pointSize="20"/>
                                         </label>
-                                        <label alignment="center" verticalAlignment="center" text="days" textAlignment="center" id="DgM-pb-587">
+                                        <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="DgM-pb-587">
                                             <fontDescription key="font" name="GangwonEduAll-OTFBold" family="GangwonEduAll OTF" pointSize="30"/>
                                         </label>
                                         <label alignment="center" verticalAlignment="center" text="Label" id="D1C-MM-98I">

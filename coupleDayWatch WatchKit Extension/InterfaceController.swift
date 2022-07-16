@@ -50,6 +50,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         group.setContentInset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
         self.topTitle.setText("우리 오늘")
+//        self.demoLabel.setText("days")
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko-KR")
