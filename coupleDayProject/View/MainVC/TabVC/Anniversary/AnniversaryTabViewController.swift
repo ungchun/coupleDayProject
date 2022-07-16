@@ -1,10 +1,3 @@
-//
-//  AnniversaryTabViewController.swift
-//  trendingProject
-//
-//  Created by 김성훈 on 2022/06/07.
-//
-
 import UIKit
 
 class AnniversaryTabViewController: UIViewController {

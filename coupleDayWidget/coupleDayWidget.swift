@@ -1,23 +1,17 @@
-//
-//  coupleDayWidget.swift
-//  coupleDayWidget
-//
-//  Created by 김성훈 on 2022/07/07.
-//
-
 import WidgetKit
 import SwiftUI
 import UIKit
 import RealmSwift
 
 // StaticConfiguration 으로 만듬 -> 사용자가 구성할 필요 없이 보기만하는 구성
-
+//
 struct coupleDayEntry: TimelineEntry {
     var date: Date // date 필수로 요구
     let size: CGSize // widget view size
 }
 
 // provider : 위젯을 새로고침할 타임라인을 결정하는 객체
+//
 struct Provider: TimelineProvider {
     
     func placeholder(in context: Context) -> coupleDayEntry {
@@ -25,6 +19,7 @@ struct Provider: TimelineProvider {
     }
     
     // WidgetKit은 위젯을 추가할 때와 같이 일시적인 상황에서 위젯을 표시하기 위해서 Snapshot 요청
+    //
     func getSnapshot(in context: Context, completion: @escaping (coupleDayEntry) -> ()) {
         let entry = coupleDayEntry(date: Date(), size: context.displaySize)
         completion(entry)
@@ -34,6 +29,7 @@ struct Provider: TimelineProvider {
         
         // date 라는 뷰 업데이트해야하는 시간을 넘겨주면 그 시간이 되면 위젯은 알아서 뷰를 업데이트한다.
         // byAdding: .minute -> 1분마다 업데이트
+        //
         var entries: [coupleDayEntry] = []
         let currentDate = Date()
         for minOffset in 0..<3 {
@@ -48,6 +44,7 @@ struct Provider: TimelineProvider {
 }
 
 // view
+//
 struct coupleDayWidgetEntryView : View {
     
     @Environment(\.widgetFamily) private var widgetFamily
@@ -107,8 +104,8 @@ struct coupleDayWidgetEntryView : View {
 @main
 struct coupleDayWidget: Widget {
     // kind : 모든 Widget에는 고유한 문자열이 존재, 이 문자열을 가지고 위젯을 식별 가능
+    //
     let kind: String = "ungchun.coupleDayProject"
-//    let kind: String = "coupleDayWidget"
     
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
@@ -125,9 +122,12 @@ class RealmManager {
     // try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!) // remove realm db
     
     // Singleton object
+    //
     static let shared: RealmManager = .init()
     
     // Realm instance
+    // forSecurityApplicationGroupIdentifier -> app 쪽 realm 이랑 같은 값을 써서 app, widget realm 디비 공유 (app group)
+    //
     private var realm: Realm {
         print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" )
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")
@@ -136,26 +136,26 @@ class RealmManager {
         return try! Realm(configuration: config)
     }
     
+    // 현재 날짜 스트링 데이터 -> 현재 날짜 데이트 데이터
+    // 현재 - 사귄날짜 = days
+    //
     func getBeginCoupleDay() -> String {
         let realmUserData = realm.objects(User.self)
         let beginCoupleDay = realmUserData[0].beginCoupleDay
-        let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
-        let nowDayDataDate: Date = nowDayDataString.toDate // 현재 날짜 데이트 데이터
-        let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay // 현재 - 사귄날짜 = days
-//        print("String(describing: minus / 86400000) \(String(describing: minus / 86400000))")
+        let nowDayDataString = Date().toString
+        let nowDayDataDate: Date = nowDayDataString.toDate
+        let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay
         return String(describing: minus / 86400000)
     }
     func getMainBackgroundImage() -> Data {
         let realmImageData = realm.objects(ImageModel.self)
         let mainImageData = realmImageData[0].mainImageData
-        //        let myProfileImageData = realmImageData[0].myProfileImageData
-        //        let partnerProfileImageData = realmImageData[0].partnerProfileImageData
-//        print("mainImageData \(mainImageData!)")
         return mainImageData!
     }
 }
 
 // realm model
+//
 class User: Object {
     @objc dynamic var beginCoupleDay = 0
     @objc dynamic var zeroDayStart = false
@@ -166,12 +166,14 @@ class ImageModel: Object {
     @objc dynamic var partnerProfileImageData: Data? = nil
 }
 
-// MARK: color
+// color extension
+//
 extension Color {
     static let appMainColor = Color("appMainColor")
 }
 
-// MARK: Date
+// date extension
+//
 extension Date {
     init(milliseconds: Int64) {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
@@ -179,36 +181,26 @@ extension Date {
     var millisecondsSince1970: Int64 {
         Int64((self.timeIntervalSince1970 * 1000.0).rounded())
     }
-    var toString: String { // date -> yyyy-MM-dd 형식의 string 으로 변환
+    
+    // date -> yyyy-MM-dd 형식의 string 으로 변환
+    //
+    var toString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko-KR")
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: self)
     }
-    var toStoryString: String { // date -> yyyy.MM.dd 형식의 string 으로 변환
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko-KR")
-        dateFormatter.dateFormat = "yyyy.MM.dd(E)"
-        return dateFormatter.string(from: self)
-    }
-    var toAnniversaryString: String { // date -> MM/dd 형식의 string 으로 변환
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko-KR")
-        dateFormatter.dateFormat = "MM/dd"
-        return dateFormatter.string(from: self)
-    }
-    func adding(_ component: Calendar.Component, value: Int, using calendar: Calendar = .current) -> Date {
-        calendar.date(byAdding: component, value: value, to: self)!
-    }
 }
 
-// MARK: String
+// string extension
+//
 extension String {
-    var toDate: Date { // yyyy-MM-dd 형식 string -> date 로 변환
+    // yyyy-MM-dd 형식 string -> date 로 변환
+    //
+    var toDate: Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         return dateFormatter.date(from: self)!
     }
 }
-

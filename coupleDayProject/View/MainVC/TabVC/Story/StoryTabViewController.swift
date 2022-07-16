@@ -1,23 +1,14 @@
-//
-//  StoryTabViewController.swift
-//  trendingProject
-//
-//  Created by 김성훈 on 2022/06/07.
-//
-
 import UIKit
 
 class StoryTabViewController: UIViewController {
 
     // MARK: UI
-    // 상단 탭이랑 안겹치게 주는 뷰
-    private let emptyView: UIView = {
+    //
+    private let emptyView: UIView = { // 상단 탭이랑 안겹치게 주는 뷰
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    // scrollView (stackView)
     private let contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,55 +18,56 @@ class StoryTabViewController: UIViewController {
         stackView.spacing = 0
         return stackView
     }()
-    
-    private let tableView: UITableView = {
+    private let storyTableView: UITableView = {
         let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-    
+    // MARK: init
+    //
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async { [self] in
-            print("DispatchQueue")
-            tableView.reloadData()
+            storyTableView.reloadData()
         }
         
         // 날짜 안지난 스토리로 스크롤 이동
+        //
         let startIndex = IndexPath(row: StoryDay().storyArray.firstIndex(of: StoryDay().storyArray.filter {$0 > Int(CoupleTabViewModel.publicBeginCoupleDay)!}.min()!)!, section: 0)
-        self.tableView.scrollToRow(at: startIndex, at: .top, animated: false)
+        self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(named: "bgColor")
-        tableView.backgroundColor = UIColor(named: "bgColor")
+        storyTableView.backgroundColor = UIColor(named: "bgColor")
         
-        tableView.register(StoryCell.self, forCellReuseIdentifier: "CodingCustomTableViewCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
+        storyTableView.register(StoryCell.self, forCellReuseIdentifier: "CodingCustomTableViewCell")
+        storyTableView.delegate = self
+        storyTableView.dataSource = self
+        storyTableView.separatorStyle = .none
         
         self.view.addSubview(contentStackView)
         contentStackView.addArrangedSubview(emptyView)
-        contentStackView.addArrangedSubview(tableView)
+        contentStackView.addArrangedSubview(storyTableView)
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
+        // set autolayout
+        //
         NSLayoutConstraint.activate([
             emptyView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyView.heightAnchor.constraint(equalToConstant: 70),
             
-            tableView.topAnchor.constraint(equalTo: self.emptyView.bottomAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            storyTableView.topAnchor.constraint(equalTo: self.emptyView.bottomAnchor),
+            storyTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            storyTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            storyTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
-        tableView.rowHeight = 100
-        tableView.estimatedRowHeight = UITableView.automaticDimension   
+        storyTableView.rowHeight = 100
+        storyTableView.estimatedRowHeight = UITableView.automaticDimension   
     }
 }
 
-// tableView extension
+// MARK: extension
+//
 extension StoryTabViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,7 +79,6 @@ extension StoryTabViewController: UITableViewDelegate, UITableViewDataSource {
         cell.bind(index: StoryDay().storyArray[indexPath.row])
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor(named: "bgColor")
-        
         return cell
     }
 }

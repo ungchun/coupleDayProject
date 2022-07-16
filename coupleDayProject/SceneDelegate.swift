@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  coupleDayProject
-//
-//  Created by 김성훈 on 2022/06/08.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -18,18 +11,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
-        // MARK: 시작(root) 뷰컨 설정
+        // 시작(root) 뷰컨 설정
+        //
         guard let windowScene = (scene as? UIWindowScene) else { return }
-//        let rootViewcontroller = realm.isEmpty ? UINavigationController(rootViewController: BeginViewController()) : UINavigationController(rootViewController: ContainerViewController())
+        //        let rootViewcontroller = realm.isEmpty ? UINavigationController(rootViewController: BeginViewController()) : UINavigationController(rootViewController: ContainerViewController())
         let rootViewcontroller = LoadingViewController()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = rootViewcontroller
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
         
+        // darkMode 확인해서 set
+        //
         guard let _ = (scene as? UIWindowScene) else { return }
         if let window = UIApplication.shared.windows.first {
-            print("window.overrideUserInterfaceStyle \(window.overrideUserInterfaceStyle)")
             if #available(iOS 13.0, *) {
                 window.overrideUserInterfaceStyle = isDark == true ? .dark : .light
             } else {

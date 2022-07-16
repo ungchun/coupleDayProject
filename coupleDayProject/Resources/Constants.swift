@@ -1,35 +1,27 @@
-//
-//  Constant.swift
-//  trendingProject
-//
-//  Created by 김성훈 on 2022/06/06.
-//
-
 import Foundation
 import UIKit
 import Photos
 import RealmSwift
 import WidgetKit
 
-//enum AppstoreOpenError: Error {
-//    case invalidAppStoreURL
-//    case cantOpenAppStoreURL
-//}
-
-
+// MARK: RealmManager Singleton
+//
 class RealmManager {
     // realm db 삭제
-    //     try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!) // remove realm db
+    //     try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
     
     // Singleton object
+    //
     static let shared: RealmManager = .init()
     
     // Realm instance
+    // realm db 삭제없이 model 변경하고싶으면 schemaVersion 변경 하면 됨. 대신 전 버전보다는 커야함
+    //
     private var realm: Realm {
         print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" )
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")
         let realmURL = container?.appendingPathComponent("default.realm")
-        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1) // realm db 삭제없이 model 변경하고싶으면 schemaVersion 변경 하면 됨. 대신 전 버전보다는 커야함
+        let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
         return try! Realm(configuration: config)
     }
     
@@ -60,7 +52,9 @@ class RealmManager {
         })
         WidgetCenter.shared.reloadAllTimelines() // 위젯 새로고침
     }
+    
     // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 16000000 으로 맞춰서 예외처리, 16000000 보다 작으면 0.5 퀄리티 16000000 크면 0.25 퀄리티, pngData로 하면 위험부담이 생겨서 배제
+    //
     func updateMainImage(mainImage: UIImage) {
         try? realm.write({
             RealmManager.shared.getImageDatas().first!.mainImageData = (mainImage.pngData()?.count)! > 16000000 ? mainImage.jpegData(compressionQuality: 0.25) : mainImage.jpegData(compressionQuality: 0.5)
@@ -81,6 +75,7 @@ class RealmManager {
 
 
 // MARK: app version 확인, 앱 업데이트 관련
+//
 struct System {
     static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String // 현재 버전 정보 : 타겟 -> 일반 -> Version
     static let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String // 개발자가 내부적으로 확인하기 위한 용도 : 타겟 -> 일반 -> Build
@@ -89,6 +84,7 @@ struct System {
     static let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/1548711244" // 1548711244 -> Apple ID
     
     // 앱 스토어 최신 정보 확인
+    //
     func latestVersion() -> String? {
         let appleID = "이곳에 Apple ID"
         guard let url = URL(string: "http://itunes.apple.com/lookup?id=\(appleID)&country=kr"),
@@ -102,6 +98,7 @@ struct System {
     }
     
     // 앱 스토어로 이동 -> urlStr 에 appStoreOpenUrlString 넣으면 이동
+    //
     func openAppStore(urlStr: String) {
         guard let url = URL(string: urlStr) else { return }
         if UIApplication.shared.canOpenURL(url) {
@@ -111,14 +108,17 @@ struct System {
 }
 
 // MARK: app main color
+//
 struct TrendingConstants {
     static let appMainColor = UIColor(red: 243/255, green: 129/255, blue: 129/255, alpha: 1)
     static let appMainColorAlaph40 = UIColor(red: 234/255, green: 188/255, blue: 188/255, alpha: 1)
 }
 
 // MARK: return year string
+//
 class DateValues {
     // 올해 year -> yyyy 형태로 return
+    //
     static func GetOnlyYear() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -126,7 +126,9 @@ class DateValues {
         let yearString = dateFormatter.string(from: date)
         return yearString
     }
+    
     // 내년 year -> yyyy 형태로 return
+    //
     static func GetOnlyNextYear() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -138,17 +140,16 @@ class DateValues {
 }
 
 // MARK: Loading
+//
 class LoadingIndicator {
     static func showLoading() {
         DispatchQueue.main.async {
-            // 최상단에 있는 window 객체 획득
             guard let window = UIApplication.shared.windows.last else { return }
             let loadingIndicatorView: UIActivityIndicatorView
             if let existedView = window.subviews.first(where: { $0 is UIActivityIndicatorView }) as? UIActivityIndicatorView {
                 loadingIndicatorView = existedView
             } else {
                 loadingIndicatorView = UIActivityIndicatorView(style: .medium)
-                // 다른 UI가 눌리지 않도록 indicatorView의 크기를 full로 할당
                 loadingIndicatorView.frame = window.frame
                 window.addSubview(loadingIndicatorView)
             }
@@ -164,11 +165,12 @@ class LoadingIndicator {
 }
 
 // MARK: ImagePicker
+//
 class ImagePicker {
     // https://eeyatho.tistory.com/141 -> iOS 11 부터, UIImagePickerController 라이브러리 권한 필요없음..
+    //
     static func photoAuthCheck(imagePickerController: UIImagePickerController) -> Int{
         let status = PHPhotoLibrary.authorizationStatus().rawValue
-        print("status \(status)")
         switch status {
         case 0:
             // .notDetermined - 사용자가 아직 권한에 대한 설정을 하지 않았을 때
@@ -208,6 +210,7 @@ class ImagePicker {
 }
 
 // MARK: SwiftUI 프리뷰
+//
 //#if DEBUG
 //import SwiftUI
 //struct DemoRepresentable: UIViewControllerRepresentable {

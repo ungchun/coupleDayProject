@@ -1,10 +1,3 @@
-//
-//  InterfaceController.swift
-//  coupleDayWatch WatchKit Extension
-//
-//  Created by 김성훈 on 2022/07/12.
-//
-
 import WatchKit
 import Foundation
 import WatchConnectivity
@@ -23,10 +16,14 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
     }
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+        
+        // 현재 날짜 스트링 데이터 -> 현재 날짜 데이트 데이터
+        // 현재 - 사귄날짜 = days
+        //
         if let data = userInfo["dayData"] as? String {
-            let nowDayDataString = Date().toString // 현재 날짜 스트링 데이터
-            let nowDayDataDate = nowDayDataString.toDate // 현재 날짜 데이트 데이터
-            let minus = nowDayDataDate.millisecondsSince1970-Int64(data)! // 현재 - 사귄날짜 = days
+            let nowDayDataString = Date().toString
+            let nowDayDataDate = nowDayDataString.toDate
+            let minus = nowDayDataDate.millisecondsSince1970-Int64(data)!
             let value = String(describing: minus / 86400000)
             DispatchQueue.main.async {
                 self.demoLabel.setText("\(value) days")
@@ -80,7 +77,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     }
 }
 
-extension Date { // MARK: Date
+extension Date { // MARK: Date extension
     init(milliseconds: Int64) {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
     }
@@ -98,7 +95,7 @@ extension Date { // MARK: Date
     }
 }
 
-extension String { // MARK: String
+extension String { // MARK: String extension
     
     // yyyy-MM-dd 형식 string -> date 로 변환
     //

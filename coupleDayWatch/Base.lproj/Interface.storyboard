@@ -27,7 +27,7 @@
                                         <label alignment="center" verticalAlignment="center" text="Label" id="iMQ-vG-QYH">
                                             <fontDescription key="font" name="GangwonEduAll-OTFLight" family="GangwonEduAll OTF" pointSize="20"/>
                                         </label>
-                                        <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="DgM-pb-587">
+                                        <label alignment="center" verticalAlignment="center" text="days" textAlignment="center" id="DgM-pb-587">
                                             <fontDescription key="font" name="GangwonEduAll-OTFBold" family="GangwonEduAll OTF" pointSize="30"/>
                                         </label>
                                         <label alignment="center" verticalAlignment="center" text="Label" id="D1C-MM-98I">

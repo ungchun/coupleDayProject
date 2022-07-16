@@ -1,10 +1,3 @@
-//
-//  MainTabManViewController.swift
-//  trendingProject
-//
-//  Created by 김성훈 on 2022/05/29.
-//
-
 import UIKit
 import Tabman
 import Pageboy
@@ -13,42 +6,50 @@ class TabManViewController: TabmanViewController {
     
     private var viewControllers: Array<UIViewController> = []
     
+    // MARK: init
+    //
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setLayoutBar()
+    }
+    
     // MARK: func
-    fileprivate func layoutBar() {
-        let coupleVC = CoupleTabViewController() // 커플
-        let storyVC = StoryTabViewController() // 스토리
-//        let anniversaryVC = AnniversaryTabViewController() // 기념일
-        
+    //
+    fileprivate func setLayoutBar() {
+        // 탭에 커플, 스토리, 기념일 뷰 추가
+        //
+        let coupleVC = CoupleTabViewController()
+        let storyVC = StoryTabViewController()
+        //        let anniversaryVC = AnniversaryTabViewController()
         viewControllers.append(coupleVC)
         viewControllers.append(storyVC)
-//        viewControllers.append(anniversaryVC)
+        //        viewControllers.append(anniversaryVC)
         
         self.dataSource = self
-        
+
         let bar = TMBar.ButtonBar()
         bar.backgroundView.style = .clear
         bar.backgroundColor = UIColor(named: "bgColor")
         bar.buttons.customize { (button) in
-            button.tintColor = UIColor(white: 0.5, alpha: 0.3) // 현재 선택되지않은 탭 글자 컬러
-            button.selectedTintColor = TrendingConstants.appMainColor // 현재 선택된 탭 글자 컬러
+            
+            // 선택되지않은 탭 글자 색깔, 선택된 탭 글자 색깔
+            //
+            button.tintColor = UIColor(white: 0.5, alpha: 0.3)
+            button.selectedTintColor = TrendingConstants.appMainColor
             button.font = UIFont(name: "GangwonEduAllBold", size: 20) ?? UIFont.systemFont(ofSize: 20)
         }
         bar.layout.transitionStyle = .snap
         bar.layout.interButtonSpacing = 20
-        bar.indicator.weight = .custom(value: 2.5) // 얘 없어도 될거 같은데 나중에 두개 비교해보기 (없애려면 value = 0)
+        bar.indicator.weight = .custom(value: 2.5)
         bar.indicator.tintColor = TrendingConstants.appMainColor
         bar.layout.contentInset = UIEdgeInsets(top: 10, left: 20, bottom: 0, right: 20)
         bar.indicator.overscrollBehavior = .bounce
         addBar(bar, dataSource: self, at: .top)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        view.backgroundColor = UIColor(named: "bgColor")
-        layoutBar()
-    }
 }
 
+// MARK: extension
+//
 extension TabManViewController: PageboyViewControllerDataSource, TMBarDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
         let item = TMBarItem(title: "")
@@ -56,6 +57,7 @@ extension TabManViewController: PageboyViewControllerDataSource, TMBarDataSource
         item.title = title
         return item
     }
+    
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
         return viewControllers.count
     }
