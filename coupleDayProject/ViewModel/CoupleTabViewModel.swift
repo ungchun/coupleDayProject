@@ -184,28 +184,29 @@ class CoupleTabViewModel {
         }
     }
     
-    //  성훈 최종 디버그 하고 이상없으면 이 부분 삭제
-    //    func updateProfileIcon() {
-    //        let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
-    //        if RealmManager.shared.getImageDatas().first!.myProfileImageData == nil {
-    //            if isDark {
-    //                self.myProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
-    //            } else {
-    //                self.myProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
-    //            }
-    //        } else {
-    //            self.myProfileImageData = RealmManager.shared.getImageDatas().first!.myProfileImageData
-    //        }
-    //        if RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil {
-    //            if isDark {
-    //                self.partnerProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
-    //            } else {
-    //                self.partnerProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
-    //            }
-    //        } else {
-    //            self.partnerProfileImageData = RealmManager.shared.getImageDatas().first!.partnerProfileImageData
-    //        }
-    //    }
+    // update 프로필 이미지
+    //
+    func updateProfileIcon() {
+        let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
+        if RealmManager.shared.getImageDatas().first!.myProfileImageData == nil {
+            if isDark {
+                self.myProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
+            } else {
+                self.myProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
+            }
+        } else {
+            self.myProfileImageData = RealmManager.shared.getImageDatas().first!.myProfileImageData
+        }
+        if RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil {
+            if isDark {
+                self.partnerProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
+            } else {
+                self.partnerProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
+            }
+        } else {
+            self.partnerProfileImageData = RealmManager.shared.getImageDatas().first!.partnerProfileImageData
+        }
+    }
     
     // update 메인 이미지
     //

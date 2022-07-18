@@ -167,11 +167,10 @@ class CoupleTabViewController: UIViewController {
     // MARK: init
     //
     override func viewWillAppear(_ animated: Bool) {
-        //  성훈 최종 디버그 하고 이상없으면 이 부분 삭제
-        //        if CoupleTabViewModel.changeDarkModeCheck && (RealmManager.shared.getImageDatas().first!.myProfileImageData == nil || RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil) {
-        //            coupleTabViewModel.updateProfileIcon()
-        //            CoupleTabViewModel.changeDarkModeCheck = false
-        //        }
+        if CoupleTabViewModel.changeDarkModeCheck && (RealmManager.shared.getImageDatas().first!.myProfileImageData == nil || RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil) {
+            coupleTabViewModel.updateProfileIcon()
+            CoupleTabViewModel.changeDarkModeCheck = false
+        }
         
         // 배경사진이 변경됐을때
         //
@@ -200,17 +199,12 @@ class CoupleTabViewController: UIViewController {
                 self.mainImageView.image = UIImage(data: self.coupleTabViewModel.mainImageData!)
                 afterLoadingSetupView()
                 
-                // watch, 메인 이미지는 updateApplicationContext 방법으로 이미지 연동
+                // watch, 메인 이미지는 transferUserInfo 방법으로 이미지 연동
                 // watch 앱에 보내는 image, 크기 제한이 심해서 0.1 화질로 보냄 -> 0.1이 제일 작은 크기인 듯..? 0.1이 0.01, 0.001 이랑 차이없음
                 //
                 let data = UIImage(data: self.coupleTabViewModel.mainImageData!)?.jpegData(compressionQuality: 0.1)
-                guard WCSession.default.activationState == .activated else { return }
-                do {
-                    let imageData: [String: Any] = ["imageData": data!]
-                    try WCSession.default.updateApplicationContext(imageData)
-                } catch {
-                    print("catch error \(error.localizedDescription)")
-                }
+                let imageData: [String: Any] = ["imageData": data!]
+                WCSession.default.transferUserInfo(imageData)
             }
             
             // guard WCSession.default.activationState 말고 이렇게도 가능함, 블로그 작성 후 요부분 삭제
@@ -233,11 +227,10 @@ class CoupleTabViewController: UIViewController {
             DispatchQueue.main.async {
                 self.mainTextLabel.text = self.coupleTabViewModel.beginCoupleDay
             }
-            
-            // watch, days 택스트 value는 transferUserInfo 방법으로 연동
+            // watch, days 택스트 value는 updateApplicationContext 방법으로 연동
             //
             let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
-            WCSession.default.transferUserInfo(dayData)
+            try! WCSession.default.updateApplicationContext(dayData)
             
             // WCSession.default.transferUserInfo(dayData) 말고 이렇게도 가능함, 블로그 작성 후 요부분 삭제
             //            if let validSession = self.session {

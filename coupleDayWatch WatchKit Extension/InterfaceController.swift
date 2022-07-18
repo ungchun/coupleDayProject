@@ -15,62 +15,64 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
     }
+    
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
-        
-        // 현재 날짜 스트링 데이터 -> 현재 날짜 데이트 데이터
-        // 현재 - 사귄날짜 = days
+        // receive transferUserInfo
+        // transferUserInfo -> app 이 켜져야 새로고침 전달한다는 느낌 -> image 는 바꿀려면 앱 켜서 바꿔야해서 ok
         //
-        if let data = userInfo["dayData"] as? String {
-            let nowDayDataString = Date().toString
-            let nowDayDataDate = nowDayDataString.toDate
-            let minus = nowDayDataDate.millisecondsSince1970-Int64(data)!
-            let value = String(describing: minus / 86400000)
+        if let data = userInfo["imageData"] as? Data {
             DispatchQueue.main.async {
-                self.demoLabel.setText("\(value) days")
+                self.demoImage.setImage(UIImage(data: data))
             }
-        } else {
-            self.demoLabel.setText("days")
-        }
+        } else { }
     }
     
     override init() {
         super.init()
+        //        assert(WCSession.isSupported(), "watch")
+        //        WCSession.default.delegate = self
+        //        WCSession.default.activate()
+    }
+    
+    override func awake(withContext context: Any?) {
+        // Configure interface objects here.
         assert(WCSession.isSupported(), "watch")
         WCSession.default.delegate = self
         WCSession.default.activate()
     }
     
-    override func awake(withContext context: Any?) {
-        // Configure interface objects here.
-        //        session.delegate = self
-        //        session.activate()
-    }
-    
     override func willActivate() {
         group.setContentInset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
+        // updateApplicationContext -> transferUserInfo 랑은 다르게 항상 도는거 같음 (내부 디비 쓰는 느낌 ?) -> days는 하루가 지나면 앱을 안키더라도 업데이트 되어야해서 updateApplicationContext 처리
+        // 그럼 이미지도 updateApplicationContext 쓰면 안되냐 ? -> updateApplicationContext 중복 불가, 뒤에 오는 데이터가 앞 데이터 덮어버림
+        //
+        let timedColor = WCSession.default.receivedApplicationContext
+        if timedColor.isEmpty == false {
+            DispatchQueue.main.async {
+                // 현재 날짜 스트링 데이터 -> 현재 날짜 데이트 데이터
+                // 현재 - 사귄날짜 = days
+                //
+                if let data = timedColor.values.first as? String {
+                    let nowDayDataString = Date().toString
+                    let nowDayDataDate = nowDayDataString.toDate
+                    let minus = nowDayDataDate.millisecondsSince1970-Int64(data)!
+                    let value = String(describing: minus / 86400000)
+                    DispatchQueue.main.async {
+                    self.demoLabel.setText("\(value) days")
+                    }
+                } else {
+                    self.demoLabel.setText("days")
+                }
+            }
+        }
+        
         self.topTitle.setText("우리 오늘")
-//        self.demoLabel.setText("days")
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko-KR")
         dateFormatter.dateFormat = "yyyy.MM.dd"
         self.todayLabel.setText(dateFormatter.string(from: Date.now))
-        
-        //        return dateFormatter.string(from: self)
-        
-        // updateApplicationContext
-        //
-        let timedColor = WCSession.default.receivedApplicationContext
-        if timedColor.isEmpty == false {
-            DispatchQueue.main.async {
-                self.demoImage.setImage(UIImage(data: timedColor.values.first as! Data))
-            }
-        }
-        
-        //        let test = WCSession.default.outstandingUserInfoTransfers
-        //        self.demoLabel.setText("sunghun \(test)")
-        
     }
     
     override func didDeactivate() {
