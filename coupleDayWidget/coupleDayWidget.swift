@@ -33,7 +33,7 @@ struct Provider: TimelineProvider {
         var entries: [coupleDayEntry] = []
         let currentDate = Date()
         for minOffset in 0..<3 {
-            let entryDate = Calendar.current.date(byAdding: .minute, value: minOffset, to: currentDate)!
+            let entryDate = Calendar.current.date(byAdding: .hour, value: minOffset, to: currentDate)!
             let entry = coupleDayEntry(date: entryDate, size: context.displaySize)
             entries.append(entry)
         }
