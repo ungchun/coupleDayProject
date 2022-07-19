@@ -55,8 +55,10 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "32">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/&#x1102;&#x1165;&#x1105;&#x1161;&#x11bc;&#x1102;&#x1161;&#x1105;&#x1161;&#x11bc;">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BC78B4E6287D7B1A00DF10C6"
@@ -64,7 +66,7 @@
             BlueprintName = "coupleDayWatch"
             ReferencedContainer = "container:coupleDayProject.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -73,8 +75,10 @@
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
       launchAutomaticallySubstyle = "32">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/&#x1102;&#x1165;&#x1105;&#x1161;&#x11bc;&#x1102;&#x1161;&#x1105;&#x1161;&#x11bc;">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BC78B4E6287D7B1A00DF10C6"
@@ -82,7 +86,16 @@
             BlueprintName = "coupleDayWatch"
             ReferencedContainer = "container:coupleDayProject.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "BC78B4E6287D7B1A00DF10C6"
+            BuildableName = "coupleDayWatch.app"
+            BlueprintName = "coupleDayWatch"
+            ReferencedContainer = "container:coupleDayProject.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

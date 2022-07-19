@@ -10,6 +10,11 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     @IBOutlet weak var todayLabel: WKInterfaceLabel!
     @IBOutlet weak var group: WKInterfaceGroup!
     
+//    let conditionDescriptor = CLKComplicationDescriptor(
+//        identifier: complicationConditionIdentifier,
+//        displayName: "Weather Condition",
+//        supportedFamilies: mySupportedFamilies)
+    
     var count: Int = 0
     let session = WCSession.default
     
