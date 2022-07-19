@@ -3,6 +3,13 @@ import SwiftUI
 import UIKit
 import RealmSwift
 
+extension UserDefaults {
+    static var shared: UserDefaults {
+        let appGroupId = "group.ungchun.coupleDayProject"
+        return UserDefaults(suiteName: appGroupId)!
+    }
+}
+
 // StaticConfiguration 으로 만듬 -> 사용자가 구성할 필요 없이 보기만하는 구성
 //
 struct coupleDayEntry: TimelineEntry {
@@ -46,6 +53,8 @@ struct Provider: TimelineProvider {
 // view
 //
 struct coupleDayWidgetEntryView : View {
+    
+    
     
     @Environment(\.widgetFamily) private var widgetFamily
     

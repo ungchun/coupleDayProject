@@ -34,39 +34,6 @@ class ContainerViewController: UIViewController {
         // 상단 NavigationBar 공간 hide -> 안해주면 NavigationBar 크기만큼 자리먹음
         //
         self.navigationController?.isNavigationBarHidden = true
-        
-        // 성훈 업데이트 버전 테스트
-        //
-        let marketingVersion = "1.0.5"
-        let currentProjectVersion = "1.0.0"
-        let splitMarketingVersion = marketingVersion.split(separator: ".").map {$0}
-        let splitCurrentProjectVersion = currentProjectVersion.split(separator: ".").map {$0}
-        
-        // if : 가장 앞자리가 다르면 -> 업데이트 필요
-        // 메시지 창 인스턴스 생성, 컨트롤러에 들어갈 버튼 액션 객체 생성 -> 클릭하면 앱스토어로 이동
-        // else : 두번째 자리가 달라도 업데이트 필요
-        //
-        if splitCurrentProjectVersion[0] < splitMarketingVersion[0] {
-            let alert = UIAlertController(title: "업데이트 알림", message: "ㅁㅁ의 새로운 버전이 있습니다. \(splitMarketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
-            let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
-                print("update alert if")
-                //                System().openAppStore(urlStr: System.appStoreOpenUrlString)
-            }
-            alert.addAction(destructiveAction)
-            self.present(alert, animated: false)
-        } else {
-            if  splitCurrentProjectVersion[1] < splitMarketingVersion[1] {
-                let alert = UIAlertController(title: "업데이트 알림", message: "ㅁㅁ의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
-                let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
-                    print("update alert else if")
-                    //                    System().openAppStore(urlStr: System.appStoreOpenUrlString)
-                }
-                alert.addAction(destructiveAction)
-                self.present(alert, animated: false)
-            } else {
-                // 그 이외에는 업데이트 필요 없음
-            }
-        }
     }
     override func viewDidLoad() {
         setupView()

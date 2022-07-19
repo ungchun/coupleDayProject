@@ -32,9 +32,15 @@ class StoryTabViewController: UIViewController {
         }
         
         // 날짜 안지난 스토리로 스크롤 이동
+        // if CoupleDay 10년 이상이면 10주년 story 로 이동 (우선 story 10주년 까지 설정)
         //
-        let startIndex = IndexPath(row: StoryDay().storyArray.firstIndex(of: StoryDay().storyArray.filter {$0 > Int(CoupleTabViewModel.publicBeginCoupleDay)!}.min()!)!, section: 0)
-        self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
+        if Int(CoupleTabViewModel.publicBeginCoupleDay)! >= 3650 {
+            let startIndex = IndexPath(row: StoryDay().storyArray.count-1, section: 0)
+            self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
+        } else {
+            let startIndex = IndexPath(row: StoryDay().storyArray.firstIndex(of: StoryDay().storyArray.filter {$0 > Int(CoupleTabViewModel.publicBeginCoupleDay)!}.min()!)!, section: 0)
+            self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()

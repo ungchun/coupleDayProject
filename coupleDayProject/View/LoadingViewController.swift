@@ -62,25 +62,57 @@ class LoadingViewController: UIViewController {
         // lottie 애니메이션
         //
         animationView.play {(finish) in
-            // realm 비어있으면 처음 세팅하는 곳으로 이동
-            // realm 안비어있으면 메인으로 이동
+            // 성훈 업데이트 버전 테스트
             //
-            if RealmManager.shared.getUserDatas().isEmpty {
-                let rootViewcontroller = UINavigationController(rootViewController: BeginViewController())
-                self.window = UIWindow(frame: UIScreen.main.bounds)
-                self.window?.rootViewController = rootViewcontroller
-                self.window?.makeKeyAndVisible()
-                rootViewcontroller.modalTransitionStyle = .crossDissolve
-                rootViewcontroller.modalPresentationStyle = .fullScreen
-                self.present(rootViewcontroller, animated: true, completion: nil)
+            let marketingVersion = "1.0.1"
+            let currentProjectVersion = "1.0.0"
+            let splitMarketingVersion = marketingVersion.split(separator: ".").map {$0}
+            let splitCurrentProjectVersion = currentProjectVersion.split(separator: ".").map {$0}
+            
+            // if : 가장 앞자리가 다르면 -> 업데이트 필요
+            // 메시지 창 인스턴스 생성, 컨트롤러에 들어갈 버튼 액션 객체 생성 -> 클릭하면 앱스토어로 이동
+            // else : 두번째 자리가 달라도 업데이트 필요
+            //
+            if splitCurrentProjectVersion[0] < splitMarketingVersion[0] {
+                let alert = UIAlertController(title: "업데이트 알림", message: "너랑나랑의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
+                let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
+                    print("update alert if")
+                    //                System().openAppStore(urlStr: System.appStoreOpenUrlString)
+                }
+                alert.addAction(destructiveAction)
+                self.present(alert, animated: false)
             } else {
-                let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())
-                self.window = UIWindow(frame: UIScreen.main.bounds)
-                self.window?.rootViewController = rootViewcontroller
-                self.window?.makeKeyAndVisible()
-                rootViewcontroller.modalTransitionStyle = .crossDissolve
-                rootViewcontroller.modalPresentationStyle = .fullScreen
-                self.present(rootViewcontroller, animated: true, completion: nil)
+                if  splitCurrentProjectVersion[1] < splitMarketingVersion[1] {
+                    let alert = UIAlertController(title: "업데이트 알림", message: "ㅁㅁ의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
+                    let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
+                        print("update alert else if")
+                        //                    System().openAppStore(urlStr: System.appStoreOpenUrlString)
+                    }
+                    alert.addAction(destructiveAction)
+                    self.present(alert, animated: false)
+                } else {
+                    // 그 이외에는 업데이트 필요 없음
+                    // realm 비어있으면 처음 세팅하는 곳으로 이동
+                    // realm 안비어있으면 메인으로 이동
+                    //
+                    if RealmManager.shared.getUserDatas().isEmpty {
+                        let rootViewcontroller = UINavigationController(rootViewController: BeginViewController())
+                        self.window = UIWindow(frame: UIScreen.main.bounds)
+                        self.window?.rootViewController = rootViewcontroller
+                        self.window?.makeKeyAndVisible()
+                        rootViewcontroller.modalTransitionStyle = .crossDissolve
+                        rootViewcontroller.modalPresentationStyle = .fullScreen
+                        self.present(rootViewcontroller, animated: true, completion: nil)
+                    } else {
+                        let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())
+                        self.window = UIWindow(frame: UIScreen.main.bounds)
+                        self.window?.rootViewController = rootViewcontroller
+                        self.window?.makeKeyAndVisible()
+                        rootViewcontroller.modalTransitionStyle = .crossDissolve
+                        rootViewcontroller.modalPresentationStyle = .fullScreen
+                        self.present(rootViewcontroller, animated: true, completion: nil)
+                    }
+                }
             }
         }
     }

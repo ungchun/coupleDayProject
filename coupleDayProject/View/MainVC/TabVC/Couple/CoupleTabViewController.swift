@@ -230,7 +230,7 @@ class CoupleTabViewController: UIViewController {
             // watch, days 택스트 value는 updateApplicationContext 방법으로 연동
             //
             let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
-            try! WCSession.default.updateApplicationContext(dayData)
+            try? WCSession.default.updateApplicationContext(dayData)
             
             // WCSession.default.transferUserInfo(dayData) 말고 이렇게도 가능함, 블로그 작성 후 요부분 삭제
             //            if let validSession = self.session {
@@ -334,11 +334,10 @@ class CoupleTabViewController: UIViewController {
         coupleTabStackView.addArrangedSubview(imagePartView)
         coupleTabStackView.addArrangedSubview(coupleStackView)
         coupleTabStackView.addArrangedSubview(comingStoryStackView)
-        coupleTabStackView.addArrangedSubview(demoAdmobView)
-        //        coupleTabStackView.addArrangedSubview(demoAdmobView)
-        
-        demoAdmobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
-        demoAdmobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
+        //                coupleTabStackView.addArrangedSubview(demoAdmobView)
+        //
+        //                demoAdmobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
+        //                demoAdmobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
         //        demoAdmobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         //        demoAdmobView.rootViewController = self
         //        demoAdmobView.load(GADRequest())

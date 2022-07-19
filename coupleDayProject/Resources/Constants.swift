@@ -4,6 +4,13 @@ import Photos
 import RealmSwift
 import WidgetKit
 
+extension UserDefaults {
+    static var shared: UserDefaults {
+        let appGroupId = "group.ungchun.coupleDayProject"
+        return UserDefaults(suiteName: appGroupId)!
+    }
+}
+
 // MARK: RealmManager Singleton
 //
 class RealmManager {
