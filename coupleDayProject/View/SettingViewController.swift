@@ -161,9 +161,9 @@ class SettingViewController: UIViewController{
         components.month = 12
         let maxDate = calendar.date(byAdding: components, to: currentDate)!
         
-        // datePicker min 날짜 세팅 -> 10년 전 까지
+        // datePicker min 날짜 세팅 -> 30년 전 까지
         //
-        components.year = -10
+        components.year = -30
         let minDate = calendar.date(byAdding: components, to: currentDate)!
         
         datePicker.minimumDate = minDate

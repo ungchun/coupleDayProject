@@ -2,6 +2,14 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
+class UserInfo {
+    static let shared = UserInfo()
+
+    var days: String?
+    private init() { }
+
+}
+
 class InterfaceController: WKInterfaceController, WCSessionDelegate {
     
     @IBOutlet weak var demoImage: WKInterfaceImage!
@@ -63,6 +71,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
                     let nowDayDataDate = nowDayDataString.toDate
                     let minus = nowDayDataDate.millisecondsSince1970-Int64(data)!
                     let value = String(describing: minus / 86400000)
+                    UserInfo.shared.days = "\(value) days"
                     DispatchQueue.main.async {
                     self.demoLabel.setText("\(value) days")
                     }
@@ -77,12 +86,13 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko-KR")
         dateFormatter.dateFormat = "yyyy.MM.dd"
-        self.todayLabel.setText(dateFormatter.string(from: Date.now))
+        self.todayLabel.setText(dateFormatter.string(from: Date()))
     }
     
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
     }
+    
 }
 
 extension Date { // MARK: Date extension
