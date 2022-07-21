@@ -1,10 +1,3 @@
-//
-//  ComplicationController.swift
-//  coupleDayWatch WatchKit Extension
-//
-//  Created by 김성훈 on 2022/07/12.
-//
-
 import ClockKit
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
@@ -21,42 +14,42 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func handleSharedComplicationDescriptors(_ complicationDescriptors: [CLKComplicationDescriptor]) {
-        // Do any necessary work to support these newly shared complication descriptors
     }
     
     // MARK: - Timeline Configuration
     
     func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
-        // Call the handler with the last entry date you can currently provide or nil if you can't support future timelines
-        
-        //        var currentDate = Date()
-        //        currentDate = currentDate.addingTimeInterval(60)
-        //        handler(currentDate)
-        //        handler(NSDate(timeIntervalSinceNow: 30) as Date)
-        handler(nil)
+        handler(Date(timeIntervalSinceNow: 60*60))
     }
     
     func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
-        // Call the handler with your desired behavior when the device is locked
         handler(.showOnLockScreen)
     }
     
     // MARK: - Timeline Population
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
+        var value = ""
+        if DayInfo.shared.days != nil {
+            let nowDayDataString = Date().toString
+            let nowDayDataDate = nowDayDataString.toDate
+            let minus = nowDayDataDate.millisecondsSince1970-Int64(DayInfo.shared.days!)!
+            value = String(describing: minus / 86400000)
+        }
+        
         switch complication.family {
         case .modularSmall:
-            let tallBody = CLKComplicationTemplateModularSmallStackImage(line1ImageProvider: CLKImageProvider(onePieceImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: UserInfo.shared.days == nil ? "days" : "\(UserInfo.shared.days!)"))
+            let tallBody = CLKComplicationTemplateModularSmallStackImage(line1ImageProvider: CLKImageProvider(onePieceImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: DayInfo.shared.days == nil ? "days" : "\(value) days"))
             let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: tallBody)
             handler(entry)
             break
         case .circularSmall:
-            let tallBody = CLKComplicationTemplateCircularSmallStackImage(line1ImageProvider: CLKImageProvider(onePieceImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: UserInfo.shared.days == nil ? "days" : "\(UserInfo.shared.days!)"))
+            let tallBody = CLKComplicationTemplateCircularSmallStackImage(line1ImageProvider: CLKImageProvider(onePieceImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: DayInfo.shared.days == nil ? "days" : "\(value) days"))
             let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: tallBody)
             handler(entry)
             break
         case .graphicCircular:
-            let tallBody = CLKComplicationTemplateGraphicCircularStackImage(line1ImageProvider: CLKFullColorImageProvider(fullColorImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: UserInfo.shared.days == nil ? "days" : "\(UserInfo.shared.days!)"))
+            let tallBody = CLKComplicationTemplateGraphicCircularStackImage(line1ImageProvider: CLKFullColorImageProvider(fullColorImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: DayInfo.shared.days == nil ? "days" : "\(value) days"))
             let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: tallBody)
             handler(entry)
             break
@@ -67,26 +60,31 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
-        // Call the handler with the timeline entries after the given date
         handler(nil)
-        
     }
     
     // MARK: - Sample Templates
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
+        var value = ""
+        if DayInfo.shared.days != nil {
+            let nowDayDataString = Date().toString
+            let nowDayDataDate = nowDayDataString.toDate
+            let minus = nowDayDataDate.millisecondsSince1970-Int64(DayInfo.shared.days!)!
+            value = String(describing: minus / 86400000)
+        }
         
         switch complication.family {
         case .modularSmall:
-            let tallBody = CLKComplicationTemplateModularSmallStackImage(line1ImageProvider: CLKImageProvider(onePieceImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: UserInfo.shared.days == nil ? "days" : "\(UserInfo.shared.days!)"))
+            let tallBody = CLKComplicationTemplateModularSmallStackImage(line1ImageProvider: CLKImageProvider(onePieceImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: DayInfo.shared.days == nil ? "days" : "\(value) days"))
             handler(tallBody)
             break
         case .circularSmall:
-            let tallBody = CLKComplicationTemplateCircularSmallStackImage(line1ImageProvider: CLKImageProvider(onePieceImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: UserInfo.shared.days == nil ? "days" : "\(UserInfo.shared.days!)"))
+            let tallBody = CLKComplicationTemplateCircularSmallStackImage(line1ImageProvider: CLKImageProvider(onePieceImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: DayInfo.shared.days == nil ? "days" : "\(value) days"))
             handler(tallBody)
             break
         case .graphicCircular:
-            let tallBody = CLKComplicationTemplateGraphicCircularStackImage(line1ImageProvider: CLKFullColorImageProvider(fullColorImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: UserInfo.shared.days == nil ? "days" : "\(UserInfo.shared.days!)"))
+            let tallBody = CLKComplicationTemplateGraphicCircularStackImage(line1ImageProvider: CLKFullColorImageProvider(fullColorImage: (UIImage(systemName: "heart")?.withTintColor(appMainColorAlaph40))!), line2TextProvider: CLKTextProvider(format: DayInfo.shared.days == nil ? "days" : "\(value) days"))
             handler(tallBody)
             break        default:
             handler(nil)

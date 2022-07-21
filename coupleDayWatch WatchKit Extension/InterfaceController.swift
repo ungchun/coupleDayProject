@@ -2,8 +2,8 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-class UserInfo {
-    static let shared = UserInfo()
+class DayInfo {
+    static let shared = DayInfo()
 
     var days: String?
     private init() { }
@@ -71,7 +71,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
                     let nowDayDataDate = nowDayDataString.toDate
                     let minus = nowDayDataDate.millisecondsSince1970-Int64(data)!
                     let value = String(describing: minus / 86400000)
-                    UserInfo.shared.days = "\(value) days"
+                    DayInfo.shared.days = data
                     DispatchQueue.main.async {
                     self.demoLabel.setText("\(value) days")
                     }

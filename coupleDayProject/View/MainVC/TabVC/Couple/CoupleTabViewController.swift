@@ -142,18 +142,18 @@ class CoupleTabViewController: UIViewController {
         var label = UILabel()
         return label
     }()
-    private let demoAdmobView: UIView = { // admob 부분
-        var view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green
-        return view
-    }()
-    // admob 제대로 달고 위에 demo 버전 UIView 삭제
-    //    private let demoAdmobView: GADBannerView = {
-    //        var view = GADBannerView()
+    //    private let demoAdmobView: UIView = { // admob 부분
+    //        var view = UIView()
     //        view.translatesAutoresizingMaskIntoConstraints = false
+    //        view.backgroundColor = .green
     //        return view
     //    }()
+    //     admob 제대로 달고 위에 demo 버전 UIView 삭제
+    //        private let demoAdmobView: GADBannerView = {
+    //            var view = GADBannerView()
+    //            view.translatesAutoresizingMaskIntoConstraints = false
+    //            return view
+    //        }()
     private lazy var comingStoryStackView: UIStackView = { // 다가오는 기념일 stackView
         var stackView = UIStackView(arrangedSubviews: [titleAnniversary, anniversaryOneStackView, anniversaryTwoStackView, anniversaryThreeStackView, anniversaryEmpty])
         stackView.setCustomSpacing(10, after: titleAnniversary)
@@ -334,13 +334,13 @@ class CoupleTabViewController: UIViewController {
         coupleTabStackView.addArrangedSubview(imagePartView)
         coupleTabStackView.addArrangedSubview(coupleStackView)
         coupleTabStackView.addArrangedSubview(comingStoryStackView)
-        //                coupleTabStackView.addArrangedSubview(demoAdmobView)
+        //                        coupleTabStackView.addArrangedSubview(demoAdmobView)
         //
-        //                demoAdmobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
-        //                demoAdmobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
-        //        demoAdmobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        //        demoAdmobView.rootViewController = self
-        //        demoAdmobView.load(GADRequest())
+        //                        demoAdmobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
+        //                        demoAdmobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
+        //                demoAdmobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        //                demoAdmobView.rootViewController = self
+        //                demoAdmobView.load(GADRequest())
         
         coupleStackView.addArrangedSubview(myProfileUIImageView)
         coupleStackView.addArrangedSubview(iconDayStackView)
