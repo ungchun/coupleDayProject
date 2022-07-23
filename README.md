@@ -17,7 +17,8 @@
 
 ## [Update]
 
-- version 1.0.0 : 앱 스토어 출시 ( 22. )
+- version 1.0.0 : 앱 스토어 출시 ( 22.07.21 )
+- version 1.0.1 : 구글 애드몹, 업데이트 로직 추가 ( 22.07.23 )
 
 ## [ Develop Environment ]
 
