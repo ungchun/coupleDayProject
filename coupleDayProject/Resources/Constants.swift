@@ -4,13 +4,6 @@ import Photos
 import RealmSwift
 import WidgetKit
 
-extension UserDefaults {
-    static var shared: UserDefaults {
-        let appGroupId = "group.ungchun.coupleDayProject"
-        return UserDefaults(suiteName: appGroupId)!
-    }
-}
-
 // MARK: RealmManager Singleton
 //
 class RealmManager {
@@ -25,20 +18,24 @@ class RealmManager {
     // realm db 삭제없이 model 변경하고싶으면 schemaVersion 변경 하면 됨. 대신 전 버전보다는 커야함
     //
     private var realm: Realm {
-        print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" )
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")
         let realmURL = container?.appendingPathComponent("default.realm")
         let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
-        return try! Realm(configuration: config)
+        do {
+            return try Realm(configuration: config)
+        } catch let error as NSError {
+            print(error.debugDescription)
+            fatalError("Can't continue further, no Realm available")
+        }
     }
     
-    func getUserDatas() -> [User] {
-        Array(realm.objects(User.self))
+    func getUserDatas() -> [UserModel] {
+        Array(realm.objects(UserModel.self))
     }
     func getImageDatas() -> [ImageModel] {
         Array(realm.objects(ImageModel.self))
     }
-    func writeUserData(userData: User) {
+    func writeUserData(userData: UserModel) {
         try? realm.write({
             realm.add(userData)
         })
@@ -86,14 +83,13 @@ class RealmManager {
 struct System {
     static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String // 현재 버전 정보 : 타겟 -> 일반 -> Version
     static let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String // 개발자가 내부적으로 확인하기 위한 용도 : 타겟 -> 일반 -> Build
-    static let bundleIdentifier = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String // bundleIdentifier
     
-    static let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/1548711244" // 1548711244 -> Apple ID
+    static let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/1635302922" // 1635302922 -> Apple ID
     
     // 앱 스토어 최신 정보 확인
     //
     func latestVersion() -> String? {
-        let appleID = "이곳에 Apple ID"
+        let appleID = 1635302922
         guard let url = URL(string: "http://itunes.apple.com/lookup?id=\(appleID)&country=kr"),
               let data = try? Data(contentsOf: url),
               let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
@@ -106,8 +102,8 @@ struct System {
     
     // 앱 스토어로 이동 -> urlStr 에 appStoreOpenUrlString 넣으면 이동
     //
-    func openAppStore(urlStr: String) {
-        guard let url = URL(string: urlStr) else { return }
+    func openAppStore() {
+        guard let url = URL(string: System.appStoreOpenUrlString) else { return }
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }

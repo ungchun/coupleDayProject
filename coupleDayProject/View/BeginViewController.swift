@@ -166,10 +166,10 @@ class BeginViewController: UIViewController {
         }
     }
     @objc
-    func startBtnTap(completion: @escaping () -> Void) {
+    func startBtnTap() {
         var window: UIWindow?
         
-        let userData = User()
+        let userData = UserModel()
         let imageData = ImageModel()
         
         // 0일부터 시작 체크 or not

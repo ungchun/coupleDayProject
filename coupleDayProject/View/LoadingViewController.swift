@@ -62,10 +62,10 @@ class LoadingViewController: UIViewController {
         // lottie 애니메이션
         //
         animationView.play {(finish) in
-            // 성훈 업데이트 버전 테스트
+            // 업데이트 로직
             //
-            let marketingVersion = "1.0.1"
-            let currentProjectVersion = "1.0.0"
+            let marketingVersion = System().latestVersion()!
+            let currentProjectVersion = System.appVersion!
             let splitMarketingVersion = marketingVersion.split(separator: ".").map {$0}
             let splitCurrentProjectVersion = currentProjectVersion.split(separator: ".").map {$0}
             
@@ -76,17 +76,15 @@ class LoadingViewController: UIViewController {
             if splitCurrentProjectVersion[0] < splitMarketingVersion[0] {
                 let alert = UIAlertController(title: "업데이트 알림", message: "너랑나랑의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
                 let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
-                    print("update alert if")
-                    //                System().openAppStore(urlStr: System.appStoreOpenUrlString)
+                    System().openAppStore()
                 }
                 alert.addAction(destructiveAction)
                 self.present(alert, animated: false)
             } else {
                 if  splitCurrentProjectVersion[1] < splitMarketingVersion[1] {
-                    let alert = UIAlertController(title: "업데이트 알림", message: "ㅁㅁ의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
+                    let alert = UIAlertController(title: "업데이트 알림", message: "너랑나랑의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
                     let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
-                        print("update alert else if")
-                        //                    System().openAppStore(urlStr: System.appStoreOpenUrlString)
+                        System().openAppStore()
                     }
                     alert.addAction(destructiveAction)
                     self.present(alert, animated: false)

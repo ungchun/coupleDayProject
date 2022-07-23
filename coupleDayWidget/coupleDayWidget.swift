@@ -3,13 +3,6 @@ import SwiftUI
 import UIKit
 import RealmSwift
 
-extension UserDefaults {
-    static var shared: UserDefaults {
-        let appGroupId = "group.ungchun.coupleDayProject"
-        return UserDefaults(suiteName: appGroupId)!
-    }
-}
-
 // StaticConfiguration 으로 만듬 -> 사용자가 구성할 필요 없이 보기만하는 구성
 //
 struct coupleDayEntry: TimelineEntry {
@@ -53,8 +46,6 @@ struct Provider: TimelineProvider {
 // view
 //
 struct coupleDayWidgetEntryView : View {
-    
-    
     
     @Environment(\.widgetFamily) private var widgetFamily
     
@@ -138,18 +129,22 @@ class RealmManager {
     // forSecurityApplicationGroupIdentifier -> app 쪽 realm 이랑 같은 값을 써서 app, widget realm 디비 공유 (app group)
     //
     private var realm: Realm {
-        print("realm URL : \(Realm.Configuration.defaultConfiguration.fileURL!)" )
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")
         let realmURL = container?.appendingPathComponent("default.realm")
         let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
-        return try! Realm(configuration: config)
+        do {
+            return try Realm(configuration: config)
+        } catch let error as NSError {
+            print("error \(error.debugDescription)")
+            fatalError("Can't continue further, no Realm available")
+        }
     }
     
     // 현재 날짜 스트링 데이터 -> 현재 날짜 데이트 데이터
     // 현재 - 사귄날짜 = days
     //
     func getBeginCoupleDay() -> String {
-        let realmUserData = realm.objects(User.self)
+        let realmUserData = realm.objects(UserModel.self)
         let beginCoupleDay = realmUserData[0].beginCoupleDay
         let nowDayDataString = Date().toString
         let nowDayDataDate: Date = nowDayDataString.toDate
@@ -165,7 +160,7 @@ class RealmManager {
 
 // realm model
 //
-class User: Object {
+class UserModel: Object {
     @objc dynamic var beginCoupleDay = 0
     @objc dynamic var zeroDayStart = false
 }

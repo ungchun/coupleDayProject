@@ -142,18 +142,11 @@ class CoupleTabViewController: UIViewController {
         var label = UILabel()
         return label
     }()
-    //    private let demoAdmobView: UIView = { // admob 부분
-    //        var view = UIView()
-    //        view.translatesAutoresizingMaskIntoConstraints = false
-    //        view.backgroundColor = .green
-    //        return view
-    //    }()
-    //     admob 제대로 달고 위에 demo 버전 UIView 삭제
-    //        private let demoAdmobView: GADBannerView = {
-    //            var view = GADBannerView()
-    //            view.translatesAutoresizingMaskIntoConstraints = false
-    //            return view
-    //        }()
+    private let admobView: GADBannerView = {
+        var view = GADBannerView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     private lazy var comingStoryStackView: UIStackView = { // 다가오는 기념일 stackView
         var stackView = UIStackView(arrangedSubviews: [titleAnniversary, anniversaryOneStackView, anniversaryTwoStackView, anniversaryThreeStackView, anniversaryEmpty])
         stackView.setCustomSpacing(10, after: titleAnniversary)
@@ -334,13 +327,16 @@ class CoupleTabViewController: UIViewController {
         coupleTabStackView.addArrangedSubview(imagePartView)
         coupleTabStackView.addArrangedSubview(coupleStackView)
         coupleTabStackView.addArrangedSubview(comingStoryStackView)
-        //                        coupleTabStackView.addArrangedSubview(demoAdmobView)
-        //
-        //                        demoAdmobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
-        //                        demoAdmobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
-        //                demoAdmobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        //                demoAdmobView.rootViewController = self
-        //                demoAdmobView.load(GADRequest())
+        coupleTabStackView.addArrangedSubview(admobView)
+        
+        admobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
+        admobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
+        // ca-app-pub-1976572399218124/5279479661 -> 광고 단위 ID
+        // ca-app-pub-3940256099942544/2934735716 -> test Key
+        admobView.adUnitID = "ca-app-pub-1976572399218124/5279479661"
+        admobView.rootViewController = self
+        admobView.load(GADRequest())
+        admobView.delegate = self
         
         coupleStackView.addArrangedSubview(myProfileUIImageView)
         coupleStackView.addArrangedSubview(iconDayStackView)
@@ -400,6 +396,8 @@ class CoupleTabViewController: UIViewController {
     }
 }
 
+
+
 // MARK: extension
 //
 // ImagePicker + CropViewController
@@ -446,5 +444,18 @@ extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigati
             self.coupleTabViewModel.updatePartnerProfileImage()
         }
         dismiss(animated: true, completion: nil)
+    }
+}
+
+// Google AdMob Delegate
+//
+extension CoupleTabViewController : GADBannerViewDelegate {
+    
+    // MARK: - Delegate
+    public func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 1) {
+            bannerView.alpha = 1
+        }
     }
 }
