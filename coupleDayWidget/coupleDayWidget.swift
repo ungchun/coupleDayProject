@@ -28,12 +28,13 @@ struct Provider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         
         // date 라는 뷰 업데이트해야하는 시간을 넘겨주면 그 시간이 되면 위젯은 알아서 뷰를 업데이트한다.
-        // byAdding: .minute -> 1분마다 업데이트
+        // 0...10 + byAdding: .minute -> 10분마다 업데이트
+        // 0...10 + byAdding: .hour -> 10시간마다 업데이트
         //
         var entries: [coupleDayEntry] = []
         let currentDate = Date()
-        for minOffset in 0..<3 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: minOffset, to: currentDate)!
+        for minOffset in 0...10 {
+            let entryDate = Calendar.current.date(byAdding: .minute, value: minOffset, to: currentDate)!
             let entry = coupleDayEntry(date: entryDate, size: context.displaySize)
             entries.append(entry)
         }

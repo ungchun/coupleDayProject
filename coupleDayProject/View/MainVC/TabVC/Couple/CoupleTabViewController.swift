@@ -17,10 +17,10 @@ class CoupleTabViewController: UIViewController {
     private let myProfileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 내 프로필 이미지 로딩 뷰
     private let profileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 상대 프로필 이미지 로딩 뷰
     
-    private let textBigSize = UIScreen.main.bounds.size.height > 900 ? 33.0 : UIScreen.main.bounds.size.height > 840 ? 27.0 : UIScreen.main.bounds.size.height > 750 ? 23.0 : 20.0
-    private let textSmallSize = UIScreen.main.bounds.size.height > 900 ? 22.0 : UIScreen.main.bounds.size.height > 840 ? 20.0 : UIScreen.main.bounds.size.height > 840 ? 17.0 : 15.0
-    private let profileSize = UIScreen.main.bounds.size.height > 750 ? 70.0 : 60.0
-    private let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 750 ? UIScreen.main.bounds.size.height / 8 : UIScreen.main.bounds.size.height / 10
+    private let textBigSize = UIScreen.main.bounds.size.height > 850 ? 23.0 : 20.0
+    private let textSmallSize = UIScreen.main.bounds.size.height > 850 ? 17.0 : 15.0
+    private let profileSize = UIScreen.main.bounds.size.height > 850 ? 75.0 : 70.0
+    private let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 850 ? UIScreen.main.bounds.size.height / 8 : UIScreen.main.bounds.size.height / 10
     
     // MARK: UI
     //

@@ -67,7 +67,7 @@ class StoryTabViewController: UIViewController {
             storyTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             storyTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
-        storyTableView.rowHeight = 100
+        storyTableView.rowHeight = 80
         storyTableView.estimatedRowHeight = UITableView.automaticDimension   
     }
 }

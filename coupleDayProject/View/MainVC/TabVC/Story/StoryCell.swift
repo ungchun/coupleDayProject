@@ -10,7 +10,7 @@ class StoryCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "storyDayText"
-        label.font = UIFont(name: "GangwonEduAllBold", size: 25)
+        label.font = UIFont(name: "GangwonEduAllBold", size: 20)
         return label
     }()
     private let storyFormatterDayText: UILabel = { // yyyy.MM.dd
@@ -25,14 +25,14 @@ class StoryCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "storyD_DayText"
-        label.font = UIFont(name: "GangwonEduAllBold", size: 25)
+        label.font = UIFont(name: "GangwonEduAllBold", size: 20)
         label.textColor = TrendingConstants.appMainColor
         return label
     }()
     private let divider: UILabel = { // 하단 divider
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .systemGray5
         return view
     }()
     private let stackViewTopPadding: UILabel = { // stackView 상단 패딩
@@ -43,6 +43,7 @@ class StoryCell: UITableViewCell {
     private lazy var textStackView: UIStackView = { // stackView 에서 가운데 날짜 관련 택스트 view
         let stackView = UIStackView(arrangedSubviews: [storyDayText,storyFormatterDayText])
         stackView.axis = .vertical
+        stackView.spacing = 2
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -60,7 +61,7 @@ class StoryCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 20
+        stackView.spacing = 0
         return stackView
     }()
     
