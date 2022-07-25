@@ -42,6 +42,7 @@ struct Provider: TimelineProvider {
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
+    
 }
 
 // view

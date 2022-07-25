@@ -163,7 +163,7 @@ class SettingViewController: UIViewController{
         
         // datePicker min 날짜 세팅 -> 30년 전 까지
         //
-        components.year = -30
+        components.year = -31
         let minDate = calendar.date(byAdding: components, to: currentDate)!
         
         datePicker.minimumDate = minDate
