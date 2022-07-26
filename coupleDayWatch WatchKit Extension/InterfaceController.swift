@@ -1,13 +1,14 @@
 import WatchKit
+import ClockKit
 import Foundation
 import WatchConnectivity
 
 class DayInfo {
     static let shared = DayInfo()
-
+    
     var days: String?
     private init() { }
-
+    
 }
 
 class InterfaceController: WKInterfaceController, WCSessionDelegate {
@@ -17,11 +18,6 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     @IBOutlet weak var topTitle: WKInterfaceLabel!
     @IBOutlet weak var todayLabel: WKInterfaceLabel!
     @IBOutlet weak var group: WKInterfaceGroup!
-    
-//    let conditionDescriptor = CLKComplicationDescriptor(
-//        identifier: complicationConditionIdentifier,
-//        displayName: "Weather Condition",
-//        supportedFamilies: mySupportedFamilies)
     
     var count: Int = 0
     let session = WCSession.default
@@ -34,6 +30,16 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         // transferUserInfo -> app 이 켜져야 새로고침 전달한다는 느낌 -> image 는 바꿀려면 앱 켜서 바꿔야해서 ok
         //
         if let data = userInfo["imageData"] as? Data {
+            // Update complication -> 이거 해줘야 complication 정상적으로 돌아감
+            //
+            let complicationServer = CLKComplicationServer.sharedInstance()
+            guard let activeComplications = complicationServer.activeComplications else {
+                return
+            }
+            for complication in activeComplications {
+                complicationServer.reloadTimeline(for: complication)
+            }
+            
             DispatchQueue.main.async {
                 self.demoImage.setImage(UIImage(data: data))
             }
@@ -45,6 +51,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         //        assert(WCSession.isSupported(), "watch")
         //        WCSession.default.delegate = self
         //        WCSession.default.activate()
+        
     }
     
     override func awake(withContext context: Any?) {
@@ -73,7 +80,16 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
                     let value = String(describing: minus / 86400000)
                     DayInfo.shared.days = data
                     DispatchQueue.main.async {
-                    self.demoLabel.setText("\(value) days")
+                        self.demoLabel.setText("\(value) days")
+                    }
+                    // Update complication -> 이거 해줘야 complication 정상적으로 돌아감
+                    //
+                    let complicationServer = CLKComplicationServer.sharedInstance()
+                    guard let activeComplications = complicationServer.activeComplications else {
+                        return
+                    }
+                    for complication in activeComplications {
+                        complicationServer.reloadTimeline(for: complication)
                     }
                 } else {
                     self.demoLabel.setText("days")
