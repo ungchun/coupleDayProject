@@ -30,16 +30,6 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         // transferUserInfo -> app 이 켜져야 새로고침 전달한다는 느낌 -> image 는 바꿀려면 앱 켜서 바꿔야해서 ok
         //
         if let data = userInfo["imageData"] as? Data {
-            // Update complication -> 이거 해줘야 complication 정상적으로 돌아감
-            //
-            let complicationServer = CLKComplicationServer.sharedInstance()
-            guard let activeComplications = complicationServer.activeComplications else {
-                return
-            }
-            for complication in activeComplications {
-                complicationServer.reloadTimeline(for: complication)
-            }
-            
             DispatchQueue.main.async {
                 self.demoImage.setImage(UIImage(data: data))
             }

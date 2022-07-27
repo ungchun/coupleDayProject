@@ -11,21 +11,32 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         handler(descriptors)
     }
     
-    func handleSharedComplicationDescriptors(_ complicationDescriptors: [CLKComplicationDescriptor]) {
-    }
-    
     func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
-        handler(Date(timeIntervalSinceNow: 60*60))
+        handler(Date().addingTimeInterval(60.0 * 30.0)) // 30분..
     }
     
     func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
         handler(.showOnLockScreen)
     }
     
+    func getTimelineEntries(for complication: CLKComplication, before date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
+        // Call the handler with the timeline entries prior to the given date.
+        handler(nil)
+    }
     
-    // watch 실제 기기 화면
+    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
+        // Call the handler with the timeline entries after to the given date.
+        handler(nil)
+    }
+    
+    
+    // complication 실제 기기 화면
     //
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
+        //        let date = Date()
+        //        let calendar = Calendar.current
+        //        let minutes = calendar.component(.minute, from: date)
+        
         var value = ""
         if DayInfo.shared.days != nil {
             let nowDayDataString = Date().toString
@@ -56,12 +67,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
     }
     
-    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
-        handler(nil)
-    }
-    
-    
-    // watch 미리보기 화면
+    // complication 미리보기 화면
     //
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         switch complication.family {
