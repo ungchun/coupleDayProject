@@ -1,5 +1,44 @@
 import Foundation
+import Combine
 
+// dataBinding Combineb 버전
+//
+class ContainerViewModelCombine: ObservableObject {
+    
+    private var changeLabelCheck = false // 타이머 시작은 딱 한번만 해야함 -> 체크하는 변수
+    private var labelState = false // 앱 이름 <> 연애 날짜 상태확인해주는 변수
+    private var changeLabelTimer = Timer() // 자동으로 함수 실행하기 위한 타이머
+    
+    @Published var appNameLabelValue: String = "너랑나랑"
+    
+    init() {
+        changeAppNameLabel()
+    }
+    
+    // MARK: func
+    //
+    fileprivate func changeAppNameLabel() {
+        if !changeLabelCheck {
+            
+            // 5초마다 updateLabel() 실행
+            //
+            changeLabelTimer = Timer.scheduledTimer(timeInterval: 5, target: self,
+                                                    selector: #selector(updateLabel), userInfo: nil, repeats: true)
+            changeLabelCheck = true
+        }
+    }
+    
+    // MARK: objc
+    //
+    @objc
+    fileprivate func updateLabel() {
+        self.appNameLabelValue = labelState ? "\(CoupleTabViewModel.publicBeginCoupleDay) days" : "너랑나랑"
+        labelState.toggle()
+    }
+}
+
+// dataBinding Observables 버전
+//
 class ContainerViewModel {
     
     // 3) 호출되면, 2번에서 받은 값을 전달한다.

@@ -1,8 +1,11 @@
 import UIKit
+import Combine
 
 class ContainerViewController: UIViewController {
     
-    private let containerViewModel = ContainerViewModel()
+    private let containerViewModelCombine = ContainerViewModelCombine()
+    
+    var disposalbleBag = Set<AnyCancellable>()
     
     // MARK: UI
     //
@@ -38,19 +41,16 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         setupView()
         
-        // containerViewModel 바인딩 (연결)
-        // 레이어 상태 변경 시 애니메이션 -> 너랑나랑이랑 days 왔다 갔다 하는 애니메이션
-        //
-        containerViewModel.onUpdatedLabel = {
+        self.containerViewModelCombine.$appNameLabelValue.sink { updateLabel in
             DispatchQueue.main.async {
                 let transition = CATransition()
                 transition.duration = 1
                 transition.timingFunction = .init(name: .easeIn)
                 transition.type = .fade
                 self.appNameLabel.layer.add(transition, forKey: CATransitionType.fade.rawValue)
-                self.appNameLabel.text = self.containerViewModel.appNameLabelValue
+                self.appNameLabel.text = updateLabel
             }
-        }
+        }.store(in: &disposalbleBag)
     }
     
     // MARK: func
