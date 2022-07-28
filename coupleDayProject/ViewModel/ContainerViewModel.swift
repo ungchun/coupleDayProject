@@ -22,8 +22,7 @@ class ContainerViewModelCombine: ObservableObject {
             
             // 5초마다 updateLabel() 실행
             //
-            changeLabelTimer = Timer.scheduledTimer(timeInterval: 5, target: self,
-                                                    selector: #selector(updateLabel), userInfo: nil, repeats: true)
+            changeLabelTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateLabel), userInfo: nil, repeats: true)
             changeLabelCheck = true
         }
     }
@@ -72,8 +71,7 @@ class ContainerViewModel {
             
             // 5초마다 updateLabel() 실행
             //
-            changeLabelTimer = Timer.scheduledTimer(timeInterval: 5, target: self,
-                                                    selector: #selector(updateLabel), userInfo: nil, repeats: true)
+            changeLabelTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateLabel), userInfo: nil, repeats: true)
             changeLabelCheck = true
         }
     }
