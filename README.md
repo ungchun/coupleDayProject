@@ -38,6 +38,7 @@
 - MVVM
 - Swift Package Manager
 - GCD
+- Combine
 
 ## [ Library ]
 
@@ -48,6 +49,7 @@
 - TOCropViewController
 - Lottie
 - GoogleMobileAds
+- Firebase
 
 ## [ And More.. ]
 
