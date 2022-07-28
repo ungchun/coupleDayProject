@@ -1,6 +1,8 @@
 import Foundation
 import UIKit
 import Lottie
+import Firebase
+import FirebaseAuth
 
 // 앱 시작할 때 보이는 로딩 뷰
 //
@@ -90,6 +92,16 @@ class LoadingViewController: UIViewController {
                     self.present(alert, animated: false)
                 } else {
                     // 그 이외에는 업데이트 필요 없음
+                    // Firebase 익명 로그인
+                    //
+                    Auth.auth().signInAnonymously { (authResult, error) in
+                        guard let user = authResult?.user else { return }
+                        let isAnonymous = user.isAnonymous
+                        let uid = user.uid
+                        print("isAnonymous \(isAnonymous)")
+                        print("uid \(uid)")
+                    }
+                    
                     // realm 비어있으면 처음 세팅하는 곳으로 이동
                     // realm 안비어있으면 메인으로 이동
                     //

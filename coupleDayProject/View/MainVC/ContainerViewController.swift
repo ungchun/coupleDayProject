@@ -23,8 +23,25 @@ class ContainerViewController: UIViewController {
         imageView.contentMode = .center
         return imageView
     }()
-    private lazy var stackView: UIStackView = { // appNameLabel + 설정 버튼
-        let stackView = UIStackView(arrangedSubviews: [appNameLabel, setBtn])
+    private let anniversaryBtn: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: "note.text")
+        imageView.tintColor = TrendingConstants.appMainColor
+        imageView.contentMode = .center
+        return imageView
+    }()
+    
+    private lazy var btnStackView: UIStackView = {
+       let stackView = UIStackView(arrangedSubviews: [anniversaryBtn, setBtn])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 20
+        return stackView
+    }()
+    private lazy var stackView: UIStackView = { // appNameLabel + 버튼
+        let stackView = UIStackView(arrangedSubviews: [appNameLabel, btnStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
@@ -60,11 +77,14 @@ class ContainerViewController: UIViewController {
         view.backgroundColor = UIColor(named: "bgColor")
         view.addSubview(stackView)
         
-        // 설정 버튼 클릭 제스쳐
+        // 버튼 클릭 제스쳐
         //
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(setBtnTap(_:)))
+        let setTapGesture = UITapGestureRecognizer(target: self, action: #selector(setBtnTap(_:)))
         setBtn.isUserInteractionEnabled = true
-        setBtn.addGestureRecognizer(tapGesture)
+        setBtn.addGestureRecognizer(setTapGesture)
+        let anniversaryTapGesture = UITapGestureRecognizer(target: self, action: #selector(setAnniversaryTap(_:)))
+        anniversaryBtn.isUserInteractionEnabled = true
+        anniversaryBtn.addGestureRecognizer(anniversaryTapGesture)
         
         // set autolayout
         //
@@ -96,5 +116,10 @@ class ContainerViewController: UIViewController {
     func setBtnTap(_ gesture: UITapGestureRecognizer) {
         let settingViewController = SettingViewController()
         self.navigationController?.pushViewController(settingViewController, animated: true)
+    }
+    @objc
+    func setAnniversaryTap(_ gesture: UITapGestureRecognizer) {
+        let anniversaryViewController = AnniversaryViewController()
+        self.present(anniversaryViewController, animated: true, completion: nil)
     }
 }

@@ -1,6 +1,7 @@
 import UIKit
 import GoogleMobileAds
 import WatchConnectivity
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
@@ -13,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        FirebaseApp.configure()
         
         // 구글 광고 초기화 -> 모바일 광고 SDK 초기화해줘야함. 이 작업은 한 번만 수행하면 됨 (최대한 빨리 호출하는게 좋다)
         //
