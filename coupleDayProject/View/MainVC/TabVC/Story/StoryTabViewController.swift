@@ -45,8 +45,8 @@ class StoryTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(named: "bgColor")
-        storyTableView.backgroundColor = UIColor(named: "bgColor")
         
+        storyTableView.backgroundColor = UIColor(named: "bgColor")
         storyTableView.register(StoryCell.self, forCellReuseIdentifier: "CodingCustomTableViewCell")
         storyTableView.delegate = self
         storyTableView.dataSource = self

@@ -29,7 +29,7 @@ class AnniversaryViewController: UIViewController {
         return view
     }()
     
-    private let anniversaryTopStackView: UIStackView = {
+    private let anniversaryTopStackView: UIStackView = { // label
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -37,7 +37,7 @@ class AnniversaryViewController: UIViewController {
         stackView.distribution = .fill
         return stackView
     }()
-    private let anniversaryStackView: UIStackView = {
+    private let anniversaryStackView: UIStackView = { // label + divider + tableView + admob
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -56,8 +56,8 @@ class AnniversaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "bgColor")
-        anniversaryTableView.backgroundColor = UIColor(named: "bgColor")
         
+        anniversaryTableView.backgroundColor = UIColor(named: "bgColor")
         anniversaryTableView.register(AnniversaryCell.self, forCellReuseIdentifier: "AnniversaryTableViewCell")
         anniversaryTableView.delegate = self
         anniversaryTableView.dataSource = self
@@ -76,7 +76,7 @@ class AnniversaryViewController: UIViewController {
         admobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
         // ca-app-pub-1976572399218124/5279479661 -> 광고 단위 ID
         // ca-app-pub-3940256099942544/2934735716 -> test Key
-        admobView.adUnitID = "ca-app-pub-1976572399218124/5279479661"
+        admobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         admobView.rootViewController = self
         admobView.load(GADRequest())
         admobView.delegate = self
@@ -103,12 +103,16 @@ class AnniversaryViewController: UIViewController {
         anniversaryTableView.estimatedRowHeight = UITableView.automaticDimension
     }
     
+    // MARK: objc
+    //
     @objc
     func tapClose() {
         self.dismiss(animated: true, completion: nil)
     }
 }
 
+// MARK: extension
+//
 extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -128,8 +132,6 @@ extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AnniversaryTableViewCell", for: indexPath) as? AnniversaryCell ?? AnniversaryCell()
-        
         let nowDate = Date().millisecondsSince1970
         let anniversaryFilter = Anniversary().AnniversaryModel.filter { dictValue in
             let keyValue = dictValue.keys.first
@@ -140,6 +142,7 @@ extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource 
             }
         }
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AnniversaryTableViewCell", for: indexPath) as? AnniversaryCell ?? AnniversaryCell()
         cell.bind(dictValue: Anniversary().AnniversaryModel[indexPath.row + (Anniversary().AnniversaryModel.count - anniversaryFilter.count)], url: Anniversary().AnniversaryUrl[indexPath.row + (Anniversary().AnniversaryModel.count - anniversaryFilter.count)])
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor(named: "bgColor")

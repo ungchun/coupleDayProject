@@ -88,6 +88,8 @@ class AnniversaryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: func
+    //
     public func bind(dictValue: Dictionary<String, String>, url: String) {
         anniversaryMainText.text = dictValue.values.first!
         let minus = Int(dictValue.keys.first!.toDate.millisecondsSince1970)-Int(Date().millisecondsSince1970)
