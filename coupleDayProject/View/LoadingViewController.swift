@@ -95,11 +95,9 @@ class LoadingViewController: UIViewController {
                     // Firebase 익명 로그인
                     //
                     Auth.auth().signInAnonymously { (authResult, error) in
-                        guard let user = authResult?.user else { return }
-                        let isAnonymous = user.isAnonymous
-                        let uid = user.uid
-                        print("isAnonymous \(isAnonymous)")
-                        print("uid \(uid)")
+                        // guard let user = authResult?.user else { return }
+                        // let isAnonymous = user.isAnonymous
+                        // let uid = user.uid
                     }
                     
                     // realm 비어있으면 처음 세팅하는 곳으로 이동

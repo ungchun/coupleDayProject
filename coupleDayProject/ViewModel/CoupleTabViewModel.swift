@@ -150,33 +150,33 @@ class CoupleTabViewModel {
         //
         if anniversaryFilter.count >= 3 {
             minus = Int(anniversaryFilter[0].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)+1)
+            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
             self.anniversaryOne = "\(anniversaryFilter[0].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[0].values.first!)"
             self.anniversaryOneD_Day = "D-\(D_DayValue)"
             
             minus = Int(anniversaryFilter[1].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)+1)
+            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
             self.anniversaryTwo = "\(anniversaryFilter[1].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[1].values.first!)"
             self.anniversaryTwoD_Day = "D-\(D_DayValue)"
             
             minus = Int(anniversaryFilter[2].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)+1)
+            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
             self.anniversaryThree = "\(anniversaryFilter[2].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[2].values.first!)"
             self.anniversaryThreeD_Day = "D-\(D_DayValue)"
         } else if anniversaryFilter.count == 2 {
             minus = Int(anniversaryFilter[0].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)+1)
+            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
             self.anniversaryOne = "\(anniversaryFilter[0].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[0].values.first!)"
             self.anniversaryOneD_Day = "D-\(D_DayValue)"
             
             minus = Int(anniversaryFilter[1].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)+1)
+            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
             self.anniversaryTwo = "\(anniversaryFilter[1].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[1].values.first!)"
             self.anniversaryTwoD_Day = "D-\(D_DayValue)"
             
         } else if anniversaryFilter.count == 1 {
             minus = Int(anniversaryFilter[0].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)+1)
+            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
             self.anniversaryOne = "\(anniversaryFilter[0].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[0].values.first!)"
             self.anniversaryOneD_Day = "D-\(D_DayValue)"
         } else {

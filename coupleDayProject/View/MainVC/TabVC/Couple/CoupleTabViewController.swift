@@ -333,7 +333,7 @@ class CoupleTabViewController: UIViewController {
         admobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
         // ca-app-pub-1976572399218124/5279479661 -> 광고 단위 ID
         // ca-app-pub-3940256099942544/2934735716 -> test Key
-        admobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        admobView.adUnitID = "ca-app-pub-1976572399218124/5279479661"
         admobView.rootViewController = self
         admobView.load(GADRequest())
         admobView.delegate = self
@@ -450,8 +450,6 @@ extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigati
 // Google AdMob Delegate
 //
 extension CoupleTabViewController : GADBannerViewDelegate {
-    
-    // MARK: - Delegate
     public func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         bannerView.alpha = 0
         UIView.animate(withDuration: 1) {
