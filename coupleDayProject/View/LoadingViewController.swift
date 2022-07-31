@@ -71,6 +71,9 @@ class LoadingViewController: UIViewController {
             let splitMarketingVersion = marketingVersion.split(separator: ".").map {$0}
             let splitCurrentProjectVersion = currentProjectVersion.split(separator: ".").map {$0}
             
+            print("marketingVersion \(marketingVersion)")
+            print("currentProjectVersion \(currentProjectVersion)")
+            
             // if : 가장 앞자리가 다르면 -> 업데이트 필요
             // 메시지 창 인스턴스 생성, 컨트롤러에 들어갈 버튼 액션 객체 생성 -> 클릭하면 앱스토어로 이동
             // else : 두번째 자리가 달라도 업데이트 필요

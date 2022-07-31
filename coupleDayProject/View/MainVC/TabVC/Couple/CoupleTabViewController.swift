@@ -17,8 +17,8 @@ class CoupleTabViewController: UIViewController {
     private let myProfileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 내 프로필 이미지 로딩 뷰
     private let profileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 상대 프로필 이미지 로딩 뷰
     
-    private let textBigSize = UIScreen.main.bounds.size.height > 850 ? 23.0 : 20.0
-    private let textSmallSize = UIScreen.main.bounds.size.height > 850 ? 17.0 : 15.0
+    private let textBigSize = UIScreen.main.bounds.size.height > 850 ? 25.0 : 22.0
+    private let textSmallSize = UIScreen.main.bounds.size.height > 850 ? 19.0 : 17.0
     private let profileSize = UIScreen.main.bounds.size.height > 850 ? 75.0 : 70.0
     private let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 850 ? UIScreen.main.bounds.size.height / 8 : UIScreen.main.bounds.size.height / 10
     
@@ -327,16 +327,18 @@ class CoupleTabViewController: UIViewController {
         coupleTabStackView.addArrangedSubview(imagePartView)
         coupleTabStackView.addArrangedSubview(coupleStackView)
         coupleTabStackView.addArrangedSubview(comingStoryStackView)
-        coupleTabStackView.addArrangedSubview(admobView)
         
-        admobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
-        admobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
-        // ca-app-pub-1976572399218124/5279479661 -> 광고 단위 ID
-        // ca-app-pub-3940256099942544/2934735716 -> test Key
-        admobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        admobView.rootViewController = self
-        admobView.load(GADRequest())
-        admobView.delegate = self
+        // 광고 무효트래픽으로 인한 게재 제한.. 일단 광고 제거
+        //
+        // coupleTabStackView.addArrangedSubview(admobView)
+        // admobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
+        // admobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
+        // // ca-app-pub-1976572399218124/5279479661 -> 광고 단위 ID
+        // // ca-app-pub-3940256099942544/2934735716 -> test Key
+        // admobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        // admobView.rootViewController = self
+        // admobView.load(GADRequest())
+        // admobView.delegate = self
         
         coupleStackView.addArrangedSubview(myProfileUIImageView)
         coupleStackView.addArrangedSubview(iconDayStackView)

@@ -70,16 +70,18 @@ class AnniversaryViewController: UIViewController {
         anniversaryStackView.addArrangedSubview(anniversaryTopStackView)
         anniversaryStackView.addArrangedSubview(divider)
         anniversaryStackView.addArrangedSubview(anniversaryTableView)
-        anniversaryStackView.addArrangedSubview(admobView)
         
-        admobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
-        admobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
-        // ca-app-pub-1976572399218124/5279479661 -> 광고 단위 ID
-        // ca-app-pub-3940256099942544/2934735716 -> test Key
-        admobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        admobView.rootViewController = self
-        admobView.load(GADRequest())
-        admobView.delegate = self
+        // 광고 무효트래픽으로 인한 게재 제한.. 일단 광고 제거
+        //
+        // anniversaryStackView.addArrangedSubview(admobView)
+        // admobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
+        // admobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
+        // // ca-app-pub-1976572399218124/5279479661 -> 광고 단위 ID
+        // // ca-app-pub-3940256099942544/2934735716 -> test Key
+        // admobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        // admobView.rootViewController = self
+        // admobView.load(GADRequest())
+        // admobView.delegate = self
         
         let tapcloseBtn = UITapGestureRecognizer(target: self, action: #selector(tapClose))
         

@@ -3,6 +3,7 @@ import UIKit
 import Photos
 import RealmSwift
 import WidgetKit
+import GoogleMobileAds
 
 // MARK: RealmManager Singleton
 //
