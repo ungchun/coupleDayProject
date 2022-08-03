@@ -52,6 +52,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     }
     
     override func willActivate() {
+        
         group.setContentInset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
         // updateApplicationContext -> transferUserInfo 랑은 다르게 항상 도는거 같음 (내부 디비 쓰는 느낌 ?) -> days는 하루가 지나면 앱을 안키더라도 업데이트 되어야해서 updateApplicationContext 처리
