@@ -85,73 +85,34 @@ class CoupleTabViewController: UIViewController {
     }()
     private lazy var titleAnniversary: UILabel = {
         var label = UILabel()
-        label.text = "다가오는 기념일"
+        label.text = "ㅁㅁ의 오늘 장소"
         label.font = UIFont(name: "GangwonEduAllBold", size: textBigSize)
         return label
     }()
-    private lazy var anniversaryOneContent: UILabel = {
-        var label = UILabel()
-        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
-        return label
-    }()
-    private lazy var anniversaryOneD_Day: UILabel = {
-        var label = UILabel()
-        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
-        return label
-    }()
-    private lazy var anniversaryOneStackView: UIStackView = {
-        var stackView = UIStackView(arrangedSubviews: [anniversaryOneContent, anniversaryOneD_Day])
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        return stackView
-    }()
-    private lazy var anniversaryTwoContent: UILabel = {
-        var label = UILabel()
-        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
-        return label
-    }()
-    private lazy var anniversaryTwoD_Day: UILabel = {
-        var label = UILabel()
-        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
-        return label
-    }()
-    private lazy var anniversaryTwoStackView: UIStackView = {
-        var stackView = UIStackView(arrangedSubviews: [anniversaryTwoContent, anniversaryTwoD_Day])
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        return stackView
+    let carouselCollectionView: UICollectionView = {
+
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 20
+        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = UIColor.red
+
+        return collectionView
     }()
     
-    private lazy var anniversaryThreeContent: UILabel = {
-        var label = UILabel()
-        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
-        return label
-    }()
-    private lazy var anniversaryThreeD_Day: UILabel = {
-        var label = UILabel()
-        label.font = UIFont(name: "GangwonEduAllLight", size: textSmallSize)
-        return label
-    }()
-    private lazy var anniversaryThreeStackView: UIStackView = {
-        var stackView = UIStackView(arrangedSubviews: [anniversaryThreeContent, anniversaryThreeD_Day])
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        return stackView
-    }()
-    private let anniversaryEmpty: UILabel = {
-        var label = UILabel()
-        return label
-    }()
     private let admobView: GADBannerView = {
         var view = GADBannerView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     private lazy var comingStoryStackView: UIStackView = { // 다가오는 기념일 stackView
-        var stackView = UIStackView(arrangedSubviews: [titleAnniversary, anniversaryOneStackView, anniversaryTwoStackView, anniversaryThreeStackView, anniversaryEmpty])
+        var stackView = UIStackView(arrangedSubviews: [titleAnniversary, carouselCollectionView])
         stackView.setCustomSpacing(10, after: titleAnniversary)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.distribution = .fillEqually
+//        stackView.distribution = .fillEqually
+        stackView.distribution = .fill
         stackView.axis = .vertical
         stackView.spacing = 0
         return stackView
@@ -181,6 +142,11 @@ class CoupleTabViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        carouselCollectionView.dataSource = self
+        carouselCollectionView.delegate = self
+        carouselCollectionView.register(DemoDatePlaceCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        
         imagePickerController.delegate = self
         
         // 로딩 뷰 세팅, 제일 큰 사진 로딩 끝나면 beforeLoadingSetupView -> afterLoadingSetupView 변경
@@ -231,42 +197,11 @@ class CoupleTabViewController: UIViewController {
             //                validSession.transferUserInfo(data)
             //            }
         }
-        coupleTabViewModel.onAnniversaryOneUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryOneContent.text = self.coupleTabViewModel.anniversaryOne
-            }
-        }
-        coupleTabViewModel.onAnniversaryOneD_DayUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryOneD_Day.text = self.coupleTabViewModel.anniversaryOneD_Day
-            }
-        }
-        coupleTabViewModel.onAnniversaryTwoUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryTwoContent.text = self.coupleTabViewModel.anniversaryTwo
-            }
-        }
-        coupleTabViewModel.onAnniversaryTwoD_DayUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryTwoD_Day.text = self.coupleTabViewModel.anniversaryTwoD_Day
-            }
-        }
-        coupleTabViewModel.onAnniversaryThreeUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryThreeContent.text = self.coupleTabViewModel.anniversaryThree
-            }
-        }
-        coupleTabViewModel.onAnniversaryThreeD_DayUpdated = {
-            DispatchQueue.main.async {
-                self.anniversaryThreeD_Day.text = self.coupleTabViewModel.anniversaryThreeD_Day
-            }
-        }
         
         // viewModel init
         //
         coupleTabViewModel.setMainBackgroundImage()
         coupleTabViewModel.setBeginCoupleDay()
-        coupleTabViewModel.setAnniversary()
     }
     
     // MARK: func
@@ -327,6 +262,7 @@ class CoupleTabViewController: UIViewController {
         coupleTabStackView.addArrangedSubview(imagePartView)
         coupleTabStackView.addArrangedSubview(coupleStackView)
         coupleTabStackView.addArrangedSubview(comingStoryStackView)
+        comingStoryStackView.backgroundColor = .gray
         
         // 광고 무효트래픽으로 인한 게재 제한.. 일단 광고 제거
         //
@@ -458,4 +394,26 @@ extension CoupleTabViewController : GADBannerViewDelegate {
             bannerView.alpha = 1
         }
     }
+}
+
+extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // cell click
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: view.frame.width - 80, height: view.frame.height)
+    }
+}
+
+extension CoupleTabViewController: UICollectionViewDelegate {
+    
 }
