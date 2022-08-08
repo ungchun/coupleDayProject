@@ -6,9 +6,9 @@
 
 ## [About]
 
-![앱 스크린샷](https://user-images.githubusercontent.com/50910456/180156946-54578c33-abcf-4605-b6a2-7e2fb13dcedb.png)
+![앱 스크린샷](https://user-images.githubusercontent.com/50910456/183448907-c458667e-143c-4b28-a675-8a2ffb5f31da.png)
 
-심플하고 이쁜 커플 디데이 앱 !
+심플하고 이쁜 커플 디데이 앱 !  
 사랑하는 연인과의 매일을 함께해요 !
 
 ## [Privacy Policy]
