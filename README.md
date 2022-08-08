@@ -7,7 +7,8 @@
 ## [About]
 
 ![앱 스크린샷](https://user-images.githubusercontent.com/50910456/183448907-c458667e-143c-4b28-a675-8a2ffb5f31da.png)
-
+![앱 스크린샷](https://user-images.githubusercontent.com/50910456/183449608-c1cd2efb-fbba-4fd8-a3eb-185bdfa3679d.png)
+  
 심플하고 이쁜 커플 디데이 앱 !  
 사랑하는 연인과의 매일을 함께해요 !
 
