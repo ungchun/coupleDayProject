@@ -8,9 +8,11 @@ import FirebaseAuth
 //
 class LoadingViewController: UIViewController {
     
+    // MARK: Properties
+    //
     var window: UIWindow?
     
-    // MARK: UI
+    // MARK: Views
     //
     private let animationView: AnimationView = { // lottie animationView
         let lottieView = AnimationView(name: "lottieFile")
@@ -33,7 +35,7 @@ class LoadingViewController: UIViewController {
         return stackView
     }()
     
-    // MARK: func
+    // MARK: Life Cycle
     //
     override func viewDidLoad() {
         super.viewDidLoad()

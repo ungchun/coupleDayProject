@@ -5,18 +5,19 @@ import Combine
 //
 class ContainerViewModelCombine: ObservableObject {
     
+    // MARK: Properties
+    //
     private var changeLabelCheck = false // 타이머 시작은 딱 한번만 해야함 -> 체크하는 변수
     private var labelState = false // 앱 이름 <> 연애 날짜 상태확인해주는 변수
     private var changeLabelTimer = Timer() // 자동으로 함수 실행하기 위한 타이머
     
     @Published var appNameLabelValue: String = "너랑나랑"
     
+    // MARK: Functions
+    //
     init() {
         changeAppNameLabel()
     }
-    
-    // MARK: func
-    //
     fileprivate func changeAppNameLabel() {
         if !changeLabelCheck {
             
@@ -26,11 +27,7 @@ class ContainerViewModelCombine: ObservableObject {
             changeLabelCheck = true
         }
     }
-    
-    // MARK: objc
-    //
-    @objc
-    fileprivate func updateLabel() {
+    @objc fileprivate func updateLabel() {
         self.appNameLabelValue = labelState ? "\(CoupleTabViewModel.publicBeginCoupleDay) days" : "너랑나랑"
         labelState.toggle()
     }
@@ -40,6 +37,8 @@ class ContainerViewModelCombine: ObservableObject {
 //
 class ContainerViewModel {
     
+    // MARK: Properties
+    //
     // 3) 호출되면, 2번에서 받은 값을 전달한다.
     //
     var onUpdatedLabel: () -> Void = {}
@@ -56,16 +55,13 @@ class ContainerViewModel {
         }
     }
     
-    // MARK: init
+    // MARK: Functions
     //
     // 1) 초기화함수를 통해서 값을 입력받고, 그 값을 label에 세팅
     //
     init() {
         changeAppNameLabel()
     }
-    
-    // MARK: func
-    //
     fileprivate func changeAppNameLabel() {
         if !changeLabelCheck {
             
@@ -75,11 +71,7 @@ class ContainerViewModel {
             changeLabelCheck = true
         }
     }
-    
-    // MARK: objc
-    //
-    @objc
-    fileprivate func updateLabel() {
+    @objc fileprivate func updateLabel() {
         self.appNameLabelValue = labelState ? "\(CoupleTabViewModel.publicBeginCoupleDay) days" : "너랑나랑"
         labelState.toggle()
     }

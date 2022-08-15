@@ -3,7 +3,7 @@ import Kingfisher
 
 class AnniversaryCell: UITableViewCell {
     
-    // MARK: UI
+    // MARK: Views
     //
     private let anniversaryMainText: UILabel = {
         let label = UILabel()
@@ -55,7 +55,7 @@ class AnniversaryCell: UITableViewCell {
         return stackView
     }()
     
-    // MARK: init
+    // MARK: Life Cycle
     //
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -88,7 +88,7 @@ class AnniversaryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: func
+    // MARK: Functions
     //
     public func bind(dictValue: Dictionary<String, String>, url: String) {
         anniversaryMainText.text = dictValue.values.first!

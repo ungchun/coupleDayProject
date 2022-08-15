@@ -5,10 +5,12 @@ import CropViewController
 
 class SettingViewController: UIViewController{
     
+    // MARK: Properties
+    //
     private let imagePickerController = UIImagePickerController()
     private let defaults = UserDefaults.standard
     
-    // MARK: UI
+    // MARK: Views
     //
     private let coupleDayText: UILabel = {
         let label = UILabel()
@@ -48,7 +50,7 @@ class SettingViewController: UIViewController{
         return view
     }()
     
-    // MARK: init
+    // MARK: Life Cycle
     //
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -70,7 +72,7 @@ class SettingViewController: UIViewController{
         setupView()
     }
     
-    // MARK: func
+    // MARK: Functions
     //
     fileprivate func setupView() {
         self.view.addSubview(stackView)
@@ -103,15 +105,10 @@ class SettingViewController: UIViewController{
             stackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
         ])
     }
-    
-    // MARK: objc
-    //
-    @objc
-    func setBackgroundImageTap() {
+    @objc func setBackgroundImageTap() {
         self.present(imagePickerController, animated: true, completion: nil)
     }
-    @objc
-    func setDarkModeTap() {
+    @objc func setDarkModeTap() {
         let alert = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
         let lightMode = UIAlertAction(title: "주간모드", style: .default) {(action) in
             if let window = UIApplication.shared.windows.first {
@@ -139,8 +136,7 @@ class SettingViewController: UIViewController{
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
-    @objc
-    func setCoupleDayTap() {
+    @objc func setCoupleDayTap() {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
@@ -196,7 +192,7 @@ class SettingViewController: UIViewController{
     }
 }
 
-// MARK: extension
+// MARK: Extension
 //
 // ImagePicker + CropViewController
 //

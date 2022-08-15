@@ -5,6 +5,8 @@ class CoupleTabViewModel {
     
     init() { }
     
+    // MARK: Properties
+    //
     static var publicBeginCoupleDay = ""
     static var publicBeginCoupleFormatterDay = ""
     static var changeMainImageCheck = false
@@ -44,9 +46,9 @@ class CoupleTabViewModel {
             onPublicBeginCoupleDayUpdated()
         }
     }
-
     
-    // MARK: func
+    
+    // MARK: Functions
     //
     // 날짜 세팅
     //

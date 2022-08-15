@@ -1,8 +1,8 @@
 import UIKit
 
 class StoryTabViewController: UIViewController {
-
-    // MARK: UI
+    
+    // MARK: Views
     //
     private let emptyView: UIView = { // 상단 탭이랑 안겹치게 주는 뷰
         let view = UIView()
@@ -24,7 +24,7 @@ class StoryTabViewController: UIViewController {
         return tableView
     }()
     
-    // MARK: init
+    // MARK: Life Cycle
     //
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async { [self] in
@@ -68,11 +68,11 @@ class StoryTabViewController: UIViewController {
             storyTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
         storyTableView.rowHeight = 80
-        storyTableView.estimatedRowHeight = UITableView.automaticDimension   
+        storyTableView.estimatedRowHeight = UITableView.automaticDimension
     }
 }
 
-// MARK: extension
+// MARK: Extension
 //
 extension StoryTabViewController: UITableViewDelegate, UITableViewDataSource {
     

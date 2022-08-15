@@ -4,16 +4,18 @@ import Pageboy
 
 class TabManViewController: TabmanViewController {
     
+    // MARK: Properties
+    //
     private var viewControllers: Array<UIViewController> = []
     
-    // MARK: init
+    // MARK: Life Cycle
     //
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayoutBar()
     }
     
-    // MARK: func
+    // MARK: Functions
     //
     fileprivate func setLayoutBar() {
         // 탭에 커플, 스토리, 기념일 뷰 추가
@@ -26,7 +28,7 @@ class TabManViewController: TabmanViewController {
         //        viewControllers.append(anniversaryVC)
         
         self.dataSource = self
-
+        
         let bar = TMBar.ButtonBar()
         bar.backgroundView.style = .clear
         bar.backgroundColor = UIColor(named: "bgColor")
@@ -48,7 +50,7 @@ class TabManViewController: TabmanViewController {
     }
 }
 
-// MARK: extension
+// MARK: Extension
 //
 extension TabManViewController: PageboyViewControllerDataSource, TMBarDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {

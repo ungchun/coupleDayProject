@@ -7,6 +7,8 @@ import WatchConnectivity
 
 class CoupleTabViewController: UIViewController {
     
+    // MARK: Properties
+    //
     private let coupleTabViewModel = CoupleTabViewModel()
     
     private let imagePickerController = UIImagePickerController()
@@ -22,7 +24,7 @@ class CoupleTabViewController: UIViewController {
     private let profileSize = UIScreen.main.bounds.size.height > 850 ? 75.0 : 70.0
     private let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 850 ? UIScreen.main.bounds.size.height / 8 : UIScreen.main.bounds.size.height / 10
     
-    // MARK: UI
+    // MARK: Views
     //
     private let coupleTabStackView: UIStackView = { // 커플 탭 전체 뷰
         let view = UIStackView()
@@ -90,7 +92,7 @@ class CoupleTabViewController: UIViewController {
         return label
     }()
     let carouselCollectionView: UICollectionView = {
-
+        
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0 // 행과 열 사이 간격
@@ -99,7 +101,7 @@ class CoupleTabViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = UIColor.red
         collectionView.showsHorizontalScrollIndicator = false
-
+        
         return collectionView
     }()
     
@@ -110,9 +112,9 @@ class CoupleTabViewController: UIViewController {
     }()
     private lazy var comingStoryStackView: UIStackView = { // 다가오는 기념일 stackView
         var stackView = UIStackView(arrangedSubviews: [titleAnniversary, carouselCollectionView])
-//        stackView.setCustomSpacing(10, after: titleAnniversary)
+        //        stackView.setCustomSpacing(10, after: titleAnniversary)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-//        stackView.distribution = .fillEqually
+        //        stackView.distribution = .fillEqually
         stackView.distribution = .fill
         stackView.backgroundColor = .yellow
         stackView.axis = .vertical
@@ -120,7 +122,7 @@ class CoupleTabViewController: UIViewController {
         return stackView
     }()
     
-    // MARK: init
+    // MARK: Life Cycle
     //
     override func viewWillAppear(_ animated: Bool) {
         if CoupleTabViewModel.changeDarkModeCheck && (RealmManager.shared.getImageDatas().first!.myProfileImageData == nil || RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil) {
@@ -194,7 +196,7 @@ class CoupleTabViewController: UIViewController {
         coupleTabViewModel.setBeginCoupleDay()
     }
     
-    // MARK: func
+    // MARK: Functions
     //
     // 이미지 불러오는동안 보이는 임시 뷰
     //
@@ -307,20 +309,13 @@ class CoupleTabViewController: UIViewController {
             coupleTabStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             coupleTabStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
             coupleTabStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            
-//            carouselCollectionView
         ])
     }
-    
-    // MARK: objc
-    //
-    @objc
-    func myProfileTap(_ gesture: UITapGestureRecognizer) {
+    @objc func myProfileTap(_ gesture: UITapGestureRecognizer) {
         whoProfileChange = "my"
         self.present(imagePickerController, animated: true, completion: nil)
     }
-    @objc
-    func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
+    @objc func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
         whoProfileChange = "partner"
         self.present(imagePickerController, animated: true, completion: nil)
     }
@@ -328,7 +323,7 @@ class CoupleTabViewController: UIViewController {
 
 
 
-// MARK: extension
+// MARK: Extension
 //
 // ImagePicker + CropViewController
 //

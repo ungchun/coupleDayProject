@@ -3,7 +3,7 @@ import GoogleMobileAds
 
 class AnniversaryViewController: UIViewController {
     
-    // MARK: UI
+    // MARK: Views
     //
     private let anniversaryLabel: UILabel = {
         let label = UILabel()
@@ -46,7 +46,7 @@ class AnniversaryViewController: UIViewController {
         return stackView
     }()
     
-    // MARK: init
+    // MARK: Life Cycle
     //
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
@@ -105,15 +105,14 @@ class AnniversaryViewController: UIViewController {
         anniversaryTableView.estimatedRowHeight = UITableView.automaticDimension
     }
     
-    // MARK: objc
+    // MARK: Functions
     //
-    @objc
-    func tapClose() {
+    @objc func tapClose() {
         self.dismiss(animated: true, completion: nil)
     }
 }
 
-// MARK: extension
+// MARK: Extension
 //
 extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource {
     

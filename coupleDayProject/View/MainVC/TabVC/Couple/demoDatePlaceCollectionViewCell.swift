@@ -2,7 +2,7 @@ import UIKit
 
 class DemoDatePlaceCollectionViewCell: UICollectionViewCell {
     
-    // MARK: UI
+    // MARK: Views
     //
     private var emptyView: UIView = { // 프레임
         let view = UIView()
@@ -24,14 +24,14 @@ class DemoDatePlaceCollectionViewCell: UICollectionViewCell {
     }()
     
     private lazy var demoStackView: UIStackView = {
-       let stackView = UIStackView()
+        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 5
         return stackView
     }()
     
-    // MARK: init
+    // MARK: Life Cycle
     //
     override init(frame: CGRect) {
         super.init(frame: frame)

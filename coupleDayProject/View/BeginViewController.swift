@@ -3,10 +3,12 @@ import UIKit
 
 class BeginViewController: UIViewController {
     
+    // MARK: Properties
+    //
     private var handleDateValue = Date()
     private var checkValue = false
     
-    // MARK: UI
+    // MARK: Views
     //
     private let guideText: UILabel = {
         let label = UILabel()
@@ -101,14 +103,15 @@ class BeginViewController: UIViewController {
         return stackView
     }()
     
-    // MARK: init
+    // MARK: Life Cycle
     //
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupHideKeyboardOnTap()
         setupView()
     }
-    // MARK: func
+    
+    // MARK: Functions
     //
     fileprivate func setupView() {
         // 날짜 변경 클릭, 0일부터 시작 버튼 클릭, 시작하기 버튼 클릭
@@ -143,16 +146,11 @@ class BeginViewController: UIViewController {
         stackView.setCustomSpacing(25, after: startBtn)
         stackView.setCustomSpacing(25, after: divider)
     }
-    
-    // MARK: objc
-    //
-    @objc
-    func handleDatePicker(_ sender: UIDatePicker) {
+    @objc func handleDatePicker(_ sender: UIDatePicker) {
         coupleBeginDay.text = sender.date.toString
         handleDateValue = sender.date
     }
-    @objc
-    func checkButtonTap() {
+    @objc func checkButtonTap() {
         if checkValue {
             checkValue.toggle()
             let largeConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: UIImage.SymbolWeight.medium, scale: UIImage.SymbolScale.large)
@@ -165,8 +163,7 @@ class BeginViewController: UIViewController {
             checkButton.setImage(largeImage, for: .normal)
         }
     }
-    @objc
-    func startBtnTap() {
+    @objc func startBtnTap() {
         var window: UIWindow?
         
         let userData = UserModel()

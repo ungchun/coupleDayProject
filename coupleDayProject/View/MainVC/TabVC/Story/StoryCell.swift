@@ -2,9 +2,11 @@ import UIKit
 
 class StoryCell: UITableViewCell {
     
+    // MARK: Properties
+    //
     private var formatterDate = "" // yyyy.MM.dd
     
-    // MARK: UI
+    // MARK: Views
     //
     private let storyDayText: UILabel = { // ㅁ 일
         let label = UILabel()
@@ -65,7 +67,7 @@ class StoryCell: UITableViewCell {
         return stackView
     }()
     
-    // MARK: init
+    // MARK: Life Cycle
     //
     // cell은 재사용되기 때문에 prepareForReuse 이용해서 cell 초기화해줘야함
     //
@@ -99,7 +101,7 @@ class StoryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: func
+    // MARK: Functions
     //
     // cell text 값 세팅
     //

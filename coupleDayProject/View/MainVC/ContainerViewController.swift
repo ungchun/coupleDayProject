@@ -3,11 +3,12 @@ import Combine
 
 class ContainerViewController: UIViewController {
     
+    // MARK: Properties
+    //
     private let containerViewModelCombine = ContainerViewModelCombine()
-    
     var disposalbleBag = Set<AnyCancellable>()
     
-    // MARK: UI
+    // MARK: Views
     //
     private let appNameLabel: UILabel = {
         let label = UILabel()
@@ -48,7 +49,7 @@ class ContainerViewController: UIViewController {
         return stackView
     }()
     
-    // MARK: init
+    // MARK: Life Cycle
     //
     override func viewWillAppear(_ animated: Bool) {
         // 상단 NavigationBar 공간 hide -> 안해주면 NavigationBar 크기만큼 자리먹음
@@ -70,7 +71,7 @@ class ContainerViewController: UIViewController {
         }.store(in: &disposalbleBag)
     }
     
-    // MARK: func
+    // MARK: Functions
     //
     fileprivate func setupView() {
         
@@ -109,16 +110,11 @@ class ContainerViewController: UIViewController {
             mainTabManVC.view.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
     }
-    
-    // MARK: objc
-    //
-    @objc
-    func setBtnTap(_ gesture: UITapGestureRecognizer) {
+    @objc func setBtnTap(_ gesture: UITapGestureRecognizer) {
         let settingViewController = SettingViewController()
         self.navigationController?.pushViewController(settingViewController, animated: true)
     }
-    @objc
-    func setAnniversaryTap(_ gesture: UITapGestureRecognizer) {
+    @objc func setAnniversaryTap(_ gesture: UITapGestureRecognizer) {
         let anniversaryViewController = AnniversaryViewController()
         anniversaryViewController.modalPresentationStyle = .custom
         anniversaryViewController.transitioningDelegate = self
@@ -180,6 +176,8 @@ class PresentationController: UIPresentationController {
     }
 }
 
+// MARK: Extension
+//
 extension ContainerViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         PresentationController(presentedViewController: presented, presenting: presenting)
