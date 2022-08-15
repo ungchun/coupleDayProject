@@ -19,15 +19,6 @@ class CoupleTabViewModel {
     var onPublicBeginCoupleFormatterDayUpdated: () -> Void = {} // 날짜 변경 시 story date -> yyyy.MM.dd 형식 update
     var onPublicBeginCoupleDayUpdated: () -> Void = {} // 날짜 변경 시 day update
     
-    // 다가오는 기념일 관련 값들 -> 추후에 변경 예정
-    //
-    var onAnniversaryOneUpdated: () -> Void = {}
-    var onAnniversaryOneD_DayUpdated: () -> Void = {}
-    var onAnniversaryTwoUpdated: () -> Void = {}
-    var onAnniversaryTwoD_DayUpdated: () -> Void = {}
-    var onAnniversaryThreeUpdated: () -> Void = {}
-    var onAnniversaryThreeD_DayUpdated: () -> Void = {}
-    
     var mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5) {
         didSet {
             onMainImageDataUpdated()
@@ -53,36 +44,7 @@ class CoupleTabViewModel {
             onPublicBeginCoupleDayUpdated()
         }
     }
-    var anniversaryOne = "" {
-        didSet {
-            onAnniversaryOneUpdated()
-        }
-    }
-    var anniversaryOneD_Day = "" {
-        didSet {
-            onAnniversaryOneD_DayUpdated()
-        }
-    }
-    var anniversaryTwo = "" {
-        didSet {
-            onAnniversaryTwoUpdated()
-        }
-    }
-    var anniversaryTwoD_Day = "" {
-        didSet {
-            onAnniversaryTwoD_DayUpdated()
-        }
-    }
-    var anniversaryThree = "" {
-        didSet {
-            onAnniversaryThreeUpdated()
-        }
-    }
-    var anniversaryThreeD_Day = "" {
-        didSet {
-            onAnniversaryThreeD_DayUpdated()
-        }
-    }
+
     
     // MARK: func
     //
@@ -124,63 +86,6 @@ class CoupleTabViewModel {
             }
         } else {
             self.partnerProfileImageData = RealmManager.shared.getImageDatas().first!.partnerProfileImageData
-        }
-    }
-    
-    // 다가오는 기념일 세팅
-    //
-    func setAnniversary() {
-        var minus = 0
-        var D_DayValue = ""
-        let nowDate = Date().millisecondsSince1970
-        
-        // 현재 날짜 기준으로 지나지 않은 기념일 다 불러옴
-        //
-        let anniversaryFilter = Anniversary().AnniversaryModel.filter { dictValue in
-            let keyValue = dictValue.keys.first
-            if nowDate < (keyValue?.toDate.millisecondsSince1970)! {
-                return true
-            } else {
-                return false
-            }
-        }
-        
-        // anniversaryFilter 3개 이상일 때 -> 3개까지
-        // 2개일 때, 1개일 때
-        //
-        if anniversaryFilter.count >= 3 {
-            minus = Int(anniversaryFilter[0].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
-            self.anniversaryOne = "\(anniversaryFilter[0].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[0].values.first!)"
-            self.anniversaryOneD_Day = "D-\(D_DayValue)"
-            
-            minus = Int(anniversaryFilter[1].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
-            self.anniversaryTwo = "\(anniversaryFilter[1].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[1].values.first!)"
-            self.anniversaryTwoD_Day = "D-\(D_DayValue)"
-            
-            minus = Int(anniversaryFilter[2].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
-            self.anniversaryThree = "\(anniversaryFilter[2].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[2].values.first!)"
-            self.anniversaryThreeD_Day = "D-\(D_DayValue)"
-        } else if anniversaryFilter.count == 2 {
-            minus = Int(anniversaryFilter[0].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
-            self.anniversaryOne = "\(anniversaryFilter[0].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[0].values.first!)"
-            self.anniversaryOneD_Day = "D-\(D_DayValue)"
-            
-            minus = Int(anniversaryFilter[1].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
-            self.anniversaryTwo = "\(anniversaryFilter[1].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[1].values.first!)"
-            self.anniversaryTwoD_Day = "D-\(D_DayValue)"
-            
-        } else if anniversaryFilter.count == 1 {
-            minus = Int(anniversaryFilter[0].keys.first!.toDate.millisecondsSince1970)-Int(nowDate)
-            D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
-            self.anniversaryOne = "\(anniversaryFilter[0].keys.first!.toDate.toAnniversaryString) \(anniversaryFilter[0].values.first!)"
-            self.anniversaryOneD_Day = "D-\(D_DayValue)"
-        } else {
-            self.anniversaryOne = "\(DateValues.GetOnlyNextYear())년"
         }
     }
     
