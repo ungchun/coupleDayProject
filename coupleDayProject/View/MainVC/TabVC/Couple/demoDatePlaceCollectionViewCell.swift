@@ -27,6 +27,7 @@ class DemoDatePlaceCollectionViewCell: UICollectionViewCell {
        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
+        stackView.spacing = 5
         return stackView
     }()
     
@@ -41,8 +42,8 @@ class DemoDatePlaceCollectionViewCell: UICollectionViewCell {
         demoStackView.addArrangedSubview(demoLabel_2)
         
         NSLayoutConstraint.activate([
-            emptyView.widthAnchor.constraint(equalToConstant: 100),
-            emptyView.heightAnchor.constraint(equalToConstant: 100),
+            emptyView.widthAnchor.constraint(equalToConstant: 120),
+            emptyView.heightAnchor.constraint(equalToConstant: 120),
             
             demoStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             demoStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),

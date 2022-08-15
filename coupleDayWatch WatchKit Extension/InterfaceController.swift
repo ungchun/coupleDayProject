@@ -58,13 +58,13 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         // updateApplicationContext -> transferUserInfo 랑은 다르게 항상 도는거 같음 (내부 디비 쓰는 느낌 ?) -> days는 하루가 지나면 앱을 안키더라도 업데이트 되어야해서 updateApplicationContext 처리
         // 그럼 이미지도 updateApplicationContext 쓰면 안되냐 ? -> updateApplicationContext 중복 불가, 뒤에 오는 데이터가 앞 데이터 덮어버림
         //
-        let timedColor = WCSession.default.receivedApplicationContext
-        if timedColor.isEmpty == false {
+        let receiveData = WCSession.default.receivedApplicationContext
+        if receiveData.isEmpty == false {
             DispatchQueue.main.async {
                 // 현재 날짜 스트링 데이터 -> 현재 날짜 데이트 데이터
                 // 현재 - 사귄날짜 = days
                 //
-                if let data = timedColor.values.first as? String {
+                if let data = receiveData.values.first as? String {
                     let nowDayDataString = Date().toString
                     let nowDayDataDate = nowDayDataString.toDate
                     let minus = nowDayDataDate.millisecondsSince1970-Int64(data)!

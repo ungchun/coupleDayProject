@@ -85,7 +85,7 @@ class CoupleTabViewController: UIViewController {
     }()
     private lazy var titleAnniversary: UILabel = {
         var label = UILabel()
-        label.text = "ㅁㅁ의 오늘 장소"
+        label.text = "대구의 오늘 장소"
         label.font = UIFont(name: "GangwonEduAllBold", size: textBigSize)
         return label
     }()
@@ -93,11 +93,12 @@ class CoupleTabViewController: UIViewController {
 
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 20
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        flowLayout.minimumLineSpacing = 0 // 행과 열 사이 간격
+        flowLayout.minimumInteritemSpacing = 0 // 행 사이 간격
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = UIColor.red
+        collectionView.showsHorizontalScrollIndicator = false
 
         return collectionView
     }()
@@ -109,10 +110,11 @@ class CoupleTabViewController: UIViewController {
     }()
     private lazy var comingStoryStackView: UIStackView = { // 다가오는 기념일 stackView
         var stackView = UIStackView(arrangedSubviews: [titleAnniversary, carouselCollectionView])
-        stackView.setCustomSpacing(10, after: titleAnniversary)
+//        stackView.setCustomSpacing(10, after: titleAnniversary)
         stackView.translatesAutoresizingMaskIntoConstraints = false
 //        stackView.distribution = .fillEqually
         stackView.distribution = .fill
+        stackView.backgroundColor = .yellow
         stackView.axis = .vertical
         stackView.spacing = 0
         return stackView
@@ -165,12 +167,6 @@ class CoupleTabViewController: UIViewController {
                 let imageData: [String: Any] = ["imageData": data!]
                 WCSession.default.transferUserInfo(imageData)
             }
-            
-            // guard WCSession.default.activationState 말고 이렇게도 가능함, 블로그 작성 후 요부분 삭제
-            //            if let validSession = self.session {
-            //                let data: [String: Any] = ["imageData": RealmManager.shared.getImageDatas().first!.mainImageData!]
-            //                validSession.transferUserInfo(data)
-            //            }
         }
         coupleTabViewModel.onMyProfileImageDataUpdated = {
             DispatchQueue.main.async {
@@ -190,12 +186,6 @@ class CoupleTabViewController: UIViewController {
             //
             let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
             try? WCSession.default.updateApplicationContext(dayData)
-            
-            // WCSession.default.transferUserInfo(dayData) 말고 이렇게도 가능함, 블로그 작성 후 요부분 삭제
-            //            if let validSession = self.session {
-            //                let data: [String: Any] = ["dayData": self.coupleTabViewModel.beginCoupleDay]
-            //                validSession.transferUserInfo(data)
-            //            }
         }
         
         // viewModel init
@@ -317,6 +307,8 @@ class CoupleTabViewController: UIViewController {
             coupleTabStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             coupleTabStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
             coupleTabStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            
+//            carouselCollectionView
         ])
     }
     
@@ -398,11 +390,12 @@ extension CoupleTabViewController : GADBannerViewDelegate {
 
 extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = .purple
         return cell
     }
     
@@ -410,7 +403,7 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
         // cell click
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: view.frame.width - 80, height: view.frame.height)
+        return CGSize(width: carouselCollectionView.frame.height - 40, height: carouselCollectionView.frame.height)
     }
 }
 
