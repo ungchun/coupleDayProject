@@ -66,6 +66,8 @@
 		BCC7569B286AA30900CD523A /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BCC7569A286AA30900CD523A /* TOCropViewController */; };
 		BCC9F97928729B4900809A26 /* StoryDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC9F97828729B4900809A26 /* StoryDay.swift */; };
 		BCC9F97B2872C15600809A26 /* Anniversary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC9F97A2872C15600809A26 /* Anniversary.swift */; };
+		BCEFABFE28AA34C3004983FF /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFABFD28AA34C3004983FF /* FirebaseManager.swift */; };
+		BCEFAC0028AA35F9004983FF /* DatePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFABFF28AA35F9004983FF /* DatePlace.swift */; };
 		BCF03FE0286D6C0100C28F71 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BCF03FDF286D6C0100C28F71 /* Kingfisher */; };
 		BCF0443C286C37B100E9CEAD /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */; };
 		BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */; };
@@ -183,6 +185,8 @@
 		BCB0B18A28507D2E00DE7196 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BCC9F97828729B4900809A26 /* StoryDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDay.swift; sourceTree = "<group>"; };
 		BCC9F97A2872C15600809A26 /* Anniversary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anniversary.swift; sourceTree = "<group>"; };
+		BCEFABFD28AA34C3004983FF /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		BCEFABFF28AA35F9004983FF /* DatePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlace.swift; sourceTree = "<group>"; };
 		BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModel.swift; sourceTree = "<group>"; };
 		BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTabViewModel.swift; sourceTree = "<group>"; };
 		BCF1B35F2868237D00641ABD /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
@@ -333,6 +337,7 @@
 		BCB0B16528507BE600DE7196 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BCEFABFC28AA34A9004983FF /* Firebase */,
 				BCF79835285710920009A78C /* Fonts */,
 				BCB0B17628507D0B00DE7196 /* Constants.swift */,
 				BCB0B17728507D0B00DE7196 /* Extensions.swift */,
@@ -358,6 +363,7 @@
 				BCF1B35F2868237D00641ABD /* ImageModel.swift */,
 				BCC9F97828729B4900809A26 /* StoryDay.swift */,
 				BCC9F97A2872C15600809A26 /* Anniversary.swift */,
+				BCEFABFF28AA35F9004983FF /* DatePlace.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -380,6 +386,14 @@
 				BCF03FDD286D61D500C28F71 /* Anniversary */,
 			);
 			path = TabVC;
+			sourceTree = "<group>";
+		};
+		BCEFABFC28AA34A9004983FF /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				BCEFABFD28AA34C3004983FF /* FirebaseManager.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		BCF03FDB286D618200C28F71 /* Story */ = {
@@ -653,6 +667,7 @@
 				BCB0B18328507D2300DE7196 /* BeginViewController.swift in Sources */,
 				BC0DF1C3289278170036EC51 /* AnniversaryCell.swift in Sources */,
 				BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */,
+				BCEFABFE28AA34C3004983FF /* FirebaseManager.swift in Sources */,
 				BCC9F97928729B4900809A26 /* StoryDay.swift in Sources */,
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
 				BCB0B18428507D2300DE7196 /* TabManViewController.swift in Sources */,
@@ -665,6 +680,7 @@
 				BCB0B18828507D2300DE7196 /* ContainerViewController.swift in Sources */,
 				BC2AF6E8289A9C0800A54A3D /* demoDatePlaceCollectionViewCell.swift in Sources */,
 				BCC9F97B2872C15600809A26 /* Anniversary.swift in Sources */,
+				BCEFAC0028AA35F9004983FF /* DatePlace.swift in Sources */,
 				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
 				BC8190C9286EFE6D00FAD555 /* StoryCell.swift in Sources */,
 				BCB0B18728507D2300DE7196 /* AnniversaryViewController.swift in Sources */,

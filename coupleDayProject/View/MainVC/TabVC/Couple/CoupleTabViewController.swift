@@ -9,6 +9,7 @@ class CoupleTabViewController: UIViewController {
     
     // MARK: Properties
     //
+    private var mainDatePlaceList = [DatePlace]()
     private let coupleTabViewModel = CoupleTabViewModel()
     
     private let imagePickerController = UIImagePickerController()
@@ -85,7 +86,7 @@ class CoupleTabViewController: UIViewController {
         label.font = UIFont(name: "GangwonEduAllLight", size: 25)
         return label
     }()
-    private lazy var titleAnniversary: UILabel = {
+    private lazy var titleDatePlace: UILabel = {
         var label = UILabel()
         label.text = "대구의 오늘 장소"
         label.font = UIFont(name: "GangwonEduAllBold", size: textBigSize)
@@ -110,8 +111,8 @@ class CoupleTabViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private lazy var comingStoryStackView: UIStackView = { // 다가오는 기념일 stackView
-        var stackView = UIStackView(arrangedSubviews: [titleAnniversary, carouselCollectionView])
+    private lazy var DatePlaceStackView: UIStackView = { // 오늘의 데이트 장소 stackView
+        var stackView = UIStackView(arrangedSubviews: [titleDatePlace, carouselCollectionView])
         //        stackView.setCustomSpacing(10, after: titleAnniversary)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         //        stackView.distribution = .fillEqually
@@ -146,6 +147,26 @@ class CoupleTabViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        FirebaseManager.shared.firestore.collection("daegu").getDocuments { [self] (querySnapshot, error) in
+            guard error == nil else { return }
+            for document in querySnapshot!.documents {
+                var tempDatePlaceValue = DatePlace()
+                print("document.documentID \(document.documentID)")
+                print("document.data() \(document.data())")
+                print("document.data()[주소] \(document.data()["address"] as! String)")
+                
+                tempDatePlaceValue.placeName = document.documentID
+                tempDatePlaceValue.address = document.data()["address"] as! String
+                tempDatePlaceValue.introduce = document.data()["introduce"] as! String
+                tempDatePlaceValue.number = document.data()["number"] as! String
+                
+                mainDatePlaceList.append(tempDatePlaceValue)
+            }
+            DispatchQueue.main.async { [self] in
+                carouselCollectionView.reloadData()
+            }
+        }
         
         carouselCollectionView.dataSource = self
         carouselCollectionView.delegate = self
@@ -253,8 +274,8 @@ class CoupleTabViewController: UIViewController {
         coupleTabStackView.addArrangedSubview(topTabBackView)
         coupleTabStackView.addArrangedSubview(imagePartView)
         coupleTabStackView.addArrangedSubview(coupleStackView)
-        coupleTabStackView.addArrangedSubview(comingStoryStackView)
-        comingStoryStackView.backgroundColor = .gray
+        coupleTabStackView.addArrangedSubview(DatePlaceStackView)
+        DatePlaceStackView.backgroundColor = .gray
         
         // 광고 무효트래픽으로 인한 게재 제한.. 일단 광고 제거
         //
@@ -302,8 +323,8 @@ class CoupleTabViewController: UIViewController {
             coupleStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -45),
             coupleStackView.heightAnchor.constraint(equalToConstant: coupleStackViewHeightSize),
             
-            comingStoryStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            comingStoryStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            DatePlaceStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            DatePlaceStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
             
             coupleTabStackView.topAnchor.constraint(equalTo: view.topAnchor),
             coupleTabStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -389,8 +410,16 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+//        cell.backgroundColor = .purple
+//        return cell
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .purple
+        if self.mainDatePlaceList.count > indexPath.item {
+            if let cell = cell as? DemoDatePlaceCollectionViewCell {
+                cell.datePlaceModel = mainDatePlaceList[indexPath.item]
+            }
+        }
         return cell
     }
     

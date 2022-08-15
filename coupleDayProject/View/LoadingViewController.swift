@@ -10,7 +10,7 @@ class LoadingViewController: UIViewController {
     
     // MARK: Properties
     //
-    var window: UIWindow?
+    private var window: UIWindow?
     
     // MARK: Views
     //

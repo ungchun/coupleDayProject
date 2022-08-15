@@ -2,6 +2,17 @@ import UIKit
 
 class DemoDatePlaceCollectionViewCell: UICollectionViewCell {
     
+    // MARK: Properties
+    //
+    var datePlaceModel: DatePlace? {
+        didSet { bind() }
+    }
+    
+    fileprivate func bind() {
+        demoLabel_1.text = datePlaceModel?.placeName
+        demoLabel_2.text = datePlaceModel?.address
+    }
+    
     // MARK: Views
     //
     private var emptyView: UIView = { // 프레임

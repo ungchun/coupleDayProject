@@ -6,7 +6,7 @@ class ContainerViewController: UIViewController {
     // MARK: Properties
     //
     private let containerViewModelCombine = ContainerViewModelCombine()
-    var disposalbleBag = Set<AnyCancellable>()
+    private var disposalbleBag = Set<AnyCancellable>()
     
     // MARK: Views
     //
