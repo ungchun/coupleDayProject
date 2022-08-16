@@ -92,17 +92,15 @@ class CoupleTabViewController: UIViewController {
         label.font = UIFont(name: "GangwonEduAllBold", size: textBigSize)
         return label
     }()
-    let carouselCollectionView: UICollectionView = {
-        
+    private lazy var carouselCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0 // 행과 열 사이 간격
         flowLayout.minimumInteritemSpacing = 0 // 행 사이 간격
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = UIColor.red
         collectionView.showsHorizontalScrollIndicator = false
-        
+        collectionView.backgroundColor = UIColor(named: "bgColor")
         return collectionView
     }()
     
@@ -117,9 +115,9 @@ class CoupleTabViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         //        stackView.distribution = .fillEqually
         stackView.distribution = .fill
-        stackView.backgroundColor = .yellow
         stackView.axis = .vertical
         stackView.spacing = 0
+        stackView.backgroundColor = UIColor(named: "bgColor")
         return stackView
     }()
     
@@ -155,13 +153,17 @@ class CoupleTabViewController: UIViewController {
                 print("document.documentID \(document.documentID)")
                 print("document.data() \(document.data())")
                 print("document.data()[주소] \(document.data()["address"] as! String)")
+                print("document.data()[이미지주소] \(document.data()["imageUrl"] as! Array<String>)")
                 
                 tempDatePlaceValue.placeName = document.documentID
                 tempDatePlaceValue.address = document.data()["address"] as! String
+                tempDatePlaceValue.shortAddress = document.data()["shortAddress"] as! String
                 tempDatePlaceValue.introduce = document.data()["introduce"] as! String
                 tempDatePlaceValue.number = document.data()["number"] as! String
+                tempDatePlaceValue.imageUrl = document.data()["imageUrl"] as! Array<String>
                 
                 mainDatePlaceList.append(tempDatePlaceValue)
+                mainDatePlaceList.shuffle()
             }
             DispatchQueue.main.async { [self] in
                 carouselCollectionView.reloadData()
@@ -275,7 +277,6 @@ class CoupleTabViewController: UIViewController {
         coupleTabStackView.addArrangedSubview(imagePartView)
         coupleTabStackView.addArrangedSubview(coupleStackView)
         coupleTabStackView.addArrangedSubview(DatePlaceStackView)
-        DatePlaceStackView.backgroundColor = .gray
         
         // 광고 무효트래픽으로 인한 게재 제한.. 일단 광고 제거
         //
