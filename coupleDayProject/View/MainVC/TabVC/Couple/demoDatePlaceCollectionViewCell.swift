@@ -22,6 +22,8 @@ class DemoDatePlaceCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.sizeToFit()
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
         return imageView
     }()
     private var emptyView: UIView = { // 프레임
@@ -33,14 +35,14 @@ class DemoDatePlaceCollectionViewCell: UICollectionViewCell {
     private var demoLabel_1: UILabel = { // 장소
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "GangwonEduAllLight", size: 17)
+        label.font = UIFont(name: "GangwonEduAllLight", size: CommonSize.coupleCellTextBigSize)
         label.text = "장소"
         return label
     }()
     private var demoLabel_2: UILabel = { // 위치
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "GangwonEduAllLight", size: 16)
+        label.font = UIFont(name: "GangwonEduAllLight", size: CommonSize.coupleCellTextSmallSize)
         label.text = "위치"
         return label
     }()
@@ -49,7 +51,7 @@ class DemoDatePlaceCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 5
+        stackView.spacing = 6
         return stackView
     }()
     
@@ -59,16 +61,15 @@ class DemoDatePlaceCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         addSubview(demoStackView)
-//        demoStackView.addArrangedSubview(emptyView)
         demoStackView.addArrangedSubview(demoImageView)
         demoStackView.addArrangedSubview(demoLabel_1)
         demoStackView.addArrangedSubview(demoLabel_2)
         
+        demoStackView.setCustomSpacing(15, after: demoImageView)
+        
         NSLayoutConstraint.activate([
-            demoImageView.widthAnchor.constraint(equalToConstant: 120),
-            demoImageView.heightAnchor.constraint(equalToConstant: 120),
-//            emptyView.widthAnchor.constraint(equalToConstant: 120),
-//            emptyView.heightAnchor.constraint(equalToConstant: 120),
+            demoImageView.widthAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
+            demoImageView.heightAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
             
             demoStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             demoStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),

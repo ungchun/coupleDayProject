@@ -20,11 +20,6 @@ class CoupleTabViewController: UIViewController {
     private let myProfileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 내 프로필 이미지 로딩 뷰
     private let profileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 상대 프로필 이미지 로딩 뷰
     
-    private let textBigSize = UIScreen.main.bounds.size.height > 850 ? 25.0 : 22.0
-    private let textSmallSize = UIScreen.main.bounds.size.height > 850 ? 19.0 : 17.0
-    private let profileSize = UIScreen.main.bounds.size.height > 850 ? 75.0 : 70.0
-    private let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 850 ? UIScreen.main.bounds.size.height / 8 : UIScreen.main.bounds.size.height / 10
-    
     // MARK: Views
     //
     private let coupleTabStackView: UIStackView = { // 커플 탭 전체 뷰
@@ -89,7 +84,7 @@ class CoupleTabViewController: UIViewController {
     private lazy var titleDatePlace: UILabel = {
         var label = UILabel()
         label.text = "대구의 오늘 장소"
-        label.font = UIFont(name: "GangwonEduAllBold", size: textBigSize)
+        label.font = UIFont(name: "GangwonEduAllBold", size: CommonSize.coupleTextBigSize)
         return label
     }()
     private lazy var carouselCollectionView: UICollectionView = {
@@ -102,6 +97,15 @@ class CoupleTabViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = UIColor(named: "bgColor")
         return collectionView
+    }()
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = false
+        activityIndicator.style = UIActivityIndicatorView.Style.medium
+        activityIndicator.startAnimating()
+        return activityIndicator
     }()
     
     private let admobView: GADBannerView = {
@@ -116,6 +120,7 @@ class CoupleTabViewController: UIViewController {
         //        stackView.distribution = .fillEqually
         stackView.distribution = .fill
         stackView.axis = .vertical
+//        stackView.backgroundColor = .gray
         stackView.spacing = 0
         stackView.backgroundColor = UIColor(named: "bgColor")
         return stackView
@@ -143,9 +148,8 @@ class CoupleTabViewController: UIViewController {
             CoupleTabViewModel.changeCoupleDayMainCheck = false
         }
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    
+    fileprivate func loadFirebaseData(completion: @escaping () -> ()) {
         FirebaseManager.shared.firestore.collection("daegu").getDocuments { [self] (querySnapshot, error) in
             guard error == nil else { return }
             for document in querySnapshot!.documents {
@@ -168,6 +172,27 @@ class CoupleTabViewController: UIViewController {
             DispatchQueue.main.async { [self] in
                 carouselCollectionView.reloadData()
             }
+            completion()
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        print("UIScreen.main.bounds.size.height \(UIScreen.main.bounds.size.height)")
+        
+        loadFirebaseData { [self] in
+            coupleTabStackView.removeArrangedSubview(activityIndicator)
+            coupleTabStackView.addArrangedSubview(DatePlaceStackView)
+            DatePlaceStackView.alpha = 0
+            DatePlaceStackView.fadeIn()
+            
+            NSLayoutConstraint.activate([
+                DatePlaceStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+                DatePlaceStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            ])
+//            titleDatePlace.setContentHuggingPriority(UILayoutPriority(250), for: .vertical)
+//            carouselCollectionView.setContentHuggingPriority(UILayoutPriority(250), for: .vertical)
         }
         
         carouselCollectionView.dataSource = self
@@ -259,7 +284,7 @@ class CoupleTabViewController: UIViewController {
         let tapGestureMyProfileUIImageView = UITapGestureRecognizer(target: self, action: #selector(myProfileTap(_:)))
         myProfileUIImageView.addGestureRecognizer(tapGestureMyProfileUIImageView)
         myProfileUIImageView.isUserInteractionEnabled = true
-        myProfileUIImageView.layer.cornerRadius = profileSize/2 // 둥글게
+        myProfileUIImageView.layer.cornerRadius = CommonSize.coupleProfileSize/2 // 둥글게
         myProfileUIImageView.clipsToBounds = true
         
         // 상대방 프로필 사진 변경 제스처
@@ -267,7 +292,7 @@ class CoupleTabViewController: UIViewController {
         let tapGesturePartnerProfileUIImageView = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap(_:)))
         partnerProfileUIImageView.isUserInteractionEnabled = true
         partnerProfileUIImageView.addGestureRecognizer(tapGesturePartnerProfileUIImageView)
-        partnerProfileUIImageView.layer.cornerRadius = profileSize/2 // 둥글게
+        partnerProfileUIImageView.layer.cornerRadius = CommonSize.coupleProfileSize/2 // 둥글게
         partnerProfileUIImageView.clipsToBounds = true
         
         let imagePartView = imageLoadingFlag ? self.mainImageView : self.mainImageActivityIndicatorView
@@ -276,7 +301,7 @@ class CoupleTabViewController: UIViewController {
         coupleTabStackView.addArrangedSubview(topTabBackView)
         coupleTabStackView.addArrangedSubview(imagePartView)
         coupleTabStackView.addArrangedSubview(coupleStackView)
-        coupleTabStackView.addArrangedSubview(DatePlaceStackView)
+        coupleTabStackView.addArrangedSubview(activityIndicator)
         
         // 광고 무효트래픽으로 인한 게재 제한.. 일단 광고 제거
         //
@@ -298,17 +323,17 @@ class CoupleTabViewController: UIViewController {
         iconDayStackView.addArrangedSubview(mainTextLabel)
         
         coupleTabStackView.setCustomSpacing(15, after: imagePartView)
-        coupleTabStackView.setCustomSpacing(15, after: coupleStackView)
+        coupleTabStackView.setCustomSpacing(10, after: coupleStackView)
         
         // set autolayout
         // UIScreen.main.bounds.size.height -> 디바이스 별 height 이용해서 해상도 비율 맞춤
         //
         NSLayoutConstraint.activate([
-            myProfileUIImageView.widthAnchor.constraint(equalToConstant: profileSize),
-            myProfileUIImageView.heightAnchor.constraint(equalToConstant: profileSize),
+            myProfileUIImageView.widthAnchor.constraint(equalToConstant: CommonSize.coupleProfileSize),
+            myProfileUIImageView.heightAnchor.constraint(equalToConstant: CommonSize.coupleProfileSize),
             
-            partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: profileSize),
-            partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: profileSize),
+            partnerProfileUIImageView.widthAnchor.constraint(equalToConstant: CommonSize.coupleProfileSize),
+            partnerProfileUIImageView.heightAnchor.constraint(equalToConstant: CommonSize.coupleProfileSize),
             
             loveIconView.widthAnchor.constraint(equalToConstant: 30),
             loveIconView.heightAnchor.constraint(equalToConstant: 30),
@@ -322,10 +347,7 @@ class CoupleTabViewController: UIViewController {
             
             coupleStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 45),
             coupleStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -45),
-            coupleStackView.heightAnchor.constraint(equalToConstant: coupleStackViewHeightSize),
-            
-            DatePlaceStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            DatePlaceStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            coupleStackView.heightAnchor.constraint(equalToConstant: CommonSize.coupleStackViewHeightSize),
             
             coupleTabStackView.topAnchor.constraint(equalTo: view.topAnchor),
             coupleTabStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -411,9 +433,9 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-//        cell.backgroundColor = .purple
-//        return cell
+        //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        //        cell.backgroundColor = .purple
+        //        return cell
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         if self.mainDatePlaceList.count > indexPath.item {
@@ -428,10 +450,39 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
         // cell click
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: carouselCollectionView.frame.height - 40, height: carouselCollectionView.frame.height)
+//        return CGSize(width: carouselCollectionView.frame.height - 40, height: carouselCollectionView.frame.height)
+        return CGSize(width: CommonSize.coupleCellImageSize + 10, height: carouselCollectionView.frame.height)
     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
 }
 
 extension CoupleTabViewController: UICollectionViewDelegate {
+    
+}
+public extension UIView {
+    
+    /**
+     Fade in a view with a duration
+     
+     - parameter duration: custom animation duration
+     */
+    func fadeIn(duration: TimeInterval = 1.0) {
+        UIView.animate(withDuration: duration, animations: {
+            self.alpha = 1.0
+        })
+    }
+    
+    /**
+     Fade out a view with a duration
+     
+     - parameter duration: custom animation duration
+     */
+    func fadeOut(duration: TimeInterval = 1.0) {
+        UIView.animate(withDuration: duration, animations: {
+            self.alpha = 0.0
+        })
+    }
     
 }

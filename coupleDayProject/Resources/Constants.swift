@@ -5,6 +5,23 @@ import RealmSwift
 import WidgetKit
 import GoogleMobileAds
 
+struct CommonSize {
+    
+    // 아이폰 se 667 -> 16, 100
+    // 아이폰 mini 812 -> 18, 120
+    // 아이폰 13 pro 844 -> 18, 120
+    // 아이폰 11 896 -> 20, 130
+    // 아이폰 13 pro max 926 -> 22, 140
+    
+    static let coupleTextBigSize = UIScreen.main.bounds.size.height > 900 ? 22.0 : UIScreen.main.bounds.size.height > 850 ? 20.0 : UIScreen.main.bounds.size.height > 800 ? 18.0 : 16.0
+    static let coupleProfileSize = UIScreen.main.bounds.size.height > 850 ? 75.0 : 70.0
+    static let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 850 ? UIScreen.main.bounds.size.height / 8 : UIScreen.main.bounds.size.height / 10
+    
+    static let coupleCellTextBigSize = UIScreen.main.bounds.size.height > 850 ? 17.0 : 14.0
+    static let coupleCellTextSmallSize = UIScreen.main.bounds.size.height > 850 ? 16.0 : 13.0
+    static let coupleCellImageSize = UIScreen.main.bounds.size.height > 900 ? 140.0 : UIScreen.main.bounds.size.height > 850 ? 130.0 : UIScreen.main.bounds.size.height > 800 ? 120.0 : 100.0
+}
+
 // MARK: RealmManager Singleton
 //
 class RealmManager {
