@@ -18,3 +18,7 @@ struct DatePlace: Codable {
         self.imageUrl = []
     }
 }
+
+let LocalName: [[String: String]] = [
+    ["서울": "seoul"], ["대구": "daegu"], ["부산": "busan"]
+]

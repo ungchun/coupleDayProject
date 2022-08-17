@@ -83,7 +83,6 @@ class CoupleTabViewController: UIViewController {
     }()
     private lazy var titleDatePlace: UILabel = {
         var label = UILabel()
-        label.text = "대구의 오늘 장소"
         label.font = UIFont(name: "GangwonEduAllBold", size: CommonSize.coupleTextBigSize)
         return label
     }()
@@ -115,12 +114,9 @@ class CoupleTabViewController: UIViewController {
     }()
     private lazy var DatePlaceStackView: UIStackView = { // 오늘의 데이트 장소 stackView
         var stackView = UIStackView(arrangedSubviews: [titleDatePlace, carouselCollectionView])
-        //        stackView.setCustomSpacing(10, after: titleAnniversary)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        //        stackView.distribution = .fillEqually
         stackView.distribution = .fill
         stackView.axis = .vertical
-//        stackView.backgroundColor = .gray
         stackView.spacing = 0
         stackView.backgroundColor = UIColor(named: "bgColor")
         return stackView
@@ -159,6 +155,9 @@ class CoupleTabViewController: UIViewController {
                 print("document.data()[주소] \(document.data()["address"] as! String)")
                 print("document.data()[이미지주소] \(document.data()["imageUrl"] as! Array<String>)")
                 
+                guard let localNameText = LocalName.randomElement()?.keys.first else { return }
+                titleDatePlace.text = "\(localNameText)의 오늘 장소"
+                
                 tempDatePlaceValue.placeName = document.documentID
                 tempDatePlaceValue.address = document.data()["address"] as! String
                 tempDatePlaceValue.shortAddress = document.data()["shortAddress"] as! String
@@ -182,6 +181,7 @@ class CoupleTabViewController: UIViewController {
         print("UIScreen.main.bounds.size.height \(UIScreen.main.bounds.size.height)")
         
         loadFirebaseData { [self] in
+            
             coupleTabStackView.removeArrangedSubview(activityIndicator)
             coupleTabStackView.addArrangedSubview(DatePlaceStackView)
             DatePlaceStackView.alpha = 0
@@ -191,8 +191,6 @@ class CoupleTabViewController: UIViewController {
                 DatePlaceStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
                 DatePlaceStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
             ])
-//            titleDatePlace.setContentHuggingPriority(UILayoutPriority(250), for: .vertical)
-//            carouselCollectionView.setContentHuggingPriority(UILayoutPriority(250), for: .vertical)
         }
         
         carouselCollectionView.dataSource = self
