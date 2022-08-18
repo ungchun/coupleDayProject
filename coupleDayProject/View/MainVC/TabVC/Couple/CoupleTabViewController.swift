@@ -145,18 +145,15 @@ class CoupleTabViewController: UIViewController {
         }
     }
     
+    // Firebase Data 불러오는 메서드
+    // 불러오면 컬렉션 뷰 reaload
+    //
     fileprivate func loadFirebaseData(completion: @escaping () -> ()) {
         FirebaseManager.shared.firestore.collection("daegu").getDocuments { [self] (querySnapshot, error) in
             guard error == nil else { return }
             for document in querySnapshot!.documents {
                 var tempDatePlaceValue = DatePlace()
-                print("document.documentID \(document.documentID)")
-                print("document.data() \(document.data())")
-                print("document.data()[주소] \(document.data()["address"] as! String)")
-                print("document.data()[이미지주소] \(document.data()["imageUrl"] as! Array<String>)")
-                
                 guard let localNameText = LocalName.randomElement()?.keys.first else { return }
-                titleDatePlace.text = "\(localNameText)의 오늘 장소"
                 
                 tempDatePlaceValue.placeName = document.documentID
                 tempDatePlaceValue.address = document.data()["address"] as! String
@@ -165,6 +162,7 @@ class CoupleTabViewController: UIViewController {
                 tempDatePlaceValue.number = document.data()["number"] as! String
                 tempDatePlaceValue.imageUrl = document.data()["imageUrl"] as! Array<String>
                 
+                titleDatePlace.text = "\(localNameText)의 오늘 장소"
                 mainDatePlaceList.append(tempDatePlaceValue)
                 mainDatePlaceList.shuffle()
             }
@@ -178,12 +176,11 @@ class CoupleTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("UIScreen.main.bounds.size.height \(UIScreen.main.bounds.size.height)")
-        
         loadFirebaseData { [self] in
-            
             coupleTabStackView.removeArrangedSubview(activityIndicator)
             coupleTabStackView.addArrangedSubview(DatePlaceStackView)
+            // fadeIn Animation
+            //
             DatePlaceStackView.alpha = 0
             DatePlaceStackView.fadeIn()
             
@@ -448,39 +445,24 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
         // cell click
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: carouselCollectionView.frame.height - 40, height: carouselCollectionView.frame.height)
         return CGSize(width: CommonSize.coupleCellImageSize + 10, height: carouselCollectionView.frame.height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        }
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
 }
-
 extension CoupleTabViewController: UICollectionViewDelegate {
     
 }
-public extension UIView {
-    
-    /**
-     Fade in a view with a duration
-     
-     - parameter duration: custom animation duration
-     */
+extension UIView {
     func fadeIn(duration: TimeInterval = 1.0) {
         UIView.animate(withDuration: duration, animations: {
             self.alpha = 1.0
         })
     }
-    
-    /**
-     Fade out a view with a duration
-     
-     - parameter duration: custom animation duration
-     */
     func fadeOut(duration: TimeInterval = 1.0) {
         UIView.animate(withDuration: duration, animations: {
             self.alpha = 0.0
         })
     }
-    
 }
