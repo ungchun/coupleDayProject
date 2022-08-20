@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC05F82C28B09F4C003AB01E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05F82B28B09F4C003AB01E /* Coordinator.swift */; };
 		BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 		BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
 		BC0CFD9028804011000A009D /* GangwonEduAllBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */; };
@@ -137,6 +138,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BC05F82B28B09F4C003AB01E /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.otf; sourceTree = "<group>"; };
 		BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.otf; sourceTree = "<group>"; };
 		BC0DF1912892595E0036EC51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 			children = (
 				BCEFABFC28AA34A9004983FF /* Firebase */,
 				BCF79835285710920009A78C /* Fonts */,
+				BC05F82B28B09F4C003AB01E /* Coordinator.swift */,
 				BCB0B17628507D0B00DE7196 /* Constants.swift */,
 				BCB0B17728507D0B00DE7196 /* Extensions.swift */,
 			);
@@ -671,6 +674,7 @@
 				BCC9F97928729B4900809A26 /* StoryDay.swift in Sources */,
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
 				BCB0B18428507D2300DE7196 /* TabManViewController.swift in Sources */,
+				BC05F82C28B09F4C003AB01E /* Coordinator.swift in Sources */,
 				BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */,
 				BCF1B3602868237D00641ABD /* ImageModel.swift in Sources */,
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,

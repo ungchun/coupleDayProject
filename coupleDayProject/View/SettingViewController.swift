@@ -9,6 +9,7 @@ class SettingViewController: UIViewController{
     //
     private let imagePickerController = UIImagePickerController()
     private let defaults = UserDefaults.standard
+    weak var coordinator: SettingViewCoordinator?
     
     // MARK: Views
     //

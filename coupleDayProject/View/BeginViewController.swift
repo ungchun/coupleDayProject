@@ -1,10 +1,21 @@
 import Foundation
 import UIKit
 
+protocol BeginViewControllerDelegate {
+    func setBegin()
+}
+
 class BeginViewController: UIViewController {
     
     // MARK: Properties
     //
+    weak var coordinator: BeginViewCoordinator?
+    weak var containerCoordinator: ContainerViewCoordinator?
+    weak var mainCoordinator: AppCoordinator?
+    private var window: UIWindow?
+    var delegate: BeginViewControllerDelegate?
+
+    
     private var handleDateValue = Date()
     private var checkValue = false
     
@@ -164,34 +175,61 @@ class BeginViewController: UIViewController {
         }
     }
     @objc func startBtnTap() {
-        var window: UIWindow?
         
-        let userData = UserModel()
-        let imageData = ImageModel()
+        print("tap")
+
+//        let userData = UserModel()
+//        let imageData = ImageModel()
+//
+//        // 0일부터 시작 체크 or not
+//        //
+//        if checkValue {
+//            userData.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
+//        } else {
+//            userData.beginCoupleDay = Int(Calendar.current.date(byAdding: .day, value: -1, to: handleDateValue.toString.toDate)!.millisecondsSince1970)
+//        }
+//        userData.zeroDayStart = checkValue
+//        imageData.mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
+//
+//        // add Realm db init
+//        //
+//        RealmManager.shared.writeUserData(userData: userData)
+//        RealmManager.shared.writeImageData(imageData: imageData)
         
-        // 0일부터 시작 체크 or not
-        //
-        if checkValue {
-            userData.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
-        } else {
-            userData.beginCoupleDay = Int(Calendar.current.date(byAdding: .day, value: -1, to: handleDateValue.toString.toDate)!.millisecondsSince1970)
-        }
-        userData.zeroDayStart = checkValue
-        imageData.mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
         
-        // add Realm db init
-        //
-        RealmManager.shared.writeUserData(userData: userData)
-        RealmManager.shared.writeImageData(imageData: imageData)
         
         // rootViewcontroller -> ContainerViewController 로 변경하고 메인으로 이동
         //
-        let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = rootViewcontroller
-        window?.makeKeyAndVisible()
-        rootViewcontroller.modalTransitionStyle = .crossDissolve
-        rootViewcontroller.modalPresentationStyle = .fullScreen
-        self.present(rootViewcontroller, animated: true, completion: nil)
+//        let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        window?.rootViewController = rootViewcontroller
+//        window?.makeKeyAndVisible()
+//        rootViewcontroller.modalTransitionStyle = .crossDissolve
+//        rootViewcontroller.modalPresentationStyle = .fullScreen
+//        self.present(rootViewcontroller, animated: true, completion: nil)
+        
+//        print("!!!!")
+//        let navController = UINavigationController()
+//        self.coordinator = MainCoordinator(navigationController: navController)
+//        self.coordinator.start()
+//        self.window?.rootViewController = navController
+//        self.window?.makeKeyAndVisible()
+        
+//        self.coordinator?.parentCoordinator?.pushContainerView()
+        
+//        print("!!!!!")
+//        let navController = UINavigationController()
+//        self.coordinator = MainCoordinator(navigationController: navController)
+//        self.coordinator.start()
+//        self.window?.rootViewController = navController
+//        self.window?.makeKeyAndVisible()
+        
+//        self.coordinator!.parentCoordinator?.pushContainerView()
+//        containerCoordinator?.start()
+        
+//        coordinator?.parentCoordinator?.showContainerView()
+        
+        
+        mainCoordinator?.showContainerView()
     }
 }
