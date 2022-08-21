@@ -40,7 +40,6 @@ class LoadingViewController: UIViewController {
     //
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("@@@@")
         
         self.view.backgroundColor = TrendingConstants.appMainColorAlaph40
         
@@ -111,30 +110,8 @@ class LoadingViewController: UIViewController {
                     // realm 안비어있으면 메인으로 이동
                     //
                     if RealmManager.shared.getUserDatas().isEmpty {
-//                        let rootViewcontroller = UINavigationController(rootViewController: BeginViewController())
-//                        self.window = UIWindow(frame: UIScreen.main.bounds)
-//                        self.window?.rootViewController = rootViewcontroller
-//                        self.window?.makeKeyAndVisible()
-//                        rootViewcontroller.modalTransitionStyle = .crossDissolve
-//                        rootViewcontroller.modalPresentationStyle = .fullScreen
-//                        self.present(rootViewcontroller, animated: true, completion: nil)
-//
                         self.coordinator!.showBeginView()
                     } else {
-//                        let rootViewcontroller = UINavigationController(rootViewController: ContainerViewController())
-//                        self.window = UIWindow(frame: UIScreen.main.bounds)
-//                        self.window?.rootViewController = rootViewcontroller
-//                        self.window?.makeKeyAndVisible()
-//                        rootViewcontroller.modalTransitionStyle = .crossDissolve
-//                        rootViewcontroller.modalPresentationStyle = .fullScreen
-//                        self.present(rootViewcontroller, animated: true, completion: nil)
-                        
-//                        let navController = UINavigationController()
-//                        self.coordinator = MainCoordinator(navigationController: navController)
-//                        self.coordinator.start()
-//                        self.window?.rootViewController = navController
-//                        self.window?.makeKeyAndVisible()
-                        
                         self.coordinator!.showContainerView()
                     }
                 }

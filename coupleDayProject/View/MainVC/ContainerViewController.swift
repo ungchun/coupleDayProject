@@ -1,19 +1,14 @@
 import UIKit
 import Combine
 
-//protocol ContainerViewControllerDelegate {
-//    func setBegin()
-//}
-
 class ContainerViewController: UIViewController {
     
     // MARK: Properties
     //
+    weak var coordinator: ContainerViewCoordinator?
+    
     private let containerViewModelCombine = ContainerViewModelCombine()
     private var disposalbleBag = Set<AnyCancellable>()
-//    var coordinator: MainCoordinator!
-    weak var coordinator: ContainerViewCoordinator?
-//    weak var mainCoordinator: MainCoordinator?
     
     // MARK: Views
     //
@@ -64,11 +59,10 @@ class ContainerViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
     }
     override func viewDidLoad() {
-        print("AAAA")
         
-//        let navController = UINavigationController()
-//        self.coordinator = MainCoordinator(navigationController: navController)
-//        self.coordinator.start()
+        //        let navController = UINavigationController()
+        //        self.coordinator = MainCoordinator(navigationController: navController)
+        //        self.coordinator.start()
         
         setupView()
         
@@ -124,13 +118,7 @@ class ContainerViewController: UIViewController {
         ])
     }
     @objc func setBtnTap(_ gesture: UITapGestureRecognizer) {
-        print("setset")
-//        coordinator!.parentCoordinator?.pushSettingView()
-//        coordinator!.pushSettingView()
-//        mainCoordinator?.pushSettingView()
-//        let settingViewController = SettingViewController()
-//        self.navigationController?.pushViewController(settingViewController, animated: true)
-        
+        coordinator?.showSettingView()
     }
     @objc func setAnniversaryTap(_ gesture: UITapGestureRecognizer) {
         let anniversaryViewController = AnniversaryViewController()

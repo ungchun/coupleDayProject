@@ -8,13 +8,7 @@ protocol Coordinator: AnyObject {
     func start()
 }
 
-class AppCoordinator: Coordinator {
-    
-//    func didBeginSet(_ coordinator: BeginViewCoordinator) {
-//        print("didBeginSet didBeginSet")
-//        self.childCoordinator = self.childCoordinator.filter { $0 !== coordinator }
-//        self.showContainerView()
-//    }
+class AppCoordinator: Coordinator, BeginViewCoordinatorDelegate {
     
     var childCoordinator = [Coordinator]()
     var navigationController: UINavigationController
@@ -23,24 +17,28 @@ class AppCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     
+    func didBeginSet(_ coordinator: BeginViewCoordinator) {
+        print("didBeginSet")
+        self.childCoordinator = self.childCoordinator.filter { $0 !== coordinator }
+        self.showContainerView()
+    }
+    
     func start() {
         let rootViewcontroller = LoadingViewController()
         rootViewcontroller.coordinator = self
         navigationController.pushViewController(rootViewcontroller, animated: false)
     }
-
+    
     func showBeginView() {
         let child = BeginViewCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
-//        child.delegate = self
+        child.delegate = self
         childCoordinator.append(child)
         child.start()
     }
     func showContainerView() {
-        print("showContainerView")
         let child = ContainerViewCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
-//        child.delegate = self
         childCoordinator.append(child)
         child.start()
     }
@@ -59,64 +57,60 @@ protocol BeginViewCoordinatorDelegate {
     func didBeginSet(_ coordinator: BeginViewCoordinator)
 }
 
-class BeginViewCoordinator: Coordinator {
+class BeginViewCoordinator: Coordinator, BeginViewControllerDelegate {
+    
+    func setBegin() {
+        self.delegate?.didBeginSet(self)
+    }
     
     var delegate: BeginViewCoordinatorDelegate?
-
+    
     weak var parentCoordinator: AppCoordinator?
-
+    
     var childCoordinator = [Coordinator]()
     var navigationController: UINavigationController
-
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
         let beginViewController = BeginViewController()
         beginViewController.coordinator = self
-        beginViewController.modalPresentationStyle = .fullScreen
-        navigationController.present(beginViewController, animated: false, completion: nil)
+        beginViewController.delegate = self
+        self.navigationController.viewControllers = [beginViewController]
     }
     
-//    func setBegin() {
-//        self.delegate?.didBeginSet(self)
-//    }
-
-    func didFinishSecond() {
+    func didFinishBeginView() {
         parentCoordinator?.childDidFinish(self)
     }
 }
 
 class ContainerViewCoordinator: Coordinator {
-
+    
     weak var parentCoordinator: AppCoordinator?
-    private var window: UIWindow?
-
+    
     var childCoordinator = [Coordinator]()
     var navigationController: UINavigationController
-
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
-        print("???")
         let containerViewController = ContainerViewController()
         containerViewController.coordinator = self
-        containerViewController.modalPresentationStyle = .fullScreen
-        navigationController.present(containerViewController, animated: false, completion: nil)
+        self.navigationController.viewControllers = [containerViewController]
     }
     
-    func pushSettingView() {
-        print("pushSettingView")
+    func showSettingView() {
         let child = SettingViewCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
         childCoordinator.append(child)
         child.start()
     }
-
-    func didFinishSecond() {
+    
+    func didFinishContainerView() {
         parentCoordinator?.childDidFinish(self)
     }
     
@@ -128,31 +122,26 @@ class ContainerViewCoordinator: Coordinator {
             }
         }
     }
-    
 }
 
 class SettingViewCoordinator: Coordinator {
     
     weak var parentCoordinator: ContainerViewCoordinator?
-//    weak var parentCoordinator: ContainerViewCoordinator?
-//    private var window: UIWindow?
-
+    
     var childCoordinator = [Coordinator]()
     var navigationController: UINavigationController
-
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-
+    
     func start() {
-        print("SettingViewCoordinator")
         let settingViewController = SettingViewController()
         settingViewController.coordinator = self
-//        settingViewController.modalPresentationStyle = .fullScreen
         navigationController.pushViewController(settingViewController, animated: true)
     }
-
-    func didFinishSecond() {
+    
+    func didFinishSettingView() {
         parentCoordinator?.childDidFinish(self)
     }
 }

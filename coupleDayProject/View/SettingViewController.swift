@@ -3,6 +3,10 @@ import Photos
 import TOCropViewController
 import CropViewController
 
+//protocol BeginViewControllerDelegate {
+//    func setBegin()
+//}
+
 class SettingViewController: UIViewController{
     
     // MARK: Properties
@@ -71,6 +75,10 @@ class SettingViewController: UIViewController{
         self.view.backgroundColor = UIColor(named: "bgColor")
         imagePickerController.delegate = self
         setupView()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishSettingView()
     }
     
     // MARK: Functions
