@@ -196,6 +196,9 @@ class BeginViewController: UIViewController {
         RealmManager.shared.writeUserData(userData: userData)
         RealmManager.shared.writeImageData(imageData: imageData)
         
+        // BeginViewCoordinator -> AppCoordinator -> ContainerView
+        // 델리게이트로 AppCoordinator에 세팅 다 했으니 ContainerView로 이동하자고 알림
+        //
         self.delegate?.setBegin()
     }
 }

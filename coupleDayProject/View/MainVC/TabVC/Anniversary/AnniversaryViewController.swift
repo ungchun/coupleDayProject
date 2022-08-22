@@ -3,6 +3,10 @@ import GoogleMobileAds
 
 class AnniversaryViewController: UIViewController {
     
+    // MARK: Properties
+    //
+    weak var coordinator: AnniversaryCoordinator?
+    
     // MARK: Views
     //
     private let anniversaryLabel: UILabel = {
@@ -103,6 +107,10 @@ class AnniversaryViewController: UIViewController {
         ])
         anniversaryTableView.rowHeight = 140
         anniversaryTableView.estimatedRowHeight = UITableView.automaticDimension
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishAnniversaryView()
     }
     
     // MARK: Functions

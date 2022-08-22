@@ -8,6 +8,8 @@ protocol Coordinator: AnyObject {
     func start()
 }
 
+// AppCoordinator 자식 -> Container(Main), Begin 으로 이동 가능
+//
 class AppCoordinator: Coordinator, BeginViewCoordinatorDelegate {
     
     var childCoordinator = [Coordinator]()
@@ -17,8 +19,9 @@ class AppCoordinator: Coordinator, BeginViewCoordinatorDelegate {
         self.navigationController = navigationController
     }
     
+    // BeginViewCoordinator로 부터 응답을 받으면 ContainerView로 이동
+    //
     func didBeginSet(_ coordinator: BeginViewCoordinator) {
-        print("didBeginSet")
         self.childCoordinator = self.childCoordinator.filter { $0 !== coordinator }
         self.showContainerView()
     }
@@ -59,10 +62,6 @@ protocol BeginViewCoordinatorDelegate {
 
 class BeginViewCoordinator: Coordinator, BeginViewControllerDelegate {
     
-    func setBegin() {
-        self.delegate?.didBeginSet(self)
-    }
-    
     var delegate: BeginViewCoordinatorDelegate?
     
     weak var parentCoordinator: AppCoordinator?
@@ -72,6 +71,12 @@ class BeginViewCoordinator: Coordinator, BeginViewControllerDelegate {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+    }
+    
+    // AppCoordinator에 ContainerView로 이동하자고 알림
+    //
+    func setBegin() {
+        self.delegate?.didBeginSet(self)
     }
     
     func start() {
@@ -86,6 +91,8 @@ class BeginViewCoordinator: Coordinator, BeginViewControllerDelegate {
     }
 }
 
+// AppCoordinator의 자식이면서 SettingViewCoordinator의 부모
+//
 class ContainerViewCoordinator: Coordinator {
     
     weak var parentCoordinator: AppCoordinator?
@@ -108,6 +115,12 @@ class ContainerViewCoordinator: Coordinator {
         child.parentCoordinator = self
         childCoordinator.append(child)
         child.start()
+    }
+    func showAnniversaryView(vc: AnniversaryViewController) {
+        let child = AnniversaryCoordinator(navigationController: navigationController)
+        child.parentCoordinator = self
+        childCoordinator.append(child)
+        child.start(vc: vc)
     }
     
     func didFinishContainerView() {
@@ -142,6 +155,27 @@ class SettingViewCoordinator: Coordinator {
     }
     
     func didFinishSettingView() {
+        parentCoordinator?.childDidFinish(self)
+    }
+}
+
+class AnniversaryCoordinator: Coordinator {
+    
+    weak var parentCoordinator: ContainerViewCoordinator?
+    
+    var childCoordinator = [Coordinator]()
+    var navigationController: UINavigationController
+    
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+    func start() {}
+    func start(vc: AnniversaryViewController) {
+        vc.coordinator = self
+        navigationController.present(vc, animated: true)
+    }
+    
+    func didFinishAnniversaryView() {
         parentCoordinator?.childDidFinish(self)
     }
 }

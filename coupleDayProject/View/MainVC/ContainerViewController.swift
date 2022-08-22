@@ -124,7 +124,7 @@ class ContainerViewController: UIViewController {
         let anniversaryViewController = AnniversaryViewController()
         anniversaryViewController.modalPresentationStyle = .custom
         anniversaryViewController.transitioningDelegate = self
-        self.present(anniversaryViewController, animated: true)
+        coordinator?.showAnniversaryView(vc: anniversaryViewController)
     }
 }
 
