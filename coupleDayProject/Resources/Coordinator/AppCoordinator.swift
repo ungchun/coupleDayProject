@@ -1,29 +1,35 @@
 import Foundation
 import UIKit
 
+// MARK: Protocol
+//
 protocol Coordinator: AnyObject {
     var childCoordinator: [Coordinator] { get set }
     var navigationController: UINavigationController { get set }
     
     func start()
 }
+protocol AppCoordinatorting: Coordinator {
+    func showBeginView()
+    func showContainerView()
+}
+protocol BeginCoordinatorting: Coordinator {}
+protocol ContainerCoordinatorting: Coordinator {
+    func showSettingView()
+    func showAnniversaryView(vc: AnniversaryViewController)
+}
+protocol SettingCoordinatorting: Coordinator {}
+protocol AnniversaryCoordinatorting: Coordinator {}
 
-// AppCoordinator 자식 -> Container(Main), Begin 으로 이동 가능
+// AppCoordinator의 자식 -> Container(Main), Begin 으로 이동 가능
 //
-class AppCoordinator: Coordinator, BeginViewCoordinatorDelegate {
+class AppCoordinator: AppCoordinatorting, BeginViewCoordinatorDelegate {
     
     var childCoordinator = [Coordinator]()
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-    }
-    
-    // BeginViewCoordinator로 부터 응답을 받으면 ContainerView로 이동
-    //
-    func didBeginSet(_ coordinator: BeginViewCoordinator) {
-        self.childCoordinator = self.childCoordinator.filter { $0 !== coordinator }
-        self.showContainerView()
     }
     
     func start() {
@@ -46,6 +52,13 @@ class AppCoordinator: Coordinator, BeginViewCoordinatorDelegate {
         child.start()
     }
     
+    // BeginViewCoordinator로 부터 응답을 받으면 ContainerView로 이동
+    //
+    func didBeginSet(_ coordinator: BeginViewCoordinator) {
+        self.childCoordinator = self.childCoordinator.filter { $0 !== coordinator }
+        self.showContainerView()
+    }
+    
     func childDidFinish(_ child: Coordinator) {
         for (index, coordinator) in childCoordinator.enumerated() {
             if coordinator === child {
@@ -59,8 +72,7 @@ class AppCoordinator: Coordinator, BeginViewCoordinatorDelegate {
 protocol BeginViewCoordinatorDelegate {
     func didBeginSet(_ coordinator: BeginViewCoordinator)
 }
-
-class BeginViewCoordinator: Coordinator, BeginViewControllerDelegate {
+class BeginViewCoordinator: BeginCoordinatorting, BeginViewControllerDelegate {
     
     var delegate: BeginViewCoordinatorDelegate?
     
@@ -73,17 +85,17 @@ class BeginViewCoordinator: Coordinator, BeginViewControllerDelegate {
         self.navigationController = navigationController
     }
     
-    // AppCoordinator에 ContainerView로 이동하자고 알림
-    //
-    func setBegin() {
-        self.delegate?.didBeginSet(self)
-    }
-    
     func start() {
         let beginViewController = BeginViewController()
         beginViewController.coordinator = self
         beginViewController.delegate = self
         self.navigationController.viewControllers = [beginViewController]
+    }
+    
+    // AppCoordinator(부모)에 ContainerView로 이동하라고 알림
+    //
+    func setBegin() {
+        self.delegate?.didBeginSet(self)
     }
     
     func didFinishBeginView() {
@@ -93,7 +105,7 @@ class BeginViewCoordinator: Coordinator, BeginViewControllerDelegate {
 
 // AppCoordinator의 자식이면서 SettingViewCoordinator의 부모
 //
-class ContainerViewCoordinator: Coordinator {
+class ContainerViewCoordinator: ContainerCoordinatorting {
     
     weak var parentCoordinator: AppCoordinator?
     
@@ -117,7 +129,7 @@ class ContainerViewCoordinator: Coordinator {
         child.start()
     }
     func showAnniversaryView(vc: AnniversaryViewController) {
-        let child = AnniversaryCoordinator(navigationController: navigationController)
+        let child = AnniversaryViewCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
         childCoordinator.append(child)
         child.start(vc: vc)
@@ -137,7 +149,7 @@ class ContainerViewCoordinator: Coordinator {
     }
 }
 
-class SettingViewCoordinator: Coordinator {
+class SettingViewCoordinator: SettingCoordinatorting {
     
     weak var parentCoordinator: ContainerViewCoordinator?
     
@@ -159,7 +171,7 @@ class SettingViewCoordinator: Coordinator {
     }
 }
 
-class AnniversaryCoordinator: Coordinator {
+class AnniversaryViewCoordinator: AnniversaryCoordinatorting {
     
     weak var parentCoordinator: ContainerViewCoordinator?
     

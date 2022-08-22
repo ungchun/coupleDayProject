@@ -5,7 +5,7 @@ class AnniversaryViewController: UIViewController {
     
     // MARK: Properties
     //
-    weak var coordinator: AnniversaryCoordinator?
+    weak var coordinator: AnniversaryViewCoordinator?
     
     // MARK: Views
     //
