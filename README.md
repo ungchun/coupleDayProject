@@ -39,6 +39,7 @@
 - WatchKit
 - ClockKit
 - MVVM
+- Coordinator
 - Swift Package Manager
 - GCD
 - Combine
