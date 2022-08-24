@@ -7,6 +7,7 @@ class ContainerViewController: UIViewController {
     //
     weak var coordinator: ContainerViewCoordinator?
     
+    private let coupleTabViewModel = CoupleTabViewModel()
     private let containerViewModelCombine = ContainerViewModelCombine()
     private var disposalbleBag = Set<AnyCancellable>()
     
@@ -59,13 +60,9 @@ class ContainerViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
     }
     override func viewDidLoad() {
-        
-        //        let navController = UINavigationController()
-        //        self.coordinator = MainCoordinator(navigationController: navController)
-        //        self.coordinator.start()
-        
         setupView()
         
+        containerViewModelCombine.receivedCoupleDayData = coupleTabViewModel.beginCoupleDay.value
         self.containerViewModelCombine.$appNameLabelValue.sink { updateLabel in
             DispatchQueue.main.async {
                 let transition = CATransition()
@@ -105,7 +102,7 @@ class ContainerViewController: UIViewController {
         
         // add child tabman
         //
-        let mainTabManVC = TabManViewController()
+        let mainTabManVC = TabManViewController(coupleTabViewModel: coupleTabViewModel)
         addChild(mainTabManVC)
         view.addSubview(mainTabManVC.view)
         mainTabManVC.didMove(toParent: self)
@@ -118,7 +115,9 @@ class ContainerViewController: UIViewController {
         ])
     }
     @objc func setBtnTap(_ gesture: UITapGestureRecognizer) {
-        coordinator?.showSettingView()
+        // 설정을 통해 커플날짜랑 배경사진을 바꿔야함 -> 같은 coupleTabViewModel의 데이터 사용해야함 -> coupleTabViewModel 주입
+        //
+        coordinator?.showSettingView(coupleTabViewModel: coupleTabViewModel)
     }
     @objc func setAnniversaryTap(_ gesture: UITapGestureRecognizer) {
         let anniversaryViewController = AnniversaryViewController()

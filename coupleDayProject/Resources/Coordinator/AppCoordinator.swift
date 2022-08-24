@@ -15,7 +15,7 @@ protocol AppCoordinatorting: Coordinator {
 }
 protocol BeginCoordinatorting: Coordinator {}
 protocol ContainerCoordinatorting: Coordinator {
-    func showSettingView()
+    func showSettingView(coupleTabViewModel: CoupleTabViewModel)
     func showAnniversaryView(vc: AnniversaryViewController)
 }
 protocol SettingCoordinatorting: Coordinator {}
@@ -122,11 +122,11 @@ class ContainerViewCoordinator: ContainerCoordinatorting {
         self.navigationController.viewControllers = [containerViewController]
     }
     
-    func showSettingView() {
+    func showSettingView(coupleTabViewModel: CoupleTabViewModel) {
         let child = SettingViewCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
         childCoordinator.append(child)
-        child.start()
+        child.start(coupleTabViewModel: coupleTabViewModel)
     }
     func showAnniversaryView(vc: AnniversaryViewController) {
         let child = AnniversaryViewCoordinator(navigationController: navigationController)
@@ -159,9 +159,9 @@ class SettingViewCoordinator: SettingCoordinatorting {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
-    
-    func start() {
-        let settingViewController = SettingViewController()
+    func start() {}
+    func start(coupleTabViewModel: CoupleTabViewModel) {
+        let settingViewController = SettingViewController(coupleTabViewModel: coupleTabViewModel)
         settingViewController.coordinator = self
         navigationController.pushViewController(settingViewController, animated: true)
     }

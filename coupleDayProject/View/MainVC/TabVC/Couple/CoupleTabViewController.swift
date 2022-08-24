@@ -7,18 +7,26 @@ import WatchConnectivity
 
 class CoupleTabViewController: UIViewController {
     
+    private var coupleTabViewModel: CoupleTabViewModel?
+    init(coupleTabViewModel: CoupleTabViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.coupleTabViewModel = coupleTabViewModel
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: Properties
     //
     private var mainDatePlaceList = [DatePlace]()
-    private let coupleTabViewModel = CoupleTabViewModel()
-    
     private let imagePickerController = UIImagePickerController()
-    
     private var whoProfileChange = "my" // 내 프로필변경인지, 상대 프로필변경인지 체크하는 값
     
     private let mainImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 메인 이미지 로딩 뷰
     private let myProfileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 내 프로필 이미지 로딩 뷰
     private let profileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 상대 프로필 이미지 로딩 뷰
+    
+    private var loadingCheck = false
     
     // MARK: Views
     //
@@ -124,27 +132,77 @@ class CoupleTabViewController: UIViewController {
     
     // MARK: Life Cycle
     //
-    override func viewWillAppear(_ animated: Bool) {
-        if CoupleTabViewModel.changeDarkModeCheck && (RealmManager.shared.getImageDatas().first!.myProfileImageData == nil || RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil) {
-            coupleTabViewModel.updateProfileIcon()
-            CoupleTabViewModel.changeDarkModeCheck = false
+    override func viewWillAppear(_ animated: Bool) {}
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        loadFirebaseData { [self] in
+            coupleTabStackView.removeArrangedSubview(activityIndicator)
+            coupleTabStackView.addArrangedSubview(DatePlaceStackView)
+            // fadeIn Animation
+            //
+            DatePlaceStackView.alpha = 0
+            DatePlaceStackView.fadeIn()
+            
+            NSLayoutConstraint.activate([
+                DatePlaceStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+                DatePlaceStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            ])
         }
         
-        // 배경사진이 변경됐을때
+        carouselCollectionView.dataSource = self
+        carouselCollectionView.delegate = self
+        carouselCollectionView.register(DemoDatePlaceCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        
+        imagePickerController.delegate = self
+        
+        // 로딩 뷰 세팅, 제일 큰 사진 로딩 끝나면 beforeLoadingSetupView -> afterLoadingSetupView 변경
         //
-        if CoupleTabViewModel.changeMainImageCheck {
-            coupleTabViewModel.updateMainBackgroundImage()
-            CoupleTabViewModel.changeMainImageCheck = false
-        }
-        // 커플날짜 변경됐을때
+        beforeLoadingSetupView()
+        
+        // ViewModel DataBinding
         //
-        if CoupleTabViewModel.changeCoupleDayMainCheck {
-            coupleTabViewModel.updatePublicBeginCoupleDay()
-            coupleTabViewModel.updatePublicBeginCoupleFormatterDay()
-            CoupleTabViewModel.changeCoupleDayMainCheck = false
+        coupleTabViewModel!.beginCoupleDay.bind { [weak self] beginCoupleDay in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.mainTextLabel.text = beginCoupleDay
+            }
+            // watch, days 택스트 value는 updateApplicationContext 방법으로 연동
+            //
+            let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
+            try? WCSession.default.updateApplicationContext(dayData)
         }
+        coupleTabViewModel!.mainImageData.bind { imageData in
+            DispatchQueue.main.async { [self] in
+                self.mainImageView.image = UIImage(data: imageData)
+                if !loadingCheck {
+                    afterLoadingSetupView()
+                    loadingCheck = true
+                }
+                
+                // watch, 메인 이미지는 transferUserInfo 방법으로 이미지 연동
+                // watch 앱에 보내는 image, 크기 제한이 심해서 0.1 화질로 보냄 -> 0.1이 제일 작은 크기인 듯..? 0.1이 0.01, 0.001 이랑 차이없음
+                //
+                let data = UIImage(data: self.coupleTabViewModel!.mainImageData.value)?.jpegData(compressionQuality: 0.1)
+                let imageData: [String: Any] = ["imageData": data!]
+                WCSession.default.transferUserInfo(imageData)
+            }
+        }
+        coupleTabViewModel!.myProfileImageData.bind({ imageData in
+            DispatchQueue.main.async {
+                self.myProfileUIImageView.image = UIImage(data: imageData)
+            }
+        })
+        coupleTabViewModel!.partnerProfileImageData.bind({ imageData in
+            DispatchQueue.main.async {
+                self.partnerProfileUIImageView.image = UIImage(data: imageData)
+            }
+        })
     }
     
+    // MARK: Functions
+    //
     // Firebase Data 불러오는 메서드
     // 불러오면 컬렉션 뷰 reaload
     //
@@ -173,74 +231,6 @@ class CoupleTabViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        loadFirebaseData { [self] in
-            coupleTabStackView.removeArrangedSubview(activityIndicator)
-            coupleTabStackView.addArrangedSubview(DatePlaceStackView)
-            // fadeIn Animation
-            //
-            DatePlaceStackView.alpha = 0
-            DatePlaceStackView.fadeIn()
-            
-            NSLayoutConstraint.activate([
-                DatePlaceStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-                DatePlaceStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
-            ])
-        }
-        
-        carouselCollectionView.dataSource = self
-        carouselCollectionView.delegate = self
-        carouselCollectionView.register(DemoDatePlaceCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        
-        imagePickerController.delegate = self
-        
-        // 로딩 뷰 세팅, 제일 큰 사진 로딩 끝나면 beforeLoadingSetupView -> afterLoadingSetupView 변경
-        // coupleTabViewModel 바인딩 (연결)
-        //
-        beforeLoadingSetupView()
-        coupleTabViewModel.onMainImageDataUpdated = {
-            DispatchQueue.main.async { [self] in
-                self.mainImageView.image = UIImage(data: self.coupleTabViewModel.mainImageData!)
-                afterLoadingSetupView()
-                
-                // watch, 메인 이미지는 transferUserInfo 방법으로 이미지 연동
-                // watch 앱에 보내는 image, 크기 제한이 심해서 0.1 화질로 보냄 -> 0.1이 제일 작은 크기인 듯..? 0.1이 0.01, 0.001 이랑 차이없음
-                //
-                let data = UIImage(data: self.coupleTabViewModel.mainImageData!)?.jpegData(compressionQuality: 0.1)
-                let imageData: [String: Any] = ["imageData": data!]
-                WCSession.default.transferUserInfo(imageData)
-            }
-        }
-        coupleTabViewModel.onMyProfileImageDataUpdated = {
-            DispatchQueue.main.async {
-                self.myProfileUIImageView.image = UIImage(data: self.coupleTabViewModel.myProfileImageData!)
-            }
-        }
-        coupleTabViewModel.onPartnerProfileImageDataUpdated = {
-            DispatchQueue.main.async {
-                self.partnerProfileUIImageView.image = UIImage(data: self.coupleTabViewModel.partnerProfileImageData!)
-            }
-        }
-        coupleTabViewModel.onPublicBeginCoupleDayUpdated = {
-            DispatchQueue.main.async {
-                self.mainTextLabel.text = self.coupleTabViewModel.beginCoupleDay
-            }
-            // watch, days 택스트 value는 updateApplicationContext 방법으로 연동
-            //
-            let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
-            try? WCSession.default.updateApplicationContext(dayData)
-        }
-        
-        // viewModel init
-        //
-        coupleTabViewModel.setMainBackgroundImage()
-        coupleTabViewModel.setBeginCoupleDay()
-    }
-    
-    // MARK: Functions
-    //
     // 이미지 불러오는동안 보이는 임시 뷰
     //
     fileprivate func beforeLoadingSetupView() {
@@ -360,8 +350,6 @@ class CoupleTabViewController: UIViewController {
     }
 }
 
-
-
 // MARK: Extension
 //
 // ImagePicker + CropViewController
@@ -402,10 +390,10 @@ extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigati
         //
         if whoProfileChange == "my" {
             RealmManager.shared.updateMyProfileImage(myProfileImage: image)
-            self.coupleTabViewModel.updateMyProfileImage()
+            self.coupleTabViewModel!.setMyProfileIcon()
         } else {
             RealmManager.shared.updatePartnerProfileImage(partnerProfileImage: image)
-            self.coupleTabViewModel.updatePartnerProfileImage()
+            self.coupleTabViewModel!.setPartnerProfileIcon()
         }
         dismiss(animated: true, completion: nil)
     }
@@ -428,10 +416,6 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        //        cell.backgroundColor = .purple
-        //        return cell
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         if self.mainDatePlaceList.count > indexPath.item {
             if let cell = cell as? DemoDatePlaceCollectionViewCell {
@@ -451,9 +435,11 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
-extension CoupleTabViewController: UICollectionViewDelegate {
-    
-}
+
+extension CoupleTabViewController: UICollectionViewDelegate {}
+
+// fadeIn & fadeOut Animation Extension
+//
 extension UIView {
     func fadeIn(duration: TimeInterval = 1.0) {
         UIView.animate(withDuration: duration, animations: {

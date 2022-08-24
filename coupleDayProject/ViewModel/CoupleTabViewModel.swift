@@ -4,50 +4,22 @@ import Combine
 
 class CoupleTabViewModel {
     
-    init() { }
+    init() {
+        setBeginCoupleDay()
+        setMainBackgroundImage()
+        setMyProfileIcon()
+        setPartnerProfileIcon()
+    }
     
     // MARK: Properties
     //
-    static var publicBeginCoupleDay = ""
-    static var publicBeginCoupleFormatterDay = ""
-    static var changeMainImageCheck = false
-    static var changeCoupleDayMainCheck = false
-    static var changeCoupleDayStoryCheck = false
     static var changeDarkModeCheck = false
+    static var staticDayTest = ""
     
-    var onMainImageDataUpdated: () -> Void = {} // 메인 이미지 변경 시
-    var onMyProfileImageDataUpdated: () -> Void = {} // 내 프로필사진 변경 시
-    var onPartnerProfileImageDataUpdated: () -> Void = {} // 상대방 프로필사진 변경 시
-    
-    var onPublicBeginCoupleFormatterDayUpdated: () -> Void = {} // 날짜 변경 시 story date -> yyyy.MM.dd 형식 update
-    var onPublicBeginCoupleDayUpdated: () -> Void = {} // 날짜 변경 시 day update
-    
-    var mainImageData = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5) {
-        didSet {
-            onMainImageDataUpdated()
-        }
-    }
-    var myProfileImageData = UIImage(named: "smile_black")?.jpegData(compressionQuality: 0.5) {
-        didSet {
-            onMyProfileImageDataUpdated()
-        }
-    }
-    var partnerProfileImageData = UIImage(named: "smile_black")?.jpegData(compressionQuality: 0.5) {
-        didSet {
-            onPartnerProfileImageDataUpdated()
-        }
-    }
-    var beginCoupleFormatterDay = "" {
-        didSet {
-            onPublicBeginCoupleFormatterDayUpdated()
-        }
-    }
-    var beginCoupleDay = "" {
-        didSet {
-            onPublicBeginCoupleDayUpdated()
-        }
-    }
-    
+    var beginCoupleDay: Observable<String> = Observable("") // 날짜
+    var mainImageData: Observable<Data> = Observable((UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5))!) // 메인 이미지
+    var myProfileImageData: Observable<Data> = Observable((UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5))!) // 내 프로필사진
+    var partnerProfileImageData: Observable<Data> = Observable((UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5))!) // 상대방 프로필사진
     
     // MARK: Functions
     //
@@ -57,100 +29,82 @@ class CoupleTabViewModel {
         let nowDayDataString = Date().toString
         let nowDayDataDate: Date = nowDayDataString.toDate
         let minus = Int(nowDayDataDate.millisecondsSince1970)-RealmManager.shared.getUserDatas().first!.beginCoupleDay // 현재 - 사귄날짜 = days
-        self.beginCoupleDay = String(describing: minus / 86400000)
-        CoupleTabViewModel.publicBeginCoupleDay = String(describing: minus / 86400000)
-        self.beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(RealmManager.shared.getUserDatas().first!.beginCoupleDay) / 1000).toStoryString
-        CoupleTabViewModel.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(RealmManager.shared.getUserDatas().first!.beginCoupleDay) / 1000).toStoryString
+        self.beginCoupleDay.value = String(describing: minus / 86400000)
+        
+        // NotificationCenter로 Post하기 (발송하기)
+        NotificationCenter.default.post(name: Notification.Name.coupleDay, object: nil, userInfo: ["coupleDay": self.beginCoupleDay.value])
     }
     
     // 메인 이미지 세팅
     //
     func setMainBackgroundImage() {
+        self.mainImageData.value = RealmManager.shared.getImageDatas().first!.mainImageData!
+    }
+    
+    // update 프로필 이미지
+    //
+    func setMyProfileIcon() {
         let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
-        self.mainImageData = RealmManager.shared.getImageDatas().first!.mainImageData
-        
-        // dart 모드 체크
-        // 내 프로필, 상대 프로필 사진 세팅안돼있으면 smile image set
-        //
         if RealmManager.shared.getImageDatas().first!.myProfileImageData == nil {
             if isDark {
-                self.myProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
+                self.myProfileImageData.value = (UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5))!
             } else {
-                self.myProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
+                self.myProfileImageData.value = (UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5))!
             }
         } else {
-            self.myProfileImageData = RealmManager.shared.getImageDatas().first!.myProfileImageData
-        }
-        if RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil {
-            if isDark {
-                self.partnerProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
-            } else {
-                self.partnerProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
-            }
-        } else {
-            self.partnerProfileImageData = RealmManager.shared.getImageDatas().first!.partnerProfileImageData
+            self.myProfileImageData.value = RealmManager.shared.getImageDatas().first!.myProfileImageData!
         }
     }
     
     // update 프로필 이미지
     //
-    func updateProfileIcon() {
+    func setPartnerProfileIcon() {
         let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
-        if RealmManager.shared.getImageDatas().first!.myProfileImageData == nil {
-            if isDark {
-                self.myProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
-            } else {
-                self.myProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
-            }
-        } else {
-            self.myProfileImageData = RealmManager.shared.getImageDatas().first!.myProfileImageData
-        }
         if RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil {
             if isDark {
-                self.partnerProfileImageData = UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5)
+                self.partnerProfileImageData.value = (UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5))!
             } else {
-                self.partnerProfileImageData = UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5)
+                self.partnerProfileImageData.value = (UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5))!
             }
         } else {
-            self.partnerProfileImageData = RealmManager.shared.getImageDatas().first!.partnerProfileImageData
+            self.partnerProfileImageData.value = RealmManager.shared.getImageDatas().first!.partnerProfileImageData!
+        }
+    }
+}
+
+// ViewModel DataBinding Observable
+//
+class Observable<T> {
+    // 3) 호출되면, 2번에서 받은 값을 전달한다.
+    //
+    private var listener: ((T) -> Void)?
+    
+    // 2) 값이 set되면, listener에 해당 값을 전달한다,
+    //
+    var value: T {
+        didSet {
+            listener?(value)
         }
     }
     
-    // update 메인 이미지
+    // 1) 초기화함수를 통해서 값을 입력받고, 그 값을 "value"에 저장한다.
     //
-    func updateMainBackgroundImage() {
-        self.mainImageData = RealmManager.shared.getImageDatas().first!.mainImageData
+    init(_ value: T) {
+        self.value = value
     }
     
-    // update 나의 프로필
+    // 4) 다른 곳에서 bind라는 메소드를 호출하게 되면,
+    // value에 저장했떤 값을 전달해주고,
+    // 전달받은 "closure" 표현식을 listener에 할당한다.
     //
-    func updateMyProfileImage() {
-        self.myProfileImageData = RealmManager.shared.getImageDatas().first!.myProfileImageData
+    func bind(_ closure: @escaping (T) -> Void) {
+        closure(value)
+        listener = closure
     }
-    
-    // update 상대 프로필
-    //
-    func updatePartnerProfileImage() {
-        self.partnerProfileImageData = RealmManager.shared.getImageDatas().first!.partnerProfileImageData
-    }
-    
-    // update PublicBeginCoupleDay
-    //
-    func updatePublicBeginCoupleDay() {
-        // 현재 날짜 스트링 데이터 -> 현재 날짜 데이트 데이터
-        // 현재 - 사귄날짜 = days
-        //
-        let nowDayDataString = Date().toString
-        let nowDayDataDate: Date = nowDayDataString.toDate
-        let minus = Int(nowDayDataDate.millisecondsSince1970)-RealmManager.shared.getUserDatas().first!.beginCoupleDay
-        self.beginCoupleDay = String(describing: minus / 86400000)
-        CoupleTabViewModel.publicBeginCoupleDay = String(describing: minus / 86400000)
-    }
-    
-    // update PublicBeginCoupleFormatterDay
-    //
-    func updatePublicBeginCoupleFormatterDay() {
-        self.beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(RealmManager.shared.getUserDatas().first!.beginCoupleDay) / 1000).toStoryString
-        CoupleTabViewModel.publicBeginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(RealmManager.shared.getUserDatas().first!.beginCoupleDay) / 1000).toStoryString
-    }
+}
+
+// Notification Center
+//
+extension Notification.Name {
+    static let coupleDay = Notification.Name("coupleDay")
 }

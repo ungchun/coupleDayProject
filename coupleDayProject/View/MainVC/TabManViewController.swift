@@ -4,6 +4,21 @@ import Pageboy
 
 class TabManViewController: TabmanViewController {
     
+    // coupleTabViewModel의 coupleDay data는 coupleTab, StoryTab, 심지어는 SettingView에서도 써야한다.
+    // 만약 각 뷰에서 따로 coupleTabViewModel 객체를 새로 만들면 서로 연관이 없는 새로운 뷰모델이 만들어져서 데이터가 공유가 안된다.
+    // 따라서 같은 데이터를 공유하려면 이렇게 뷰 모델 자체를 주입시켜서 사용해야한다.
+    //
+    private var coupleTabViewModel: CoupleTabViewModel?
+     
+    init(coupleTabViewModel: CoupleTabViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.coupleTabViewModel = coupleTabViewModel
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: Properties
     //
     private var viewControllers: Array<UIViewController> = []
@@ -19,13 +34,12 @@ class TabManViewController: TabmanViewController {
     //
     fileprivate func setLayoutBar() {
         // 탭에 커플, 스토리, 기념일 뷰 추가
+        // coupleTabViewModel 주입
         //
-        let coupleVC = CoupleTabViewController()
-        let storyVC = StoryTabViewController()
-        //        let anniversaryVC = AnniversaryTabViewController()
+        let coupleVC = CoupleTabViewController(coupleTabViewModel: coupleTabViewModel!)
+        let storyVC = StoryTabViewController(coupleTabViewModel: coupleTabViewModel!)
         viewControllers.append(coupleVC)
         viewControllers.append(storyVC)
-        //        viewControllers.append(anniversaryVC)
         
         self.dataSource = self
         

@@ -105,14 +105,15 @@ class StoryCell: UITableViewCell {
     //
     // cell text 값 세팅
     //
-    public func bind(index: Int) {
-        let tempDate = Date().millisecondsSince1970 + (index).toMillisecondsSince1970 - Int(CoupleTabViewModel.publicBeginCoupleDay)!.toMillisecondsSince1970
+    public func bind(index: Int, beginCoupleDay: String) {
+        let beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(RealmManager.shared.getUserDatas().first!.beginCoupleDay) / 1000).toStoryString
+        let tempDate = Date().millisecondsSince1970 + (index).toMillisecondsSince1970 - Int(beginCoupleDay)!.toMillisecondsSince1970
         self.formatterDate = Date(timeIntervalSince1970: TimeInterval(tempDate) / 1000).toStoryString // yyyy.MM.dd
         storyDayText.text = index == 0 ? "만남의 시작" : index % 365 == 0 ? "\(index/365)주년" : "\(index) 일"
-        storyFormatterDayText.text = index == 0 ? CoupleTabViewModel.publicBeginCoupleFormatterDay : "\(formatterDate)"
-        storyD_DayText.text = index == 0 || (index)-Int(CoupleTabViewModel.publicBeginCoupleDay)! <= 0 ? "" : "D-\((index)-Int(CoupleTabViewModel.publicBeginCoupleDay)!)"
+        storyFormatterDayText.text = index == 0 ? beginCoupleFormatterDay : "\(formatterDate)"
+        storyD_DayText.text = index == 0 || (index)-Int(beginCoupleDay)! <= 0 ? "" : "D-\((index)-Int(beginCoupleDay)!)"
         
-        if index <= Int(CoupleTabViewModel.publicBeginCoupleDay)! {
+        if index <= Int(beginCoupleDay)! {
             storyDayText.textColor = UIColor(white: 0.5, alpha: 0.3)
         }
     }
