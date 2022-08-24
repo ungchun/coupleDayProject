@@ -14,14 +14,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // 시작(root) 뷰컨 설정
         //
-        //        guard let windowScene = (scene as? UIWindowScene) else { return }
-        //                let rootViewcontroller = realm.isEmpty ? UINavigationController(rootViewController: BeginViewController()) : UINavigationController(rootViewController: ContainerViewController())
-        //        let rootViewcontroller = LoadingViewController()
-        //        window = UIWindow(frame: UIScreen.main.bounds)
-        //        window?.rootViewController = rootViewcontroller
-        //        window?.windowScene = windowScene
-        //        window?.makeKeyAndVisible()
-        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene) // SceneDelegate의 프로퍼티에 설정해줌
         let navController = UINavigationController()
@@ -29,20 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         coordinator.start()
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
-        
-        //        if let windowScene = scene as? UIWindowScene {
-        //            let window = UIWindow(windowScene: windowScene)
-        //            self.window = window
-        //
-        //            let navigationController = UINavigationController()
-        //            self.window?.rootViewController = navigationController
-        //
-        //            let coordinator = MainCoordinator(navigationController: navigationController)
-        //            coordinator.start()
-        //
-        //            self.window?.makeKeyAndVisible()
-        //        }
-        
+
         // darkMode 확인해서 set
         //
         guard let _ = (scene as? UIWindowScene) else { return }

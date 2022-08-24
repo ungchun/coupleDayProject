@@ -3,11 +3,16 @@ import Photos
 import TOCropViewController
 import CropViewController
 
-//protocol BeginViewControllerDelegate {
-//    func setBegin()
-//}
-
 class SettingViewController: UIViewController{
+    
+    private var coupleTabViewModel: CoupleTabViewModel?
+    init(coupleTabViewModel: CoupleTabViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.coupleTabViewModel = coupleTabViewModel
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: Properties
     //
@@ -178,10 +183,12 @@ class SettingViewController: UIViewController{
         //
         let dateChooserAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         dateChooserAlert.view.addSubview(datePicker)
-        dateChooserAlert.addAction(UIAlertAction(title: "선택완료", style: .default, handler: { (action:UIAlertAction!) in
+        dateChooserAlert.addAction(UIAlertAction(title: "선택완료", style: .default, handler: { [self] (action:UIAlertAction!) in
             RealmManager.shared.updateBeginCoupleDay(datePicker: datePicker)
-            CoupleTabViewModel.changeCoupleDayMainCheck = true
-            CoupleTabViewModel.changeCoupleDayStoryCheck = true
+            
+            // coupleTabViewModel의 날짜데이터 변경
+            //
+            coupleTabViewModel?.setBeginCoupleDay()
         }))
         dateChooserAlert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction!) in
             print("cancel")
@@ -238,7 +245,10 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
     }
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         RealmManager.shared.updateMainImage(mainImage: image)
-        CoupleTabViewModel.changeMainImageCheck = true
+        
+        // coupleTabViewModel의 배경사진 데이터 변경
+        //
+        coupleTabViewModel?.setMainBackgroundImage()
         dismiss(animated: true, completion: nil)
     }
 }
