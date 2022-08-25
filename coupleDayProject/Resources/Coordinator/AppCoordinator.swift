@@ -23,7 +23,7 @@ protocol AnniversaryCoordinatorting: Coordinator {}
 
 // AppCoordinator의 자식 -> Container(Main), Begin 으로 이동 가능
 //
-class AppCoordinator: AppCoordinatorting, BeginViewCoordinatorDelegate {
+final class AppCoordinator: AppCoordinatorting, BeginViewCoordinatorDelegate {
     
     var childCoordinator = [Coordinator]()
     var navigationController: UINavigationController
@@ -72,7 +72,7 @@ class AppCoordinator: AppCoordinatorting, BeginViewCoordinatorDelegate {
 protocol BeginViewCoordinatorDelegate {
     func didBeginSet(_ coordinator: BeginViewCoordinator)
 }
-class BeginViewCoordinator: BeginCoordinatorting, BeginViewControllerDelegate {
+final class BeginViewCoordinator: BeginCoordinatorting, BeginViewControllerDelegate {
     
     var delegate: BeginViewCoordinatorDelegate?
     
@@ -105,7 +105,7 @@ class BeginViewCoordinator: BeginCoordinatorting, BeginViewControllerDelegate {
 
 // AppCoordinator의 자식이면서 SettingViewCoordinator의 부모
 //
-class ContainerViewCoordinator: ContainerCoordinatorting {
+final class ContainerViewCoordinator: ContainerCoordinatorting {
     
     weak var parentCoordinator: AppCoordinator?
     
@@ -149,7 +149,7 @@ class ContainerViewCoordinator: ContainerCoordinatorting {
     }
 }
 
-class SettingViewCoordinator: SettingCoordinatorting {
+final class SettingViewCoordinator: SettingCoordinatorting {
     
     weak var parentCoordinator: ContainerViewCoordinator?
     
@@ -171,7 +171,7 @@ class SettingViewCoordinator: SettingCoordinatorting {
     }
 }
 
-class AnniversaryViewCoordinator: AnniversaryCoordinatorting {
+final class AnniversaryViewCoordinator: AnniversaryCoordinatorting {
     
     weak var parentCoordinator: ContainerViewCoordinator?
     

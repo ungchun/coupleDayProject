@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-class ContainerViewController: UIViewController {
+final class ContainerViewController: UIViewController {
     
     // MARK: Properties
     //
@@ -63,7 +63,8 @@ class ContainerViewController: UIViewController {
         setupView()
         
         containerViewModelCombine.receivedCoupleDayData = coupleTabViewModel.beginCoupleDay.value
-        self.containerViewModelCombine.$appNameLabelValue.sink { updateLabel in
+        self.containerViewModelCombine.$appNameLabelValue.sink { [weak self] updateLabel in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 let transition = CATransition()
                 transition.duration = 1
@@ -129,7 +130,7 @@ class ContainerViewController: UIViewController {
 
 // 기념일 present 할 때 위에 어느정도 띄워주는 custom modal
 //
-class PresentationController: UIPresentationController {
+final class PresentationController: UIPresentationController {
     
     let blurEffectView: UIVisualEffectView!
     var tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer()

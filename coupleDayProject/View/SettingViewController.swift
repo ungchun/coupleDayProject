@@ -3,7 +3,7 @@ import Photos
 import TOCropViewController
 import CropViewController
 
-class SettingViewController: UIViewController{
+final class SettingViewController: UIViewController{
     
     private var coupleTabViewModel: CoupleTabViewModel?
     init(coupleTabViewModel: CoupleTabViewModel) {

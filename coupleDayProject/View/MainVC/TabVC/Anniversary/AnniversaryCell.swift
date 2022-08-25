@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-class AnniversaryCell: UITableViewCell {
+final class AnniversaryCell: UITableViewCell {
     
     // MARK: Views
     //

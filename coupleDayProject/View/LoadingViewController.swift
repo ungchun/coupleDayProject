@@ -6,7 +6,7 @@ import FirebaseAuth
 
 // 앱 시작할 때 보이는 로딩 뷰
 //
-class LoadingViewController: UIViewController {
+final class LoadingViewController: UIViewController {
     
     // MARK: Properties
     //
@@ -66,7 +66,8 @@ class LoadingViewController: UIViewController {
         
         // lottie 애니메이션
         //
-        animationView.play {(finish) in
+        animationView.play { [weak self] (finish) in
+            guard let self = self else { return }
             // 업데이트 로직
             //
             let marketingVersion = System().latestVersion()!

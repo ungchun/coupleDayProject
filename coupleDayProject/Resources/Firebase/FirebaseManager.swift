@@ -1,7 +1,7 @@
 import Foundation
 import FirebaseFirestore
 
-final class FirebaseManager {
+struct FirebaseManager {
     static let shared = FirebaseManager()
     let firestore: Firestore
     

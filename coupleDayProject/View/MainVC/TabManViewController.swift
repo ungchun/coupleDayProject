@@ -2,7 +2,7 @@ import UIKit
 import Tabman
 import Pageboy
 
-class TabManViewController: TabmanViewController {
+final class TabManViewController: TabmanViewController {
     
     // coupleTabViewModel의 coupleDay data는 coupleTab, StoryTab, 심지어는 SettingView에서도 써야한다.
     // 만약 각 뷰에서 따로 coupleTabViewModel 객체를 새로 만들면 서로 연관이 없는 새로운 뷰모델이 만들어져서 데이터가 공유가 안된다.

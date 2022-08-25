@@ -5,7 +5,7 @@ protocol BeginViewControllerDelegate {
     func setBegin()
 }
 
-class BeginViewController: UIViewController {
+final class BeginViewController: UIViewController {
     
     // MARK: Properties
     //
@@ -175,9 +175,6 @@ class BeginViewController: UIViewController {
         }
     }
     @objc func startBtnTap() {
-        
-        print("tap")
-        
         let userData = UserModel()
         let imageData = ImageModel()
         

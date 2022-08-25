@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import Combine
 
-class CoupleTabViewModel {
+final class CoupleTabViewModel {
     
     init() {
         setBeginCoupleDay()
@@ -74,7 +74,7 @@ class CoupleTabViewModel {
 
 // ViewModel DataBinding Observable
 //
-class Observable<T> {
+final class Observable<T> {
     // 3) 호출되면, 2번에서 받은 값을 전달한다.
     //
     private var listener: ((T) -> Void)?

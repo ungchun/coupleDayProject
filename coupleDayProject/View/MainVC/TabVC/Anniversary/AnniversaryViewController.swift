@@ -1,7 +1,7 @@
 import UIKit
 import GoogleMobileAds
 
-class AnniversaryViewController: UIViewController {
+final class AnniversaryViewController: UIViewController {
     
     // MARK: Properties
     //
@@ -129,7 +129,7 @@ extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource 
         // 현재 날짜 기준으로 지나지 않은 기념일 다 불러옴
         //
         let nowDate = Date().millisecondsSince1970
-        let anniversaryFilter = Anniversary().AnniversaryModel.filter { dictValue in
+        let anniversaryFilter = Anniversary().AnniversaryModel.filter {dictValue in
             let keyValue = dictValue.keys.first
             if nowDate < (keyValue?.toDate.millisecondsSince1970)! {
                 return true

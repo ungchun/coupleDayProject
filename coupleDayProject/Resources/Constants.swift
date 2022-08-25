@@ -24,7 +24,7 @@ struct CommonSize {
 
 // MARK: RealmManager Singleton
 //
-class RealmManager {
+struct RealmManager {
     // realm db 삭제
     //     try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
     
@@ -137,7 +137,7 @@ struct TrendingConstants {
 
 // MARK: return year string
 //
-class DateValues {
+struct DateValues {
     // 올해 year -> yyyy 형태로 return
     //
     static func GetOnlyYear() -> String {
@@ -162,7 +162,7 @@ class DateValues {
 
 // MARK: Loading
 //
-class LoadingIndicator {
+struct LoadingIndicator {
     static func showLoading() {
         DispatchQueue.main.async {
             guard let window = UIApplication.shared.windows.last else { return }
@@ -187,7 +187,7 @@ class LoadingIndicator {
 
 // MARK: ImagePicker
 //
-class ImagePicker {
+struct ImagePicker {
     // https://eeyatho.tistory.com/141 -> iOS 11 부터, UIImagePickerController 라이브러리 권한 필요없음..
     //
     static func photoAuthCheck(imagePickerController: UIImagePickerController) -> Int{

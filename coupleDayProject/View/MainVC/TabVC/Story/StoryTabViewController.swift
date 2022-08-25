@@ -1,6 +1,6 @@
 import UIKit
 
-class StoryTabViewController: UIViewController {
+final class StoryTabViewController: UIViewController {
     
     // CoupleTabViewController의 coupleTabViewModel!.beginCoupleDay.bind 처럼 바인드를 이용해서 데이터를 업데이트 시켜주지않고
     // 왜 노티피케이션 센터를 썼냐? -> 원래는 ContainerViewModelCombine, StoryTabViewController 에도 bind를 사용하고 있었는데 (3개)
@@ -18,13 +18,14 @@ class StoryTabViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCoupleDayData(notification:)), name: Notification.Name.coupleDay, object: nil)
     }
     @objc func receiveCoupleDayData(notification: Notification) {
-        // notification.userInfo 값을 받아온다.
+        // notification.userInfo 값을 받아온다. -> 그 값을 가지고 scrollToRow 처리
         //
         guard let object = notification.userInfo?["coupleDay"] as? String else {
             return
         }
-        DispatchQueue.main.async { [self] in
-            storyTableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.storyTableView.reloadData()
             if Int(object)! >= 10950 {
                 let startIndex = IndexPath(row: StoryDay().storyArray.count-1, section: 0)
                 self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)

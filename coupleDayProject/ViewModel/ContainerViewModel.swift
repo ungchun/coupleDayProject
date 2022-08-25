@@ -3,7 +3,7 @@ import Combine
 
 // ViewModel DataBinding Combine
 //
-class ContainerViewModelCombine: ObservableObject {
+final class ContainerViewModelCombine: ObservableObject {
     
     // MARK: Properties
     //

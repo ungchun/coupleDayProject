@@ -1,6 +1,6 @@
 import UIKit
 
-class StoryCell: UITableViewCell {
+final class StoryCell: UITableViewCell {
     
     // MARK: Properties
     //

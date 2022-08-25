@@ -5,8 +5,10 @@ import CropViewController
 import GoogleMobileAds
 import WatchConnectivity
 
-class CoupleTabViewController: UIViewController {
-    
+final class CoupleTabViewController: UIViewController {
+
+    // MARK: Properties
+    //
     private var coupleTabViewModel: CoupleTabViewModel?
     init(coupleTabViewModel: CoupleTabViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -16,8 +18,6 @@ class CoupleTabViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Properties
-    //
     private var mainDatePlaceList = [DatePlace]()
     private let imagePickerController = UIImagePickerController()
     private var whoProfileChange = "my" // 내 프로필변경인지, 상대 프로필변경인지 체크하는 값
@@ -137,17 +137,19 @@ class CoupleTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadFirebaseData { [self] in
-            coupleTabStackView.removeArrangedSubview(activityIndicator)
-            coupleTabStackView.addArrangedSubview(DatePlaceStackView)
+        loadFirebaseData { [weak self] in
+            guard let self = self else { return }
+            self.coupleTabStackView.removeArrangedSubview(self.activityIndicator)
+            self.coupleTabStackView.addArrangedSubview(self.DatePlaceStackView)
+            
             // fadeIn Animation
             //
-            DatePlaceStackView.alpha = 0
-            DatePlaceStackView.fadeIn()
+            self.DatePlaceStackView.alpha = 0
+            self.DatePlaceStackView.fadeIn()
             
             NSLayoutConstraint.activate([
-                DatePlaceStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-                DatePlaceStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+                self.DatePlaceStackView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+                self.DatePlaceStackView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
             ])
         }
         
@@ -173,12 +175,13 @@ class CoupleTabViewController: UIViewController {
             let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
             try? WCSession.default.updateApplicationContext(dayData)
         }
-        coupleTabViewModel!.mainImageData.bind { imageData in
-            DispatchQueue.main.async { [self] in
+        coupleTabViewModel!.mainImageData.bind { [weak self] imageData in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
                 self.mainImageView.image = UIImage(data: imageData)
-                if !loadingCheck {
-                    afterLoadingSetupView()
-                    loadingCheck = true
+                if !self.loadingCheck {
+                    self.afterLoadingSetupView()
+                    self.loadingCheck = true
                 }
                 
                 // watch, 메인 이미지는 transferUserInfo 방법으로 이미지 연동
@@ -189,12 +192,14 @@ class CoupleTabViewController: UIViewController {
                 WCSession.default.transferUserInfo(imageData)
             }
         }
-        coupleTabViewModel!.myProfileImageData.bind({ imageData in
+        coupleTabViewModel!.myProfileImageData.bind({ [weak self] imageData in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 self.myProfileUIImageView.image = UIImage(data: imageData)
             }
         })
-        coupleTabViewModel!.partnerProfileImageData.bind({ imageData in
+        coupleTabViewModel!.partnerProfileImageData.bind({ [weak self] imageData in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 self.partnerProfileUIImageView.image = UIImage(data: imageData)
             }
@@ -437,18 +442,3 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension CoupleTabViewController: UICollectionViewDelegate {}
-
-// fadeIn & fadeOut Animation Extension
-//
-extension UIView {
-    func fadeIn(duration: TimeInterval = 1.0) {
-        UIView.animate(withDuration: duration, animations: {
-            self.alpha = 1.0
-        })
-    }
-    func fadeOut(duration: TimeInterval = 1.0) {
-        UIView.animate(withDuration: duration, animations: {
-            self.alpha = 0.0
-        })
-    }
-}
