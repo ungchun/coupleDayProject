@@ -20,6 +20,7 @@ protocol ContainerCoordinatorting: Coordinator {
 }
 protocol SettingCoordinatorting: Coordinator {}
 protocol AnniversaryCoordinatorting: Coordinator {}
+protocol DatePlaceCoordinatorting: Coordinator {}
 
 // AppCoordinator의 자식 -> Container(Main), Begin 으로 이동 가능
 //
@@ -108,7 +109,7 @@ final class BeginViewCoordinator: BeginCoordinatorting, BeginViewControllerDeleg
 final class ContainerViewCoordinator: ContainerCoordinatorting {
     
     weak var parentCoordinator: AppCoordinator?
-    
+        
     var childCoordinator = [Coordinator]()
     var navigationController: UINavigationController
     
@@ -134,7 +135,7 @@ final class ContainerViewCoordinator: ContainerCoordinatorting {
         childCoordinator.append(child)
         child.start(vc: vc)
     }
-    
+
     func didFinishContainerView() {
         parentCoordinator?.childDidFinish(self)
     }

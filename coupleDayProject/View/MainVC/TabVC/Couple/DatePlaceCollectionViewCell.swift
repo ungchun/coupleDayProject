@@ -1,7 +1,7 @@
 import UIKit
 import Kingfisher
 
-final class DemoDatePlaceCollectionViewCell: UICollectionViewCell {
+final class DatePlaceCollectionViewCell: UICollectionViewCell {
     
     // MARK: Properties
     //

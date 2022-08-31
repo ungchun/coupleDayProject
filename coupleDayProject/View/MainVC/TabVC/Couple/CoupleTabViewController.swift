@@ -155,7 +155,7 @@ final class CoupleTabViewController: UIViewController {
         
         carouselCollectionView.dataSource = self
         carouselCollectionView.delegate = self
-        carouselCollectionView.register(DemoDatePlaceCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        carouselCollectionView.register(DatePlaceCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
         imagePickerController.delegate = self
         
@@ -423,7 +423,7 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         if self.mainDatePlaceList.count > indexPath.item {
-            if let cell = cell as? DemoDatePlaceCollectionViewCell {
+            if let cell = cell as? DatePlaceCollectionViewCell {
                 cell.datePlaceModel = mainDatePlaceList[indexPath.item]
             }
         }
@@ -432,6 +432,10 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // cell click
+        print("click click")
+        print("mainDatePlaceList[indexPath.item] \(mainDatePlaceList[indexPath.item].placeName)")
+        let datePlaceViewController = DatePlaceViewController()
+        self.navigationController?.pushViewController(datePlaceViewController, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: CommonSize.coupleCellImageSize + 10, height: carouselCollectionView.frame.height)

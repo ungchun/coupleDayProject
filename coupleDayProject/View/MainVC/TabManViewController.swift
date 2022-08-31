@@ -9,7 +9,7 @@ final class TabManViewController: TabmanViewController {
     // 따라서 같은 데이터를 공유하려면 이렇게 뷰 모델 자체를 주입시켜서 사용해야한다.
     //
     private var coupleTabViewModel: CoupleTabViewModel?
-     
+    
     init(coupleTabViewModel: CoupleTabViewModel) {
         super.init(nibName: nil, bundle: nil)
         self.coupleTabViewModel = coupleTabViewModel
@@ -78,8 +78,7 @@ extension TabManViewController: PageboyViewControllerDataSource, TMBarDataSource
         return viewControllers.count
     }
     
-    func viewController(for pageboyViewController: PageboyViewController,
-                        at index: PageboyViewController.PageIndex) -> UIViewController? {
+    func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
         return viewControllers[index]
     }
     
