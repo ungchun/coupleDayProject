@@ -221,8 +221,7 @@ final class CoupleTabViewController: UIViewController {
                 tempDatePlaceValue.placeName = document.documentID
                 tempDatePlaceValue.address = document.data()["address"] as! String
                 tempDatePlaceValue.shortAddress = document.data()["shortAddress"] as! String
-                tempDatePlaceValue.introduce = document.data()["introduce"] as! String
-                tempDatePlaceValue.number = document.data()["number"] as! String
+                tempDatePlaceValue.introduce = document.data()["introduce"] as! Array<String>
                 tempDatePlaceValue.imageUrl = document.data()["imageUrl"] as! Array<String>
                 
                 titleDatePlace.text = "\(localNameText)의 오늘 장소"
@@ -435,6 +434,7 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
         print("click click")
         print("mainDatePlaceList[indexPath.item] \(mainDatePlaceList[indexPath.item].placeName)")
         let datePlaceViewController = DatePlaceViewController()
+        datePlaceViewController.datePlace = mainDatePlaceList[indexPath.item]
         self.navigationController?.pushViewController(datePlaceViewController, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

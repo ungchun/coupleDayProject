@@ -13,12 +13,12 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
         demoLabel_1.text = datePlaceModel?.placeName
         demoLabel_2.text = datePlaceModel?.shortAddress
         let url = URL(string: (datePlaceModel?.imageUrl.first)!)
-        demoImageView.kf.setImage(with: url)
+        imageView.kf.setImage(with: url)
     }
     
     // MARK: Views
     //
-    private var demoImageView: UIImageView = {
+    private var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.sizeToFit()
@@ -61,15 +61,15 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         addSubview(demoStackView)
-        demoStackView.addArrangedSubview(demoImageView)
+        demoStackView.addArrangedSubview(imageView)
         demoStackView.addArrangedSubview(demoLabel_1)
         demoStackView.addArrangedSubview(demoLabel_2)
         
-        demoStackView.setCustomSpacing(15, after: demoImageView)
+        demoStackView.setCustomSpacing(15, after: imageView)
         
         NSLayoutConstraint.activate([
-            demoImageView.widthAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
-            demoImageView.heightAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
+            imageView.widthAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
+            imageView.heightAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
             
             demoStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             demoStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
