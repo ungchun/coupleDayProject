@@ -1,10 +1,13 @@
 import UIKit
 import Kingfisher
+import MapKit
+import SnapKit
 
 class DatePlaceViewController: UIViewController {
     
+    // MARK: Properties
+    //
     var datePlace: DatePlace?
-    
     
     // MARK: Views
     //
@@ -17,6 +20,17 @@ class DatePlaceViewController: UIViewController {
     }()
     let contentView : UIView = {
         let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    let mapView: MKMapView = {
+        let view = MKMapView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    let testContentView : UIView = {
+        let view = UIView()
+        view.backgroundColor = .green
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -65,8 +79,6 @@ class DatePlaceViewController: UIViewController {
         return view
     }()
     
-    
-    
     // MARK: Life Cycle
     //
     override func viewDidLoad() {
@@ -75,10 +87,8 @@ class DatePlaceViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        // 초기화
         let url = URL(string: (datePlace?.imageUrl.first)!)
         mainImageView.kf.setImage(with: url)
-        
         contentView.addSubview(mainImageView)
         
         datePlaceName.text = datePlace?.placeName
@@ -95,51 +105,54 @@ class DatePlaceViewController: UIViewController {
         contentView.addSubview(introduceContent)
         
         contentView.addSubview(mapAddressTitle)
-        contentView.addSubview(mapAddressContent)
+        contentView.addSubview(mapView)
         
+        contentView.addSubview(testContentView)
         NSLayoutConstraint.activate([
-            
-            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            contentView.leftAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leftAnchor),
-            contentView.rightAnchor.constraint(equalTo: scrollView.contentLayoutGuide.rightAnchor),
-            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            
-            mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            mainImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            mainImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            mainImageView.heightAnchor.constraint(equalToConstant: 400),
-            
-            datePlaceName.topAnchor.constraint(equalTo: mainImageView.bottomAnchor, constant: 30),
-            datePlaceName.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
-            
-            datePlaceAddress.topAnchor.constraint(equalTo: datePlaceName.bottomAnchor, constant: 10),
-            datePlaceAddress.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
-            
-            mapAddressTitle.topAnchor.constraint(equalTo: datePlaceAddress.bottomAnchor, constant: 20),
-            mapAddressTitle.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
-            
-            mapAddressContent.topAnchor.constraint(equalTo: mapAddressTitle.bottomAnchor, constant: 20),
-            mapAddressContent.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
-            mapAddressContent.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
-            mapAddressContent.heightAnchor.constraint(equalToConstant: 200),
-            
-            introduceTitle.topAnchor.constraint(equalTo: mapAddressContent.bottomAnchor, constant: 20),
-            introduceTitle.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
-            
-            introduceContent.topAnchor.constraint(equalTo: introduceTitle.bottomAnchor, constant: 10),
-            introduceContent.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
-            introduceContent.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
+            testContentView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 20),
+            testContentView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
+            testContentView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
+            testContentView.heightAnchor.constraint(equalToConstant: 300),
         ])
-        
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        let contentViewHeight = contentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, constant: 100)
-        contentViewHeight.priority = .defaultLow
-        contentViewHeight.isActive = true
+        scrollView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        contentView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
+            make.centerX.top.bottom.equalToSuperview()
+        }
+        mainImageView.snp.makeConstraints { make in
+            make.top.left.right.equalTo(contentView)
+            make.height.equalTo(400)
+        }
+        datePlaceName.snp.makeConstraints { make in
+            make.top.equalTo(mainImageView.snp.bottom).offset(30)
+            make.left.equalTo(contentView.snp.left).offset(20)
+        }
+        datePlaceAddress.snp.makeConstraints { make in
+            make.top.equalTo(datePlaceName.snp.bottom).offset(10)
+            make.left.equalTo(contentView.snp.left).offset(20)
+        }
+        mapAddressTitle.snp.makeConstraints { make in
+            make.top.equalTo(datePlaceAddress.snp.bottom).offset(20)
+            make.left.equalTo(contentView.snp.left).offset(20)
+        }
+        mapView.snp.makeConstraints { make in
+            make.top.equalTo(mapAddressTitle.snp.bottom).offset(20)
+            make.left.equalTo(contentView.snp.left).offset(20)
+            make.right.equalTo(contentView.snp.right).offset(-20)
+            make.height.equalTo(200)
+        }
+        introduceTitle.snp.makeConstraints { make in
+            make.top.equalTo(testContentView.snp.bottom).offset(20)
+            make.left.equalTo(contentView.snp.left).offset(20)
+        }
+        introduceContent.snp.makeConstraints { make in
+            make.top.equalTo(introduceTitle.snp.bottom).offset(10)
+            make.right.equalTo(contentView.snp.right).offset(-20)
+            make.left.equalTo(contentView.snp.left).offset(20)
+            make.bottom.equalToSuperview().offset(-50) // 이 부분이 가장 중요 -> contentView height를 마지막에 있는 뷰 기준으로 높이 설정
+        }
         
         self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any], for: .normal)
@@ -150,8 +163,23 @@ class DatePlaceViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         
+        // navigationController 배경 투명하게 변경
+        //
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // 줌인되는 애니메이션 -> 뷰가 나타난 직후 일어나야해서 viewDidAppear
+        //
+        let coordinate = CLLocationCoordinate2D(latitude: 37.55769, longitude: 126.92450)
+        let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+        let pin = MKPointAnnotation()
+        pin.coordinate = coordinate
+        pin.title = datePlace?.placeName
+        mapView.addAnnotation(pin)
     }
 }
