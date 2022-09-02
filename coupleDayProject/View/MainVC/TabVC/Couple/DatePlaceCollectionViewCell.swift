@@ -10,8 +10,8 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
     }
     
     fileprivate func bind() {
-        demoLabel_1.text = datePlaceModel?.placeName
-        demoLabel_2.text = datePlaceModel?.shortAddress
+        placeName.text = datePlaceModel?.placeName
+        placeShortAddress.text = datePlaceModel?.shortAddress
         let url = URL(string: (datePlaceModel?.imageUrl.first)!)
         imageView.kf.setImage(with: url)
     }
@@ -32,14 +32,14 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
         view.backgroundColor = .green
         return view
     }()
-    private var demoLabel_1: UILabel = { // 장소
+    private var placeName: UILabel = { // 장소
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "GangwonEduAllLight", size: CommonSize.coupleCellTextBigSize)
         label.text = "장소"
         return label
     }()
-    private var demoLabel_2: UILabel = { // 위치
+    private var placeShortAddress: UILabel = { // 위치
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "GangwonEduAllLight", size: CommonSize.coupleCellTextSmallSize)
@@ -62,8 +62,8 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
         
         addSubview(demoStackView)
         demoStackView.addArrangedSubview(imageView)
-        demoStackView.addArrangedSubview(demoLabel_1)
-        demoStackView.addArrangedSubview(demoLabel_2)
+        demoStackView.addArrangedSubview(placeName)
+        demoStackView.addArrangedSubview(placeShortAddress)
         
         demoStackView.setCustomSpacing(15, after: imageView)
         

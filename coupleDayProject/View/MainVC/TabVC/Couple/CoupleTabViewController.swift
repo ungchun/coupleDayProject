@@ -212,21 +212,30 @@ final class CoupleTabViewController: UIViewController {
     // 불러오면 컬렉션 뷰 reaload
     //
     fileprivate func loadFirebaseData(completion: @escaping () -> ()) {
-        FirebaseManager.shared.firestore.collection("daegu").getDocuments { [self] (querySnapshot, error) in
+        var count = 0
+        guard let localNameText = LocalName.randomElement()?.key else { return }
+        FirebaseManager.shared.firestore.collection("\(localNameText)").getDocuments { [self] (querySnapshot, error) in
             guard error == nil else { return }
             for document in querySnapshot!.documents {
                 var tempDatePlaceValue = DatePlace()
-                guard let localNameText = LocalName.randomElement()?.keys.first else { return }
+                
+                tempDatePlaceValue.modifyState = document.data()["modifyState"] as! Bool
+                if tempDatePlaceValue.modifyState == true { continue }
                 
                 tempDatePlaceValue.placeName = document.documentID
                 tempDatePlaceValue.address = document.data()["address"] as! String
                 tempDatePlaceValue.shortAddress = document.data()["shortAddress"] as! String
                 tempDatePlaceValue.introduce = document.data()["introduce"] as! Array<String>
                 tempDatePlaceValue.imageUrl = document.data()["imageUrl"] as! Array<String>
+                tempDatePlaceValue.latitude = document.data()["latitude"] as! String
+                tempDatePlaceValue.longitude = document.data()["longitude"] as! String
                 
-                titleDatePlace.text = "\(localNameText)의 오늘 장소"
+                guard let localName = LocalName[localNameText] else { return }
+                titleDatePlace.text = "\(localName)의 오늘 장소"
                 mainDatePlaceList.append(tempDatePlaceValue)
                 mainDatePlaceList.shuffle()
+                count += 1
+                if count == 5 { break }
             }
             DispatchQueue.main.async { [self] in
                 carouselCollectionView.reloadData()
@@ -431,8 +440,7 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // cell click
-        print("click click")
-        print("mainDatePlaceList[indexPath.item] \(mainDatePlaceList[indexPath.item].placeName)")
+        //
         let datePlaceViewController = DatePlaceViewController()
         datePlaceViewController.datePlace = mainDatePlaceList[indexPath.item]
         self.navigationController?.pushViewController(datePlaceViewController, animated: true)

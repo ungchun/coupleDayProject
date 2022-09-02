@@ -94,7 +94,7 @@ class DatePlaceViewController: UIViewController {
         datePlaceName.text = datePlace?.placeName
         contentView.addSubview(datePlaceName)
         
-        datePlaceAddress.text = datePlace?.shortAddress
+        datePlaceAddress.text = datePlace?.address
         contentView.addSubview(datePlaceAddress)
         
         introduceTitle.text = datePlace!.introduce[0]
@@ -173,8 +173,10 @@ class DatePlaceViewController: UIViewController {
         super.viewDidAppear(animated)
         // 줌인되는 애니메이션 -> 뷰가 나타난 직후 일어나야해서 viewDidAppear
         //
-        let coordinate = CLLocationCoordinate2D(latitude: 37.55769, longitude: 126.92450)
-        let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
+        guard let latitude = Double(datePlace!.latitude) else { return }
+        guard let longitude = Double(datePlace!.longitude) else { return }
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         mapView.setRegion(region, animated: true)
         let pin = MKPointAnnotation()
