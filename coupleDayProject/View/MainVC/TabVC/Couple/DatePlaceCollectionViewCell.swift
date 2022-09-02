@@ -44,14 +44,15 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "GangwonEduAllLight", size: CommonSize.coupleCellTextSmallSize)
         label.text = "위치"
+        label.textColor = .gray
         return label
     }()
     
-    private lazy var demoStackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 6
+        stackView.spacing = 2
         return stackView
     }()
     
@@ -60,19 +61,19 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(demoStackView)
-        demoStackView.addArrangedSubview(imageView)
-        demoStackView.addArrangedSubview(placeName)
-        demoStackView.addArrangedSubview(placeShortAddress)
+        addSubview(stackView)
+        stackView.addArrangedSubview(imageView)
+        stackView.addArrangedSubview(placeName)
+        stackView.addArrangedSubview(placeShortAddress)
         
-        demoStackView.setCustomSpacing(15, after: imageView)
+        stackView.setCustomSpacing(15, after: imageView)
         
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
             imageView.heightAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
             
-            demoStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            demoStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
     

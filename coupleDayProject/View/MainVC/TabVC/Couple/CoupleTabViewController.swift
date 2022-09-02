@@ -6,7 +6,7 @@ import GoogleMobileAds
 import WatchConnectivity
 
 final class CoupleTabViewController: UIViewController {
-
+    
     // MARK: Properties
     //
     private var coupleTabViewModel: CoupleTabViewModel?
@@ -217,22 +217,22 @@ final class CoupleTabViewController: UIViewController {
         FirebaseManager.shared.firestore.collection("\(localNameText)").getDocuments { [self] (querySnapshot, error) in
             guard error == nil else { return }
             for document in querySnapshot!.documents {
-                var tempDatePlaceValue = DatePlace()
+                var datePlaceValue = DatePlace()
                 
-                tempDatePlaceValue.modifyState = document.data()["modifyState"] as! Bool
-                if tempDatePlaceValue.modifyState == true { continue }
+                datePlaceValue.modifyState = document.data()["modifyState"] as! Bool
+                if datePlaceValue.modifyState == true { continue }
                 
-                tempDatePlaceValue.placeName = document.documentID
-                tempDatePlaceValue.address = document.data()["address"] as! String
-                tempDatePlaceValue.shortAddress = document.data()["shortAddress"] as! String
-                tempDatePlaceValue.introduce = document.data()["introduce"] as! Array<String>
-                tempDatePlaceValue.imageUrl = document.data()["imageUrl"] as! Array<String>
-                tempDatePlaceValue.latitude = document.data()["latitude"] as! String
-                tempDatePlaceValue.longitude = document.data()["longitude"] as! String
+                datePlaceValue.placeName = document.documentID
+                datePlaceValue.address = document.data()["address"] as! String
+                datePlaceValue.shortAddress = document.data()["shortAddress"] as! String
+                datePlaceValue.introduce = document.data()["introduce"] as! Array<String>
+                datePlaceValue.imageUrl = document.data()["imageUrl"] as! Array<String>
+                datePlaceValue.latitude = document.data()["latitude"] as! String
+                datePlaceValue.longitude = document.data()["longitude"] as! String
                 
                 guard let localName = LocalName[localNameText] else { return }
                 titleDatePlace.text = "\(localName)의 오늘 장소"
-                mainDatePlaceList.append(tempDatePlaceValue)
+                mainDatePlaceList.append(datePlaceValue)
                 mainDatePlaceList.shuffle()
                 count += 1
                 if count == 5 { break }

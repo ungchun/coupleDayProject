@@ -17,8 +17,8 @@ struct CommonSize {
     static let coupleProfileSize = UIScreen.main.bounds.size.height > 850 ? 75.0 : 70.0
     static let coupleStackViewHeightSize = UIScreen.main.bounds.size.height > 850 ? UIScreen.main.bounds.size.height / 8 : UIScreen.main.bounds.size.height / 10
     
-    static let coupleCellTextBigSize = UIScreen.main.bounds.size.height > 850 ? 17.0 : 14.0
-    static let coupleCellTextSmallSize = UIScreen.main.bounds.size.height > 850 ? 14.0 : 13.0
+    static let coupleCellTextBigSize = UIScreen.main.bounds.size.height > 850 ? 17.0 : UIScreen.main.bounds.size.height > 800 ? 15.0 : 14.0
+    static let coupleCellTextSmallSize = UIScreen.main.bounds.size.height > 850 ? 13.0 : UIScreen.main.bounds.size.height > 800 ? 12.0 : 11.0
     static let coupleCellImageSize = UIScreen.main.bounds.size.height > 900 ? 140.0 : UIScreen.main.bounds.size.height > 850 ? 130.0 : UIScreen.main.bounds.size.height > 800 ? 120.0 : 100.0
 }
 
