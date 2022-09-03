@@ -28,9 +28,8 @@ class DatePlaceViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    let testContentView : UIView = {
-        let view = UIView()
-        view.backgroundColor = .green
+    lazy var datePlaceCarouselView: DatePlaceCarouselView = {
+        let view = DatePlaceCarouselView(imageUrlArray: datePlace!.imageUrl)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -84,6 +83,9 @@ class DatePlaceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("viewDidLoad")
+        
+        datePlaceCarouselView.imageUrlArray = datePlace?.imageUrl
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
@@ -97,6 +99,14 @@ class DatePlaceViewController: UIViewController {
         datePlaceAddress.text = datePlace?.address
         contentView.addSubview(datePlaceAddress)
         
+        contentView.addSubview(datePlaceCarouselView)
+        NSLayoutConstraint.activate([
+            datePlaceCarouselView.topAnchor.constraint(equalTo: datePlaceAddress.bottomAnchor, constant: 30),
+            datePlaceCarouselView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
+            datePlaceCarouselView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
+            datePlaceCarouselView.heightAnchor.constraint(equalToConstant: 300),
+        ])
+        
         introduceTitle.text = datePlace!.introduce[0]
         contentView.addSubview(introduceTitle)
         
@@ -107,13 +117,6 @@ class DatePlaceViewController: UIViewController {
         contentView.addSubview(mapAddressTitle)
         contentView.addSubview(mapView)
         
-        contentView.addSubview(testContentView)
-        NSLayoutConstraint.activate([
-            testContentView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 20),
-            testContentView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
-            testContentView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
-            testContentView.heightAnchor.constraint(equalToConstant: 300),
-        ])
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
@@ -134,7 +137,7 @@ class DatePlaceViewController: UIViewController {
             make.left.equalTo(contentView.snp.left).offset(20)
         }
         mapAddressTitle.snp.makeConstraints { make in
-            make.top.equalTo(datePlaceAddress.snp.bottom).offset(20)
+            make.top.equalTo(introduceContent.snp.bottom).offset(20)
             make.left.equalTo(contentView.snp.left).offset(20)
         }
         mapView.snp.makeConstraints { make in
@@ -142,16 +145,16 @@ class DatePlaceViewController: UIViewController {
             make.left.equalTo(contentView.snp.left).offset(20)
             make.right.equalTo(contentView.snp.right).offset(-20)
             make.height.equalTo(200)
+            make.bottom.equalToSuperview().offset(-50) // 이 부분이 가장 중요 -> contentView height를 마지막에 있는 뷰 기준으로 높이 설정
         }
         introduceTitle.snp.makeConstraints { make in
-            make.top.equalTo(testContentView.snp.bottom).offset(20)
+            make.top.equalTo(datePlaceCarouselView.snp.bottom).offset(30)
             make.left.equalTo(contentView.snp.left).offset(20)
         }
         introduceContent.snp.makeConstraints { make in
             make.top.equalTo(introduceTitle.snp.bottom).offset(10)
             make.right.equalTo(contentView.snp.right).offset(-20)
             make.left.equalTo(contentView.snp.left).offset(20)
-            make.bottom.equalToSuperview().offset(-50) // 이 부분이 가장 중요 -> contentView height를 마지막에 있는 뷰 기준으로 높이 설정
         }
         
         self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
@@ -183,5 +186,10 @@ class DatePlaceViewController: UIViewController {
         pin.coordinate = coordinate
         pin.title = datePlace?.placeName
         mapView.addAnnotation(pin)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        datePlaceCarouselView.invalidateTimer()
     }
 }

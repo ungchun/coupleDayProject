@@ -50,6 +50,8 @@
 		BC8B624F285087B000D46416 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B624E285087B000D46416 /* Realm */; };
 		BC8B6251285087B000D46416 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B6250285087B000D46416 /* RealmSwift */; };
 		BC9493B7288142E9003FF1DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC9493B9288142E9003FF1DB /* InfoPlist.strings */; };
+		BCA646FC28C326E20011C8B9 /* DatePlaceCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA646FB28C326E20011C8B9 /* DatePlaceCarouselView.swift */; };
+		BCA646FE28C328480011C8B9 /* CarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA646FD28C328480011C8B9 /* CarouselCollectionViewCell.swift */; };
 		BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B151285076FF00DE7196 /* AppDelegate.swift */; };
 		BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B153285076FF00DE7196 /* SceneDelegate.swift */; };
 		BCB0B15B2850770000DE7196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB0B15A2850770000DE7196 /* Assets.xcassets */; };
@@ -173,6 +175,8 @@
 		BC9493BA288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		BC9493BB288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Interface.strings; sourceTree = "<group>"; };
 		BC9493BC288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BCA646FB28C326E20011C8B9 /* DatePlaceCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceCarouselView.swift; sourceTree = "<group>"; };
+		BCA646FD28C328480011C8B9 /* CarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCollectionViewCell.swift; sourceTree = "<group>"; };
 		BCB0B14E285076FF00DE7196 /* coupleDayProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB0B151285076FF00DE7196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB0B153285076FF00DE7196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -257,6 +261,8 @@
 			isa = PBXGroup;
 			children = (
 				BC24929728BE08B4003FC64A /* DatePlaceViewController.swift */,
+				BCA646FB28C326E20011C8B9 /* DatePlaceCarouselView.swift */,
+				BCA646FD28C328480011C8B9 /* CarouselCollectionViewCell.swift */,
 			);
 			path = DatePlace;
 			sourceTree = "<group>";
@@ -701,6 +707,8 @@
 				BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */,
 				BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */,
 				BCF1B3602868237D00641ABD /* ImageModel.swift in Sources */,
+				BCA646FC28C326E20011C8B9 /* DatePlaceCarouselView.swift in Sources */,
+				BCA646FE28C328480011C8B9 /* CarouselCollectionViewCell.swift in Sources */,
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
 				BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */,
