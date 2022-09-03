@@ -12,8 +12,7 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
     fileprivate func bind() {
         placeName.text = datePlaceModel?.placeName
         placeShortAddress.text = datePlaceModel?.shortAddress
-        let url = URL(string: (datePlaceModel?.imageUrl.first)!)
-        imageView.kf.setImage(with: url)
+        imageView.setImage(with: (datePlaceModel?.imageUrl.first)!)
     }
     
     // MARK: Views

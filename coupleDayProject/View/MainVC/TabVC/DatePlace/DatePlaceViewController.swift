@@ -83,14 +83,11 @@ class DatePlaceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("viewDidLoad")
-        
         datePlaceCarouselView.imageUrlArray = datePlace?.imageUrl
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        let url = URL(string: (datePlace?.imageUrl.first)!)
-        mainImageView.kf.setImage(with: url)
+        mainImageView.setImage(with: (datePlace?.imageUrl.first)!)
         contentView.addSubview(mainImageView)
         
         datePlaceName.text = datePlace?.placeName
@@ -99,9 +96,12 @@ class DatePlaceViewController: UIViewController {
         datePlaceAddress.text = datePlace?.address
         contentView.addSubview(datePlaceAddress)
         
+        contentView.addSubview(mapAddressTitle)
+        contentView.addSubview(mapView)
+        
         contentView.addSubview(datePlaceCarouselView)
         NSLayoutConstraint.activate([
-            datePlaceCarouselView.topAnchor.constraint(equalTo: datePlaceAddress.bottomAnchor, constant: 30),
+            datePlaceCarouselView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 30),
             datePlaceCarouselView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
             datePlaceCarouselView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
             datePlaceCarouselView.heightAnchor.constraint(equalToConstant: 300),
@@ -114,9 +114,7 @@ class DatePlaceViewController: UIViewController {
         introduceContent.attributedText = introduceContentValue
         contentView.addSubview(introduceContent)
         
-        contentView.addSubview(mapAddressTitle)
-        contentView.addSubview(mapView)
-        
+
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
@@ -137,7 +135,7 @@ class DatePlaceViewController: UIViewController {
             make.left.equalTo(contentView.snp.left).offset(20)
         }
         mapAddressTitle.snp.makeConstraints { make in
-            make.top.equalTo(introduceContent.snp.bottom).offset(20)
+            make.top.equalTo(datePlaceAddress.snp.bottom).offset(20)
             make.left.equalTo(contentView.snp.left).offset(20)
         }
         mapView.snp.makeConstraints { make in
@@ -145,7 +143,6 @@ class DatePlaceViewController: UIViewController {
             make.left.equalTo(contentView.snp.left).offset(20)
             make.right.equalTo(contentView.snp.right).offset(-20)
             make.height.equalTo(200)
-            make.bottom.equalToSuperview().offset(-50) // 이 부분이 가장 중요 -> contentView height를 마지막에 있는 뷰 기준으로 높이 설정
         }
         introduceTitle.snp.makeConstraints { make in
             make.top.equalTo(datePlaceCarouselView.snp.bottom).offset(30)
@@ -155,6 +152,7 @@ class DatePlaceViewController: UIViewController {
             make.top.equalTo(introduceTitle.snp.bottom).offset(10)
             make.right.equalTo(contentView.snp.right).offset(-20)
             make.left.equalTo(contentView.snp.left).offset(20)
+            make.bottom.equalToSuperview().offset(-50) // 이 부분이 가장 중요 -> contentView height를 마지막에 있는 뷰 기준으로 높이 설정
         }
         
         self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor

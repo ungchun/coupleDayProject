@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 class DatePlaceCarouselView: UIView {
     
@@ -32,47 +33,25 @@ class DatePlaceCarouselView: UIView {
         return progressView
     }()
     
-    required init(imageUrlArray: Array<String>){
-        print("required init")
-        self.imageUrlArray = imageUrlArray
-        
-        super.init(frame: CGRect.zero)
-        
-
-        self.addSubview(carouselCollectionView)
-        self.addSubview(carouselProgressView)
-        
-        carouselCollectionView.register(CarouselCollectionViewCell.self, forCellWithReuseIdentifier: CarouselCollectionViewCell.reuseIdentifier)
-        carouselCollectionView.dataSource = self
-        carouselCollectionView.delegate = self
-        
-        carouselCollectionView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalTo(0)
-        }
-        carouselProgressView.snp.makeConstraints { make in
-            make.centerX.equalTo(self)
-            make.width.equalTo((UIScreen.main.bounds.size.width - 40) * 0.6)
-            make.bottom.equalTo(carouselCollectionView.snp.bottom).offset(-20)
-        }
-        
-        configureProgressView()
-        activateTimer()
-        
-        // colors * 3 기준 index 0에서 중앙 첫번째 index로 옮겨주는 거
-        //
-        let segmentSize = imageUrlArray.count
-        carouselCollectionView.scrollToItem(at: IndexPath(item: segmentSize, section: 0), at: .centeredHorizontally, animated: false)
-
-        
-        // Can't call super.init() here because it's a convenience initializer not a desginated initializer
-    }
-
     // MARK: Life Cycle
     //
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    required init(imageUrlArray: Array<String>){
+        // 파라미터로 값을 받아야 하는 init이면 required init 써야함
+        //
+        super.init(frame: CGRect.zero)
+        self.imageUrlArray = imageUrlArray
+        self.imageUrlArray!.shuffle()
         
-        print("override init")
+        // 그냥 carousel 페이지 하나씩 넘어갈 때 마다 다운해도 되는데, 처음 들어가면 페이지 넘어갈 때 마다 다운, 캐시처리하는 indicator 화면 봐야함
+        // downloadImage -> imageUrlArray 하나씩 돌면서 url 캐시에 있나 없나 확인해서 없으면 미리 다운
+        // 처음 들어가더라도 이 친구 덕분에 캐시처리가 모두 완료된 상태라 indicator 볼 필요없음
+        //
+        imageUrlArray.forEach { value in
+            DispatchQueue.global().async {
+                downloadImage(with: value)
+            }
+        }
+        
         self.addSubview(carouselCollectionView)
         self.addSubview(carouselProgressView)
         
@@ -94,7 +73,6 @@ class DatePlaceCarouselView: UIView {
         
         // colors * 3 기준 index 0에서 중앙 첫번째 index로 옮겨주는 거
         //
-        guard let imageUrlArray = imageUrlArray else { return }
         let segmentSize = imageUrlArray.count
         carouselCollectionView.scrollToItem(at: IndexPath(item: segmentSize, section: 0), at: .centeredHorizontally, animated: false)
     }
@@ -171,15 +149,13 @@ class DatePlaceCarouselView: UIView {
 extension DatePlaceCarouselView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let imageUrlArray = imageUrlArray else { return 0 }
-        print("imageUrlArray \(imageUrlArray.count)")
         return imageUrlArray.count * 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let imageUrlString = imageUrlArray![indexPath.item % imageUrlArray!.count]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.reuseIdentifier, for: indexPath) as! CarouselCollectionViewCell
-        let url = URL(string: (imageUrlString))
-        cell.imageView.kf.setImage(with: url)
+        cell.imageView.setImage(with: imageUrlString)
         return cell
     }
     
@@ -218,3 +194,27 @@ extension DatePlaceCarouselView: UICollectionViewDelegateFlowLayout {
     }
 }
 
+private func downloadImage(with urlString: String) {
+    guard let url = URL(string: urlString) else { return }
+    ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
+        switch result {
+        case .success(let value):
+            if value.image != nil {
+                //캐시가 존재하는 경우
+            } else {
+                //캐시가 존재하지 않는 경우
+                let resource = ImageResource(downloadURL: url)
+                KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
+                    switch result {
+                    case .success(let value):
+                        print("value.image \(value.image)")
+                    case .failure(let error):
+                        print("Error: \(error)")
+                    }
+                }
+            }
+        case .failure(let error):
+            print(error)
+        }
+    }
+}
