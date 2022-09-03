@@ -29,7 +29,9 @@ class DatePlaceViewController: UIViewController {
         return view
     }()
     lazy var datePlaceCarouselView: DatePlaceCarouselView = {
-        let view = DatePlaceCarouselView(imageUrlArray: datePlace!.imageUrl)
+        var copyDatePlaceImageUrl = datePlace!.imageUrl
+        copyDatePlaceImageUrl.removeFirst()
+        let view = DatePlaceCarouselView(imageUrlArray: copyDatePlaceImageUrl)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -83,7 +85,6 @@ class DatePlaceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        datePlaceCarouselView.imageUrlArray = datePlace?.imageUrl
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         

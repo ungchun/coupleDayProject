@@ -41,7 +41,7 @@ class DatePlaceCarouselView: UIView {
         super.init(frame: CGRect.zero)
         self.imageUrlArray = imageUrlArray
         self.imageUrlArray!.shuffle()
-        
+
         // 그냥 carousel 페이지 하나씩 넘어갈 때 마다 다운해도 되는데, 처음 들어가면 페이지 넘어갈 때 마다 다운, 캐시처리하는 indicator 화면 봐야함
         // downloadImage -> imageUrlArray 하나씩 돌면서 url 캐시에 있나 없나 확인해서 없으면 미리 다운
         // 처음 들어가더라도 이 친구 덕분에 캐시처리가 모두 완료된 상태라 indicator 볼 필요없음
@@ -73,7 +73,7 @@ class DatePlaceCarouselView: UIView {
         
         // colors * 3 기준 index 0에서 중앙 첫번째 index로 옮겨주는 거
         //
-        let segmentSize = imageUrlArray.count
+        let segmentSize = self.imageUrlArray!.count
         carouselCollectionView.scrollToItem(at: IndexPath(item: segmentSize, section: 0), at: .centeredHorizontally, animated: false)
     }
     
@@ -102,7 +102,7 @@ class DatePlaceCarouselView: UIView {
     // 타이머 세팅
     //
     private func activateTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(timerCallBack), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(timerCallBack), userInfo: nil, repeats: true)
     }
     
     // 현재 보이는 content의 IndexPath
