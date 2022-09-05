@@ -139,6 +139,7 @@ final class CoupleTabViewController: UIViewController {
         
         loadFirebaseData { [weak self] in
             guard let self = self else { return }
+            print("????")
             self.coupleTabStackView.removeArrangedSubview(self.activityIndicator)
             self.coupleTabStackView.addArrangedSubview(self.DatePlaceStackView)
             
@@ -213,8 +214,7 @@ final class CoupleTabViewController: UIViewController {
     //
     fileprivate func loadFirebaseData(completion: @escaping () -> ()) {
         var count = 0
-//        guard let localNameText = LocalName.randomElement()?.key else { return }
-        let localNameText = "chungcheong"
+        guard let localNameText = LocalName.randomElement()?.key else { return }
         FirebaseManager.shared.firestore.collection("\(localNameText)").getDocuments { [self] (querySnapshot, error) in
             guard error == nil else { return }
             for document in querySnapshot!.documents {

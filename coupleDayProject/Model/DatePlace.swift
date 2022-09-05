@@ -1,5 +1,4 @@
 import Foundation
-import FirebaseFirestoreSwift
 
 struct DatePlace: Codable {
     var placeName: String

@@ -23,10 +23,10 @@ class DatePlaceViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    let mapView: MKMapView = {
-        let view = MKMapView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    let mainImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     lazy var datePlaceCarouselView: DatePlaceCarouselView = {
         var copyDatePlaceImageUrl = datePlace!.imageUrl
@@ -47,10 +47,17 @@ class DatePlaceViewController: UIViewController {
         label.font = UIFont(name: "GangwonEduAllLight", size: 15)
         return label
     }()
-    let mainImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+    let mapAddressTitle: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "위치"
+        label.font = UIFont(name: "GangwonEduAllBold", size: 25)
+        return label
+    }()
+    let mapView: MKMapView = {
+        let view = MKMapView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     let introduceTitle: UILabel = {
         let label = UILabel()
@@ -66,34 +73,21 @@ class DatePlaceViewController: UIViewController {
         return label
     }()
     
-    let mapAddressTitle: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "위치"
-        label.font = UIFont(name: "GangwonEduAllBold", size: 25)
-        return label
-    }()
-    let mapAddressContent: UIView = {
-        let view = UIView()
-        view.backgroundColor = .green
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     // MARK: Life Cycle
     //
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mapView.delegate = self
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
         mainImageView.setImage(with: (datePlace?.imageUrl.first)!)
         contentView.addSubview(mainImageView)
-        
+
         datePlaceName.text = datePlace?.placeName
         contentView.addSubview(datePlaceName)
-        
         datePlaceAddress.text = datePlace?.address
         contentView.addSubview(datePlaceAddress)
         
@@ -101,21 +95,13 @@ class DatePlaceViewController: UIViewController {
         contentView.addSubview(mapView)
         
         contentView.addSubview(datePlaceCarouselView)
-        NSLayoutConstraint.activate([
-            datePlaceCarouselView.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 30),
-            datePlaceCarouselView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
-            datePlaceCarouselView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20),
-            datePlaceCarouselView.heightAnchor.constraint(equalToConstant: 300),
-        ])
         
         introduceTitle.text = datePlace!.introduce[0]
         contentView.addSubview(introduceTitle)
-        
         let introduceContentValue = NSAttributedString(string: datePlace!.introduce[1]).withLineSpacing(10)
         introduceContent.attributedText = introduceContentValue
         contentView.addSubview(introduceContent)
         
-
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
@@ -136,7 +122,7 @@ class DatePlaceViewController: UIViewController {
             make.left.equalTo(contentView.snp.left).offset(20)
         }
         mapAddressTitle.snp.makeConstraints { make in
-            make.top.equalTo(datePlaceAddress.snp.bottom).offset(20)
+            make.top.equalTo(datePlaceAddress.snp.bottom).offset(30)
             make.left.equalTo(contentView.snp.left).offset(20)
         }
         mapView.snp.makeConstraints { make in
@@ -145,8 +131,14 @@ class DatePlaceViewController: UIViewController {
             make.right.equalTo(contentView.snp.right).offset(-20)
             make.height.equalTo(200)
         }
+        datePlaceCarouselView.snp.makeConstraints { make in
+            make.top.equalTo(mapView.snp.bottom).offset(40)
+            make.left.equalTo(contentView.snp.left).offset(20)
+            make.right.equalTo(contentView.snp.right).offset(-20)
+            make.height.equalTo(300)
+        }
         introduceTitle.snp.makeConstraints { make in
-            make.top.equalTo(datePlaceCarouselView.snp.bottom).offset(30)
+            make.top.equalTo(datePlaceCarouselView.snp.bottom).offset(40)
             make.left.equalTo(contentView.snp.left).offset(20)
         }
         introduceContent.snp.makeConstraints { make in
@@ -173,6 +165,7 @@ class DatePlaceViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         // 줌인되는 애니메이션 -> 뷰가 나타난 직후 일어나야해서 viewDidAppear
         //
         guard let latitude = Double(datePlace!.latitude) else { return }
@@ -190,5 +183,26 @@ class DatePlaceViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         datePlaceCarouselView.invalidateTimer()
+    }
+}
+
+// MARK: Extension
+//
+extension DatePlaceViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+    // pin 모양 변경
+    //
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else { print("no mkpointannotaions"); return nil }
+        let reuseId = "pin"
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.rightCalloutAccessoryView = UIButton(type: .infoDark)
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        return pinView
     }
 }

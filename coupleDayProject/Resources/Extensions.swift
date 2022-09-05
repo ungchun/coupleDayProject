@@ -112,7 +112,7 @@ extension UIImageView {
                     guard let url = URL(string: urlString) else { return }
                     let resource = ImageResource(downloadURL: url, cacheKey: urlString)
                     self.kf.indicatorType = .activity
-                    self.kf.setImage(with: resource)
+                    self.kf.setImage(with: resource, options: [.transition(.fade(1.5)), .forceTransition])
                 }
             case .failure(let error):
                 print(error)
