@@ -20,6 +20,9 @@ final class StoryTabViewController: UIViewController {
     @objc func receiveCoupleDayData(notification: Notification) {
         // notification.userInfo 값을 받아온다. -> 그 값을 가지고 scrollToRow 처리
         //
+        storyTableView.register(StoryCell.self, forCellReuseIdentifier: "CodingCustomTableViewCell")
+        storyTableView.delegate = self
+        storyTableView.dataSource = self
         guard let object = notification.userInfo?["coupleDay"] as? String else {
             return
         }

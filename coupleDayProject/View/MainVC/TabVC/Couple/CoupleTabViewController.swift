@@ -132,14 +132,19 @@ final class CoupleTabViewController: UIViewController {
     
     // MARK: Life Cycle
     //
-    override func viewWillAppear(_ animated: Bool) {}
+    override func viewWillAppear(_ animated: Bool) {
+        if CoupleTabViewModel.changeDarkModeCheck == true {
+            CoupleTabViewModel.changeDarkModeCheck = false
+            coupleTabViewModel?.setMyProfileIcon()
+            coupleTabViewModel?.setPartnerProfileIcon()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadFirebaseData { [weak self] in
             guard let self = self else { return }
-            print("????")
             self.coupleTabStackView.removeArrangedSubview(self.activityIndicator)
             self.coupleTabStackView.addArrangedSubview(self.DatePlaceStackView)
             
