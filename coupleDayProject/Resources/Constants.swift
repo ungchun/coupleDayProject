@@ -75,11 +75,11 @@ struct RealmManager {
         WidgetCenter.shared.reloadAllTimelines() // 위젯 새로고침
     }
     
-    // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 16000000 으로 맞춰서 예외처리, 16000000 보다 작으면 0.5 퀄리티 16000000 크면 0.25 퀄리티, pngData로 하면 위험부담이 생겨서 배제
+    // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 16000000 으로 맞춰서 예외처리, 16000000 보다 작으면 0.5 퀄리티 16000000 크면 0.25 퀄리티, pngData로 하면 위험부담이 생겨서 배제 -> 13777014 이 사이즈도 막힘.. 인터넷에서는 16Mb라고 하는데 그냥 10000000로 맞춤
     //
     func updateMainImage(mainImage: UIImage) {
         try? realm.write({
-            RealmManager.shared.getImageDatas().first!.mainImageData = (mainImage.pngData()?.count)! > 16000000 ? mainImage.jpegData(compressionQuality: 0.25) : mainImage.jpegData(compressionQuality: 0.5)
+            RealmManager.shared.getImageDatas().first!.mainImageData = (mainImage.pngData()?.count)! > 10000000 ? mainImage.jpegData(compressionQuality: 0.25) : mainImage.jpegData(compressionQuality: 0.5)
         })
         WidgetCenter.shared.reloadAllTimelines() // 위젯 새로고침
     }
