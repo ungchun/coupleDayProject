@@ -240,7 +240,6 @@ final class CoupleTabViewController: UIViewController {
                 guard let localName = LocalName[localNameText] else { return }
                 titleDatePlace.text = "\(localName)의 오늘 장소"
                 mainDatePlaceList.append(datePlaceValue)
-                mainDatePlaceList.shuffle()
                 count += 1
                 
                 // 그냥 컬렉션 뷰 옆으로 하나씩 넘어갈 때 마다 다운해도 되는데, 처음 들어가면 페이지 넘어갈 때 마다 다운, 캐시처리하는 indicator 화면 봐야함
@@ -254,9 +253,7 @@ final class CoupleTabViewController: UIViewController {
                 
                 if count == 5 { break }
             }
-            DispatchQueue.main.async { [self] in
-                carouselCollectionView.reloadData()
-            }
+            mainDatePlaceList.shuffle()
             completion()
         }
     }
@@ -476,6 +473,7 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         if self.mainDatePlaceList.count > indexPath.item {
             if let cell = cell as? DatePlaceCollectionViewCell {
+                cell.imageView.image = nil
                 cell.datePlaceModel = mainDatePlaceList[indexPath.item]
             }
         }

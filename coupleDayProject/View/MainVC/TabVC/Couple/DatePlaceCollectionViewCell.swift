@@ -17,19 +17,13 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
     
     // MARK: Views
     //
-    private var imageView: UIImageView = {
+    var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.sizeToFit()
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         return imageView
-    }()
-    private var emptyView: UIView = { // 프레임
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green
-        return view
     }()
     private var placeName: UILabel = { // 장소
         let label = UILabel()
@@ -79,6 +73,6 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     override func prepareForReuse() {
-        imageView.setImage(with: (datePlaceModel?.imageUrl.first)!)
+        super.prepareForReuse()
     }
 }

@@ -25,6 +25,7 @@ class DatePlaceViewController: UIViewController {
     }()
     let mainImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -85,7 +86,7 @@ class DatePlaceViewController: UIViewController {
         
         mainImageView.setImage(with: (datePlace?.imageUrl.first)!)
         contentView.addSubview(mainImageView)
-
+        
         datePlaceName.text = datePlace?.placeName
         contentView.addSubview(datePlaceName)
         datePlaceAddress.text = datePlace?.address
