@@ -75,8 +75,10 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
             stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    override func prepareForReuse() {
+        imageView.setImage(with: (datePlaceModel?.imageUrl.first)!)
     }
 }
