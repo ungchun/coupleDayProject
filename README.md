@@ -1,12 +1,12 @@
 # 너랑나랑
 
-개발기간 : 2022.06 ~
+개발기간 : 2022.06 ~ 2022.08
 
 [![appStore](https://user-images.githubusercontent.com/50910456/173174832-7d395623-ceb3-4796-b718-22e550af6934.svg)](https://apps.apple.com/app/%EB%84%88%EB%9E%91%EB%82%98%EB%9E%91-%EC%BB%A4%ED%94%8C-%EB%94%94%EB%8D%B0%EC%9D%B4/id1635302922)
 
 ## [About]
-
-![앱 스크린샷](https://user-images.githubusercontent.com/50910456/183448907-c458667e-143c-4b28-a675-8a2ffb5f31da.png)
+  
+![앱 스크린샷](https://user-images.githubusercontent.com/50910456/188790834-67ed612e-5486-498a-8ca7-c137374571e9.png)
 ![앱 스크린샷](https://user-images.githubusercontent.com/50910456/183449608-c1cd2efb-fbba-4fd8-a3eb-185bdfa3679d.png)
   
 심플하고 이쁜 커플 디데이 앱 !  
@@ -24,6 +24,7 @@
 - version 1.0.3 : 워치 컴플리케이션 버그 수정 ( 22.07.27 )
 - version 1.1.0 : 커플 기념일 기능 추가 ( 22.07.30 )
 - version 1.2.0 : 구글 애드몹 제거 ( 22.07.31 )
+- version 1.3.0 : 지역별 추천 장소 기능 추가 ( 22.09.06 )
 
 ## [ Develop Environment ]
 
@@ -57,6 +58,5 @@
 
 ## [ And More.. ]
 
-- 유저가 스토리 추가할 수 있는 기능 추가
 - 지역 별 데이트 장소 탭 추가
 - 다가오는 스토리 알림 기능
