@@ -1,9 +1,7 @@
 import Foundation
 
-// 다가오는 기념일 모델
-//
-struct Anniversary {
-    let AnniversaryModel = [
+struct AnniversaryModel {
+    let AnniversaryInfo = [
         ["\(DateValues.GetOnlyYear())-01-14": "다이어리데이"],
         ["\(DateValues.GetOnlyYear())-01-19": "찜질방데이"],
         ["\(DateValues.GetOnlyYear())-02-02": "액자데이"],
@@ -30,7 +28,7 @@ struct Anniversary {
         ["\(DateValues.GetOnlyYear())-12-25": "크리스마스"],
         ["\(DateValues.GetOnlyYear())-12-31": "\(DateValues.GetOnlyYear()) 마지막"],
     ]
-    let AnniversaryUrl = [
+    let AnniversaryImageUrl = [
         "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/diary.jpg?alt=media&token=21c3b832-e66c-483e-8034-5ed98f4b80ae",
         "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/sauna.jpg?alt=media&token=70649a6e-311b-4fcb-993b-669c73b34c9c",
         "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/frame.jpg?alt=media&token=67869f70-f0b4-4352-8dac-be48b9407311",

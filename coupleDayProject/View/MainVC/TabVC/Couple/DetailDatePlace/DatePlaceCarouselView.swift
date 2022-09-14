@@ -5,7 +5,6 @@ class DatePlaceCarouselView: UIView {
     
     // MARK: Properties
     //
-    static let cellOneHeight = 300.0
     var progress: Progress?
     var timer: Timer?
     var imageUrlArray: Array<String>?
@@ -36,20 +35,18 @@ class DatePlaceCarouselView: UIView {
     // MARK: Life Cycle
     //
     required init(imageUrlArray: Array<String>){
-        // 파라미터로 값을 받아야 하는 init이면 required init 써야함
-        //
         super.init(frame: CGRect.zero)
         self.imageUrlArray = imageUrlArray
         self.imageUrlArray!.shuffle()
         
         // 그냥 carousel 페이지 하나씩 넘어갈 때 마다 다운해도 되는데, 처음 들어가면 페이지 넘어갈 때 마다 다운, 캐시처리하는 indicator 화면 봐야함
-        // downloadImage -> imageUrlArray 하나씩 돌면서 url 캐시에 있나 없나 확인해서 없으면 미리 다운
+        // downloadImageAndCache -> imageUrlArray 하나씩 돌면서 url 캐시에 있나 없나 확인해서 없으면 미리 다운
         // 처음 들어가더라도 이 친구 덕분에 캐시처리가 모두 완료된 상태라 indicator 볼 필요없음
         //
         imageUrlArray.forEach { value in
             DispatchQueue.global().async { [weak self] in
                 guard let self = self else { return }
-                self.downloadImage(with: value)
+                self.downloadImageAndCache(with: value)
             }
         }
         
@@ -72,8 +69,6 @@ class DatePlaceCarouselView: UIView {
         configureProgressView()
         activateTimer()
         
-        // colors * 3 기준 index 0에서 중앙 첫번째 index로 옮겨주는 거
-        //
         let segmentSize = self.imageUrlArray!.count
         carouselCollectionView.scrollToItem(at: IndexPath(item: segmentSize, section: 0), at: .centeredHorizontally, animated: false)
     }
@@ -84,15 +79,13 @@ class DatePlaceCarouselView: UIView {
     
     // MARK: functions
     //
-    private func downloadImage(with urlString: String) {
+    private func downloadImageAndCache(with urlString: String) {
         guard let url = URL(string: urlString) else { return }
         ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
             switch result {
             case .success(let value):
-                if value.image != nil {
-                    //캐시가 존재하는 경우
-                } else {
-                    //캐시가 존재하지 않는 경우
+                if value.image != nil { //캐시가 존재하는 경우
+                } else { //캐시가 존재하지 않는 경우
                     let resource = ImageResource(downloadURL: url)
                     KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
                         switch result {
@@ -109,8 +102,6 @@ class DatePlaceCarouselView: UIView {
         }
     }
     
-    // progress 세팅
-    //
     private func configureProgressView() {
         guard let imageUrlArray = imageUrlArray else { return }
         carouselProgressView.progress = 0.0
@@ -119,14 +110,10 @@ class DatePlaceCarouselView: UIView {
         carouselProgressView.setProgress(Float(progress!.fractionCompleted), animated: false)
     }
     
-    // 타이머 초기화
-    //
     func invalidateTimer() {
         timer?.invalidate()
     }
     
-    // 타이머 세팅
-    //
     private func activateTimer() {
         timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(timerCallBack), userInfo: nil, repeats: true)
     }
@@ -171,24 +158,6 @@ class DatePlaceCarouselView: UIView {
 // 맨 처음과 끝에서 드래그하면 그 다음 셀이 보인다 -> 시작이 0이 아니다.
 // cell list를 3개를 이어붙여서 시작과 동시에 중간으로 오게 한다.
 //
-extension DatePlaceCarouselView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let imageUrlArray = imageUrlArray else { return 0 }
-        return imageUrlArray.count * 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let imageUrlString = imageUrlArray![indexPath.item % imageUrlArray!.count]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.reuseIdentifier, for: indexPath) as! CarouselCollectionViewCell
-        cell.imageView.setImage(with: imageUrlString)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // cell click
-    }
-}
-
 extension DatePlaceCarouselView: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
@@ -212,10 +181,25 @@ extension DatePlaceCarouselView: UICollectionViewDelegate {
         carouselProgressView.setProgress(Float(progress!.fractionCompleted), animated: false)
     }
 }
-
+extension DatePlaceCarouselView: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let imageUrlArray = imageUrlArray else { return 0 }
+        return imageUrlArray.count * 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let imageUrlString = imageUrlArray![indexPath.item % imageUrlArray!.count]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.reuseIdentifier, for: indexPath) as! CarouselCollectionViewCell
+        cell.imageView.setImage(with: imageUrlString)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+}
 extension DatePlaceCarouselView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: carouselCollectionView.frame.width, height: carouselCollectionView.frame.height)
     }
 }
-

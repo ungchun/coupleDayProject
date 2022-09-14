@@ -27,17 +27,15 @@ final class TabManViewController: TabmanViewController {
     //
     override func viewDidLoad() {
         super.viewDidLoad()
-        setLayoutBar()
+        setUpLayoutBar()
     }
     
     // MARK: Functions
     //
-    fileprivate func setLayoutBar() {
-        // 탭에 커플, 스토리, 기념일 뷰 추가
-        // coupleTabViewModel 주입
-        //
-        let coupleVC = CoupleTabViewController(coupleTabViewModel: coupleTabViewModel!)
-        let storyVC = StoryTabViewController(coupleTabViewModel: coupleTabViewModel!)
+    private func setUpLayoutBar() {
+        guard let coupleTabViewModel = coupleTabViewModel else { return }
+        let coupleVC = CoupleTabViewController(coupleTabViewModel: coupleTabViewModel)
+        let storyVC = StoryTabViewController(coupleTabViewModel: coupleTabViewModel)
         viewControllers.append(coupleVC)
         viewControllers.append(storyVC)
         
@@ -47,9 +45,6 @@ final class TabManViewController: TabmanViewController {
         bar.backgroundView.style = .clear
         bar.backgroundColor = UIColor(named: "bgColor")
         bar.buttons.customize { (button) in
-            
-            // 선택되지않은 탭 글자 색깔, 선택된 탭 글자 색깔
-            //
             button.tintColor = UIColor(white: 0.5, alpha: 0.3)
             button.selectedTintColor = TrendingConstants.appMainColor
             button.font = UIFont(name: "GangwonEduAllBold", size: 20) ?? UIFont.systemFont(ofSize: 20)

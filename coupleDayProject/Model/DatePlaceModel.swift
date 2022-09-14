@@ -1,6 +1,6 @@
 import Foundation
 
-struct DatePlace: Codable {
+struct DatePlaceModel: Codable {
     var placeName: String
     var address: String
     var shortAddress: String
@@ -8,7 +8,7 @@ struct DatePlace: Codable {
     var imageUrl: Array<String>
     var latitude: String
     var longitude: String
-    var modifyState: Bool
+    var modifyStateCheck: Bool
 
     init() {
         self.placeName  = "empty placeName"
@@ -18,7 +18,7 @@ struct DatePlace: Codable {
         self.imageUrl = []
         self.latitude = "empty latitude"
         self.longitude = "empty longitude"
-        self.modifyState = false
+        self.modifyStateCheck = false
     }
 }
 

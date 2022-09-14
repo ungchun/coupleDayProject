@@ -8,8 +8,6 @@ import Kingfisher
 
 final class CoupleTabViewController: UIViewController {
     
-    // MARK: Properties
-    //
     private var coupleTabViewModel: CoupleTabViewModel?
     init(coupleTabViewModel: CoupleTabViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -19,41 +17,43 @@ final class CoupleTabViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var mainDatePlaceList = [DatePlace]()
+    // MARK: Properties
+    //
+    private var mainDatePlaceList = [DatePlaceModel]()
     private let imagePickerController = UIImagePickerController()
-    private var whoProfileChange = "my" // 내 프로필변경인지, 상대 프로필변경인지 체크하는 값
+    private var whoProfileChangeCheck = "my"
     
-    private let mainImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 메인 이미지 로딩 뷰
-    private let myProfileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 내 프로필 이미지 로딩 뷰
-    private let profileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium) // 상대 프로필 이미지 로딩 뷰
+    private let mainImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium)
+    private let myProfileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium)
+    private let profileImageActivityIndicatorView =  UIActivityIndicatorView(style: .medium)
     
     private var loadingCheck = false
     
     // MARK: Views
     //
-    private let coupleTabStackView: UIStackView = { // 커플 탭 전체 뷰
+    private let allContentStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.translatesAutoresizingMaskIntoConstraints = false
         view.distribution = .fill
         return view
     }()
-    private let topTabBackView: UIView = { // 상단 탭 뒤에 뷰
+    private let topTabBackView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let mainImageView: UIImageView = { // 메인 이미지 뷰
+    private let mainImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let emptyView: UIView = { // 하단 빈 공간 채우는 뷰
+    private let bottomEmptyView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let coupleStackView: UIStackView = { // 내 프로필 + day + 상대 프로필
+    private let profileImageDayStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
         view.alignment = .center
@@ -61,15 +61,15 @@ final class CoupleTabViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let myProfileUIImageView: UIImageView = { // 내 프로필 뷰
+    private let myProfileUIImageView: UIImageView = {
         let view = UIImageView()
         return view
     }()
-    private let partnerProfileUIImageView: UIImageView = { // 상대 프로필 뷰
+    private let partnerProfileUIImageView: UIImageView = {
         let view = UIImageView()
         return view
     }()
-    private let iconDayStackView: UIStackView = { // 하트 아이콘 + day
+    private let loveIconDayStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.alignment = .center
@@ -77,29 +77,29 @@ final class CoupleTabViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private let loveIconView: UIImageView = { // 하트 아이콘
+    private let loveIconView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24, weight: UIImage.SymbolWeight.light))
         view.tintColor = TrendingConstants.appMainColor
         return view
     }()
-    private let mainTextLabel: UILabel = { // day
+    private let dayText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = ""
         label.font = UIFont(name: "GangwonEduAllLight", size: 25)
         return label
     }()
-    private lazy var titleDatePlace: UILabel = {
+    private lazy var datePlaceTitle: UILabel = {
         var label = UILabel()
         label.font = UIFont(name: "GangwonEduAllBold", size: CommonSize.coupleTextBigSize)
         return label
     }()
-    private lazy var carouselCollectionView: UICollectionView = {
+    private lazy var datePlacelCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 0 // 행과 열 사이 간격
-        flowLayout.minimumInteritemSpacing = 0 // 행 사이 간격
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
@@ -115,14 +115,13 @@ final class CoupleTabViewController: UIViewController {
         activityIndicator.startAnimating()
         return activityIndicator
     }()
-    
     private let admobView: GADBannerView = {
         var view = GADBannerView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     private lazy var DatePlaceStackView: UIStackView = { // 오늘의 데이트 장소 stackView
-        var stackView = UIStackView(arrangedSubviews: [titleDatePlace, carouselCollectionView])
+        var stackView = UIStackView(arrangedSubviews: [datePlaceTitle, datePlacelCollectionView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
         stackView.axis = .vertical
@@ -146,8 +145,8 @@ final class CoupleTabViewController: UIViewController {
         
         loadFirebaseData { [weak self] in
             guard let self = self else { return }
-            self.coupleTabStackView.removeArrangedSubview(self.activityIndicator)
-            self.coupleTabStackView.addArrangedSubview(self.DatePlaceStackView)
+            self.allContentStackView.removeArrangedSubview(self.activityIndicator)
+            self.allContentStackView.addArrangedSubview(self.DatePlaceStackView)
             
             // fadeIn Animation
             //
@@ -160,74 +159,31 @@ final class CoupleTabViewController: UIViewController {
             ])
         }
         
-        carouselCollectionView.dataSource = self
-        carouselCollectionView.delegate = self
-        carouselCollectionView.register(DatePlaceCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        datePlacelCollectionView.dataSource = self
+        datePlacelCollectionView.delegate = self
+        datePlacelCollectionView.register(DatePlaceCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
         imagePickerController.delegate = self
         
         // 로딩 뷰 세팅, 제일 큰 사진 로딩 끝나면 beforeLoadingSetupView -> afterLoadingSetupView 변경
         //
-        beforeLoadingSetupView()
+        beforeImageLoadingView()
         
-        // ViewModel DataBinding
-        //
-        coupleTabViewModel!.beginCoupleDay.bind { [weak self] beginCoupleDay in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.mainTextLabel.text = beginCoupleDay
-            }
-            // watch, days 택스트 value는 updateApplicationContext 방법으로 연동
-            //
-            let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
-            try? WCSession.default.updateApplicationContext(dayData)
-        }
-        coupleTabViewModel!.mainImageData.bind { [weak self] imageData in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.mainImageView.image = UIImage(data: imageData)
-                if !self.loadingCheck {
-                    self.afterLoadingSetupView()
-                    self.loadingCheck = true
-                }
-                
-                // watch, 메인 이미지는 transferUserInfo 방법으로 이미지 연동
-                // watch 앱에 보내는 image, 크기 제한이 심해서 0.1 화질로 보냄 -> 0.1이 제일 작은 크기인 듯..? 0.1이 0.01, 0.001 이랑 차이없음
-                //
-                let data = UIImage(data: self.coupleTabViewModel!.mainImageData.value)?.jpegData(compressionQuality: 0.1)
-                let imageData: [String: Any] = ["imageData": data!]
-                WCSession.default.transferUserInfo(imageData)
-            }
-        }
-        coupleTabViewModel!.myProfileImageData.bind({ [weak self] imageData in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.myProfileUIImageView.image = UIImage(data: imageData)
-            }
-        })
-        coupleTabViewModel!.partnerProfileImageData.bind({ [weak self] imageData in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.partnerProfileUIImageView.image = UIImage(data: imageData)
-            }
-        })
+        coupleTabViewModelBinding()
     }
     
     // MARK: Functions
     //
-    // Firebase Data 불러오는 메서드
-    // 불러오면 컬렉션 뷰 reaload
-    //
-    fileprivate func loadFirebaseData(completion: @escaping () -> ()) {
+    private func loadFirebaseData(completion: @escaping () -> ()) {
         var count = 0
         guard let localNameText = LocalName.randomElement()?.key else { return }
         FirebaseManager.shared.firestore.collection("\(localNameText)").getDocuments { [self] (querySnapshot, error) in
             guard error == nil else { return }
             for document in querySnapshot!.documents {
-                var datePlaceValue = DatePlace()
+                var datePlaceValue = DatePlaceModel()
                 
-                datePlaceValue.modifyState = document.data()["modifyState"] as! Bool
-                if datePlaceValue.modifyState == true { continue }
+                datePlaceValue.modifyStateCheck = document.data()["modifyState"] as! Bool
+                if datePlaceValue.modifyStateCheck == true { continue }
                 
                 datePlaceValue.placeName = document.documentID
                 datePlaceValue.address = document.data()["address"] as! String
@@ -238,17 +194,17 @@ final class CoupleTabViewController: UIViewController {
                 datePlaceValue.longitude = document.data()["longitude"] as! String
                 
                 guard let localName = LocalName[localNameText] else { return }
-                titleDatePlace.text = "\(localName)의 오늘 장소"
+                datePlaceTitle.text = "\(localName)의 오늘 장소"
                 mainDatePlaceList.append(datePlaceValue)
                 count += 1
                 
                 // 그냥 컬렉션 뷰 옆으로 하나씩 넘어갈 때 마다 다운해도 되는데, 처음 들어가면 페이지 넘어갈 때 마다 다운, 캐시처리하는 indicator 화면 봐야함
-                // downloadImage -> imageUrlArray 하나씩 돌면서 url 캐시에 있나 없나 확인해서 없으면 미리 다운
+                // downloadImageAndCache -> imageUrlArray 하나씩 돌면서 url 캐시에 있나 없나 확인해서 없으면 미리 다운
                 // 처음 들어가더라도 이 친구 덕분에 캐시처리가 모두 완료된 상태라 indicator 볼 필요없음
                 //
                 DispatchQueue.global().async { [weak self] in
                     guard let self = self else { return }
-                    self.downloadImage(with: datePlaceValue.imageUrl.first!)
+                    self.downloadImageAndCache(with: datePlaceValue.imageUrl.first!)
                 }
                 
                 if count == 5 { break }
@@ -257,18 +213,14 @@ final class CoupleTabViewController: UIViewController {
             completion()
         }
     }
-    
-    // 이미지 캐시 처리
-    //
-    private func downloadImage(with urlString: String) {
+    private func downloadImageAndCache(with urlString: String) {
         guard let url = URL(string: urlString) else { return }
         ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
             switch result {
             case .success(let value):
-                if value.image != nil {
-                    //캐시가 존재하는 경우
-                } else {
-                    //캐시가 존재하지 않는 경우
+                if value.image != nil { //캐시가 존재하는 경우
+                    
+                } else { //캐시가 존재하지 않는 경우
                     let resource = ImageResource(downloadURL: url)
                     KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
                         switch result {
@@ -284,14 +236,51 @@ final class CoupleTabViewController: UIViewController {
             }
         }
     }
+    private func coupleTabViewModelBinding() {
+        guard let coupleTabViewModel = coupleTabViewModel else { return }
+        coupleTabViewModel.beginCoupleDay.bind { [weak self] beginCoupleDay in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.dayText.text = beginCoupleDay
+            }
+            // watch, days 택스트 value는 updateApplicationContext 방법으로 연동
+            //
+            let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
+            try? WCSession.default.updateApplicationContext(dayData)
+        }
+        coupleTabViewModel.mainImageData.bind { [weak self] imageData in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.mainImageView.image = UIImage(data: imageData)
+                if !self.loadingCheck {
+                    self.afterImageLoadingView()
+                    self.loadingCheck = true
+                }
+                
+                // watch, 메인 이미지는 transferUserInfo 방법으로 이미지 연동
+                // watch 앱에 보내는 image, 크기 제한이 심해서 0.1 화질로 보냄 -> 0.1이 제일 작은 크기인 듯..? 0.1이 0.01, 0.001 이랑 차이없음
+                //
+                guard let data = UIImage(data: coupleTabViewModel.mainImageData.value)?.jpegData(compressionQuality: 0.1) else { return }
+                let imageData: [String: Any] = ["imageData": data]
+                WCSession.default.transferUserInfo(imageData)
+            }
+        }
+        coupleTabViewModel.myProfileImageData.bind({ [weak self] imageData in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.myProfileUIImageView.image = UIImage(data: imageData)
+            }
+        })
+        coupleTabViewModel.partnerProfileImageData.bind({ [weak self] imageData in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.partnerProfileUIImageView.image = UIImage(data: imageData)
+            }
+        })
+    }
     
-    // 이미지 불러오는동안 보이는 임시 뷰
-    //
-    fileprivate func beforeLoadingSetupView() {
+    private func beforeImageLoadingView() {
         view.backgroundColor = UIColor(named: "bgColor")
-        
-        // 이미지 로딩 뷰 세팅
-        //
         mainImageActivityIndicatorView.startAnimating()
         mainImageActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         myProfileImageActivityIndicatorView.startAnimating()
@@ -301,14 +290,8 @@ final class CoupleTabViewController: UIViewController {
         
         setUpView(imageLoadingFlag: false)
     }
-    
-    // 이미지 불러오고나서 보이는 뷰
-    //
-    fileprivate func afterLoadingSetupView() {
+    private func afterImageLoadingView() {
         view.backgroundColor = UIColor(named: "bgColor")
-        
-        // 이미지 로딩 뷰 제거
-        //
         profileImageActivityIndicatorView.stopAnimating()
         myProfileImageActivityIndicatorView.stopAnimating()
         mainImageActivityIndicatorView.stopAnimating()
@@ -316,31 +299,26 @@ final class CoupleTabViewController: UIViewController {
         setUpView(imageLoadingFlag: true)
     }
     
-    fileprivate func setUpView(imageLoadingFlag: Bool) {
-        
-        // 내 프로필 사진 변경 제스처
-        //
+    private func setUpView(imageLoadingFlag: Bool) {
         let tapGestureMyProfileUIImageView = UITapGestureRecognizer(target: self, action: #selector(myProfileTap(_:)))
         myProfileUIImageView.addGestureRecognizer(tapGestureMyProfileUIImageView)
         myProfileUIImageView.isUserInteractionEnabled = true
-        myProfileUIImageView.layer.cornerRadius = CommonSize.coupleProfileSize/2 // 둥글게
+        myProfileUIImageView.layer.cornerRadius = CommonSize.coupleProfileSize / 2
         myProfileUIImageView.clipsToBounds = true
         
-        // 상대방 프로필 사진 변경 제스처
-        //
         let tapGesturePartnerProfileUIImageView = UITapGestureRecognizer(target: self, action: #selector(partnerProfileTap(_:)))
         partnerProfileUIImageView.isUserInteractionEnabled = true
         partnerProfileUIImageView.addGestureRecognizer(tapGesturePartnerProfileUIImageView)
-        partnerProfileUIImageView.layer.cornerRadius = CommonSize.coupleProfileSize/2 // 둥글게
+        partnerProfileUIImageView.layer.cornerRadius = CommonSize.coupleProfileSize / 2
         partnerProfileUIImageView.clipsToBounds = true
         
         let imagePartView = imageLoadingFlag ? self.mainImageView : self.mainImageActivityIndicatorView
         
-        view.addSubview(coupleTabStackView)
-        coupleTabStackView.addArrangedSubview(topTabBackView)
-        coupleTabStackView.addArrangedSubview(imagePartView)
-        coupleTabStackView.addArrangedSubview(coupleStackView)
-        coupleTabStackView.addArrangedSubview(activityIndicator)
+        view.addSubview(allContentStackView)
+        allContentStackView.addArrangedSubview(topTabBackView)
+        allContentStackView.addArrangedSubview(imagePartView)
+        allContentStackView.addArrangedSubview(profileImageDayStackView)
+        allContentStackView.addArrangedSubview(activityIndicator)
         
         // 광고 무효트래픽으로 인한 게재 제한.. 일단 광고 제거
         //
@@ -354,19 +332,16 @@ final class CoupleTabViewController: UIViewController {
         // admobView.load(GADRequest())
         // admobView.delegate = self
         
-        coupleStackView.addArrangedSubview(myProfileUIImageView)
-        coupleStackView.addArrangedSubview(iconDayStackView)
-        coupleStackView.addArrangedSubview(partnerProfileUIImageView)
+        profileImageDayStackView.addArrangedSubview(myProfileUIImageView)
+        profileImageDayStackView.addArrangedSubview(loveIconDayStackView)
+        profileImageDayStackView.addArrangedSubview(partnerProfileUIImageView)
         
-        iconDayStackView.addArrangedSubview(loveIconView)
-        iconDayStackView.addArrangedSubview(mainTextLabel)
+        loveIconDayStackView.addArrangedSubview(loveIconView)
+        loveIconDayStackView.addArrangedSubview(dayText)
         
-        coupleTabStackView.setCustomSpacing(15, after: imagePartView)
-        coupleTabStackView.setCustomSpacing(10, after: coupleStackView)
+        allContentStackView.setCustomSpacing(15, after: imagePartView)
+        allContentStackView.setCustomSpacing(10, after: profileImageDayStackView)
         
-        // set autolayout
-        // UIScreen.main.bounds.size.height -> 디바이스 별 height 이용해서 해상도 비율 맞춤
-        //
         NSLayoutConstraint.activate([
             myProfileUIImageView.widthAnchor.constraint(equalToConstant: CommonSize.coupleProfileSize),
             myProfileUIImageView.heightAnchor.constraint(equalToConstant: CommonSize.coupleProfileSize),
@@ -384,39 +359,32 @@ final class CoupleTabViewController: UIViewController {
             imagePartView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             imagePartView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             
-            coupleStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 45),
-            coupleStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -45),
-            coupleStackView.heightAnchor.constraint(equalToConstant: CommonSize.coupleStackViewHeightSize),
+            profileImageDayStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 45),
+            profileImageDayStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -45),
+            profileImageDayStackView.heightAnchor.constraint(equalToConstant: CommonSize.coupleStackViewHeightSize),
             
-            coupleTabStackView.topAnchor.constraint(equalTo: view.topAnchor),
-            coupleTabStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            coupleTabStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            coupleTabStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            allContentStackView.topAnchor.constraint(equalTo: view.topAnchor),
+            allContentStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            allContentStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            allContentStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
     }
     @objc func myProfileTap(_ gesture: UITapGestureRecognizer) {
-        whoProfileChange = "my"
+        whoProfileChangeCheck = "my"
         self.present(imagePickerController, animated: true, completion: nil)
     }
     @objc func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
-        whoProfileChange = "partner"
+        whoProfileChangeCheck = "partner"
         self.present(imagePickerController, animated: true, completion: nil)
     }
 }
 
 // MARK: Extension
 //
-// ImagePicker + CropViewController
-//
 extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
     
-    // ImagePicker
-    //
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let imageData = info[.editedImage] is UIImage ? info[UIImagePickerController.InfoKey.editedImage] : info[UIImagePickerController.InfoKey.originalImage]
-        
-        // 이미지 고르면 이미지피커 dismiis 하고 이미지 데이터 넘기면서 presentCropViewController 띄우기
-        //
         dismiss(animated: true) {
             self.presentCropViewController(image: imageData as! UIImage)
         }
@@ -425,42 +393,26 @@ extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigati
         dismiss(animated: true, completion: nil)
     }
     
-    // CropViewController
-    // circular -> 범위 둥글게, aspectRatioLockEnabled-> 비율 고정
-    //
     func presentCropViewController(image: UIImage) {
         let image: UIImage = image
-        let cropViewController = CropViewController(croppingStyle: .circular, image: image)
+        let cropViewController = CropViewController(croppingStyle: .circular, image: image) // circular -> 이미지 범위 둥글게
         cropViewController.delegate = self
-        cropViewController.aspectRatioLockEnabled = true
+        cropViewController.aspectRatioLockEnabled = true // aspectRatioLockEnabled-> 비율 고정
         cropViewController.aspectRatioPickerButtonHidden = true
         cropViewController.doneButtonTitle = "완료"
         cropViewController.cancelButtonTitle = "취소"
         present(cropViewController, animated: true, completion: nil)
     }
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        
-        // 내 프로필 변경, 상대 프로필 변경
-        //
-        if whoProfileChange == "my" {
+        guard let coupleTabViewModel = coupleTabViewModel else { return }
+        if whoProfileChangeCheck == "my" {
             RealmManager.shared.updateMyProfileImage(myProfileImage: image)
-            self.coupleTabViewModel!.setMyProfileIcon()
+            coupleTabViewModel.setMyProfileIcon()
         } else {
             RealmManager.shared.updatePartnerProfileImage(partnerProfileImage: image)
-            self.coupleTabViewModel!.setPartnerProfileIcon()
+            coupleTabViewModel.setPartnerProfileIcon()
         }
         dismiss(animated: true, completion: nil)
-    }
-}
-
-// Google AdMob Delegate
-//
-extension CoupleTabViewController : GADBannerViewDelegate {
-    public func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        bannerView.alpha = 0
-        UIView.animate(withDuration: 1) {
-            bannerView.alpha = 1
-        }
     }
 }
 
@@ -473,7 +425,7 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         if self.mainDatePlaceList.count > indexPath.item {
             if let cell = cell as? DatePlaceCollectionViewCell {
-                cell.imageView.image = nil
+                cell.datePlaceImageView.image = nil
                 cell.datePlaceModel = mainDatePlaceList[indexPath.item]
             }
         }
@@ -481,14 +433,12 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // cell click
-        //
-        let datePlaceViewController = DatePlaceViewController()
-        datePlaceViewController.datePlace = mainDatePlaceList[indexPath.item]
-        self.navigationController?.pushViewController(datePlaceViewController, animated: true)
+        let detailDatePlaceViewController = DetailDatePlaceViewController()
+        detailDatePlaceViewController.datePlace = mainDatePlaceList[indexPath.item]
+        self.navigationController?.pushViewController(detailDatePlaceViewController, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: CommonSize.coupleCellImageSize + 10, height: carouselCollectionView.frame.height)
+        return CGSize(width: CommonSize.coupleCellImageSize + 10, height: datePlacelCollectionView.frame.height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -496,3 +446,14 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension CoupleTabViewController: UICollectionViewDelegate {}
+
+// Google AdMob Delegate
+//
+extension CoupleTabViewController : GADBannerViewDelegate {
+    public func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 1) {
+            bannerView.alpha = 1
+        }
+    }
+}

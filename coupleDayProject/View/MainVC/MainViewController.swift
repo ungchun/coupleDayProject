@@ -2,11 +2,11 @@ import UIKit
 import Combine
 import Kingfisher
 
-final class ContainerViewController: UIViewController {
+final class MainViewController: UIViewController {
     
     // MARK: Properties
     //
-    weak var coordinator: ContainerViewCoordinator?
+    weak var coordinator: MainViewCoordinator?
     
     private let coupleTabViewModel = CoupleTabViewModel()
     private let containerViewModelCombine = ContainerViewModelCombine()
@@ -20,7 +20,7 @@ final class ContainerViewController: UIViewController {
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
         return label
     }()
-    private let setBtn: UIImageView = { // 설정 버튼
+    private let settingBtn: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "gearshape")
@@ -38,14 +38,14 @@ final class ContainerViewController: UIViewController {
     }()
     
     private lazy var btnStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [anniversaryBtn, setBtn])
+        let stackView = UIStackView(arrangedSubviews: [anniversaryBtn, settingBtn])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         stackView.spacing = 20
         return stackView
     }()
-    private lazy var stackView: UIStackView = { // appNameLabel + 버튼
+    private lazy var allContentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [appNameLabel, btnStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -61,7 +61,7 @@ final class ContainerViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
     }
     override func viewDidLoad() {
-        setupView()
+        setUpView()
         
         containerViewModelCombine.receivedCoupleDayData = coupleTabViewModel.beginCoupleDay.value
         self.containerViewModelCombine.$appNameLabelValue.sink { [weak self] updateLabel in
@@ -79,53 +79,64 @@ final class ContainerViewController: UIViewController {
     
     // MARK: Functions
     //
-    fileprivate func setupView() {
+    fileprivate func setUpView() {
         
         view.backgroundColor = UIColor(named: "bgColor")
-        view.addSubview(stackView)
+        view.addSubview(allContentStackView)
         
-        // 버튼 클릭 제스쳐
-        //
-        let setTapGesture = UITapGestureRecognizer(target: self, action: #selector(setBtnTap(_:)))
-        setBtn.isUserInteractionEnabled = true
-        setBtn.addGestureRecognizer(setTapGesture)
-        let anniversaryTapGesture = UITapGestureRecognizer(target: self, action: #selector(setAnniversaryTap(_:)))
+        let settingTapGesture = UITapGestureRecognizer(target: self, action: #selector(settingBtnTap(_:)))
+        settingBtn.isUserInteractionEnabled = true
+        settingBtn.addGestureRecognizer(settingTapGesture)
+        let anniversaryTapGesture = UITapGestureRecognizer(target: self, action: #selector(anniversaryBtnTap(_:)))
         anniversaryBtn.isUserInteractionEnabled = true
         anniversaryBtn.addGestureRecognizer(anniversaryTapGesture)
         
-        // set autolayout
-        //
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stackView.heightAnchor.constraint(equalToConstant: 50),
-            stackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-            stackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+            allContentStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            allContentStackView.heightAnchor.constraint(equalToConstant: 50),
+            allContentStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 20),
+            allContentStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
         ])
         
-        // add child tabman
-        //
         let mainTabManVC = TabManViewController(coupleTabViewModel: coupleTabViewModel)
         addChild(mainTabManVC)
         view.addSubview(mainTabManVC.view)
         mainTabManVC.didMove(toParent: self)
         mainTabManVC.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainTabManVC.view.topAnchor.constraint(equalTo: stackView.bottomAnchor),
+            mainTabManVC.view.topAnchor.constraint(equalTo: allContentStackView.bottomAnchor),
             mainTabManVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             mainTabManVC.view.leftAnchor.constraint(equalTo: view.leftAnchor),
             mainTabManVC.view.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
     }
-    @objc func setBtnTap(_ gesture: UITapGestureRecognizer) {
+    @objc func settingBtnTap(_ gesture: UITapGestureRecognizer) {
         // 설정을 통해 커플날짜랑 배경사진을 바꿔야함 -> 같은 coupleTabViewModel의 데이터 사용해야함 -> coupleTabViewModel 주입
         //
         coordinator?.showSettingView(coupleTabViewModel: coupleTabViewModel)
     }
-    @objc func setAnniversaryTap(_ gesture: UITapGestureRecognizer) {
+    @objc func anniversaryBtnTap(_ gesture: UITapGestureRecognizer) {
         let anniversaryViewController = AnniversaryViewController()
         anniversaryViewController.modalPresentationStyle = .custom
         anniversaryViewController.transitioningDelegate = self
         coordinator?.showAnniversaryView(vc: anniversaryViewController)
+    }
+}
+
+// MARK: Extension
+//
+extension MainViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        PresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
+
+extension UIView {
+    func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
     }
 }
 
@@ -180,22 +191,5 @@ final class PresentationController: UIPresentationController {
     
     @objc func dismissController(){
         self.presentedViewController.dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK: Extension
-//
-extension ContainerViewController: UIViewControllerTransitioningDelegate {
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        PresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}
-
-extension UIView {
-    func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
     }
 }

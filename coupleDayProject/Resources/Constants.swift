@@ -47,25 +47,25 @@ struct RealmManager {
         }
     }
     
-    func getUserDatas() -> [UserModel] {
-        Array(realm.objects(UserModel.self))
+    func getUserDatas() -> [RealmUserModel] {
+        Array(realm.objects(RealmUserModel.self))
     }
-    func getImageDatas() -> [ImageModel] {
-        Array(realm.objects(ImageModel.self))
+    func getImageDatas() -> [RealmImageModel] {
+        Array(realm.objects(RealmImageModel.self))
     }
-    func writeUserData(userData: UserModel) {
+    func writeUserData(userData: RealmUserModel) {
         try? realm.write({
             realm.add(userData)
         })
     }
-    func writeImageData(imageData: ImageModel) {
+    func writeImageData(imageData: RealmImageModel) {
         try? realm.write({
             realm.add(imageData)
         })
     }
     func updateBeginCoupleDay(datePicker: UIDatePicker) {
         try? realm.write({
-            if RealmManager.shared.getUserDatas().first!.zeroDayStart {
+            if RealmManager.shared.getUserDatas().first!.zeroDayStartCheck {
                 RealmManager.shared.getUserDatas().first!.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
             } else {
                 RealmManager.shared.getUserDatas().first!.beginCoupleDay = Int(Calendar.current.date(byAdding: .day, value: -1, to: datePicker.date.toString.toDate)!.millisecondsSince1970)
@@ -79,18 +79,18 @@ struct RealmManager {
     //
     func updateMainImage(mainImage: UIImage) {
         try? realm.write({
-            RealmManager.shared.getImageDatas().first!.mainImageData = (mainImage.pngData()?.count)! > 10000000 ? mainImage.jpegData(compressionQuality: 0.25) : mainImage.jpegData(compressionQuality: 0.5)
+            RealmManager.shared.getImageDatas().first!.homeMainImage = (mainImage.pngData()?.count)! > 10000000 ? mainImage.jpegData(compressionQuality: 0.25) : mainImage.jpegData(compressionQuality: 0.5)
         })
         WidgetCenter.shared.reloadAllTimelines() // 위젯 새로고침
     }
     func updateMyProfileImage(myProfileImage: UIImage) {
         try? realm.write({
-            RealmManager.shared.getImageDatas().first!.myProfileImageData = (myProfileImage.pngData()?.count)! > 16000000 ? myProfileImage.jpegData(compressionQuality: 0.25) : myProfileImage.jpegData(compressionQuality: 0.5)
+            RealmManager.shared.getImageDatas().first!.myProfileImage = (myProfileImage.pngData()?.count)! > 16000000 ? myProfileImage.jpegData(compressionQuality: 0.25) : myProfileImage.jpegData(compressionQuality: 0.5)
         })
     }
     func updatePartnerProfileImage(partnerProfileImage: UIImage) {
         try? realm.write({
-            RealmManager.shared.getImageDatas().first!.partnerProfileImageData = (partnerProfileImage.pngData()?.count)! > 16000000 ? partnerProfileImage.jpegData(compressionQuality: 0.25) : partnerProfileImage.jpegData(compressionQuality: 0.5)
+            RealmManager.shared.getImageDatas().first!.partnerProfileImage = (partnerProfileImage.pngData()?.count)! > 16000000 ? partnerProfileImage.jpegData(compressionQuality: 0.25) : partnerProfileImage.jpegData(compressionQuality: 0.5)
         })
     }
 }

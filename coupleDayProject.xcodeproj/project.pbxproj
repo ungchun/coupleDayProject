@@ -22,8 +22,8 @@
 		BC0DF1BD289267240036EC51 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = BC0DF1BC289267240036EC51 /* FirebaseFunctions */; };
 		BC0DF1BF289267240036EC51 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = BC0DF1BE289267240036EC51 /* FirebaseMessaging */; };
 		BC0DF1C1289267240036EC51 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = BC0DF1C0289267240036EC51 /* FirebaseStorage */; };
-		BC0DF1C3289278170036EC51 /* AnniversaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0DF1C2289278170036EC51 /* AnniversaryCell.swift */; };
-		BC24929828BE08B4003FC64A /* DatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC24929728BE08B4003FC64A /* DatePlaceViewController.swift */; };
+		BC0DF1C3289278170036EC51 /* AnniversaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0DF1C2289278170036EC51 /* AnniversaryTableViewCell.swift */; };
+		BC24929828BE08B4003FC64A /* DetailDatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC24929728BE08B4003FC64A /* DetailDatePlaceViewController.swift */; };
 		BC2AF6E8289A9C0800A54A3D /* DatePlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AF6E7289A9C0800A54A3D /* DatePlaceCollectionViewCell.swift */; };
 		BC2CDEFB287C32EA002433DC /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = BC2CDEFA287C32EA002433DC /* GoogleMobileAds */; };
 		BC78B4EB287D7B1A00DF10C6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC78B4E9287D7B1A00DF10C6 /* Interface.storyboard */; };
@@ -36,10 +36,10 @@
 		BC78B500287D7B1B00DF10C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC78B4FF287D7B1B00DF10C6 /* Assets.xcassets */; };
 		BC78B505287D7B1B00DF10C6 /* coupleDayWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BC78B4E7287D7B1A00DF10C6 /* coupleDayWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */; };
-		BC8190C9286EFE6D00FAD555 /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C8286EFE6D00FAD555 /* StoryCell.swift */; };
+		BC8190C9286EFE6D00FAD555 /* StoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8190C8286EFE6D00FAD555 /* StoryTableViewCell.swift */; };
 		BC83F8942876AC170027235E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BC83F8932876AC170027235E /* Lottie */; };
 		BC83F8962876ACD30027235E /* lottieFile.json in Resources */ = {isa = PBXBuildFile; fileRef = BC83F8952876ACD30027235E /* lottieFile.json */; };
-		BC83F8982876AD210027235E /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC83F8972876AD210027235E /* LoadingViewController.swift */; };
+		BC83F8982876AD210027235E /* AppLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC83F8972876AD210027235E /* AppLoadingViewController.swift */; };
 		BC83F8CA2876D2200027235E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC83F89F2876C70A0027235E /* WidgetKit.framework */; };
 		BC83F8CB2876D2200027235E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC83F8A12876C70A0027235E /* SwiftUI.framework */; };
 		BC83F8CE2876D2200027235E /* coupleDayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC83F8CD2876D2200027235E /* coupleDayWidget.swift */; };
@@ -59,23 +59,23 @@
 		BCB0B16B28507C2300DE7196 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B16A28507C2300DE7196 /* Tabman */; };
 		BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17628507D0B00DE7196 /* Constants.swift */; };
 		BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17728507D0B00DE7196 /* Extensions.swift */; };
-		BCB0B18328507D2300DE7196 /* BeginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17A28507D2200DE7196 /* BeginViewController.swift */; };
+		BCB0B18328507D2300DE7196 /* SetBeginDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17A28507D2200DE7196 /* SetBeginDayViewController.swift */; };
 		BCB0B18428507D2300DE7196 /* TabManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17C28507D2300DE7196 /* TabManViewController.swift */; };
 		BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */; };
 		BCB0B18728507D2300DE7196 /* AnniversaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18028507D2300DE7196 /* AnniversaryViewController.swift */; };
-		BCB0B18828507D2300DE7196 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18128507D2300DE7196 /* ContainerViewController.swift */; };
+		BCB0B18828507D2300DE7196 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18128507D2300DE7196 /* MainViewController.swift */; };
 		BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18228507D2300DE7196 /* SettingViewController.swift */; };
-		BCB0B18B28507D2E00DE7196 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18A28507D2E00DE7196 /* UserModel.swift */; };
+		BCB0B18B28507D2E00DE7196 /* RealmUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18A28507D2E00DE7196 /* RealmUserModel.swift */; };
 		BCC75699286AA30900CD523A /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BCC75698286AA30900CD523A /* CropViewController */; };
 		BCC7569B286AA30900CD523A /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BCC7569A286AA30900CD523A /* TOCropViewController */; };
-		BCC9F97928729B4900809A26 /* StoryDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC9F97828729B4900809A26 /* StoryDay.swift */; };
-		BCC9F97B2872C15600809A26 /* Anniversary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC9F97A2872C15600809A26 /* Anniversary.swift */; };
+		BCC9F97928729B4900809A26 /* StoryStandardDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC9F97828729B4900809A26 /* StoryStandardDayModel.swift */; };
+		BCC9F97B2872C15600809A26 /* AnniversaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC9F97A2872C15600809A26 /* AnniversaryModel.swift */; };
 		BCEFABFE28AA34C3004983FF /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFABFD28AA34C3004983FF /* FirebaseManager.swift */; };
-		BCEFAC0028AA35F9004983FF /* DatePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFABFF28AA35F9004983FF /* DatePlace.swift */; };
+		BCEFAC0028AA35F9004983FF /* DatePlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFABFF28AA35F9004983FF /* DatePlaceModel.swift */; };
 		BCF03FE0286D6C0100C28F71 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BCF03FDF286D6C0100C28F71 /* Kingfisher */; };
 		BCF0443C286C37B100E9CEAD /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */; };
 		BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */; };
-		BCF1B3602868237D00641ABD /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1B35F2868237D00641ABD /* ImageModel.swift */; };
+		BCF1B3602868237D00641ABD /* RealmImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1B35F2868237D00641ABD /* RealmImageModel.swift */; };
 		BCF4267528C0CC6D00043887 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BCF4267428C0CC6D00043887 /* SnapKit */; };
 		BCF7984A285732780009A78C /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
 		BCF7984C285732850009A78C /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
@@ -146,8 +146,8 @@
 		BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.otf; sourceTree = "<group>"; };
 		BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.otf; sourceTree = "<group>"; };
 		BC0DF1912892595E0036EC51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BC0DF1C2289278170036EC51 /* AnniversaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnniversaryCell.swift; sourceTree = "<group>"; };
-		BC24929728BE08B4003FC64A /* DatePlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceViewController.swift; sourceTree = "<group>"; };
+		BC0DF1C2289278170036EC51 /* AnniversaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnniversaryTableViewCell.swift; sourceTree = "<group>"; };
+		BC24929728BE08B4003FC64A /* DetailDatePlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDatePlaceViewController.swift; sourceTree = "<group>"; };
 		BC2AF6E7289A9C0800A54A3D /* DatePlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC78B4E7287D7B1A00DF10C6 /* coupleDayWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC78B4EA287D7B1A00DF10C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -161,9 +161,9 @@
 		BC78B501287D7B1B00DF10C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC78B502287D7B1B00DF10C6 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTabViewController.swift; sourceTree = "<group>"; };
-		BC8190C8286EFE6D00FAD555 /* StoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCell.swift; sourceTree = "<group>"; };
+		BC8190C8286EFE6D00FAD555 /* StoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTableViewCell.swift; sourceTree = "<group>"; };
 		BC83F8952876ACD30027235E /* lottieFile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieFile.json; sourceTree = "<group>"; };
-		BC83F8972876AD210027235E /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		BC83F8972876AD210027235E /* AppLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoadingViewController.swift; sourceTree = "<group>"; };
 		BC83F89F2876C70A0027235E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		BC83F8A12876C70A0027235E /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		BC83F8C92876D2200027235E /* coupleDayWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = coupleDayWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,20 +185,20 @@
 		BCB0B15F2850770000DE7196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCB0B17628507D0B00DE7196 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BCB0B17728507D0B00DE7196 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		BCB0B17A28507D2200DE7196 /* BeginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeginViewController.swift; sourceTree = "<group>"; };
+		BCB0B17A28507D2200DE7196 /* SetBeginDayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetBeginDayViewController.swift; sourceTree = "<group>"; };
 		BCB0B17C28507D2300DE7196 /* TabManViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabManViewController.swift; sourceTree = "<group>"; };
 		BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoupleTabViewController.swift; sourceTree = "<group>"; };
 		BCB0B18028507D2300DE7196 /* AnniversaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnniversaryViewController.swift; sourceTree = "<group>"; };
-		BCB0B18128507D2300DE7196 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		BCB0B18128507D2300DE7196 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BCB0B18228507D2300DE7196 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		BCB0B18A28507D2E00DE7196 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		BCC9F97828729B4900809A26 /* StoryDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDay.swift; sourceTree = "<group>"; };
-		BCC9F97A2872C15600809A26 /* Anniversary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anniversary.swift; sourceTree = "<group>"; };
+		BCB0B18A28507D2E00DE7196 /* RealmUserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmUserModel.swift; sourceTree = "<group>"; };
+		BCC9F97828729B4900809A26 /* StoryStandardDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryStandardDayModel.swift; sourceTree = "<group>"; };
+		BCC9F97A2872C15600809A26 /* AnniversaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnniversaryModel.swift; sourceTree = "<group>"; };
 		BCEFABFD28AA34C3004983FF /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		BCEFABFF28AA35F9004983FF /* DatePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlace.swift; sourceTree = "<group>"; };
+		BCEFABFF28AA35F9004983FF /* DatePlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceModel.swift; sourceTree = "<group>"; };
 		BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModel.swift; sourceTree = "<group>"; };
 		BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTabViewModel.swift; sourceTree = "<group>"; };
-		BCF1B35F2868237D00641ABD /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		BCF1B35F2868237D00641ABD /* RealmImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmImageModel.swift; sourceTree = "<group>"; };
 		BCF79849285732780009A78C /* GangwonEduAllBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.ttf; sourceTree = "<group>"; };
 		BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -257,14 +257,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		BC24929628BE089B003FC64A /* DatePlace */ = {
+		BC24929628BE089B003FC64A /* DetailDatePlace */ = {
 			isa = PBXGroup;
 			children = (
-				BC24929728BE08B4003FC64A /* DatePlaceViewController.swift */,
+				BC24929728BE08B4003FC64A /* DetailDatePlaceViewController.swift */,
 				BCA646FB28C326E20011C8B9 /* DatePlaceCarouselView.swift */,
 				BCA646FD28C328480011C8B9 /* CarouselCollectionViewCell.swift */,
 			);
-			path = DatePlace;
+			path = DetailDatePlace;
 			sourceTree = "<group>";
 		};
 		BC7162F128B1E7C9001480BA /* Coordinator */ = {
@@ -377,8 +377,8 @@
 		BCB0B16628507BEE00DE7196 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BC83F8972876AD210027235E /* LoadingViewController.swift */,
-				BCB0B17A28507D2200DE7196 /* BeginViewController.swift */,
+				BC83F8972876AD210027235E /* AppLoadingViewController.swift */,
+				BCB0B17A28507D2200DE7196 /* SetBeginDayViewController.swift */,
 				BCB0B18228507D2300DE7196 /* SettingViewController.swift */,
 				BCB0B17B28507D2300DE7196 /* MainVC */,
 			);
@@ -388,11 +388,11 @@
 		BCB0B16828507BF900DE7196 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BCB0B18A28507D2E00DE7196 /* UserModel.swift */,
-				BCF1B35F2868237D00641ABD /* ImageModel.swift */,
-				BCC9F97828729B4900809A26 /* StoryDay.swift */,
-				BCC9F97A2872C15600809A26 /* Anniversary.swift */,
-				BCEFABFF28AA35F9004983FF /* DatePlace.swift */,
+				BCB0B18A28507D2E00DE7196 /* RealmUserModel.swift */,
+				BCF1B35F2868237D00641ABD /* RealmImageModel.swift */,
+				BCC9F97828729B4900809A26 /* StoryStandardDayModel.swift */,
+				BCC9F97A2872C15600809A26 /* AnniversaryModel.swift */,
+				BCEFABFF28AA35F9004983FF /* DatePlaceModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -401,7 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB0B17C28507D2300DE7196 /* TabManViewController.swift */,
-				BCB0B18128507D2300DE7196 /* ContainerViewController.swift */,
+				BCB0B18128507D2300DE7196 /* MainViewController.swift */,
 				BCB0B17D28507D2300DE7196 /* TabVC */,
 			);
 			path = MainVC;
@@ -410,7 +410,6 @@
 		BCB0B17D28507D2300DE7196 /* TabVC */ = {
 			isa = PBXGroup;
 			children = (
-				BC24929628BE089B003FC64A /* DatePlace */,
 				BCF03FDC286D618B00C28F71 /* Couple */,
 				BCF03FDB286D618200C28F71 /* Story */,
 				BCF03FDD286D61D500C28F71 /* Anniversary */,
@@ -430,7 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */,
-				BC8190C8286EFE6D00FAD555 /* StoryCell.swift */,
+				BC8190C8286EFE6D00FAD555 /* StoryTableViewCell.swift */,
 			);
 			path = Story;
 			sourceTree = "<group>";
@@ -440,6 +439,7 @@
 			children = (
 				BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */,
 				BC2AF6E7289A9C0800A54A3D /* DatePlaceCollectionViewCell.swift */,
+				BC24929628BE089B003FC64A /* DetailDatePlace */,
 			);
 			path = Couple;
 			sourceTree = "<group>";
@@ -448,7 +448,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB0B18028507D2300DE7196 /* AnniversaryViewController.swift */,
-				BC0DF1C2289278170036EC51 /* AnniversaryCell.swift */,
+				BC0DF1C2289278170036EC51 /* AnniversaryTableViewCell.swift */,
 			);
 			path = Anniversary;
 			sourceTree = "<group>";
@@ -695,30 +695,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCB0B18B28507D2E00DE7196 /* UserModel.swift in Sources */,
-				BCB0B18328507D2300DE7196 /* BeginViewController.swift in Sources */,
-				BC0DF1C3289278170036EC51 /* AnniversaryCell.swift in Sources */,
+				BCB0B18B28507D2E00DE7196 /* RealmUserModel.swift in Sources */,
+				BCB0B18328507D2300DE7196 /* SetBeginDayViewController.swift in Sources */,
+				BC0DF1C3289278170036EC51 /* AnniversaryTableViewCell.swift in Sources */,
 				BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */,
 				BCEFABFE28AA34C3004983FF /* FirebaseManager.swift in Sources */,
-				BCC9F97928729B4900809A26 /* StoryDay.swift in Sources */,
+				BCC9F97928729B4900809A26 /* StoryStandardDayModel.swift in Sources */,
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
 				BCB0B18428507D2300DE7196 /* TabManViewController.swift in Sources */,
-				BC24929828BE08B4003FC64A /* DatePlaceViewController.swift in Sources */,
+				BC24929828BE08B4003FC64A /* DetailDatePlaceViewController.swift in Sources */,
 				BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */,
 				BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */,
-				BCF1B3602868237D00641ABD /* ImageModel.swift in Sources */,
+				BCF1B3602868237D00641ABD /* RealmImageModel.swift in Sources */,
 				BCA646FC28C326E20011C8B9 /* DatePlaceCarouselView.swift in Sources */,
 				BCA646FE28C328480011C8B9 /* CarouselCollectionViewCell.swift in Sources */,
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
 				BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */,
-				BC83F8982876AD210027235E /* LoadingViewController.swift in Sources */,
-				BCB0B18828507D2300DE7196 /* ContainerViewController.swift in Sources */,
+				BC83F8982876AD210027235E /* AppLoadingViewController.swift in Sources */,
+				BCB0B18828507D2300DE7196 /* MainViewController.swift in Sources */,
 				BC2AF6E8289A9C0800A54A3D /* DatePlaceCollectionViewCell.swift in Sources */,
-				BCC9F97B2872C15600809A26 /* Anniversary.swift in Sources */,
-				BCEFAC0028AA35F9004983FF /* DatePlace.swift in Sources */,
+				BCC9F97B2872C15600809A26 /* AnniversaryModel.swift in Sources */,
+				BCEFAC0028AA35F9004983FF /* DatePlaceModel.swift in Sources */,
 				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
-				BC8190C9286EFE6D00FAD555 /* StoryCell.swift in Sources */,
+				BC8190C9286EFE6D00FAD555 /* StoryTableViewCell.swift in Sources */,
 				BCB0B18728507D2300DE7196 /* AnniversaryViewController.swift in Sources */,
 				BCF0443C286C37B100E9CEAD /* ContainerViewModel.swift in Sources */,
 				BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */,

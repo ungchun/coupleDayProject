@@ -9,7 +9,7 @@ final class AnniversaryViewController: UIViewController {
     
     // MARK: Views
     //
-    private let anniversaryLabel: UILabel = {
+    private let anniversaryTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "커플 기념일"
@@ -33,7 +33,7 @@ final class AnniversaryViewController: UIViewController {
         return view
     }()
     
-    private let anniversaryTopStackView: UIStackView = { // label
+    private let topContentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -41,7 +41,7 @@ final class AnniversaryViewController: UIViewController {
         stackView.distribution = .fill
         return stackView
     }()
-    private let anniversaryStackView: UIStackView = { // label + divider + tableView + admob
+    private let allContentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -59,21 +59,31 @@ final class AnniversaryViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpView()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.didFinishAnniversaryView()
+    }
+    
+    // MARK: Functions
+    //
+    private func setUpView() {
         view.backgroundColor = UIColor(named: "bgColor")
         
         anniversaryTableView.backgroundColor = UIColor(named: "bgColor")
-        anniversaryTableView.register(AnniversaryCell.self, forCellReuseIdentifier: "AnniversaryTableViewCell")
+        anniversaryTableView.register(AnniversaryTableViewCell.self, forCellReuseIdentifier: "AnniversaryTableViewCell")
         anniversaryTableView.delegate = self
         anniversaryTableView.dataSource = self
         anniversaryTableView.separatorStyle = .none
         
-        view.addSubview(anniversaryTopStackView)
-        anniversaryTopStackView.addArrangedSubview(anniversaryLabel)
+        view.addSubview(topContentStackView)
+        topContentStackView.addArrangedSubview(anniversaryTitleLabel)
         
-        view.addSubview(anniversaryStackView)
-        anniversaryStackView.addArrangedSubview(anniversaryTopStackView)
-        anniversaryStackView.addArrangedSubview(divider)
-        anniversaryStackView.addArrangedSubview(anniversaryTableView)
+        view.addSubview(allContentStackView)
+        allContentStackView.addArrangedSubview(topContentStackView)
+        allContentStackView.addArrangedSubview(divider)
+        allContentStackView.addArrangedSubview(anniversaryTableView)
         
         // 광고 무효트래픽으로 인한 게재 제한.. 일단 광고 제거
         //
@@ -89,32 +99,23 @@ final class AnniversaryViewController: UIViewController {
         
         let tapcloseBtn = UITapGestureRecognizer(target: self, action: #selector(tapClose))
         
-        anniversaryTopStackView.isUserInteractionEnabled = true
-        anniversaryTopStackView.addGestureRecognizer(tapcloseBtn)
+        topContentStackView.isUserInteractionEnabled = true
+        topContentStackView.addGestureRecognizer(tapcloseBtn)
         
-        // set autolayout
-        //
         NSLayoutConstraint.activate([
             
             divider.heightAnchor.constraint(equalToConstant: 1),
             
-            anniversaryTopStackView.heightAnchor.constraint(equalToConstant: 50),
+            topContentStackView.heightAnchor.constraint(equalToConstant: 50),
             
-            anniversaryStackView.topAnchor.constraint(equalTo: self.view.topAnchor ,constant: 5),
-            anniversaryStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            anniversaryStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            anniversaryStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            allContentStackView.topAnchor.constraint(equalTo: self.view.topAnchor ,constant: 5),
+            allContentStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            allContentStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            allContentStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
         anniversaryTableView.rowHeight = 140
         anniversaryTableView.estimatedRowHeight = UITableView.automaticDimension
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        coordinator?.didFinishAnniversaryView()
-    }
-    
-    // MARK: Functions
-    //
     @objc func tapClose() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -124,14 +125,13 @@ final class AnniversaryViewController: UIViewController {
 //
 extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource {
     
+    // 현재 날짜 기준으로 지나지 않은 기념일 다 불러옴
+    //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        // 현재 날짜 기준으로 지나지 않은 기념일 다 불러옴
-        //
-        let nowDate = Date().millisecondsSince1970
-        let anniversaryFilter = Anniversary().AnniversaryModel.filter {dictValue in
+        let nowMillisecondDate = Date().millisecondsSince1970
+        let anniversaryFilter = AnniversaryModel().AnniversaryInfo.filter {dictValue in
             let keyValue = dictValue.keys.first
-            if nowDate < (keyValue?.toDate.millisecondsSince1970)! {
+            if nowMillisecondDate < (keyValue?.toDate.millisecondsSince1970)! {
                 return true
             } else {
                 return false
@@ -141,18 +141,18 @@ extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let nowDate = Date().millisecondsSince1970
-        let anniversaryFilter = Anniversary().AnniversaryModel.filter { dictValue in
+        let nowMillisecondDate = Date().millisecondsSince1970
+        let anniversaryFilter = AnniversaryModel().AnniversaryInfo.filter { dictValue in
             let keyValue = dictValue.keys.first
-            if nowDate < (keyValue?.toDate.millisecondsSince1970)! {
+            if nowMillisecondDate < (keyValue?.toDate.millisecondsSince1970)! {
                 return true
             } else {
                 return false
             }
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AnniversaryTableViewCell", for: indexPath) as? AnniversaryCell ?? AnniversaryCell()
-        cell.bind(dictValue: Anniversary().AnniversaryModel[indexPath.row + (Anniversary().AnniversaryModel.count - anniversaryFilter.count)], url: Anniversary().AnniversaryUrl[indexPath.row + (Anniversary().AnniversaryModel.count - anniversaryFilter.count)])
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AnniversaryTableViewCell", for: indexPath) as? AnniversaryTableViewCell ?? AnniversaryTableViewCell()
+        cell.setAnniversaryCellText(dictValue: AnniversaryModel().AnniversaryInfo[indexPath.row + (AnniversaryModel().AnniversaryInfo.count - anniversaryFilter.count)], url: AnniversaryModel().AnniversaryImageUrl[indexPath.row + (AnniversaryModel().AnniversaryInfo.count - anniversaryFilter.count)])
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor(named: "bgColor")
         return cell

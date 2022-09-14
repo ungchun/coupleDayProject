@@ -5,19 +5,13 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
     
     // MARK: Properties
     //
-    var datePlaceModel: DatePlace? {
-        didSet { bind() }
-    }
-    
-    fileprivate func bind() {
-        placeName.text = datePlaceModel?.placeName
-        placeShortAddress.text = datePlaceModel?.shortAddress
-        imageView.setImage(with: (datePlaceModel?.imageUrl.first)!)
+    var datePlaceModel: DatePlaceModel? {
+        didSet { datePlaceModelBinding() }
     }
     
     // MARK: Views
     //
-    var imageView: UIImageView = {
+    var datePlaceImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
@@ -25,14 +19,14 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
         imageView.clipsToBounds = true
         return imageView
     }()
-    private var placeName: UILabel = { // 장소
+    private var placeName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "GangwonEduAllLight", size: CommonSize.coupleCellTextBigSize)
         label.text = "장소"
         return label
     }()
-    private var placeShortAddress: UILabel = { // 위치
+    private var placeShortAddress: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "GangwonEduAllLight", size: CommonSize.coupleCellTextSmallSize)
@@ -41,7 +35,7 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var stackView: UIStackView = {
+    private lazy var allContentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -54,19 +48,19 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(stackView)
-        stackView.addArrangedSubview(imageView)
-        stackView.addArrangedSubview(placeName)
-        stackView.addArrangedSubview(placeShortAddress)
+        addSubview(allContentStackView)
+        allContentStackView.addArrangedSubview(datePlaceImageView)
+        allContentStackView.addArrangedSubview(placeName)
+        allContentStackView.addArrangedSubview(placeShortAddress)
         
-        stackView.setCustomSpacing(15, after: imageView)
+        allContentStackView.setCustomSpacing(15, after: datePlaceImageView)
         
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
-            imageView.heightAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
+            datePlaceImageView.widthAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
+            datePlaceImageView.heightAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
             
-            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            allContentStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            allContentStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
     required init?(coder: NSCoder) {
@@ -74,5 +68,13 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
     }
     override func prepareForReuse() {
         super.prepareForReuse()
+    }
+    
+    // MARK: Functions
+    //
+    private func datePlaceModelBinding() {
+        placeName.text = datePlaceModel?.placeName
+        placeShortAddress.text = datePlaceModel?.shortAddress
+        datePlaceImageView.setImage(with: (datePlaceModel?.imageUrl.first)!)
     }
 }

@@ -11,7 +11,7 @@ protocol Coordinator: AnyObject {
 }
 protocol AppCoordinatorting: Coordinator {
     func showBeginView()
-    func showContainerView()
+    func showMainView()
 }
 protocol BeginCoordinatorting: Coordinator {}
 protocol ContainerCoordinatorting: Coordinator {
@@ -34,7 +34,7 @@ final class AppCoordinator: AppCoordinatorting, BeginViewCoordinatorDelegate {
     }
     
     func start() {
-        let rootViewcontroller = LoadingViewController()
+        let rootViewcontroller = AppLoadingViewController()
         rootViewcontroller.coordinator = self
         navigationController.pushViewController(rootViewcontroller, animated: false)
     }
@@ -46,18 +46,18 @@ final class AppCoordinator: AppCoordinatorting, BeginViewCoordinatorDelegate {
         childCoordinator.append(child)
         child.start()
     }
-    func showContainerView() {
-        let child = ContainerViewCoordinator(navigationController: navigationController)
+    func showMainView() {
+        let child = MainViewCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
         childCoordinator.append(child)
         child.start()
     }
     
-    // BeginViewCoordinator로 부터 응답을 받으면 ContainerView로 이동
+    // BeginViewCoordinator로 부터 응답을 받으면 MainView로 이동
     //
     func didBeginSet(_ coordinator: BeginViewCoordinator) {
         self.childCoordinator = self.childCoordinator.filter { $0 !== coordinator }
-        self.showContainerView()
+        self.showMainView()
     }
     
     func childDidFinish(_ child: Coordinator) {
@@ -73,7 +73,7 @@ final class AppCoordinator: AppCoordinatorting, BeginViewCoordinatorDelegate {
 protocol BeginViewCoordinatorDelegate {
     func didBeginSet(_ coordinator: BeginViewCoordinator)
 }
-final class BeginViewCoordinator: BeginCoordinatorting, BeginViewControllerDelegate {
+final class BeginViewCoordinator: BeginCoordinatorting, SetBeginDayViewControllerDelegate {
     
     var delegate: BeginViewCoordinatorDelegate?
     
@@ -87,13 +87,13 @@ final class BeginViewCoordinator: BeginCoordinatorting, BeginViewControllerDeleg
     }
     
     func start() {
-        let beginViewController = BeginViewController()
+        let beginViewController = SetBeginDayViewController()
         beginViewController.coordinator = self
         beginViewController.delegate = self
         self.navigationController.viewControllers = [beginViewController]
     }
     
-    // AppCoordinator(부모)에 ContainerView로 이동하라고 알림
+    // AppCoordinator(부모)에 MainView로 이동하라고 알림
     //
     func setBegin() {
         self.delegate?.didBeginSet(self)
@@ -106,7 +106,7 @@ final class BeginViewCoordinator: BeginCoordinatorting, BeginViewControllerDeleg
 
 // AppCoordinator의 자식이면서 SettingViewCoordinator의 부모
 //
-final class ContainerViewCoordinator: ContainerCoordinatorting {
+final class MainViewCoordinator: ContainerCoordinatorting {
     
     weak var parentCoordinator: AppCoordinator?
         
@@ -118,9 +118,9 @@ final class ContainerViewCoordinator: ContainerCoordinatorting {
     }
     
     func start() {
-        let containerViewController = ContainerViewController()
-        containerViewController.coordinator = self
-        self.navigationController.viewControllers = [containerViewController]
+        let mainViewController = MainViewController()
+        mainViewController.coordinator = self
+        self.navigationController.viewControllers = [mainViewController]
     }
     
     func showSettingView(coupleTabViewModel: CoupleTabViewModel) {
@@ -136,7 +136,7 @@ final class ContainerViewCoordinator: ContainerCoordinatorting {
         child.start(vc: vc)
     }
 
-    func didFinishContainerView() {
+    func didFinishMainView() {
         parentCoordinator?.childDidFinish(self)
     }
     
@@ -152,7 +152,7 @@ final class ContainerViewCoordinator: ContainerCoordinatorting {
 
 final class SettingViewCoordinator: SettingCoordinatorting {
     
-    weak var parentCoordinator: ContainerViewCoordinator?
+    weak var parentCoordinator: MainViewCoordinator?
     
     var childCoordinator = [Coordinator]()
     var navigationController: UINavigationController
@@ -174,7 +174,7 @@ final class SettingViewCoordinator: SettingCoordinatorting {
 
 final class AnniversaryViewCoordinator: AnniversaryCoordinatorting {
     
-    weak var parentCoordinator: ContainerViewCoordinator?
+    weak var parentCoordinator: MainViewCoordinator?
     
     var childCoordinator = [Coordinator]()
     var navigationController: UINavigationController

@@ -1,11 +1,11 @@
 import UIKit
 import Kingfisher
 
-final class AnniversaryCell: UITableViewCell {
+final class AnniversaryTableViewCell: UITableViewCell {
     
     // MARK: Views
     //
-    private let anniversaryMainText: UILabel = {
+    private let anniversaryNameText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "너랑나랑"
@@ -37,7 +37,7 @@ final class AnniversaryCell: UITableViewCell {
         imageView.clipsToBounds = true
         return imageView
     }()
-    private lazy var rightStackView: UIStackView = { // d-day + date
+    private lazy var D_DayDateStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [anniversaryD_DayText, anniversaryDateText])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -46,8 +46,8 @@ final class AnniversaryCell: UITableViewCell {
         stackView.spacing = 0
         return stackView
     }()
-    private lazy var contentStackView: UIStackView = { // 기념일 + rightStackView
-        let stackView = UIStackView(arrangedSubviews: [anniversaryMainText, rightStackView])
+    private lazy var allContentStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [anniversaryNameText, D_DayDateStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -66,11 +66,9 @@ final class AnniversaryCell: UITableViewCell {
         
         // UIImageView 그 위에 StackView 올리기
         //
-        anniversaryBackGroundImage.addSubview(contentStackView)
+        anniversaryBackGroundImage.addSubview(allContentStackView)
         contentView.addSubview(anniversaryBackGroundImage)
         
-        // set autolayout
-        //
         NSLayoutConstraint.activate([
             anniversaryBackGroundImage.heightAnchor.constraint(equalToConstant: 100),
             anniversaryBackGroundImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
@@ -78,10 +76,10 @@ final class AnniversaryCell: UITableViewCell {
             anniversaryBackGroundImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             anniversaryBackGroundImage.topAnchor.constraint(equalTo: contentView.topAnchor),
             
-            contentStackView.leftAnchor.constraint(equalTo: anniversaryBackGroundImage.leftAnchor, constant: 30),
-            contentStackView.rightAnchor.constraint(equalTo: anniversaryBackGroundImage.rightAnchor, constant: -30),
-            contentStackView.bottomAnchor.constraint(equalTo: anniversaryBackGroundImage.bottomAnchor),
-            contentStackView.topAnchor.constraint(equalTo: anniversaryBackGroundImage.topAnchor),
+            allContentStackView.leftAnchor.constraint(equalTo: anniversaryBackGroundImage.leftAnchor, constant: 30),
+            allContentStackView.rightAnchor.constraint(equalTo: anniversaryBackGroundImage.rightAnchor, constant: -30),
+            allContentStackView.bottomAnchor.constraint(equalTo: anniversaryBackGroundImage.bottomAnchor),
+            allContentStackView.topAnchor.constraint(equalTo: anniversaryBackGroundImage.topAnchor),
         ])
     }
     required init?(coder: NSCoder) {
@@ -90,8 +88,8 @@ final class AnniversaryCell: UITableViewCell {
     
     // MARK: Functions
     //
-    public func bind(dictValue: Dictionary<String, String>, url: String) {
-        anniversaryMainText.text = dictValue.values.first!
+    func setAnniversaryCellText(dictValue: Dictionary<String, String>, url: String) {
+        anniversaryNameText.text = dictValue.values.first!
         let minus = Int(dictValue.keys.first!.toDate.millisecondsSince1970)-Int(Date().millisecondsSince1970)
         let D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
         anniversaryDateText.text = "\(dictValue.keys.first!.toDate.toAnniversaryString)"

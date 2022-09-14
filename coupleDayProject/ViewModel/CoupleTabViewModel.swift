@@ -37,21 +37,21 @@ final class CoupleTabViewModel {
     // 메인 이미지 세팅
     //
     func setMainBackgroundImage() {
-        self.mainImageData.value = RealmManager.shared.getImageDatas().first!.mainImageData!
+        self.mainImageData.value = RealmManager.shared.getImageDatas().first!.homeMainImage!
     }
     
     // update 프로필 이미지
     //
     func setMyProfileIcon() {
         let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
-        if RealmManager.shared.getImageDatas().first!.myProfileImageData == nil {
+        if RealmManager.shared.getImageDatas().first!.myProfileImage == nil {
             if isDark {
                 self.myProfileImageData.value = (UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5))!
             } else {
                 self.myProfileImageData.value = (UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5))!
             }
         } else {
-            self.myProfileImageData.value = RealmManager.shared.getImageDatas().first!.myProfileImageData!
+            self.myProfileImageData.value = RealmManager.shared.getImageDatas().first!.myProfileImage!
         }
     }
     
@@ -59,14 +59,14 @@ final class CoupleTabViewModel {
     //
     func setPartnerProfileIcon() {
         let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
-        if RealmManager.shared.getImageDatas().first!.partnerProfileImageData == nil {
+        if RealmManager.shared.getImageDatas().first!.partnerProfileImage == nil {
             if isDark {
                 self.partnerProfileImageData.value = (UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5))!
             } else {
                 self.partnerProfileImageData.value = (UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5))!
             }
         } else {
-            self.partnerProfileImageData.value = RealmManager.shared.getImageDatas().first!.partnerProfileImageData!
+            self.partnerProfileImageData.value = RealmManager.shared.getImageDatas().first!.partnerProfileImage!
         }
     }
 }
