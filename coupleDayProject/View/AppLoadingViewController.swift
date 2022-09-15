@@ -50,23 +50,12 @@ final class AppLoadingViewController: UIViewController {
             let splitCurrentProjectVersion = currentProjectVersion.split(separator: ".").map {$0}
             
             if splitCurrentProjectVersion[0] < splitMarketingVersion[0] { // 가장 앞자리가 다르면 -> 업데이트 필요
-                let alert = UIAlertController(title: "업데이트 알림", message: "너랑나랑의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
-                let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
-                    System().openAppStore()
-                }
-                alert.addAction(destructiveAction)
-                self.present(alert, animated: false)
+                self.needUpdateVersion(marketingVersion)
             } else {
                 if  splitCurrentProjectVersion[1] < splitMarketingVersion[1] { // 두번째 자리가 달라도 업데이트 필요
-                    let alert = UIAlertController(title: "업데이트 알림", message: "너랑나랑의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
-                    let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
-                        System().openAppStore()
-                    }
-                    alert.addAction(destructiveAction)
-                    self.present(alert, animated: false)
+                    self.needUpdateVersion(marketingVersion)
                 } else { // 그 이외에는 업데이트 필요 없음
                     Auth.auth().signInAnonymously { (authResult, error) in }
-                    
                     if RealmManager.shared.getUserDatas().isEmpty {
                         self.coordinator!.showSetBeginDayView()
                     } else {
@@ -100,5 +89,13 @@ final class AppLoadingViewController: UIViewController {
             loadingContentStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loadingContentStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
+    }
+    private func needUpdateVersion(_ marketingVersion: String) {
+        let alert = UIAlertController(title: "업데이트 알림", message: "너랑나랑의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
+        let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
+            System().openAppStore()
+        }
+        alert.addAction(destructiveAction)
+        self.present(alert, animated: false)
     }
 }

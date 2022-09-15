@@ -93,20 +93,7 @@ final class DetailDatePlaceViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let datePlace = datePlace else { return }
-        
-        // 줌인되는 애니메이션 -> 뷰가 나타난 직후 일어나야해서 viewDidAppear
-        //
-        guard let latitude = Double(datePlace.latitude) else { return }
-        guard let longitude = Double(datePlace.longitude) else { return }
-        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView.setRegion(region, animated: true)
-        let pin = MKPointAnnotation()
-        pin.coordinate = coordinate
-        pin.title = datePlace.placeName
-        mapView.addAnnotation(pin)
+        mapZoomInAnimation() // 줌인되는 애니메이션 -> 뷰가 나타난 직후 일어나야해서 viewDidAppear
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -192,6 +179,19 @@ final class DetailDatePlaceViewController: UIViewController {
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any], for: .normal)
         self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
         self.view.backgroundColor = UIColor(named: "bgColor")
+    }
+    private func mapZoomInAnimation() {
+        guard let datePlace = datePlace else { return }
+        guard let latitude = Double(datePlace.latitude) else { return }
+        guard let longitude = Double(datePlace.longitude) else { return }
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+        let pin = MKPointAnnotation()
+        pin.coordinate = coordinate
+        pin.title = datePlace.placeName
+        mapView.addAnnotation(pin)
     }
 }
 

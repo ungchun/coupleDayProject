@@ -156,17 +156,13 @@ final class SetBeginDayViewController: UIViewController {
         handleDateValue = sender.date
     }
     @objc func checkButtonTap() {
-        if zeroDayStartCheck {
-            zeroDayStartCheck.toggle()
-            let zeroDayCheckConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: UIImage.SymbolWeight.medium, scale: UIImage.SymbolScale.large)
-            let zeroDayCheckBox = UIImage(systemName: "square", withConfiguration: zeroDayCheckConfig)
-            checkButton.setImage(zeroDayCheckBox, for: .normal)
-        } else {
-            zeroDayStartCheck.toggle()
-            let zeroDayCheckConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: UIImage.SymbolWeight.medium, scale: UIImage.SymbolScale.large)
-            let zeroDayCheckBox = UIImage(systemName: "checkmark.square", withConfiguration: zeroDayCheckConfig)
-            checkButton.setImage(zeroDayCheckBox, for: .normal)
-        }
+        setUpCheckBox(zeroDayStartCheck)
+        zeroDayStartCheck.toggle()
+    }
+    private func setUpCheckBox(_ zeroDayStartCheck: Bool) {
+        let zeroDayCheckConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: UIImage.SymbolWeight.medium, scale: UIImage.SymbolScale.large)
+        let zeroDayCheckBox = UIImage(systemName: zeroDayStartCheck ? "square" : "checkmark.square", withConfiguration: zeroDayCheckConfig)
+        checkButton.setImage(zeroDayCheckBox, for: .normal)
     }
     @objc func startBtnTap() {
         let realmUserModel = RealmUserModel()

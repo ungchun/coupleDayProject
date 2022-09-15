@@ -117,6 +117,15 @@ final class SettingViewController: UIViewController{
     }
     @objc func setDarkModeTap() {
         let alert = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
+        let lightMode = setUpLightModeAlertAction()
+        let darkMode = setUpDarkModeAlertAction()
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) {(action) in }
+        alert.addAction(lightMode)
+        alert.addAction(darkMode)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+    private func setUpLightModeAlertAction() -> UIAlertAction{
         let lightMode = UIAlertAction(title: "주간모드", style: .default) {(action) in
             if let window = UIApplication.shared.windows.first {
                 if #available(iOS 13.0, *) {
@@ -126,6 +135,9 @@ final class SettingViewController: UIViewController{
                 }
             }
         }
+        return lightMode
+    }
+    private func setUpDarkModeAlertAction() -> UIAlertAction{
         let darkMode = UIAlertAction(title: "야간모드", style: .default) {(action) in
             if let window = UIApplication.shared.windows.first {
                 if #available(iOS 13.0, *) {
@@ -135,13 +147,14 @@ final class SettingViewController: UIViewController{
                 }
             }
         }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel) {(action) in }
-        alert.addAction(lightMode)
-        alert.addAction(darkMode)
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
+        return darkMode
     }
     @objc func setCoupleDayTap() {
+        let datePicker = setUpCoupleDayDatePicker()
+        let dateChooserAlert = setUpCoupleDayDateChooserAlert(datePicker)
+        present(dateChooserAlert, animated: true, completion: nil)
+    }
+    private func setUpCoupleDayDatePicker() -> UIDatePicker {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
@@ -170,6 +183,9 @@ final class SettingViewController: UIViewController{
         datePicker.minimumDate = minDate
         datePicker.maximumDate = maxDate
         
+        return datePicker
+    }
+    private func setUpCoupleDayDateChooserAlert(_ datePicker : UIDatePicker) -> UIAlertController {
         let dateChooserAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         dateChooserAlert.view.addSubview(datePicker)
         dateChooserAlert.addAction(UIAlertAction(title: "선택완료", style: .default, handler: { [self] (action:UIAlertAction!) in
@@ -184,7 +200,7 @@ final class SettingViewController: UIViewController{
         let alertContentHeight: NSLayoutConstraint = NSLayoutConstraint(item: dateChooserAlert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 350)
         dateChooserAlert.view.addConstraint(alertContentHeight)
         
-        present(dateChooserAlert, animated: true, completion: nil)
+        return dateChooserAlert
     }
 }
 
