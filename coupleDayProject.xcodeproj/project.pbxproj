@@ -26,6 +26,7 @@
 		BC24929828BE08B4003FC64A /* DetailDatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC24929728BE08B4003FC64A /* DetailDatePlaceViewController.swift */; };
 		BC2AF6E8289A9C0800A54A3D /* DatePlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AF6E7289A9C0800A54A3D /* DatePlaceCollectionViewCell.swift */; };
 		BC2CDEFB287C32EA002433DC /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = BC2CDEFA287C32EA002433DC /* GoogleMobileAds */; };
+		BC780E5428D3199E00373BD0 /* OpenMapBottomSheetContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC780E5328D3199E00373BD0 /* OpenMapBottomSheetContentView.swift */; };
 		BC78B4EB287D7B1A00DF10C6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC78B4E9287D7B1A00DF10C6 /* Interface.storyboard */; };
 		BC78B4ED287D7B1A00DF10C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC78B4EC287D7B1A00DF10C6 /* Assets.xcassets */; };
 		BC78B4F3287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BC78B4F2287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -149,6 +150,7 @@
 		BC0DF1C2289278170036EC51 /* AnniversaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnniversaryTableViewCell.swift; sourceTree = "<group>"; };
 		BC24929728BE08B4003FC64A /* DetailDatePlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDatePlaceViewController.swift; sourceTree = "<group>"; };
 		BC2AF6E7289A9C0800A54A3D /* DatePlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceCollectionViewCell.swift; sourceTree = "<group>"; };
+		BC780E5328D3199E00373BD0 /* OpenMapBottomSheetContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMapBottomSheetContentView.swift; sourceTree = "<group>"; };
 		BC78B4E7287D7B1A00DF10C6 /* coupleDayWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC78B4EA287D7B1A00DF10C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		BC78B4EC287D7B1A00DF10C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				BC24929728BE08B4003FC64A /* DetailDatePlaceViewController.swift */,
 				BCA646FB28C326E20011C8B9 /* DatePlaceCarouselView.swift */,
 				BCA646FD28C328480011C8B9 /* CarouselCollectionViewCell.swift */,
+				BC780E5328D3199E00373BD0 /* OpenMapBottomSheetContentView.swift */,
 			);
 			path = DetailDatePlace;
 			sourceTree = "<group>";
@@ -695,6 +698,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC780E5428D3199E00373BD0 /* OpenMapBottomSheetContentView.swift in Sources */,
 				BCB0B18B28507D2E00DE7196 /* RealmUserModel.swift in Sources */,
 				BCB0B18328507D2300DE7196 /* SetBeginDayViewController.swift in Sources */,
 				BC0DF1C3289278170036EC51 /* AnniversaryTableViewCell.swift in Sources */,

@@ -5,6 +5,125 @@ import SnapKit
 
 final class DetailDatePlaceViewController: UIViewController {
     
+    // MARK: bottom sheet 작업 중
+    //
+    // bottomSheet가 view의 상단에서 떨어진 거리
+    private var bottomSheetViewTopConstraint: NSLayoutConstraint!
+    let bottomHeight: CGFloat = 300
+    
+    // 바텀 시트 표출 애니메이션
+    private func showBottomSheet() {
+        let safeAreaHeight: CGFloat = view.safeAreaLayoutGuide.layoutFrame.height
+        let bottomPadding: CGFloat = view.safeAreaInsets.bottom
+        
+        bottomSheetViewTopConstraint.constant = (safeAreaHeight + bottomPadding) - bottomHeight
+        
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
+            self.dimmedBackView.alpha = 0.5
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    // 바텀 시트 사라지는 애니메이션
+    private func hideBottomSheetAndGoBack() {
+        let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.height
+        let bottomPadding = view.safeAreaInsets.bottom
+        bottomSheetViewTopConstraint.constant = safeAreaHeight + bottomPadding
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
+            self.dimmedBackView.alpha = 0.0
+            self.view.layoutIfNeeded()
+        }) { _ in
+            if self.presentingViewController != nil {
+                self.dismiss(animated: false, completion: nil)
+            }
+        }
+    }
+    
+    // UITapGestureRecognizer 연결 함수 부분
+    @objc private func dimmedViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+        hideBottomSheetAndGoBack()
+    }
+    
+    // UISwipeGestureRecognizer 연결 함수 부분
+    @objc func panGesture(_ recognizer: UISwipeGestureRecognizer) {
+        if recognizer.state == .ended {
+            switch recognizer.direction {
+            case .down:
+                hideBottomSheetAndGoBack()
+            default:
+                break
+            }
+        }
+    }
+    
+    let bottomSheetView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 27
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.clipsToBounds = true
+        return view
+    }()
+    let openMapBottomSheetContentView = OpenMapBottomSheetContentView()
+    // 기존 화면을 흐려지게 만들기 위한 뷰
+    private let dimmedBackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        return view
+    }()
+    // dismiss Indicator View UI 구성 부분
+    private let dismissIndicatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray2
+        view.layer.cornerRadius = 3
+        
+        return view
+    }()
+    
+    // GestureRecognizer 세팅 작업
+    private func setupGestureRecognizer() {
+        // 흐린 부분 탭할 때, 바텀시트를 내리는 TapGesture
+        let dimmedTap = UITapGestureRecognizer(target: self, action: #selector(dimmedViewTapped(_:)))
+        dimmedBackView.addGestureRecognizer(dimmedTap)
+        dimmedBackView.isUserInteractionEnabled = true
+        
+        // 스와이프 했을 때, 바텀시트를 내리는 swipeGesture
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(panGesture))
+        swipeGesture.direction = .down
+        view.addGestureRecognizer(swipeGesture)
+    }
+    
+    // 레이아웃 세팅
+    private func setupLayout() {
+        dimmedBackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dimmedBackView.topAnchor.constraint(equalTo: view.topAnchor),
+            dimmedBackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dimmedBackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dimmedBackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        bottomSheetView.translatesAutoresizingMaskIntoConstraints = false
+        let topConstant = view.safeAreaInsets.bottom + view.safeAreaLayoutGuide.layoutFrame.height
+        bottomSheetViewTopConstraint = bottomSheetView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstant)
+        NSLayoutConstraint.activate([
+            bottomSheetView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            bottomSheetView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            bottomSheetView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomSheetViewTopConstraint
+        ])
+        
+        dismissIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dismissIndicatorView.widthAnchor.constraint(equalToConstant: 102),
+            dismissIndicatorView.heightAnchor.constraint(equalToConstant: 7),
+            dismissIndicatorView.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: 12),
+            dismissIndicatorView.centerXAnchor.constraint(equalTo: bottomSheetView.centerXAnchor)
+        ])
+        
+    }
+    
     // MARK: Properties
     //
     var datePlace: DatePlaceModel?
@@ -60,6 +179,16 @@ final class DetailDatePlaceViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    let oepnMapAppBtn: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.systemGray5.cgColor
+        button.titleLabel?.font =  UIFont(name: "GangwonEduAllLight", size: 15)
+        button.layer.cornerRadius = 10
+        button.setTitle("지도 앱 열기", for: .normal)
+        return button
+    }()
     let introduceTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -80,9 +209,29 @@ final class DetailDatePlaceViewController: UIViewController {
         super.viewDidLoad()
         setUpView()
         setUpBackBtn()
+        
+        // MARK: 바텀 시트 작업 중
+        view.addSubview(dimmedBackView)
+        view.addSubview(bottomSheetView)
+        view.addSubview(dismissIndicatorView)
+
+        bottomSheetView.addSubview(openMapBottomSheetContentView)
+        openMapBottomSheetContentView.snp.makeConstraints { make in
+            //            make.top.left.right.bottom.equalTo(0)
+            //            make.height.equalTo(100)
+            //            make.width.equalToSuperview()
+            //            make.centerX.equalToSuperview()
+            //            make.centerY.equalToSuperview()
+        }
+        dimmedBackView.alpha = 0.0
+        
+        setupLayout()
+        setupGestureRecognizer()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.navigationController?.isNavigationBarHidden = false
         
         // navigationController 배경 투명하게 변경
@@ -104,6 +253,8 @@ final class DetailDatePlaceViewController: UIViewController {
     // MARK: Functions
     //
     private func setUpView() {
+        oepnMapAppBtn.addTarget(self, action: #selector(oepnMapAppBtnTap), for: .touchUpInside)
+        
         mapView.delegate = self
         
         view.addSubview(scrollView)
@@ -119,6 +270,8 @@ final class DetailDatePlaceViewController: UIViewController {
         
         contentView.addSubview(mapAddressTitle)
         contentView.addSubview(mapView)
+        
+        contentView.addSubview(oepnMapAppBtn)
         
         contentView.addSubview(datePlaceCarouselView)
         
@@ -157,8 +310,14 @@ final class DetailDatePlaceViewController: UIViewController {
             make.right.equalTo(contentView.snp.right).offset(-20)
             make.height.equalTo(200)
         }
+        oepnMapAppBtn.snp.makeConstraints { make in
+            make.top.equalTo(mapView.snp.bottom).offset(20)
+            make.left.equalTo(contentView.snp.left).offset(20)
+            make.right.equalTo(contentView.snp.right).offset(-20)
+            make.height.equalTo(50)
+        }
         datePlaceCarouselView.snp.makeConstraints { make in
-            make.top.equalTo(mapView.snp.bottom).offset(40)
+            make.top.equalTo(oepnMapAppBtn.snp.bottom).offset(40)
             make.left.equalTo(contentView.snp.left).offset(20)
             make.right.equalTo(contentView.snp.right).offset(-20)
             make.height.equalTo(300)
@@ -192,6 +351,9 @@ final class DetailDatePlaceViewController: UIViewController {
         pin.coordinate = coordinate
         pin.title = datePlace.placeName
         mapView.addAnnotation(pin)
+    }
+    @objc private func oepnMapAppBtnTap() {
+        showBottomSheet()
     }
 }
 
