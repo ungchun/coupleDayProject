@@ -9,7 +9,7 @@ final class SetBeginDayViewController: UIViewController {
     
     // MARK: Properties
     //
-    weak var coordinator: BeginViewCoordinator?
+    weak var coordinator: SetBeginDayViewCoordinator?
     var delegate: SetBeginDayViewControllerDelegate?
     
     private var handleDateValue = Date()

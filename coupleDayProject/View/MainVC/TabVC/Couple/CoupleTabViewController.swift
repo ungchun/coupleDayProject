@@ -135,8 +135,8 @@ final class CoupleTabViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if CoupleTabViewModel.changeDarkModeCheck == true {
             CoupleTabViewModel.changeDarkModeCheck = false
-            coupleTabViewModel?.setMyProfileIcon()
-            coupleTabViewModel?.setPartnerProfileIcon()
+            coupleTabViewModel?.updateMyProfileIcon()
+            coupleTabViewModel?.updatePartnerProfileIcon()
         }
     }
     
@@ -248,7 +248,7 @@ final class CoupleTabViewController: UIViewController {
             let dayData: [String: Any] = ["dayData": String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)]
             try? WCSession.default.updateApplicationContext(dayData)
         }
-        coupleTabViewModel.mainImageData.bind { [weak self] imageData in
+        coupleTabViewModel.homeMainImageData.bind { [weak self] imageData in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.mainImageView.image = UIImage(data: imageData)
@@ -260,7 +260,7 @@ final class CoupleTabViewController: UIViewController {
                 // watch, 메인 이미지는 transferUserInfo 방법으로 이미지 연동
                 // watch 앱에 보내는 image, 크기 제한이 심해서 0.1 화질로 보냄 -> 0.1이 제일 작은 크기인 듯..? 0.1이 0.01, 0.001 이랑 차이없음
                 //
-                guard let data = UIImage(data: coupleTabViewModel.mainImageData.value)?.jpegData(compressionQuality: 0.1) else { return }
+                guard let data = UIImage(data: coupleTabViewModel.homeMainImageData.value)?.jpegData(compressionQuality: 0.1) else { return }
                 let imageData: [String: Any] = ["imageData": data]
                 WCSession.default.transferUserInfo(imageData)
             }
@@ -407,10 +407,10 @@ extension CoupleTabViewController : UIImagePickerControllerDelegate & UINavigati
         guard let coupleTabViewModel = coupleTabViewModel else { return }
         if whoProfileChangeCheck == "my" {
             RealmManager.shared.updateMyProfileImage(myProfileImage: image)
-            coupleTabViewModel.setMyProfileIcon()
+            coupleTabViewModel.updateMyProfileIcon()
         } else {
             RealmManager.shared.updatePartnerProfileImage(partnerProfileImage: image)
-            coupleTabViewModel.setPartnerProfileIcon()
+            coupleTabViewModel.updatePartnerProfileIcon()
         }
         dismiss(animated: true, completion: nil)
     }

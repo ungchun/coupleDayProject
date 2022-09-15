@@ -174,7 +174,7 @@ final class SettingViewController: UIViewController{
         dateChooserAlert.view.addSubview(datePicker)
         dateChooserAlert.addAction(UIAlertAction(title: "선택완료", style: .default, handler: { [self] (action:UIAlertAction!) in
             RealmManager.shared.updateBeginCoupleDay(datePicker: datePicker)
-            coupleTabViewModel?.setBeginCoupleDay()
+            coupleTabViewModel?.updateBeginCoupleDay()
         }))
         dateChooserAlert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction!) in }))
         
@@ -215,7 +215,7 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
     }
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         RealmManager.shared.updateMainImage(mainImage: image)
-        coupleTabViewModel?.setMainBackgroundImage()
+        coupleTabViewModel?.updateHomeMainImage()
         dismiss(animated: true, completion: nil)
     }
 }

@@ -68,7 +68,7 @@ final class AppLoadingViewController: UIViewController {
                     Auth.auth().signInAnonymously { (authResult, error) in }
                     
                     if RealmManager.shared.getUserDatas().isEmpty {
-                        self.coordinator!.showBeginView()
+                        self.coordinator!.showSetBeginDayView()
                     } else {
                         self.coordinator!.showMainView()
                     }

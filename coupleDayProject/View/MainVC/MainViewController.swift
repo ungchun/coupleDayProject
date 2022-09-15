@@ -9,7 +9,7 @@ final class MainViewController: UIViewController {
     weak var coordinator: MainViewCoordinator?
     
     private let coupleTabViewModel = CoupleTabViewModel()
-    private let containerViewModelCombine = ContainerViewModelCombine()
+    private let mainViewModelCombine = MainViewModelCombine()
     private var disposalbleBag = Set<AnyCancellable>()
     
     // MARK: Views
@@ -63,8 +63,8 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         setUpView()
         
-        containerViewModelCombine.receivedCoupleDayData = coupleTabViewModel.beginCoupleDay.value
-        self.containerViewModelCombine.$appNameLabelValue.sink { [weak self] updateLabel in
+        mainViewModelCombine.receivedCoupleDayData = coupleTabViewModel.beginCoupleDay.value
+        self.mainViewModelCombine.$appNameLabelValue.sink { [weak self] updateLabel in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 let transition = CATransition()

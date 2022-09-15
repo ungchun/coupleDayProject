@@ -73,7 +73,7 @@
 		BCEFABFE28AA34C3004983FF /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFABFD28AA34C3004983FF /* FirebaseManager.swift */; };
 		BCEFAC0028AA35F9004983FF /* DatePlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFABFF28AA35F9004983FF /* DatePlaceModel.swift */; };
 		BCF03FE0286D6C0100C28F71 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BCF03FDF286D6C0100C28F71 /* Kingfisher */; };
-		BCF0443C286C37B100E9CEAD /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */; };
+		BCF0443C286C37B100E9CEAD /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* MainViewModel.swift */; };
 		BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */; };
 		BCF1B3602868237D00641ABD /* RealmImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1B35F2868237D00641ABD /* RealmImageModel.swift */; };
 		BCF4267528C0CC6D00043887 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BCF4267428C0CC6D00043887 /* SnapKit */; };
@@ -196,7 +196,7 @@
 		BCC9F97A2872C15600809A26 /* AnniversaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnniversaryModel.swift; sourceTree = "<group>"; };
 		BCEFABFD28AA34C3004983FF /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		BCEFABFF28AA35F9004983FF /* DatePlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceModel.swift; sourceTree = "<group>"; };
-		BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModel.swift; sourceTree = "<group>"; };
+		BCF0443B286C37B100E9CEAD /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTabViewModel.swift; sourceTree = "<group>"; };
 		BCF1B35F2868237D00641ABD /* RealmImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmImageModel.swift; sourceTree = "<group>"; };
 		BCF79849285732780009A78C /* GangwonEduAllBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.ttf; sourceTree = "<group>"; };
@@ -456,7 +456,7 @@
 		BCF0443A286C36F100E9CEAD /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				BCF0443B286C37B100E9CEAD /* ContainerViewModel.swift */,
+				BCF0443B286C37B100E9CEAD /* MainViewModel.swift */,
 				BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */,
 			);
 			path = ViewModel;
@@ -720,7 +720,7 @@
 				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
 				BC8190C9286EFE6D00FAD555 /* StoryTableViewCell.swift in Sources */,
 				BCB0B18728507D2300DE7196 /* AnniversaryViewController.swift in Sources */,
-				BCF0443C286C37B100E9CEAD /* ContainerViewModel.swift in Sources */,
+				BCF0443C286C37B100E9CEAD /* MainViewModel.swift in Sources */,
 				BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
