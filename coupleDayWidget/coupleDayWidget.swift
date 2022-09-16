@@ -53,51 +53,108 @@ struct coupleDayWidgetEntryView : View {
     var entry: Provider.Entry
     
     var body: some View {
-        switch widgetFamily {
-        case .systemSmall:
-            ZStack {
-                VStack {
+        
+        if #available(iOSApplicationExtension 16.0, *) {
+            switch widgetFamily {
+            case .systemSmall:
+                ZStack {
+                    VStack {
+                        Image(uiImage: UIImage(systemName: "heart.fill")!)
+                            .renderingMode(.template)
+                            .foregroundColor(.appMainColor)
+                        Text("\(RealmManager.shared.getBeginCoupleDay()) days")
+                            .font(.custom("GangwonEduAllLight", size: 25))
+                            .foregroundColor(.white)
+                    }
+                }
+                .background(
+                    Image(uiImage: UIImage(data: RealmManager.shared.getMainBackgroundImage())!)
+                        .resizable()
+                        .edgesIgnoringSafeArea(.all)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: entry.size.width, height: entry.size.height)
+                        .scaledToFill()
+                )
+            case .systemMedium:
+                ZStack {
+                    VStack {
+                        Image(uiImage: UIImage(systemName: "heart.fill")!)
+                            .renderingMode(.template)
+                            .foregroundColor(.appMainColor)
+                        Text("\(RealmManager.shared.getBeginCoupleDay()) days")
+                            .font(.custom("GangwonEduAllLight", size: 30))
+                            .foregroundColor(.white)
+                    }
+                }
+                .background(
+                    Image(uiImage: UIImage(data: RealmManager.shared.getMainBackgroundImage())!)
+                        .resizable()
+                        .edgesIgnoringSafeArea(.all)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: entry.size.width, height: entry.size.height)
+                        .scaledToFill()
+                )
+            case .accessoryCircular:
+                VStack(spacing: 0) {
                     Image(uiImage: UIImage(systemName: "heart.fill")!)
                         .renderingMode(.template)
+                        .resizable()
                         .foregroundColor(.appMainColor)
-                    Text("\(RealmManager.shared.getBeginCoupleDay()) days")
-                        .font(.custom("GangwonEduAllLight", size: 25))
+                        .frame(width: 10.0, height: 10.0)
+                        .scaledToFit()
+                    Text("\(RealmManager.shared.getBeginCoupleDay())")
+                        .font(.custom("GangwonEduAllLight", size: 20))
+                        .foregroundColor(.white)
+                    Text("days")
+                        .font(.custom("GangwonEduAllLight", size: 12))
                         .foregroundColor(.white)
                 }
+            default:
+                Text("unknown")
             }
-            .background(
-                Image(uiImage: UIImage(data: RealmManager.shared.getMainBackgroundImage())!)
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: entry.size.width, height: entry.size.height)
-                    .scaledToFill()
-            )
-        case .systemMedium:
-            ZStack {
-                VStack {
-                    Image(uiImage: UIImage(systemName: "heart.fill")!)
-                        .renderingMode(.template)
-                        .foregroundColor(.appMainColor)
-                    Text("\(RealmManager.shared.getBeginCoupleDay()) days")
-                        .font(.custom("GangwonEduAllLight", size: 30))
-                        .foregroundColor(.white)
+        } else {
+            switch widgetFamily {
+            case .systemSmall:
+                ZStack {
+                    VStack {
+                        Image(uiImage: UIImage(systemName: "heart.fill")!)
+                            .renderingMode(.template)
+                            .foregroundColor(.appMainColor)
+                        Text("\(RealmManager.shared.getBeginCoupleDay()) days")
+                            .font(.custom("GangwonEduAllLight", size: 25))
+                            .foregroundColor(.white)
+                    }
                 }
+                .background(
+                    Image(uiImage: UIImage(data: RealmManager.shared.getMainBackgroundImage())!)
+                        .resizable()
+                        .edgesIgnoringSafeArea(.all)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: entry.size.width, height: entry.size.height)
+                        .scaledToFill()
+                )
+            case .systemMedium:
+                ZStack {
+                    VStack {
+                        Image(uiImage: UIImage(systemName: "heart.fill")!)
+                            .renderingMode(.template)
+                            .foregroundColor(.appMainColor)
+                        Text("\(RealmManager.shared.getBeginCoupleDay()) days")
+                            .font(.custom("GangwonEduAllLight", size: 30))
+                            .foregroundColor(.white)
+                    }
+                }
+                .background(
+                    Image(uiImage: UIImage(data: RealmManager.shared.getMainBackgroundImage())!)
+                        .resizable()
+                        .edgesIgnoringSafeArea(.all)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: entry.size.width, height: entry.size.height)
+                        .scaledToFill()
+                )
+            default:
+                Text("unknown")
             }
-            .background(
-                Image(uiImage: UIImage(data: RealmManager.shared.getMainBackgroundImage())!)
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: entry.size.width, height: entry.size.height)
-                    .scaledToFill()
-            )
-        case .systemLarge:
-            Text("systemLarge")
-        case .systemExtraLarge:
-            Text("systemExtraLarge")
-        @unknown default:
-            Text("unknown")
         }
     }
 }
@@ -108,13 +165,22 @@ struct coupleDayWidget: Widget {
     //
     let kind: String = "ungchun.coupleDayProject"
     
+    private let supportedFamilies:[WidgetFamily] = {
+        if #available(iOSApplicationExtension 16.0, *) {
+            return [.systemSmall, .systemMedium, .accessoryCircular]
+        } else {
+            return [.systemSmall, .systemMedium]
+        }
+    }()
+    
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             coupleDayWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("너랑나랑 위젯")
         .description("소중한 인연을 위젯으로 만나보세요 !")
-        .supportedFamilies([.systemSmall, .systemMedium])
+        .supportedFamilies(supportedFamilies)
+        
     }
 }
 
@@ -145,7 +211,7 @@ class RealmManager {
     // 현재 - 사귄날짜 = days
     //
     func getBeginCoupleDay() -> String {
-        let realmUserData = realm.objects(UserModel.self)
+        let realmUserData = realm.objects(RealmUserModel.self)
         let beginCoupleDay = realmUserData[0].beginCoupleDay
         let nowDayDataString = Date().toString
         let nowDayDataDate: Date = nowDayDataString.toDate
@@ -153,22 +219,22 @@ class RealmManager {
         return String(describing: minus / 86400000)
     }
     func getMainBackgroundImage() -> Data {
-        let realmImageData = realm.objects(ImageModel.self)
-        let mainImageData = realmImageData[0].mainImageData
-        return mainImageData!
+        let realmImageData = realm.objects(RealmImageModel.self)
+        let homeMainImage = realmImageData[0].homeMainImage
+        return homeMainImage!
     }
 }
 
 // realm model
 //
-class UserModel: Object {
+class RealmUserModel: Object {
     @objc dynamic var beginCoupleDay = 0
-    @objc dynamic var zeroDayStart = false
+    @objc dynamic var zeroDayStartCheck = false
 }
-class ImageModel: Object {
-    @objc dynamic var mainImageData: Data? = nil
-    @objc dynamic var myProfileImageData: Data? = nil
-    @objc dynamic var partnerProfileImageData: Data? = nil
+class RealmImageModel: Object {
+    @objc dynamic var homeMainImage: Data? = nil
+    @objc dynamic var myProfileImage: Data? = nil
+    @objc dynamic var partnerProfileImage: Data? = nil
 }
 
 // color extension
