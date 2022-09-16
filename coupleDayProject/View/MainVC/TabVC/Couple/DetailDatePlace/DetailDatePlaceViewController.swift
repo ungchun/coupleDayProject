@@ -5,128 +5,11 @@ import SnapKit
 
 final class DetailDatePlaceViewController: UIViewController {
     
-    // MARK: bottom sheet 작업 중
-    //
-    // bottomSheet가 view의 상단에서 떨어진 거리
-    private var bottomSheetViewTopConstraint: NSLayoutConstraint!
-    let bottomHeight: CGFloat = 300
-    
-    // 바텀 시트 표출 애니메이션
-    private func showBottomSheet() {
-        let safeAreaHeight: CGFloat = view.safeAreaLayoutGuide.layoutFrame.height
-        let bottomPadding: CGFloat = view.safeAreaInsets.bottom
-        
-        bottomSheetViewTopConstraint.constant = (safeAreaHeight + bottomPadding) - bottomHeight
-        
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
-            self.dimmedBackView.alpha = 0.5
-            self.view.layoutIfNeeded()
-        }, completion: nil)
-    }
-    
-    // 바텀 시트 사라지는 애니메이션
-    private func hideBottomSheetAndGoBack() {
-        let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.height
-        let bottomPadding = view.safeAreaInsets.bottom
-        bottomSheetViewTopConstraint.constant = safeAreaHeight + bottomPadding
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
-            self.dimmedBackView.alpha = 0.0
-            self.view.layoutIfNeeded()
-        }) { _ in
-            if self.presentingViewController != nil {
-                self.dismiss(animated: false, completion: nil)
-            }
-        }
-    }
-    
-    // UITapGestureRecognizer 연결 함수 부분
-    @objc private func dimmedViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        hideBottomSheetAndGoBack()
-    }
-    
-    // UISwipeGestureRecognizer 연결 함수 부분
-    @objc func panGesture(_ recognizer: UISwipeGestureRecognizer) {
-        if recognizer.state == .ended {
-            switch recognizer.direction {
-            case .down:
-                hideBottomSheetAndGoBack()
-            default:
-                break
-            }
-        }
-    }
-    
-    let bottomSheetView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 27
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        view.clipsToBounds = true
-        return view
-    }()
-    let openMapBottomSheetContentView = OpenMapBottomSheetContentView()
-    // 기존 화면을 흐려지게 만들기 위한 뷰
-    private let dimmedBackView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-        return view
-    }()
-    // dismiss Indicator View UI 구성 부분
-    private let dismissIndicatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray2
-        view.layer.cornerRadius = 3
-        
-        return view
-    }()
-    
-    // GestureRecognizer 세팅 작업
-    private func setupGestureRecognizer() {
-        // 흐린 부분 탭할 때, 바텀시트를 내리는 TapGesture
-        let dimmedTap = UITapGestureRecognizer(target: self, action: #selector(dimmedViewTapped(_:)))
-        dimmedBackView.addGestureRecognizer(dimmedTap)
-        dimmedBackView.isUserInteractionEnabled = true
-        
-        // 스와이프 했을 때, 바텀시트를 내리는 swipeGesture
-        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(panGesture))
-        swipeGesture.direction = .down
-        view.addGestureRecognizer(swipeGesture)
-    }
-    
-    // 레이아웃 세팅
-    private func setupLayout() {
-        dimmedBackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            dimmedBackView.topAnchor.constraint(equalTo: view.topAnchor),
-            dimmedBackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            dimmedBackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            dimmedBackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        bottomSheetView.translatesAutoresizingMaskIntoConstraints = false
-        let topConstant = view.safeAreaInsets.bottom + view.safeAreaLayoutGuide.layoutFrame.height
-        bottomSheetViewTopConstraint = bottomSheetView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstant)
-        NSLayoutConstraint.activate([
-            bottomSheetView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            bottomSheetView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            bottomSheetView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            bottomSheetViewTopConstraint
-        ])
-        
-        dismissIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            dismissIndicatorView.widthAnchor.constraint(equalToConstant: 102),
-            dismissIndicatorView.heightAnchor.constraint(equalToConstant: 7),
-            dismissIndicatorView.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: 12),
-            dismissIndicatorView.centerXAnchor.constraint(equalTo: bottomSheetView.centerXAnchor)
-        ])
-        
-    }
-    
     // MARK: Properties
     //
     var datePlace: DatePlaceModel?
+    private var bottomSheetViewTopConstraint: NSLayoutConstraint!
+    private let bottomHeight: CGFloat = 300
     
     // MARK: Views
     //
@@ -182,12 +65,89 @@ final class DetailDatePlaceViewController: UIViewController {
     let oepnMapAppBtn: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.borderWidth = 2
+        button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.systemGray5.cgColor
         button.titleLabel?.font =  UIFont(name: "GangwonEduAllLight", size: 15)
+        button.setTitleColor(UserDefaults.standard.bool(forKey: "darkModeState") ? .white : .black, for: .normal)
         button.layer.cornerRadius = 10
         button.setTitle("지도 앱 열기", for: .normal)
         return button
+    }()
+    private let bottomSheetView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor(named: "bgColor")
+        view.layer.cornerRadius = 27
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.clipsToBounds = true
+        return view
+    }()
+    // 기존 화면을 흐려지게 만들기 위한 뷰
+    private let dimmedBackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        return view
+    }()
+    // dismiss Indicator View UI 구성 부분
+    private let dismissIndicatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray2
+        view.layer.cornerRadius = 3
+        
+        return view
+    }()
+    private let openMapsTitleText: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "GangwonEduAllBold", size: 25)
+        label.text = "지도 앱 열기"
+        return label
+    }()
+    private let googleMapsIcon: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.image = UIImage(named: "googleMapSymbol")
+        view.layer.cornerRadius = 25
+        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFill
+        return view
+    }()
+    private let googleMapsText: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "GangwonEduAllLight", size: 18)
+        label.text = "구글 맵스"
+        return label
+    }()
+    private lazy var googleMapsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 20
+        return stackView
+    }()
+    private let kakaoMapsIcon: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.image = UIImage(named: "kakaoMapSymbol")
+        view.layer.cornerRadius = 25
+        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFill
+        return view
+    }()
+    private let kakaoMapsText: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "GangwonEduAllLight", size: 18)
+        label.text = "카카오맵"
+        return label
+    }()
+    private lazy var kakaoMapsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 20
+        return stackView
     }()
     let introduceTitle: UILabel = {
         let label = UILabel()
@@ -209,25 +169,8 @@ final class DetailDatePlaceViewController: UIViewController {
         super.viewDidLoad()
         setUpView()
         setUpBackBtn()
-        
-        // MARK: 바텀 시트 작업 중
-        view.addSubview(dimmedBackView)
-        view.addSubview(bottomSheetView)
-        view.addSubview(dismissIndicatorView)
-
-        bottomSheetView.addSubview(openMapBottomSheetContentView)
-        openMapBottomSheetContentView.snp.makeConstraints { make in
-            //            make.top.left.right.bottom.equalTo(0)
-            //            make.height.equalTo(100)
-            //            make.width.equalToSuperview()
-            //            make.centerX.equalToSuperview()
-            //            make.centerY.equalToSuperview()
-        }
-        dimmedBackView.alpha = 0.0
-        
-        setupLayout()
-        setupGestureRecognizer()
-        
+        setUpBottomSheetLayout()
+        setUpGestureRecognizer()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -352,8 +295,171 @@ final class DetailDatePlaceViewController: UIViewController {
         pin.title = datePlace.placeName
         mapView.addAnnotation(pin)
     }
+    
+    // GestureRecognizer 세팅 작업
+    private func setUpGestureRecognizer() {
+        // 흐린 부분 탭할 때, 바텀시트를 내리는 TapGesture
+        let dimmedTap = UITapGestureRecognizer(target: self, action: #selector(dimmedViewTapped(_:)))
+        dimmedBackView.addGestureRecognizer(dimmedTap)
+        dimmedBackView.isUserInteractionEnabled = true
+        
+        // 스와이프 했을 때, 바텀시트를 내리는 swipeGesture
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(panGesture))
+        swipeGesture.direction = .down
+        view.addGestureRecognizer(swipeGesture)
+    }
+    
+    private func setUpBottomSheetLayout() {
+        view.addSubview(dimmedBackView)
+        view.addSubview(bottomSheetView)
+        view.addSubview(dismissIndicatorView)
+        
+        kakaoMapsStackView.addArrangedSubview(kakaoMapsIcon)
+        kakaoMapsStackView.addArrangedSubview(kakaoMapsText)
+        
+        googleMapsStackView.addArrangedSubview(googleMapsIcon)
+        googleMapsStackView.addArrangedSubview(googleMapsText)
+        
+        bottomSheetView.addSubview(openMapsTitleText)
+        bottomSheetView.addSubview(googleMapsStackView)
+        bottomSheetView.addSubview(kakaoMapsStackView)
+        
+        let googleMapsTapGesture = UITapGestureRecognizer(target: self, action: #selector(openGoogleMaps))
+        googleMapsStackView.isUserInteractionEnabled = true
+        googleMapsStackView.addGestureRecognizer(googleMapsTapGesture)
+        
+        let kakaoMapsTapGesture = UITapGestureRecognizer(target: self, action: #selector(openkakaoMaps))
+        kakaoMapsStackView.isUserInteractionEnabled = true
+        kakaoMapsStackView.addGestureRecognizer(kakaoMapsTapGesture)
+        
+        openMapsTitleText.snp.makeConstraints { make in
+            make.top.equalTo(50)
+            make.left.equalTo(40)
+            make.right.equalTo(-40)
+        }
+        
+        googleMapsStackView.snp.makeConstraints { make in
+            make.top.equalTo(openMapsTitleText.snp.bottom).offset(30)
+            make.left.equalTo(40)
+            make.right.equalTo(-40)
+        }
+        kakaoMapsStackView.snp.makeConstraints { make in
+            make.top.equalTo(googleMapsStackView.snp.bottom).offset(10)
+            make.left.equalTo(40)
+            make.right.equalTo(-40)
+        }
+        googleMapsIcon.snp.makeConstraints { make in
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+        }
+        kakaoMapsIcon.snp.makeConstraints { make in
+            make.width.equalTo(50)
+            make.height.equalTo(50)
+        }
+        dimmedBackView.alpha = 0.0
+        dimmedBackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            dimmedBackView.topAnchor.constraint(equalTo: view.topAnchor),
+            dimmedBackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dimmedBackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dimmedBackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        bottomSheetView.translatesAutoresizingMaskIntoConstraints = false
+        let topConstant = view.safeAreaInsets.bottom + view.safeAreaLayoutGuide.layoutFrame.height
+        bottomSheetViewTopConstraint = bottomSheetView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstant)
+        NSLayoutConstraint.activate([
+            bottomSheetView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            bottomSheetView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            bottomSheetView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomSheetViewTopConstraint
+        ])
+        
+        dismissIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dismissIndicatorView.widthAnchor.constraint(equalToConstant: 102),
+            dismissIndicatorView.heightAnchor.constraint(equalToConstant: 7),
+            dismissIndicatorView.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: 12),
+            dismissIndicatorView.centerXAnchor.constraint(equalTo: bottomSheetView.centerXAnchor)
+        ])
+    }
+    
+    // 바텀 시트 표출 애니메이션
+    private func showBottomSheet() {
+        let safeAreaHeight: CGFloat = view.safeAreaLayoutGuide.layoutFrame.height
+        let bottomPadding: CGFloat = view.safeAreaInsets.bottom
+        
+        bottomSheetViewTopConstraint.constant = (safeAreaHeight + bottomPadding) - bottomHeight
+        
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
+            self.dimmedBackView.alpha = 0.5
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    // 바텀 시트 사라지는 애니메이션
+    private func hideBottomSheetAndGoBack() {
+        let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.height
+        let bottomPadding = view.safeAreaInsets.bottom
+        bottomSheetViewTopConstraint.constant = safeAreaHeight + bottomPadding
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
+            self.dimmedBackView.alpha = 0.0
+            self.view.layoutIfNeeded()
+        }) { _ in
+            if self.presentingViewController != nil {
+                self.dismiss(animated: false, completion: nil)
+            }
+        }
+    }
+    
+    // UITapGestureRecognizer 연결 함수 부분
+    @objc private func dimmedViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+        hideBottomSheetAndGoBack()
+    }
+    
+    // UISwipeGestureRecognizer 연결 함수 부분
+    @objc func panGesture(_ recognizer: UISwipeGestureRecognizer) {
+        if recognizer.state == .ended {
+            switch recognizer.direction {
+            case .down:
+                hideBottomSheetAndGoBack()
+            default:
+                break
+            }
+        }
+    }
     @objc private func oepnMapAppBtnTap() {
         showBottomSheet()
+    }
+    @objc private func openGoogleMaps() {
+        let alert = UIAlertController(title: "구글 맵스로 열기 실패", message: "앱 설치 상태를 확인해주세요", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in }
+        alert.addAction(okAction)
+        
+        guard let latitude = Double(datePlace!.latitude) else { return }
+        guard let longitude = Double(datePlace!.longitude) else { return }
+        let url = URL(string: "comgooglemaps://?center=\(latitude),\(longitude)&zoom=17&mapmode=standard")
+        
+        if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
+            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        } else {
+            present(alert, animated: false, completion: nil)
+        }
+    }
+    @objc private func openkakaoMaps() {
+        let alert = UIAlertController(title: "카카오맵으로 열기 실패", message: "앱 설치 상태를 확인해주세요", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in }
+        alert.addAction(okAction)
+        
+        guard let latitude = Double(datePlace!.latitude) else { return }
+        guard let longitude = Double(datePlace!.longitude) else { return }
+        let url = URL(string: "kakaomap://look?p=\(latitude),\(longitude)")
+        if UIApplication.shared.canOpenURL(URL(string:"kakaomap://")!){
+            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        } else {
+            present(alert, animated: false, completion: nil)
+        }
     }
 }
 

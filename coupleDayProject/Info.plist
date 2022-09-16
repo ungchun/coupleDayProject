@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaomap</string>
+		<string>comgooglemaps</string>
+	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-1976572399218124~3016563811</string>
 	<key>GADIsAdManagerApp</key>
