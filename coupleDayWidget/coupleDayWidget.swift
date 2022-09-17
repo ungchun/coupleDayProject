@@ -103,12 +103,35 @@ struct coupleDayWidgetEntryView : View {
                         .frame(width: 10.0, height: 10.0)
                         .scaledToFit()
                     Text("\(RealmManager.shared.getBeginCoupleDay())")
-                        .font(.custom("GangwonEduAllLight", size: 20))
+                        .font(.custom("GangwonEduAllBold", size: 24))
                         .foregroundColor(.white)
                     Text("days")
                         .font(.custom("GangwonEduAllLight", size: 12))
                         .foregroundColor(.white)
                 }
+            case .accessoryRectangular:
+                VStack(alignment: .leading, spacing: 0) {
+                    HStack(spacing: 0) {
+                        Text("\(RealmManager.shared.getBeginCoupleDay())")
+                            .font(.custom("GangwonEduAllBold", size: 24))
+                            .foregroundColor(.white)
+                        Text(" days")
+                            .font(.custom("GangwonEduAllLight", size: 14))
+                            .foregroundColor(.white)
+                    }
+                    Text("너랑나랑")
+                        .font(.custom("GangwonEduAllLight", size: 12))
+                        .foregroundColor(.white)
+                    Text("함께 한 시간")
+                        .font(.custom("GangwonEduAllLight", size: 12))
+                        .foregroundColor(.white)
+                }.frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .topLeading
+                )
             default:
                 Text("unknown")
             }
@@ -167,7 +190,7 @@ struct coupleDayWidget: Widget {
     
     private let supportedFamilies:[WidgetFamily] = {
         if #available(iOSApplicationExtension 16.0, *) {
-            return [.systemSmall, .systemMedium, .accessoryCircular]
+            return [.systemSmall, .systemMedium, .accessoryCircular, .accessoryRectangular]
         } else {
             return [.systemSmall, .systemMedium]
         }
