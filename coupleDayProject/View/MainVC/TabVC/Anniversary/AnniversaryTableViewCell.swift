@@ -95,7 +95,6 @@ final class AnniversaryTableViewCell: UITableViewCell {
         anniversaryDateText.text = "\(dictValue.keys.first!.toDate.toAnniversaryString)"
         anniversaryD_DayText.text = "D-\(D_DayValue)"
         
-        let url = URL(string: url)
-        anniversaryBackGroundImage.kf.setImage(with: url)
+        anniversaryBackGroundImage.setImage(with: url)
     }
 }

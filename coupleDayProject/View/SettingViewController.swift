@@ -131,7 +131,7 @@ final class SettingViewController: UIViewController{
                 if #available(iOS 13.0, *) {
                     window.overrideUserInterfaceStyle = .light
                     self.userDefaults.set(false, forKey: "darkModeState")
-                    CoupleTabViewModel.changeDarkModeCheck = true
+                    NotificationCenter.default.post(name: Notification.Name.darkModeCheck, object: nil, userInfo: ["darkModeCheck": "lightMode"])
                 }
             }
         }
@@ -143,7 +143,7 @@ final class SettingViewController: UIViewController{
                 if #available(iOS 13.0, *) {
                     window.overrideUserInterfaceStyle = .dark
                     self.userDefaults.set(true, forKey: "darkModeState")
-                    CoupleTabViewModel.changeDarkModeCheck = true
+                    NotificationCenter.default.post(name: Notification.Name.darkModeCheck, object: nil, userInfo: ["darkModeCheck": "darkMode"])
                 }
             }
         }

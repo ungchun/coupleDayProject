@@ -12,8 +12,6 @@ final class CoupleTabViewModel {
     
     // MARK: Properties
     //
-    static var changeDarkModeCheck = false
-    
     var beginCoupleDay: Observable<String> = Observable("") // 날짜
     var homeMainImageData: Observable<Data> = Observable((UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5))!)
     var myProfileImageData: Observable<Data> = Observable((UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5))!)
@@ -93,10 +91,4 @@ final class Observable<T> {
         closure(value)
         listener = closure
     }
-}
-
-// Notification Center
-//
-extension Notification.Name {
-    static let coupleDay = Notification.Name("coupleDay")
 }

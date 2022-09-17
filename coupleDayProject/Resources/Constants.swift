@@ -75,26 +75,37 @@ struct RealmManager {
         WidgetCenter.shared.reloadAllTimelines() // 위젯 새로고침
     }
     
-    // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 16000000 으로 맞춰서 예외처리, 16000000 보다 작으면 0.5 퀄리티 16000000 크면 0.25 퀄리티, pngData로 하면 위험부담이 생겨서 배제 -> 13777014 이 사이즈도 막힘.. 인터넷에서는 16Mb라고 하는데 그냥 10000000로 맞춤
+    // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 10000000 으로 맞춰서 예외처리, 10000000 보다 작으면 0.5 퀄리티 16000000 크면 image resize
     //
     func updateMainImage(mainImage: UIImage) {
         try? realm.write({
-            RealmManager.shared.getImageDatas().first!.homeMainImage = (mainImage.pngData()?.count)! > 10000000 ? mainImage.jpegData(compressionQuality: 0.25) : mainImage.jpegData(compressionQuality: 0.5)
+            RealmManager.shared.getImageDatas().first!.homeMainImage = (mainImage.pngData()?.count)! > 10000000 ? resizeImage(image: mainImage, newWidth: 1000).pngData() : mainImage.jpegData(compressionQuality: 0.5)
         })
         WidgetCenter.shared.reloadAllTimelines() // 위젯 새로고침
     }
     func updateMyProfileImage(myProfileImage: UIImage) {
         try? realm.write({
-            RealmManager.shared.getImageDatas().first!.myProfileImage = (myProfileImage.pngData()?.count)! > 16000000 ? myProfileImage.jpegData(compressionQuality: 0.25) : myProfileImage.jpegData(compressionQuality: 0.5)
+            RealmManager.shared.getImageDatas().first!.myProfileImage = (myProfileImage.pngData()?.count)! > 10000000 ? resizeImage(image: myProfileImage, newWidth: 1000).pngData() : myProfileImage.jpegData(compressionQuality: 0.5)
         })
     }
     func updatePartnerProfileImage(partnerProfileImage: UIImage) {
         try? realm.write({
-            RealmManager.shared.getImageDatas().first!.partnerProfileImage = (partnerProfileImage.pngData()?.count)! > 16000000 ? partnerProfileImage.jpegData(compressionQuality: 0.25) : partnerProfileImage.jpegData(compressionQuality: 0.5)
+            RealmManager.shared.getImageDatas().first!.partnerProfileImage = (partnerProfileImage.pngData()?.count)! > 10000000 ? resizeImage(image: partnerProfileImage, newWidth: 1000).pngData() : partnerProfileImage.jpegData(compressionQuality: 0.5)
         })
     }
 }
 
+// MARK: UIImage 객체의 사진용량 줄이기
+//
+func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+    let scale = newWidth / image.size.width // 새 이미지 확대/축소 비율
+    let newHeight = image.size.height * scale
+    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+    image.draw(in: CGRectMake(0, 0, newWidth, newHeight))
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return newImage!
+}
 
 // MARK: app version 확인, 앱 업데이트 관련
 //

@@ -153,3 +153,10 @@ extension NSAttributedString {
         return NSAttributedString(attributedString: attributedString)
     }
 }
+
+// MARK: Notification Center
+//
+extension Notification.Name {
+    static let coupleDay = Notification.Name("coupleDay")
+    static let darkModeCheck = Notification.Name("darkModeCheck")
+}

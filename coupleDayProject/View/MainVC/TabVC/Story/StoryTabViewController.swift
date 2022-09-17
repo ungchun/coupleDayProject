@@ -16,6 +16,7 @@ final class StoryTabViewController: UIViewController {
         // Notification Center에 Observer 등록
         //
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCoupleDayData(notification:)), name: Notification.Name.coupleDay, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeDarkModeSet(notification:)), name: Notification.Name.darkModeCheck, object: nil)
     }
     @objc func receiveCoupleDayData(notification: Notification) {
         // notification.userInfo 값을 받아온다. -> 그 값을 가지고 scrollToRow 처리
@@ -38,6 +39,13 @@ final class StoryTabViewController: UIViewController {
             }
         }
     }
+    @objc private func changeDarkModeSet(notification: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.storyTableView.reloadData()
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -52,6 +60,7 @@ final class StoryTabViewController: UIViewController {
     private let storyTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     private let allContentStackView: UIStackView = {
@@ -66,7 +75,16 @@ final class StoryTabViewController: UIViewController {
     
     // MARK: Life Cycle
     //
-    override func viewWillAppear(_ animated: Bool) { }
+    override func viewWillAppear(_ animated: Bool) {
+        guard let coupleTabViewModel = coupleTabViewModel else { return }
+        if Int((coupleTabViewModel.beginCoupleDay.value))! >= 10950 {
+            let startIndex = IndexPath(row: StoryStandardDayModel().dayValues.count-1, section: 0)
+            self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
+        } else {
+            let startIndex = IndexPath(row: StoryStandardDayModel().dayValues.firstIndex(of: StoryStandardDayModel().dayValues.filter {$0 > Int((coupleTabViewModel.beginCoupleDay.value))!}.min()!)!, section: 0)
+            self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()

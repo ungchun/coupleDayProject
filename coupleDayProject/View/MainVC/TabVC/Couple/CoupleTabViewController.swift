@@ -132,16 +132,11 @@ final class CoupleTabViewController: UIViewController {
     
     // MARK: Life Cycle
     //
-    override func viewWillAppear(_ animated: Bool) {
-        if CoupleTabViewModel.changeDarkModeCheck == true {
-            CoupleTabViewModel.changeDarkModeCheck = false
-            coupleTabViewModel?.updateMyProfileIcon()
-            coupleTabViewModel?.updatePartnerProfileIcon()
-        }
-    }
-    
+    override func viewWillAppear(_ animated: Bool) {}
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(changeDarkModeSet(notification:)), name: Notification.Name.darkModeCheck, object: nil)
         
         loadFirebaseData { [weak self] in
             guard let self = self else { return }
@@ -370,13 +365,17 @@ final class CoupleTabViewController: UIViewController {
             allContentStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
     }
-    @objc func myProfileTap(_ gesture: UITapGestureRecognizer) {
+    @objc private func myProfileTap(_ gesture: UITapGestureRecognizer) {
         whoProfileChangeCheck = "my"
         self.present(imagePickerController, animated: true, completion: nil)
     }
-    @objc func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
+    @objc private func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
         whoProfileChangeCheck = "partner"
         self.present(imagePickerController, animated: true, completion: nil)
+    }
+    @objc private func changeDarkModeSet(notification: Notification) {
+        coupleTabViewModel?.updateMyProfileIcon()
+        coupleTabViewModel?.updatePartnerProfileIcon()
     }
 }
 
