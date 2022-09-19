@@ -23,5 +23,5 @@ struct DatePlaceModel: Codable {
 }
 
 let LocalName: [String: String] = [
-    "chungcheong": "충청", "gangwon": "강원", "gyeongsang": "경상", "jeju": "제주", "jeolla": "전라", "seoul": "서울", "sudo": "수도권"
+    "seoul": "서울", "sudo": "수도권", "chungcheong": "충청", "gangwon": "강원", "gyeongsang": "경상",  "jeolla": "전라", "jeju": "제주"
 ]

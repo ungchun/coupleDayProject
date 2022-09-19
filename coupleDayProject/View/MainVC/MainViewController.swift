@@ -36,9 +36,17 @@ final class MainViewController: UIViewController {
         imageView.contentMode = .center
         return imageView
     }()
+    private let datePlaceBtn: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: "note.text")
+        imageView.tintColor = TrendingConstants.appMainColor
+        imageView.contentMode = .center
+        return imageView
+    }()
     
     private lazy var btnStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [anniversaryBtn, settingBtn])
+        let stackView = UIStackView(arrangedSubviews: [datePlaceBtn, anniversaryBtn, settingBtn])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
@@ -90,6 +98,9 @@ final class MainViewController: UIViewController {
         let anniversaryTapGesture = UITapGestureRecognizer(target: self, action: #selector(anniversaryBtnTap(_:)))
         anniversaryBtn.isUserInteractionEnabled = true
         anniversaryBtn.addGestureRecognizer(anniversaryTapGesture)
+        let datePlaceTapGesture = UITapGestureRecognizer(target: self, action: #selector(datePlaceTabBtnTap(_:)))
+        datePlaceBtn.isUserInteractionEnabled = true
+        datePlaceBtn.addGestureRecognizer(datePlaceTapGesture)
         
         NSLayoutConstraint.activate([
             allContentStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -98,7 +109,7 @@ final class MainViewController: UIViewController {
             allContentStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -20),
         ])
         
-        let mainTabManVC = TabManViewController(coupleTabViewModel: coupleTabViewModel)
+        let mainTabManVC = MainTabManViewController(coupleTabViewModel: coupleTabViewModel)
         addChild(mainTabManVC)
         view.addSubview(mainTabManVC.view)
         mainTabManVC.didMove(toParent: self)
@@ -120,6 +131,9 @@ final class MainViewController: UIViewController {
         anniversaryViewController.modalPresentationStyle = .custom
         anniversaryViewController.transitioningDelegate = self
         coordinator?.showAnniversaryView(vc: anniversaryViewController)
+    }
+    @objc func datePlaceTabBtnTap(_ gesture: UITapGestureRecognizer) {
+        coordinator?.showDatePlaceTabView()
     }
 }
 

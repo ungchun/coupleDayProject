@@ -20,7 +20,7 @@ protocol MainCoordinatorting: Coordinator {
 }
 protocol SettingCoordinatorting: Coordinator {}
 protocol AnniversaryCoordinatorting: Coordinator {}
-protocol DatePlaceCoordinatorting: Coordinator {}
+protocol DatePlaceTabCoordinatorting: Coordinator {}
 
 // AppCoordinator의 자식 -> Main, SetBeginDay 으로 이동 가능
 //
@@ -135,6 +135,12 @@ final class MainViewCoordinator: MainCoordinatorting {
         childCoordinator.append(child)
         child.start(vc: vc)
     }
+    func showDatePlaceTabView() {
+        let child = DatePlaceTabViewCoordinator(navigationController: navigationController)
+        child.parentCoordinator = self
+        childCoordinator.append(child)
+        child.start()
+    }
 
     func didFinishMainView() {
         parentCoordinator?.childDidFinish(self)
@@ -188,6 +194,27 @@ final class AnniversaryViewCoordinator: AnniversaryCoordinatorting {
         navigationController.present(vc, animated: true)
     }
     
+    func didFinishAnniversaryView() {
+        parentCoordinator?.childDidFinish(self)
+    }
+}
+
+final class DatePlaceTabViewCoordinator: DatePlaceTabCoordinatorting {
+    
+    weak var parentCoordinator: MainViewCoordinator?
+    
+    var childCoordinator = [Coordinator]()
+    var navigationController: UINavigationController
+    
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+    func start() {
+        let datePlaceTabManViewController = DatePlaceTabManViewController()
+        datePlaceTabManViewController.coordinator = self
+        self.navigationController.pushViewController(datePlaceTabManViewController, animated: true)
+    }
+
     func didFinishAnniversaryView() {
         parentCoordinator?.childDidFinish(self)
     }
