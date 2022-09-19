@@ -176,6 +176,7 @@ final class DetailDatePlaceViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.title = ""
         
         // navigationController 배경 투명하게 변경
         //
@@ -183,6 +184,7 @@ final class DetailDatePlaceViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         mapZoomInAnimation() // 줌인되는 애니메이션 -> 뷰가 나타난 직후 일어나야해서 viewDidAppear

@@ -17,6 +17,7 @@ final class DatePlaceTabManViewController: TabmanViewController {
         // 상단 NavigationBar 공간 show (뒤로가기 버튼)
         //
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.title = ""
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +53,6 @@ final class DatePlaceTabManViewController: TabmanViewController {
         viewControllers.append(jeollaVC)
         let jejuVC = JejuViewController()
         viewControllers.append(jejuVC)
-        
         
         self.dataSource = self
         

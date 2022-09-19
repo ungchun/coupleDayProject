@@ -1,13 +1,14 @@
 import UIKit
-import Kingfisher
+import SnapKit
 
-final class DatePlaceCollectionViewCell: UICollectionViewCell {
+class DatePlaceCollectionViewCell: UICollectionViewCell {
     
     // MARK: Properties
     //
     var datePlaceModel: DatePlaceModel? {
         didSet { datePlaceModelBinding() }
     }
+    static let reuseIdentifier = String(describing: DatePlaceCollectionViewCell.self)
     
     // MARK: Views
     //
@@ -22,16 +23,19 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
     private var placeName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "GangwonEduAllLight", size: CommonSize.coupleCellTextBigSize)
+        label.font = UIFont(name: "GangwonEduAllLight", size: 15)
         label.text = "장소"
+        label.textColor = .black
+        //        label.backgroundColor = .gray
         return label
     }()
     private var placeShortAddress: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "GangwonEduAllLight", size: CommonSize.coupleCellTextSmallSize)
+        label.font = UIFont(name: "GangwonEduAllLight", size: 15)
         label.text = "위치"
-        label.textColor = .gray
+        label.textColor = .black
+        //        label.backgroundColor = .gray
         return label
     }()
     
@@ -39,9 +43,11 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.spacing = 10
+        stackView.backgroundColor = .gray
         return stackView
     }()
+    
     
     // MARK: Life Cycle
     //
@@ -53,21 +59,21 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
         allContentStackView.addArrangedSubview(placeName)
         allContentStackView.addArrangedSubview(placeShortAddress)
         
-        allContentStackView.setCustomSpacing(15, after: datePlaceImageView)
-        
+        print("UIScreen.main.bounds.size.width \(UIScreen.main.bounds.size.width)")
         NSLayoutConstraint.activate([
-            datePlaceImageView.widthAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
-            datePlaceImageView.heightAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
+            datePlaceImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width/2),
+            datePlaceImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width/2),
             
-            allContentStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            allContentStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
+        
+        allContentStackView.snp.makeConstraints { make in
+            make.top.left.right.equalTo(0)
+            make.bottom.equalTo(0)
+        }
+        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    override func prepareForReuse() {
-        super.prepareForReuse()
     }
     
     // MARK: Functions

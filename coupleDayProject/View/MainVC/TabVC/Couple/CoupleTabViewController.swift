@@ -95,7 +95,7 @@ final class CoupleTabViewController: UIViewController {
         label.font = UIFont(name: "GangwonEduAllBold", size: CommonSize.coupleTextBigSize)
         return label
     }()
-    private lazy var datePlacelCollectionView: UICollectionView = {
+    private lazy var datePlaceCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0
@@ -121,7 +121,7 @@ final class CoupleTabViewController: UIViewController {
         return view
     }()
     private lazy var DatePlaceStackView: UIStackView = { // 오늘의 데이트 장소 stackView
-        var stackView = UIStackView(arrangedSubviews: [datePlaceTitle, datePlacelCollectionView])
+        var stackView = UIStackView(arrangedSubviews: [datePlaceTitle, datePlaceCollectionView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
         stackView.axis = .vertical
@@ -154,9 +154,9 @@ final class CoupleTabViewController: UIViewController {
             ])
         }
         
-        datePlacelCollectionView.dataSource = self
-        datePlacelCollectionView.delegate = self
-        datePlacelCollectionView.register(DatePlaceCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        datePlaceCollectionView.dataSource = self
+        datePlaceCollectionView.delegate = self
+        datePlaceCollectionView.register(TodayDatePlaceCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
         imagePickerController.delegate = self
         
@@ -424,7 +424,7 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         if self.mainDatePlaceList.count > indexPath.item {
-            if let cell = cell as? DatePlaceCollectionViewCell {
+            if let cell = cell as? TodayDatePlaceCollectionViewCell {
                 cell.datePlaceImageView.image = nil
                 cell.datePlaceModel = mainDatePlaceList[indexPath.item]
             }
@@ -438,7 +438,7 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
         self.navigationController?.pushViewController(detailDatePlaceViewController, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: CommonSize.coupleCellImageSize + 10, height: datePlacelCollectionView.frame.height)
+        return CGSize(width: CommonSize.coupleCellImageSize + 10, height: datePlaceCollectionView.frame.height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
