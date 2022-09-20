@@ -3,7 +3,7 @@ import Tabman
 import Pageboy
 
 final class DatePlaceTabManViewController: TabmanViewController {
-
+    
     // MARK: Properties
     //
     private var tabTitleArray: Array<String> = ["서울", "수도권", "충청", "강원", "경상", "전라", "제주"]
@@ -18,6 +18,20 @@ final class DatePlaceTabManViewController: TabmanViewController {
         //
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.title = ""
+        
+        // iOS 15에서 UIKit은 scrollEdgeAppearance 기본적으로 투명한 배경을 생성 -> 이렇게 뒤에 배경색을 지정해야함
+        //
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(named: "bgColor")
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+        navigationController?.navigationBar.scrollEdgeAppearance = .none
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,20 +52,19 @@ final class DatePlaceTabManViewController: TabmanViewController {
         self.view.backgroundColor = UIColor(named: "bgColor")
     }
     private func setUpLayoutBar() {
-        
-        let seoulVC = SeoulViewController()
+        let seoulVC = CityTabViewController(placeName: "seoul")
         viewControllers.append(seoulVC)
-        let sudoVC = SudoViewController()
+        let sudoVC = CityTabViewController(placeName: "sudo")
         viewControllers.append(sudoVC)
-        let chungcheongVC = ChungcheongViewController()
+        let chungcheongVC = CityTabViewController(placeName: "chungcheong")
         viewControllers.append(chungcheongVC)
-        let gangwonVC = GangwonViewController()
+        let gangwonVC = CityTabViewController(placeName: "gangwon")
         viewControllers.append(gangwonVC)
-        let gyeongsangVC = GyeongsangViewController()
+        let gyeongsangVC = CityTabViewController(placeName: "gyeongsang")
         viewControllers.append(gyeongsangVC)
-        let jeollaVC = JeollaViewController()
+        let jeollaVC = CityTabViewController(placeName: "jeolla")
         viewControllers.append(jeollaVC)
-        let jejuVC = JejuViewController()
+        let jejuVC = CityTabViewController(placeName: "jeju")
         viewControllers.append(jejuVC)
         
         self.dataSource = self
@@ -64,7 +77,7 @@ final class DatePlaceTabManViewController: TabmanViewController {
             button.selectedTintColor = TrendingConstants.appMainColor
             button.font = UIFont(name: "GangwonEduAllBold", size: 20) ?? UIFont.systemFont(ofSize: 20)
         }
-        bar.scrollMode = .swipe
+        bar.scrollMode = .interactive
         bar.layout.transitionStyle = .snap
         bar.layout.interButtonSpacing = 30
         bar.indicator.weight = .custom(value: 2.5)

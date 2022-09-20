@@ -172,7 +172,6 @@ final class CoupleTabViewController: UIViewController {
     private func loadFirebaseData(completion: @escaping () -> ()) {
         var count = 0
         guard let localNameText = LocalName.randomElement()?.key else { return }
-//        let localNameText = "gangwon"
         FirebaseManager.shared.firestore.collection("\(localNameText)").getDocuments { [self] (querySnapshot, error) in
             guard error == nil else { return }
             for document in querySnapshot!.documents {

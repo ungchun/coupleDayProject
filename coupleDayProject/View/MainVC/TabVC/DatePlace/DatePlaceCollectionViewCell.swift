@@ -23,19 +23,16 @@ class DatePlaceCollectionViewCell: UICollectionViewCell {
     private var placeName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "GangwonEduAllLight", size: 15)
+        label.font = UIFont(name: "GangwonEduAllBold", size: 17)
         label.text = "장소"
-        label.textColor = .black
-        //        label.backgroundColor = .gray
         return label
     }()
     private var placeShortAddress: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "GangwonEduAllLight", size: 15)
+        label.font = UIFont(name: "GangwonEduAllLight", size: 12)
         label.text = "위치"
-        label.textColor = .black
-        //        label.backgroundColor = .gray
+        label.textColor = .gray
         return label
     }()
     
@@ -43,34 +40,27 @@ class DatePlaceCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.backgroundColor = .gray
+        stackView.spacing = 0
         return stackView
     }()
-    
     
     // MARK: Life Cycle
     //
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         addSubview(allContentStackView)
         allContentStackView.addArrangedSubview(datePlaceImageView)
         allContentStackView.addArrangedSubview(placeName)
         allContentStackView.addArrangedSubview(placeShortAddress)
         
-        print("UIScreen.main.bounds.size.width \(UIScreen.main.bounds.size.width)")
         NSLayoutConstraint.activate([
-            datePlaceImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width/2),
-            datePlaceImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width/2),
-            
+            datePlaceImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2),
+            datePlaceImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2),
         ])
         
         allContentStackView.snp.makeConstraints { make in
-            make.top.left.right.equalTo(0)
-            make.bottom.equalTo(0)
+            make.top.bottom.left.right.equalTo(0)
         }
-        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

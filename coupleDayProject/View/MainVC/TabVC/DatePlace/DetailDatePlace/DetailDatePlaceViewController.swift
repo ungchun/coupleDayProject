@@ -48,6 +48,7 @@ final class DetailDatePlaceViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "GangwonEduAllLight", size: 15)
+        label.textColor = .gray
         return label
     }()
     let mapAddressTitle: UILabel = {
@@ -82,13 +83,13 @@ final class DetailDatePlaceViewController: UIViewController {
         view.clipsToBounds = true
         return view
     }()
-    // 기존 화면을 흐려지게 만들기 위한 뷰
+    // 기존 화면을 흐려지게 만들기 위한 뷰 -> 바텀시트 때문에 필요
     private let dimmedBackView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         return view
     }()
-    // dismiss Indicator View UI 구성 부분
+    // dismiss Indicator View UI 구성 부분 -> 바텀시트 때문에 필요
     private let dismissIndicatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray2
@@ -183,6 +184,10 @@ final class DetailDatePlaceViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {

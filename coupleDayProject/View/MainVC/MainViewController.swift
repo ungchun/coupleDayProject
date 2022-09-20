@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 import Kingfisher
+import FirebaseFirestore
 
 final class MainViewController: UIViewController {
     
@@ -39,7 +40,7 @@ final class MainViewController: UIViewController {
     private let datePlaceBtn: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "note.text")
+        imageView.image = UIImage(systemName: "map")
         imageView.tintColor = TrendingConstants.appMainColor
         imageView.contentMode = .center
         return imageView
