@@ -95,19 +95,22 @@ struct coupleDayWidgetEntryView : View {
                         .scaledToFill()
                 )
             case .accessoryCircular:
-                VStack(spacing: 0) {
-                    Image(uiImage: UIImage(systemName: "heart.fill")!)
-                        .renderingMode(.template)
-                        .resizable()
-                        .foregroundColor(.appMainColor)
-                        .frame(width: 10.0, height: 10.0)
-                        .scaledToFit()
-                    Text("\(RealmManager.shared.getBeginCoupleDay())")
-                        .font(.custom("GangwonEduAllBold", size: 24))
-                        .foregroundColor(.white)
-                    Text("days")
-                        .font(.custom("GangwonEduAllLight", size: 12))
-                        .foregroundColor(.white)
+                ZStack{
+                    AccessoryWidgetBackground()
+                    VStack(spacing: 0) {
+                        Image(uiImage: UIImage(systemName: "heart.fill")!)
+                            .renderingMode(.template)
+                            .resizable()
+                            .foregroundColor(.appMainColor)
+                            .frame(width: 10.0, height: 10.0)
+                            .scaledToFit()
+                        Text("\(RealmManager.shared.getBeginCoupleDay())")
+                            .font(.custom("GangwonEduAllBold", size: 24))
+                            .foregroundColor(.white)
+                        Text("days")
+                            .font(.custom("GangwonEduAllLight", size: 12))
+                            .foregroundColor(.white)
+                    }
                 }
             case .accessoryRectangular:
                 VStack(alignment: .leading, spacing: 0) {
