@@ -6,7 +6,7 @@
 
 ## [About]
   
-![그룹 38513](https://user-images.githubusercontent.com/50910456/190950076-f3678fee-478b-4021-b69b-67375af8c3f4.png)  
+![그룹 38513](https://user-images.githubusercontent.com/50910456/192079988-8744ae9a-f794-4813-ad61-bfd8797bf143.png)
 ![앱 스크린샷](https://user-images.githubusercontent.com/50910456/183449608-c1cd2efb-fbba-4fd8-a3eb-185bdfa3679d.png)
   
 심플하고 이쁜 커플 디데이 앱 !  
@@ -25,7 +25,8 @@
 - version 1.1.0 : 커플 기념일 기능 추가 ( 22.07.30 )
 - version 1.2.0 : 구글 애드몹 제거 ( 22.07.31 )
 - version 1.3.0 : 지역별 추천 장소 기능 추가 ( 22.09.06 )  
-- version 1.3.1 : iOS 16 지원, 잠금화면 위젯 추가, 지도 앱 열기 기능 추가 ( 22.09. 18 )
+- version 1.3.1 : iOS 16 지원, 잠금화면 위젯 추가, 지도 앱 열기 기능 추가 ( 22.09.18 )  
+- version 1.4.0 : 지역별 추천 장소 탭 추가, 잠금화면 위젯 background View 추가 ( 22.09.23 )
 
 ## [ Develop Environment ]
 
