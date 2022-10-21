@@ -84,7 +84,7 @@ final class Observable<T> {
     }
     
     // 4) 다른 곳에서 bind라는 메소드를 호출하게 되면,
-    // value에 저장했떤 값을 전달해주고,
+    // value에 저장했던 값을 전달해주고,
     // 전달받은 "closure" 표현식을 listener에 할당한다.
     //
     func bind(_ closure: @escaping (T) -> Void) {

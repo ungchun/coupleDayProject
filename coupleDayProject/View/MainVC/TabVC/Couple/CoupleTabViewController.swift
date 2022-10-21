@@ -139,18 +139,19 @@ final class CoupleTabViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(changeDarkModeSet(notification:)), name: Notification.Name.darkModeCheck, object: nil)
         
         loadFirebaseData { [weak self] in
-            guard let self = self else { return }
-            self.allContentStackView.removeArrangedSubview(self.activityIndicator)
-            self.allContentStackView.addArrangedSubview(self.DatePlaceStackView)
+            guard let activityIndicator = self?.activityIndicator else { return }
+            guard let datePlaceStackView = self?.DatePlaceStackView else { return }
+            self?.allContentStackView.removeArrangedSubview(activityIndicator)
+            self?.allContentStackView.addArrangedSubview(datePlaceStackView)
             
             // fadeIn Animation
             //
-            self.DatePlaceStackView.alpha = 0
-            self.DatePlaceStackView.fadeIn()
+            self?.DatePlaceStackView.alpha = 0
+            self?.DatePlaceStackView.fadeIn()
             
             NSLayoutConstraint.activate([
-                self.DatePlaceStackView.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 20),
-                self.DatePlaceStackView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -20),
+                datePlaceStackView.leftAnchor.constraint(equalTo: (self?.view.safeAreaLayoutGuide.leftAnchor)!, constant: 20),
+                datePlaceStackView.rightAnchor.constraint(equalTo: (self?.view.safeAreaLayoutGuide.rightAnchor)!, constant: -20),
             ])
         }
         
@@ -198,8 +199,7 @@ final class CoupleTabViewController: UIViewController {
                 // 처음 들어가더라도 이 친구 덕분에 캐시처리가 모두 완료된 상태라 indicator 볼 필요없음
                 //
                 DispatchQueue.global().async { [weak self] in
-                    guard let self = self else { return }
-                    self.downloadImageAndCache(with: datePlaceValue.imageUrl.first!)
+                    self?.downloadImageAndCache(with: datePlaceValue.imageUrl.first!)
                 }
                 
                 if count == 5 { break }
@@ -234,9 +234,8 @@ final class CoupleTabViewController: UIViewController {
     private func coupleTabViewModelBinding() {
         guard let coupleTabViewModel = coupleTabViewModel else { return }
         coupleTabViewModel.beginCoupleDay.bind { [weak self] beginCoupleDay in
-            guard let self = self else { return }
             DispatchQueue.main.async {
-                self.dayText.text = beginCoupleDay
+                self?.dayText.text = beginCoupleDay
             }
             // watch, days 택스트 value는 updateApplicationContext 방법으로 연동
             //
@@ -244,12 +243,12 @@ final class CoupleTabViewController: UIViewController {
             try? WCSession.default.updateApplicationContext(dayData)
         }
         coupleTabViewModel.homeMainImageData.bind { [weak self] imageData in
-            guard let self = self else { return }
             DispatchQueue.main.async {
-                self.mainImageView.image = UIImage(data: imageData)
-                if !self.loadingCheck {
-                    self.afterImageLoadingView()
-                    self.loadingCheck = true
+                self?.mainImageView.image = UIImage(data: imageData)
+                guard let loadingCheck = self?.loadingCheck else { return }
+                if !loadingCheck {
+                    self?.afterImageLoadingView()
+                    self?.loadingCheck = true
                 }
                 
                 // watch, 메인 이미지는 transferUserInfo 방법으로 이미지 연동
@@ -261,15 +260,13 @@ final class CoupleTabViewController: UIViewController {
             }
         }
         coupleTabViewModel.myProfileImageData.bind({ [weak self] imageData in
-            guard let self = self else { return }
             DispatchQueue.main.async {
-                self.myProfileUIImageView.image = UIImage(data: imageData)
+                self?.myProfileUIImageView.image = UIImage(data: imageData)
             }
         })
         coupleTabViewModel.partnerProfileImageData.bind({ [weak self] imageData in
-            guard let self = self else { return }
             DispatchQueue.main.async {
-                self.partnerProfileUIImageView.image = UIImage(data: imageData)
+                self?.partnerProfileUIImageView.image = UIImage(data: imageData)
             }
         })
     }

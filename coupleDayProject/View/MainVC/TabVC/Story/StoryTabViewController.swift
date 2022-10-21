@@ -28,21 +28,19 @@ final class StoryTabViewController: UIViewController {
             return
         }
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.storyTableView.reloadData()
+            self?.storyTableView.reloadData()
             if Int(object)! >= 10950 {
                 let startIndex = IndexPath(row: StoryStandardDayModel().dayValues.count-1, section: 0)
-                self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
+                self?.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
             } else {
                 let startIndex = IndexPath(row: StoryStandardDayModel().dayValues.firstIndex(of: StoryStandardDayModel().dayValues.filter {$0 > Int(object)!}.min()!)!, section: 0)
-                self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
+                self?.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
             }
         }
     }
     @objc private func changeDarkModeSet(notification: Notification) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.storyTableView.reloadData()
+            self?.storyTableView.reloadData()
         }
     }
     

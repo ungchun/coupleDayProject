@@ -45,8 +45,7 @@ class DatePlaceCarouselView: UIView {
         //
         imageUrlArray.forEach { value in
             DispatchQueue.global().async { [weak self] in
-                guard let self = self else { return }
-                self.downloadImageAndCache(with: value)
+                self?.downloadImageAndCache(with: value)
             }
         }
         

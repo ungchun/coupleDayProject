@@ -13,7 +13,6 @@ struct coupleDayEntry: TimelineEntry {
 // provider : 위젯을 새로고침할 타임라인을 결정하는 객체
 //
 struct Provider: TimelineProvider {
-    
     func placeholder(in context: Context) -> coupleDayEntry {
         coupleDayEntry(date: Date(), size: context.displaySize)
     }

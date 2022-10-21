@@ -47,12 +47,11 @@ class CityTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadFirebaseData { [weak self] in
-            guard let self = self else { return }
             // fadeIn Animation
             //
-            self.setUpView()
-            self.datePlaceCollectionView.alpha = 0
-            self.datePlaceCollectionView.fadeIn()
+            self?.setUpView()
+            self?.datePlaceCollectionView.alpha = 0
+            self?.datePlaceCollectionView.fadeIn()
             
             NSLayoutConstraint.activate([])
         }
@@ -93,8 +92,7 @@ class CityTabViewController: UIViewController {
                 mainDatePlaceList.append(datePlaceValue)
                 
                 DispatchQueue.global().async { [weak self] in
-                    guard let self = self else { return }
-                    self.downloadImageAndCache(with: datePlaceValue.imageUrl.first!)
+                    self?.downloadImageAndCache(with: datePlaceValue.imageUrl.first!)
                 }
             }
             mainDatePlaceList.shuffle()

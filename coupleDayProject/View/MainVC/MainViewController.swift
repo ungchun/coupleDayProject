@@ -74,14 +74,13 @@ final class MainViewController: UIViewController {
         
         mainViewModelCombine.receivedCoupleDayData = coupleTabViewModel.beginCoupleDay.value
         self.mainViewModelCombine.$appNameLabelValue.sink { [weak self] updateLabel in
-            guard let self = self else { return }
             DispatchQueue.main.async {
                 let transition = CATransition()
                 transition.duration = 1
                 transition.timingFunction = .init(name: .easeIn)
                 transition.type = .fade
-                self.appNameLabel.layer.add(transition, forKey: CATransitionType.fade.rawValue)
-                self.appNameLabel.text = updateLabel
+                self?.appNameLabel.layer.add(transition, forKey: CATransitionType.fade.rawValue)
+                self?.appNameLabel.text = updateLabel
             }
         }.store(in: &disposalbleBag)
     }

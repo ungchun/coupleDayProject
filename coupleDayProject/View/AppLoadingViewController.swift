@@ -42,24 +42,22 @@ final class AppLoadingViewController: UIViewController {
         setUpView()
         
         lottieAnimationView.play { [weak self] (finish) in
-            guard let self = self else { return }
-            
             let marketingVersion = System().latestVersion()!
             let currentProjectVersion = System.appVersion!
             let splitMarketingVersion = marketingVersion.split(separator: ".").map {$0}
             let splitCurrentProjectVersion = currentProjectVersion.split(separator: ".").map {$0}
             
             if splitCurrentProjectVersion[0] < splitMarketingVersion[0] { // 가장 앞자리가 다르면 -> 업데이트 필요
-                self.needUpdateVersion(marketingVersion)
+                self?.needUpdateVersion(marketingVersion)
             } else {
                 if  splitCurrentProjectVersion[1] < splitMarketingVersion[1] { // 두번째 자리가 달라도 업데이트 필요
-                    self.needUpdateVersion(marketingVersion)
+                    self?.needUpdateVersion(marketingVersion)
                 } else { // 그 이외에는 업데이트 필요 없음
                     Auth.auth().signInAnonymously { (authResult, error) in }
                     if RealmManager.shared.getUserDatas().isEmpty {
-                        self.coordinator!.showSetBeginDayView()
+                        self?.coordinator!.showSetBeginDayView()
                     } else {
-                        self.coordinator!.showMainView()
+                        self?.coordinator!.showMainView()
                     }
                 }
             }

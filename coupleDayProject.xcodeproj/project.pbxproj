@@ -30,7 +30,6 @@
 		BC6ECEE528D860490012C818 /* DatePlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6ECEE428D860490012C818 /* DatePlaceCollectionViewCell.swift */; };
 		BC78B4EB287D7B1A00DF10C6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC78B4E9287D7B1A00DF10C6 /* Interface.storyboard */; };
 		BC78B4ED287D7B1A00DF10C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC78B4EC287D7B1A00DF10C6 /* Assets.xcassets */; };
-		BC78B4F3287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BC78B4F2287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BC78B4F8287D7B1A00DF10C6 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78B4F7287D7B1A00DF10C6 /* InterfaceController.swift */; };
 		BC78B4FA287D7B1A00DF10C6 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78B4F9287D7B1A00DF10C6 /* ExtensionDelegate.swift */; };
 		BC78B4FC287D7B1A00DF10C6 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC78B4FB287D7B1A00DF10C6 /* NotificationController.swift */; };
@@ -52,6 +51,7 @@
 		BC8B624F285087B000D46416 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B624E285087B000D46416 /* Realm */; };
 		BC8B6251285087B000D46416 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B6250285087B000D46416 /* RealmSwift */; };
 		BC9493B7288142E9003FF1DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC9493B9288142E9003FF1DB /* InfoPlist.strings */; };
+		BC96D74828DAF9ED001F9B75 /* coupleDayWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BC78B4F2287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BCA646FC28C326E20011C8B9 /* DatePlaceCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA646FB28C326E20011C8B9 /* DatePlaceCarouselView.swift */; };
 		BCA646FE28C328480011C8B9 /* CarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA646FD28C328480011C8B9 /* CarouselCollectionViewCell.swift */; };
 		BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B151285076FF00DE7196 /* AppDelegate.swift */; };
@@ -85,13 +85,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BC78B4F4287D7B1A00DF10C6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BCB0B146285076FF00DE7196 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BC78B4F1287D7B1A00DF10C6;
-			remoteInfo = "coupleDayWatch WatchKit Extension";
-		};
 		BC78B503287D7B1B00DF10C6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BCB0B146285076FF00DE7196 /* Project object */;
@@ -105,6 +98,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = BC83F8C82876D2200027235E;
 			remoteInfo = coupleDayWidgetExtension;
+		};
+		BC96D74928DAF9ED001F9B75 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BCB0B146285076FF00DE7196 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BC78B4F1287D7B1A00DF10C6;
+			remoteInfo = "coupleDayWatch WatchKit Extension";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -126,7 +126,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				BC78B4F3287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension.appex in Embed App Extensions */,
+				BC96D74828DAF9ED001F9B75 /* coupleDayWatch WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,6 +180,7 @@
 		BC9493BA288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		BC9493BB288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Interface.strings; sourceTree = "<group>"; };
 		BC9493BC288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BC96D74428DAF5D8001F9B75 /* coupleDayWidgetExtension copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "coupleDayWidgetExtension copy-Info.plist"; path = "/Users/sunghun/Documents/GitHub/coupleDayProject/coupleDayWidgetExtension copy-Info.plist"; sourceTree = "<absolute>"; };
 		BCA646FB28C326E20011C8B9 /* DatePlaceCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceCarouselView.swift; sourceTree = "<group>"; };
 		BCA646FD28C328480011C8B9 /* CarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCollectionViewCell.swift; sourceTree = "<group>"; };
 		BCB0B14E285076FF00DE7196 /* coupleDayProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -353,6 +354,7 @@
 				BC78B4F6287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension */,
 				BC83F89E2876C70A0027235E /* Frameworks */,
 				BCB0B14F285076FF00DE7196 /* Products */,
+				BC96D74428DAF5D8001F9B75 /* coupleDayWidgetExtension copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -509,7 +511,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				BC78B4F5287D7B1A00DF10C6 /* PBXTargetDependency */,
+				BC96D74A28DAF9ED001F9B75 /* PBXTargetDependency */,
 			);
 			name = coupleDayWatch;
 			productName = coupleDayWatch;
@@ -756,11 +758,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		BC78B4F5287D7B1A00DF10C6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BC78B4F1287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension */;
-			targetProxy = BC78B4F4287D7B1A00DF10C6 /* PBXContainerItemProxy */;
-		};
 		BC78B504287D7B1B00DF10C6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BC78B4E6287D7B1A00DF10C6 /* coupleDayWatch */;
@@ -770,6 +767,11 @@
 			isa = PBXTargetDependency;
 			target = BC83F8C82876D2200027235E /* coupleDayWidgetExtension */;
 			targetProxy = BC83F8D22876D2200027235E /* PBXContainerItemProxy */;
+		};
+		BC96D74A28DAF9ED001F9B75 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BC78B4F1287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension */;
+			targetProxy = BC96D74928DAF9ED001F9B75 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
