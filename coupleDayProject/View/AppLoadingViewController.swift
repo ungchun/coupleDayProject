@@ -1,8 +1,8 @@
-import Foundation
 import UIKit
-import Lottie
+
 import Firebase
 import FirebaseAuth
+import Lottie
 
 final class AppLoadingViewController: UIViewController {
     

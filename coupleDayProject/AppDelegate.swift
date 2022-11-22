@@ -1,7 +1,8 @@
 import UIKit
-import GoogleMobileAds
 import WatchConnectivity
+
 import FirebaseCore
+import GoogleMobileAds
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {

@@ -1,7 +1,8 @@
-import UIKit
 import Photos
-import TOCropViewController
+import UIKit
+
 import CropViewController
+import TOCropViewController
 
 final class SettingViewController: UIViewController{
     

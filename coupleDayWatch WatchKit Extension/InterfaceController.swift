@@ -1,6 +1,6 @@
-import WatchKit
 import ClockKit
 import Foundation
+import WatchKit
 import WatchConnectivity
 
 class DayInfo {

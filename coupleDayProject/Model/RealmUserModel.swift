@@ -1,4 +1,5 @@
 import Foundation
+
 import RealmSwift
 
 final class RealmUserModel: Object {

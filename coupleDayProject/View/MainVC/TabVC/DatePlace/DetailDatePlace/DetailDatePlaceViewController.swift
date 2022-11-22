@@ -1,6 +1,7 @@
-import UIKit
-import Kingfisher
 import MapKit
+import UIKit
+
+import Kingfisher
 import SnapKit
 
 final class DetailDatePlaceViewController: UIViewController {
