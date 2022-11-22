@@ -44,8 +44,7 @@
 - MVVM
 - Coordinator
 - Swift Package Manager
-- GCD
-- Combine
+- GCD  
 
 ## [ Library ]
 
