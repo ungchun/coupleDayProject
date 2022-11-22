@@ -120,7 +120,7 @@ final class CoupleTabViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private lazy var DatePlaceStackView: UIStackView = { // 오늘의 데이트 장소 stackView
+    private lazy var DatePlaceStackView: UIStackView = {
         var stackView = UIStackView(arrangedSubviews: [datePlaceTitle, datePlaceCollectionView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
@@ -156,8 +156,6 @@ final class CoupleTabViewController: UIViewController {
             self?.allContentStackView.removeArrangedSubview(activityIndicator)
             self?.allContentStackView.addArrangedSubview(datePlaceStackView)
             
-            // fadeIn Animation
-            //
             self?.DatePlaceStackView.alpha = 0
             self?.DatePlaceStackView.fadeIn()
             
@@ -182,10 +180,7 @@ final class CoupleTabViewController: UIViewController {
         
         imagePickerController.delegate = self
         
-        // 로딩 뷰 세팅, 제일 큰 사진 로딩 끝나면 beforeLoadingSetupView -> afterLoadingSetupView 변경
-        //
         beforeImageLoadingView()
-        
         coupleTabViewModelBinding()
     }
     
@@ -214,11 +209,7 @@ final class CoupleTabViewController: UIViewController {
                 self?.datePlaceTitle.text = "\(localName)의 오늘 장소"
                 self?.mainDatePlaceList.append(datePlaceValue)
                 count += 1
-                
-                // 그냥 컬렉션 뷰 옆으로 하나씩 넘어갈 때 마다 다운해도 되는데, 처음 들어가면 페이지 넘어갈 때 마다 다운, 캐시처리하는 indicator 화면 봐야함
-                // downloadImageAndCache -> imageUrlArray 하나씩 돌면서 url 캐시에 있나 없나 확인해서 없으면 미리 다운
-                // 처음 들어가더라도 이 친구 덕분에 캐시처리가 모두 완료된 상태라 indicator 볼 필요없음
-                //
+
                 DispatchQueue.global().async { [weak self] in
                     self?.downloadImageAndCache(with: datePlaceValue.imageUrl.first!)
                 }
@@ -260,18 +251,18 @@ final class CoupleTabViewController: UIViewController {
     
     private func coupleTabViewModelBinding() {
         guard let coupleTabViewModel = coupleTabViewModel else { return }
+        
         coupleTabViewModel.beginCoupleDay.bind { [weak self] beginCoupleDay in
             DispatchQueue.main.async {
                 self?.dayText.text = beginCoupleDay
             }
-            // watch, days 택스트 value는 updateApplicationContext 방법으로 연동
-            //
             let dayData: [String: Any] = [
                 "dayData":
                     String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)
             ]
             try? WCSession.default.updateApplicationContext(dayData)
         }
+        
         coupleTabViewModel.homeMainImageData.bind { [weak self] imageData in
             DispatchQueue.main.async {
                 self?.mainImageView.image = UIImage(data: imageData)
@@ -280,20 +271,18 @@ final class CoupleTabViewController: UIViewController {
                     self?.afterImageLoadingView()
                     self?.loadingCheck = true
                 }
-                
-                // watch, 메인 이미지는 transferUserInfo 방법으로 이미지 연동
-                // watch 앱에 보내는 image, 크기 제한이 심해서 0.1 화질로 보냄 -> 0.1이 제일 작은 크기인 듯..? 0.1이 0.01, 0.001 이랑 차이없음
-                //
                 guard let data = UIImage(data: coupleTabViewModel.homeMainImageData.value)?.jpegData(compressionQuality: 0.1) else { return }
                 let imageData: [String: Any] = ["imageData": data]
                 WCSession.default.transferUserInfo(imageData)
             }
         }
+        
         coupleTabViewModel.myProfileImageData.bind({ [weak self] imageData in
             DispatchQueue.main.async {
                 self?.myProfileUIImageView.image = UIImage(data: imageData)
             }
         })
+        
         coupleTabViewModel.partnerProfileImageData.bind({ [weak self] imageData in
             DispatchQueue.main.async {
                 self?.partnerProfileUIImageView.image = UIImage(data: imageData)
@@ -348,19 +337,7 @@ final class CoupleTabViewController: UIViewController {
         allContentStackView.addArrangedSubview(imagePartView)
         allContentStackView.addArrangedSubview(profileImageDayStackView)
         allContentStackView.addArrangedSubview(activityIndicator)
-        
-        // 광고 무효트래픽으로 인한 게재 제한.. 일단 광고 제거
-        //
-        // coupleTabStackView.addArrangedSubview(admobView)
-        // admobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
-        // admobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
-        // // ca-app-pub-1976572399218124/5279479661 -> 광고 단위 ID
-        // // ca-app-pub-3940256099942544/2934735716 -> test Key
-        // admobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        // admobView.rootViewController = self
-        // admobView.load(GADRequest())
-        // admobView.delegate = self
-        
+
         profileImageDayStackView.addArrangedSubview(myProfileUIImageView)
         profileImageDayStackView.addArrangedSubview(loveIconDayStackView)
         profileImageDayStackView.addArrangedSubview(partnerProfileUIImageView)
@@ -486,9 +463,9 @@ extension CoupleTabViewController: UICollectionViewDelegate {}
 extension CoupleTabViewController: CropViewControllerDelegate {
     func presentCropViewController(image: UIImage) {
         let image: UIImage = image
-        let cropViewController = CropViewController(croppingStyle: .circular, image: image) // circular -> 이미지 범위 둥글게
+        let cropViewController = CropViewController(croppingStyle: .circular, image: image)
         cropViewController.delegate = self
-        cropViewController.aspectRatioLockEnabled = true // aspectRatioLockEnabled-> 비율 고정
+        cropViewController.aspectRatioLockEnabled = true
         cropViewController.aspectRatioPickerButtonHidden = true
         cropViewController.doneButtonTitle = "완료"
         cropViewController.cancelButtonTitle = "취소"
@@ -512,8 +489,6 @@ extension CoupleTabViewController: CropViewControllerDelegate {
     }
 }
 
-// Google AdMob Delegate
-//
 extension CoupleTabViewController : GADBannerViewDelegate {
     public func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         bannerView.alpha = 0

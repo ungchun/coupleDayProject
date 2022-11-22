@@ -91,18 +91,6 @@ final class AnniversaryViewController: UIViewController {
         allContentStackView.addArrangedSubview(divider)
         allContentStackView.addArrangedSubview(anniversaryTableView)
         
-        // 광고 무효트래픽으로 인한 게재 제한.. 일단 광고 제거
-        //
-        // anniversaryStackView.addArrangedSubview(admobView)
-        // admobView.widthAnchor.constraint(equalToConstant: GADAdSizeBanner.size.width).isActive = true
-        // admobView.heightAnchor.constraint(equalToConstant: GADAdSizeBanner.size.height).isActive = true
-        // // ca-app-pub-1976572399218124/5279479661 -> 광고 단위 ID
-        // // ca-app-pub-3940256099942544/2934735716 -> test Key
-        // admobView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        // admobView.rootViewController = self
-        // admobView.load(GADRequest())
-        // admobView.delegate = self
-        
         let tapcloseBtn = UITapGestureRecognizer(target: self, action: #selector(tapClose))
         
         topContentStackView.isUserInteractionEnabled = true
@@ -132,8 +120,6 @@ final class AnniversaryViewController: UIViewController {
 //
 extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource {
     
-    // 현재 날짜 기준으로 지나지 않은 기념일 다 불러옴
-    //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let nowMillisecondDate = Date().millisecondsSince1970
         let anniversaryFilter = AnniversaryModel().AnniversaryInfo.filter {dictValue in
@@ -172,8 +158,6 @@ extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
-// Google AdMob Delegate
-//
 extension AnniversaryViewController : GADBannerViewDelegate {
     public func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         bannerView.alpha = 0

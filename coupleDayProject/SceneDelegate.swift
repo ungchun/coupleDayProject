@@ -12,18 +12,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
-        // 시작(root) 뷰컨 설정
-        //
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(windowScene: windowScene) // SceneDelegate의 프로퍼티에 설정해줌
+        window = UIWindow(windowScene: windowScene)
         let navController = UINavigationController()
         coordinator = AppCoordinator(navigationController: navController)
         coordinator.start()
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
 
-        // darkMode 확인해서 set
-        //
+        // check darkMode
         guard let _ = (scene as? UIWindowScene) else { return }
         if let window = UIApplication.shared.windows.first {
             if #available(iOS 13.0, *) {

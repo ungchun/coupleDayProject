@@ -29,13 +29,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         handler(nil)
     }
     
-    
-    // complication 실제 기기 화면
+    // MARK: complication 실제 기기 화면
     //
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
-        //        let date = Date()
-        //        let calendar = Calendar.current
-        //        let minutes = calendar.component(.minute, from: date)
         
         var value = ""
         if DayInfo.shared.days != nil {
@@ -67,7 +63,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
     }
     
-    // complication 미리보기 화면
+    // MARK: complication 미리보기 화면
     //
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         switch complication.family {

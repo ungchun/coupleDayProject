@@ -5,8 +5,6 @@ import Kingfisher
 // MARK: UIViewController
 //
 extension UIViewController {
-    // outSide touch 하면 inputView dismiss
-    //
     func setupHideKeyboardOnTap() {
         self.view.addGestureRecognizer(self.endEditingRecognizer())
         self.navigationController?.navigationBar.addGestureRecognizer(self.endEditingRecognizer())
@@ -34,8 +32,7 @@ extension Date {
         calendar.date(byAdding: component, value: value, to: self)!
     }
     
-    // date -> yyyy-MM-dd 형식의 string 으로 변환
-    //
+    // date -> return string yyyy-MM-dd
     var toString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko-KR")
@@ -43,8 +40,7 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
-    // date -> yyyy.MM.dd 형식의 string 으로 변환
-    //
+    // date -> return string yyyy.MM.dd
     var toStoryString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko-KR")
@@ -52,8 +48,7 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
-    // date -> MM/dd 형식의 string 으로 변환
-    //
+    // date -> return string MM/dd
     var toAnniversaryString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko-KR")
@@ -66,8 +61,7 @@ extension Date {
 //
 extension String {
     
-    // yyyy-MM-dd 형식 string -> date 로 변환
-    //
+    // string yyyy-MM-dd -> return date
     var toDate: Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -100,18 +94,13 @@ extension UIImageView {
     }
     
     // Kingfisher 이용 캐시 값 확인하고 setImage
-    //
     func setImage(with urlString: String) {
         ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
             switch result {
             case .success(let value):
-                if let image = value.image {
-                    //캐시가 존재하는 경우
-                    //
+                if let image = value.image { //캐시가 존재하는 경우
                     self.image = image
-                } else {
-                    //캐시가 존재하지 않는 경우
-                    //
+                } else { //캐시가 존재하지 않는 경우
                     guard let url = URL(string: urlString) else { return }
                     let resource = ImageResource(downloadURL: url, cacheKey: urlString)
                     self.kf.indicatorType = .activity
@@ -127,9 +116,7 @@ extension UIImageView {
 // MARK: UIView
 //
 extension UIView {
-    
-    // fadeIn & fadeOut Animation Extension
-    //
+
     func fadeIn(duration: TimeInterval = 1.0) {
         UIView.animate(withDuration: duration, animations: {
             self.alpha = 1.0

@@ -11,7 +11,7 @@ final class CoupleTabViewModel {
     
     // MARK: Properties
     //
-    var beginCoupleDay: Observable<String> = Observable("") // 날짜
+    var beginCoupleDay: Observable<String> = Observable("")
     var homeMainImageData: Observable<Data> = Observable((
         UIImage(
             named: "coupleImg"
@@ -33,11 +33,9 @@ final class CoupleTabViewModel {
     func updateBeginCoupleDay() {
         let nowDayDataString = Date().toString
         let nowDayDataDate: Date = nowDayDataString.toDate
-        let minus = Int(nowDayDataDate.millisecondsSince1970)-RealmManager.shared.getUserDatas().first!.beginCoupleDay // 현재 - 사귄날짜 = days
+        let minus = Int(nowDayDataDate.millisecondsSince1970)-RealmManager.shared.getUserDatas().first!.beginCoupleDay
         self.beginCoupleDay.value = String(describing: minus / 86400000)
         
-        // NotificationCenter로 Post하기 (발송하기)
-        //
         NotificationCenter.default.post(
             name: Notification.Name.coupleDay,
             object: nil,

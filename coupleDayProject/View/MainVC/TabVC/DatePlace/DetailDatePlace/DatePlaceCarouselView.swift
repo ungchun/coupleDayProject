@@ -39,11 +39,7 @@ class DatePlaceCarouselView: UIView {
         super.init(frame: CGRect.zero)
         self.imageUrlArray = imageUrlArray
         self.imageUrlArray!.shuffle()
-        
-        // 그냥 carousel 페이지 하나씩 넘어갈 때 마다 다운해도 되는데, 처음 들어가면 페이지 넘어갈 때 마다 다운, 캐시처리하는 indicator 화면 봐야함
-        // downloadImageAndCache -> imageUrlArray 하나씩 돌면서 url 캐시에 있나 없나 확인해서 없으면 미리 다운
-        // 처음 들어가더라도 이 친구 덕분에 캐시처리가 모두 완료된 상태라 indicator 볼 필요없음
-        //
+
         imageUrlArray.forEach { value in
             DispatchQueue.global().async { [weak self] in
                 self?.downloadImageAndCache(with: value)
@@ -133,19 +129,13 @@ class DatePlaceCarouselView: UIView {
         )
     }
     
-    // 현재 보이는 content의 IndexPath
-    //
     private func visibleCellIndexPath() -> IndexPath {
         return carouselCollectionView.indexPathsForVisibleItems[0]
     }
     
-    // 시간지나면 배너 움직이는 매서드
-    //
     @objc func timerCallBack() {
         var item = visibleCellIndexPath().item
         
-        // 제일 끝으로 갔을 때 다시 중간으로 이동시키는 코드
-        //
         guard let imageUrlArray = imageUrlArray else { return }
         if item == imageUrlArray.count * 3 - 1 {
             carouselCollectionView.scrollToItem(
@@ -157,8 +147,6 @@ class DatePlaceCarouselView: UIView {
         
         item += 1
         
-        // 배너형식으로 움직이면서 custome cell 사용하려면 이렇게 안하면 scrollToItem 이거 이상하게 돌아감..
-        //
         carouselCollectionView.delegate = self
         carouselCollectionView.reloadData()
         carouselCollectionView.layoutIfNeeded()
@@ -176,17 +164,12 @@ class DatePlaceCarouselView: UIView {
 
 // MARK: extension
 //
-// 맨 처음과 끝에서 드래그하면 그 다음 셀이 보인다 -> 시작이 0이 아니다.
-// cell list를 3개를 이어붙여서 시작과 동시에 중간으로 오게 한다.
-//
 extension DatePlaceCarouselView: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         invalidateTimer()
         activateTimer()
         
-        // 제일 처음 또는 제일 끝으로 갔을 때 다시 중앙으로 이동시키는 코드
-        //
         guard let imageUrlArray = imageUrlArray else { return }
         var item = visibleCellIndexPath().item
         if item == imageUrlArray.count * 3 - 1 {

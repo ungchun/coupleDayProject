@@ -75,9 +75,6 @@ final class SettingViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // 상단 NavigationBar 공간 show (뒤로가기 버튼)
-        //
         self.navigationController?.isNavigationBarHidden = false
     }
 
@@ -190,24 +187,16 @@ final class SettingViewController: UIViewController{
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        
-        // datePicker의 default 값이 영어 -> 한글로 변경
-        //
         datePicker.locale = NSLocale(localeIdentifier: "ko_KO") as Locale
         
         let calendar = Calendar(identifier: .gregorian)
         let currentDate = Date()
         var components = DateComponents()
-        components.calendar = calendar
         
-        // datePicker max 날짜 세팅 -> 오늘 날짜 에서
-        //
+        components.calendar = calendar
         components.year = -1
         components.month = 12
         let maxDate = calendar.date(byAdding: components, to: currentDate)
-        
-        // datePicker min 날짜 세팅 -> 30년 전 까지
-        //
         components.year = -31
         let minDate = calendar.date(byAdding: components, to: currentDate)
         
@@ -262,7 +251,7 @@ final class SettingViewController: UIViewController{
                 multiplier: 1,
                 constant: -50
             )
-        ) // -50 하는 이유는 버튼 2개 높이만큼 띄워줘야하는듯..?
+        )
         let alertContentHeight: NSLayoutConstraint = NSLayoutConstraint(
             item: dateChooserAlert.view!,
             attribute: .height,

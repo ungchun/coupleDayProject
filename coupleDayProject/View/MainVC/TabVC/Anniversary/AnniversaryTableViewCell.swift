@@ -70,8 +70,6 @@ final class AnniversaryTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        // UIImageView 그 위에 StackView 올리기
-        //
         anniversaryBackGroundImage.addSubview(allContentStackView)
         contentView.addSubview(anniversaryBackGroundImage)
         

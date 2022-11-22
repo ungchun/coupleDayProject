@@ -69,8 +69,6 @@ final class AppLoadingViewController: UIViewController {
     private func setUpView() {
         self.view.backgroundColor = TrendingConstants.appMainColorAlaph40
         
-        // 너랑나랑 중에서 너, 나 textColor 변경
-        //
         guard let loadingCenterLabelText = loadingCenterLabel.text else { return }
         let attributedStr = NSMutableAttributedString(string: loadingCenterLabelText)
         attributedStr.addAttribute(

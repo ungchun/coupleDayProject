@@ -87,13 +87,11 @@ final class DetailDatePlaceViewController: UIViewController {
         view.clipsToBounds = true
         return view
     }()
-    // 기존 화면을 흐려지게 만들기 위한 뷰 -> 바텀시트 때문에 필요
     private let dimmedBackView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         return view
     }()
-    // dismiss Indicator View UI 구성 부분 -> 바텀시트 때문에 필요
     private let dismissIndicatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray2
@@ -184,8 +182,6 @@ final class DetailDatePlaceViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.title = ""
         
-        // navigationController 배경 투명하게 변경
-        //
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -198,7 +194,7 @@ final class DetailDatePlaceViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        mapZoomInAnimation() // 줌인되는 애니메이션 -> 뷰가 나타난 직후 일어나야해서 viewDidAppear
+        mapZoomInAnimation()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -286,7 +282,7 @@ final class DetailDatePlaceViewController: UIViewController {
             make.top.equalTo(introduceTitle.snp.bottom).offset(10)
             make.right.equalTo(contentView.snp.right).offset(-20)
             make.left.equalTo(contentView.snp.left).offset(20)
-            make.bottom.equalToSuperview().offset(-50) // 이 부분이 가장 중요 -> contentView height를 마지막에 있는 뷰 기준으로 높이 설정
+            make.bottom.equalToSuperview().offset(-50)
         }
     }
     
@@ -313,9 +309,7 @@ final class DetailDatePlaceViewController: UIViewController {
         mapView.addAnnotation(pin)
     }
     
-    // GestureRecognizer 세팅 작업
     private func setUpGestureRecognizer() {
-        // 흐린 부분 탭할 때, 바텀시트를 내리는 TapGesture
         let dimmedTap = UITapGestureRecognizer(
             target: self,
             action: #selector(dimmedViewTapped(_:))
@@ -323,7 +317,6 @@ final class DetailDatePlaceViewController: UIViewController {
         dimmedBackView.addGestureRecognizer(dimmedTap)
         dimmedBackView.isUserInteractionEnabled = true
         
-        // 스와이프 했을 때, 바텀시트를 내리는 swipeGesture
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(panGesture))
         swipeGesture.direction = .down
         view.addGestureRecognizer(swipeGesture)
@@ -411,7 +404,6 @@ final class DetailDatePlaceViewController: UIViewController {
         ])
     }
     
-    // 바텀 시트 표출 애니메이션
     private func showBottomSheet() {
         let safeAreaHeight: CGFloat = view.safeAreaLayoutGuide.layoutFrame.height
         let bottomPadding: CGFloat = view.safeAreaInsets.bottom
@@ -424,7 +416,6 @@ final class DetailDatePlaceViewController: UIViewController {
         }, completion: nil)
     }
     
-    // 바텀 시트 사라지는 애니메이션
     private func hideBottomSheetAndGoBack() {
         let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.height
         let bottomPadding = view.safeAreaInsets.bottom
@@ -439,12 +430,10 @@ final class DetailDatePlaceViewController: UIViewController {
         }
     }
     
-    // UITapGestureRecognizer 연결 함수 부분
     @objc private func dimmedViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
         hideBottomSheetAndGoBack()
     }
     
-    // UISwipeGestureRecognizer 연결 함수 부분
     @objc func panGesture(_ recognizer: UISwipeGestureRecognizer) {
         if recognizer.state == .ended {
             switch recognizer.direction {

@@ -8,7 +8,7 @@ final class MainViewModelCombine: ObservableObject {
     private var changeLabelInitCheck = false
     private var appNameDayToggleFlag = false
     private var changeLabelTimer = Timer()
-    var receivedCoupleDayData = "너랑나랑" // NotificationCenter로 커플 날짜 변경되면 변경된 날짜 데이터 받아옴
+    var receivedCoupleDayData = "너랑나랑"
     
     @Published var appNameLabelValue: String = "너랑나랑"
     
@@ -17,8 +17,6 @@ final class MainViewModelCombine: ObservableObject {
     init() {
         changeAppNameLabel()
         
-        // Notification Center에 Observer 등록
-        //
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(receiveCoupleDayData(notification:)),
@@ -45,11 +43,7 @@ final class MainViewModelCombine: ObservableObject {
     }
     
     @objc private func receiveCoupleDayData(notification: Notification) {
-        // notification.userInfo 값을 받아온다.
-        //
-        guard let object = notification.userInfo?["coupleDay"] as? String else {
-            return
-        }
+        guard let object = notification.userInfo?["coupleDay"] as? String else { return }
         receivedCoupleDayData = object
     }
 }

@@ -81,8 +81,6 @@ final class MainViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // 상단 NavigationBar 공간 hide -> 안해주면 NavigationBar 크기만큼 자리먹음
-        //
         self.navigationController?.isNavigationBarHidden = true
     }
 
@@ -133,8 +131,6 @@ final class MainViewController: UIViewController {
     }
     
     @objc func settingBtnTap(_ gesture: UITapGestureRecognizer) {
-        // 설정을 통해 커플날짜랑 배경사진을 바꿔야함 -> 같은 coupleTabViewModel의 데이터 사용해야함 -> coupleTabViewModel 주입
-        //
         coordinator?.showSettingView(coupleTabViewModel: coupleTabViewModel)
     }
     

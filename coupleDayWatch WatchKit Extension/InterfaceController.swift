@@ -25,9 +25,6 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
     
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
-        // receive transferUserInfo
-        // transferUserInfo -> app 이 켜져야 새로고침 전달한다는 느낌 -> image 는 바꿀려면 앱 켜서 바꿔야해서 ok
-        //
         if let data = userInfo["imageData"] as? Data {
             DispatchQueue.main.async {
                 self.demoImage.setImage(UIImage(data: data))
@@ -37,14 +34,9 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     
     override init() {
         super.init()
-        //        assert(WCSession.isSupported(), "watch")
-        //        WCSession.default.delegate = self
-        //        WCSession.default.activate()
-        
     }
     
     override func awake(withContext context: Any?) {
-        // Configure interface objects here.
         assert(WCSession.isSupported(), "watch")
         WCSession.default.delegate = self
         WCSession.default.activate()
@@ -53,16 +45,10 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     override func willActivate() {
         
         group.setContentInset(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-        
-        // updateApplicationContext -> transferUserInfo 랑은 다르게 항상 도는거 같음 (내부 디비 쓰는 느낌 ?) -> days는 하루가 지나면 앱을 안키더라도 업데이트 되어야해서 updateApplicationContext 처리
-        // 그럼 이미지도 updateApplicationContext 쓰면 안되냐 ? -> updateApplicationContext 중복 불가, 뒤에 오는 데이터가 앞 데이터 덮어버림
-        //
+
         let receiveData = WCSession.default.receivedApplicationContext
         if receiveData.isEmpty == false {
             DispatchQueue.main.async {
-                // 현재 날짜 스트링 데이터 -> 현재 날짜 데이트 데이터
-                // 현재 - 사귄날짜 = days
-                //
                 if let data = receiveData.values.first as? String {
                     let nowDayDataString = Date().toString
                     let nowDayDataDate = nowDayDataString.toDate
@@ -72,8 +58,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
                     DispatchQueue.main.async {
                         self.demoLabel.setText("\(value) days")
                     }
-                    // Update complication -> 이거 해줘야 complication 정상적으로 돌아감
-                    //
+
                     let complicationServer = CLKComplicationServer.sharedInstance()
                     guard let activeComplications = complicationServer.activeComplications else {
                         return
@@ -95,13 +80,11 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         self.todayLabel.setText(dateFormatter.string(from: Date()))
     }
     
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-    }
+    override func didDeactivate() { }
     
 }
 
-extension Date { // MARK: Date extension
+extension Date {
     init(milliseconds: Int64) {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
     }
@@ -109,8 +92,7 @@ extension Date { // MARK: Date extension
         Int64((self.timeIntervalSince1970 * 1000.0).rounded())
     }
     
-    // date -> yyyy-MM-dd 형식의 string 으로 변환
-    //
+    // date -> return string yyyy-MM-dd
     var toString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko-KR")
@@ -119,9 +101,9 @@ extension Date { // MARK: Date extension
     }
 }
 
-extension String { // MARK: String extension
+extension String {
     
-    // yyyy-MM-dd 형식 string -> date 로 변환
+    // string yyyy-MM-dd -> return date
     //
     var toDate: Date {
         let dateFormatter = DateFormatter()

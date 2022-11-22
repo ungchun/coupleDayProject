@@ -36,16 +36,10 @@ struct CommonSize {
 // MARK: RealmManager Singleton
 //
 struct RealmManager {
-    // realm db 삭제
     //     try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
-    
-    // Singleton object
-    //
+
     static let shared: RealmManager = .init()
     
-    // Realm instance
-    // realm db 삭제없이 model 변경하고싶으면 schemaVersion 변경 하면 됨. 대신 전 버전보다는 커야함
-    //
     private var realm: Realm {
         let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ungchun.coupleDayProject")
         let realmURL = container?.appendingPathComponent("default.realm")
@@ -87,17 +81,15 @@ struct RealmManager {
             }
             
         })
-        WidgetCenter.shared.reloadAllTimelines() // 위젯 새로고침
+        WidgetCenter.shared.reloadAllTimelines()
     }
-    
-    // realm NSData 속성은 16MB를 초과할 수 없다 -> 16777216 을 1024 로 2번 나누면 16MB 가 되는데 그냥 10000000 으로 맞춰서 예외처리, 10000000 보다 작으면 0.5 퀄리티 16000000 크면 image resize
-    //
+
     func updateMainImage(mainImage: UIImage) {
         try? realm.write({
             RealmManager.shared.getImageDatas().first!.homeMainImage = (mainImage.pngData()?.count)! > 10000000
             ? resizeImage(image: mainImage, newWidth: 1000).pngData() : mainImage.jpegData(compressionQuality: 0.5)
         })
-        WidgetCenter.shared.reloadAllTimelines() // 위젯 새로고침
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     func updateMyProfileImage(myProfileImage: UIImage) {
@@ -118,7 +110,7 @@ struct RealmManager {
 // MARK: UIImage 객체의 사진용량 줄이기
 //
 func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
-    let scale = newWidth / image.size.width // 새 이미지 확대/축소 비율
+    let scale = newWidth / image.size.width
     let newHeight = image.size.height * scale
     UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
     image.draw(in: CGRectMake(0, 0, newWidth, newHeight))
@@ -130,13 +122,16 @@ func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
 // MARK: app version 확인, 앱 업데이트 관련
 //
 struct System {
-    static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String // 현재 버전 정보 : 타겟 -> 일반 -> Version
-    static let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String // 개발자가 내부적으로 확인하기 위한 용도 : 타겟 -> 일반 -> Build
+    // 현재 버전 정보 : 타겟 -> 일반 -> Version
+    static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     
-    static let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/1635302922" // 1635302922 -> Apple ID
+    // 개발자가 내부적으로 확인하기 위한 용도 : 타겟 -> 일반 -> Build
+    static let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+    
+    // 1635302922 -> Apple ID
+    static let appStoreOpenUrlString = "itms-apps://itunes.apple.com/app/apple-store/1635302922"
     
     // 앱 스토어 최신 정보 확인
-    //
     func latestVersion() -> String? {
         let appleID = 1635302922
         guard let url = URL(string: "http://itunes.apple.com/lookup?id=\(appleID)&country=kr"),
@@ -150,7 +145,6 @@ struct System {
     }
     
     // 앱 스토어로 이동 -> urlStr 에 appStoreOpenUrlString 넣으면 이동
-    //
     func openAppStore() {
         guard let url = URL(string: System.appStoreOpenUrlString) else { return }
         if UIApplication.shared.canOpenURL(url) {
@@ -169,8 +163,8 @@ struct TrendingConstants {
 // MARK: return year string
 //
 struct DateValues {
-    // 올해 year -> yyyy 형태로 return
-    //
+    
+    // 올해 year -> return yyyy 
     static func GetOnlyYear() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -179,8 +173,7 @@ struct DateValues {
         return yearString
     }
     
-    // 내년 year -> yyyy 형태로 return
-    //
+    // 내년 year -> return yyyy
     static func GetOnlyNextYear() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -220,8 +213,6 @@ struct LoadingIndicator {
 // MARK: ImagePicker
 //
 struct ImagePicker {
-    // https://eeyatho.tistory.com/141 -> iOS 11 부터, UIImagePickerController 라이브러리 권한 필요없음..
-    //
     static func photoAuthCheck(imagePickerController: UIImagePickerController) -> Int{
         let status = PHPhotoLibrary.authorizationStatus().rawValue
         switch status {
@@ -286,27 +277,3 @@ final class Observable<T> {
         listener = closure
     }
 }
-
-
-// MARK: SwiftUI 프리뷰
-//
-//#if DEBUG
-//import SwiftUI
-//struct DemoRepresentable: UIViewControllerRepresentable {
-//    // update
-//    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-//    }
-//    // make UI
-//    @available(iOS 13.0, *)
-//    func makeUIViewController(context: Context) -> some UIViewController {
-//        ControllerName()
-//    }
-//}
-//
-//struct DemoController_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DemoRepresentable()
-//            .edgesIgnoringSafeArea(.all)
-//    }
-//}
-//#endif

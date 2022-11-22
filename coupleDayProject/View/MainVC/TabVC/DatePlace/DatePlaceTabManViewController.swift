@@ -21,13 +21,9 @@ final class DatePlaceTabManViewController: TabmanViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // 상단 NavigationBar 공간 show (뒤로가기 버튼)
-        //
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.title = ""
         
-        // iOS 15에서 UIKit은 scrollEdgeAppearance 기본적으로 투명한 배경을 생성 -> 이렇게 뒤에 배경색을 지정해야함
-        //
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor(named: "bgColor")
