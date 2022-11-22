@@ -45,7 +45,6 @@ final class MainViewController: UIViewController {
         imageView.contentMode = .center
         return imageView
     }()
-    
     private lazy var btnStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [datePlaceBtn, anniversaryBtn, settingBtn])
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -64,11 +63,6 @@ final class MainViewController: UIViewController {
     
     // MARK: Life Cycle
     //
-    override func viewWillAppear(_ animated: Bool) {
-        // 상단 NavigationBar 공간 hide -> 안해주면 NavigationBar 크기만큼 자리먹음
-        //
-        self.navigationController?.isNavigationBarHidden = true
-    }
     override func viewDidLoad() {
         setUpView()
         
@@ -85,6 +79,12 @@ final class MainViewController: UIViewController {
         }.store(in: &disposalbleBag)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // 상단 NavigationBar 공간 hide -> 안해주면 NavigationBar 크기만큼 자리먹음
+        //
+        self.navigationController?.isNavigationBarHidden = true
+    }
+
     // MARK: Functions
     //
     fileprivate func setUpView() {
@@ -130,17 +130,20 @@ final class MainViewController: UIViewController {
             mainTabManVC.view.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
     }
+    
     @objc func settingBtnTap(_ gesture: UITapGestureRecognizer) {
         // 설정을 통해 커플날짜랑 배경사진을 바꿔야함 -> 같은 coupleTabViewModel의 데이터 사용해야함 -> coupleTabViewModel 주입
         //
         coordinator?.showSettingView(coupleTabViewModel: coupleTabViewModel)
     }
+    
     @objc func anniversaryBtnTap(_ gesture: UITapGestureRecognizer) {
         let anniversaryViewController = AnniversaryViewController()
         anniversaryViewController.modalPresentationStyle = .custom
         anniversaryViewController.transitioningDelegate = self
         coordinator?.showAnniversaryView(vc: anniversaryViewController)
     }
+    
     @objc func datePlaceTabBtnTap(_ gesture: UITapGestureRecognizer) {
         coordinator?.showDatePlaceTabView()
     }

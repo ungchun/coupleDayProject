@@ -52,15 +52,17 @@ final class AnniversaryViewController: UIViewController {
     
     // MARK: Life Cycle
     //
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpView()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.anniversaryTableView.reloadData()
         }
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUpView()
-    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         coordinator?.didFinishAnniversaryView()
@@ -119,6 +121,7 @@ final class AnniversaryViewController: UIViewController {
         anniversaryTableView.rowHeight = 140
         anniversaryTableView.estimatedRowHeight = UITableView.automaticDimension
     }
+    
     @objc func tapClose() {
         self.dismiss(animated: true, completion: nil)
     }

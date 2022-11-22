@@ -27,7 +27,6 @@ class CityTabViewController: UIViewController {
         collectionView.backgroundColor = UIColor(named: "bgColor")
         return collectionView
     }()
-    
     private let allContentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +72,7 @@ class CityTabViewController: UIViewController {
             make.top.left.right.bottom.equalTo(0)
         }
     }
+    
     private func loadFirebaseData(completion: @escaping () -> ()) {
         guard let placeName = placeName else { return }
         let localNameText = "\(placeName)"
@@ -102,6 +102,7 @@ class CityTabViewController: UIViewController {
             completion()
         }
     }
+    
     private func downloadImageAndCache(with urlString: String) {
         guard let url = URL(string: urlString) else { return }
         ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
@@ -158,6 +159,7 @@ extension CityTabViewController: UICollectionViewDataSource, UICollectionViewDel
         detailDatePlaceViewController.datePlace = mainDatePlaceList[indexPath.item]
         self.navigationController?.pushViewController(detailDatePlaceViewController, animated: true)
     }
+    
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -167,6 +169,7 @@ extension CityTabViewController: UICollectionViewDataSource, UICollectionViewDel
         let collectionViewSize = datePlaceCollectionView.frame.size.width - padding
         return CGSize(width: collectionViewSize/2, height: collectionViewSize / 2 + 90)
     }
+    
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,

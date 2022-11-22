@@ -5,17 +5,9 @@ import CropViewController
 
 final class SettingViewController: UIViewController{
     
-    private var coupleTabViewModel: CoupleTabViewModel?
-    init(coupleTabViewModel: CoupleTabViewModel) {
-        super.init(nibName: nil, bundle: nil)
-        self.coupleTabViewModel = coupleTabViewModel
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: Properties
     //
+    private var coupleTabViewModel: CoupleTabViewModel?
     private let imagePickerController = UIImagePickerController()
     private let userDefaults = UserDefaults.standard
     weak var coordinator: SettingViewCoordinator?
@@ -64,13 +56,14 @@ final class SettingViewController: UIViewController{
     
     // MARK: Life Cycle
     //
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // 상단 NavigationBar 공간 show (뒤로가기 버튼)
-        //
-        self.navigationController?.isNavigationBarHidden = false
+    init(coupleTabViewModel: CoupleTabViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.coupleTabViewModel = coupleTabViewModel
     }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePickerController.delegate = self
@@ -78,6 +71,15 @@ final class SettingViewController: UIViewController{
         setUpBackBtn()
         setUpView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // 상단 NavigationBar 공간 show (뒤로가기 버튼)
+        //
+        self.navigationController?.isNavigationBarHidden = false
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         coordinator?.didFinishSettingView()
@@ -117,6 +119,7 @@ final class SettingViewController: UIViewController{
             allContentStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
         ])
     }
+    
     private func setUpBackBtn() {
         self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
         UIBarButtonItem.appearance().setTitleTextAttributes([
@@ -125,9 +128,11 @@ final class SettingViewController: UIViewController{
         self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
         self.view.backgroundColor = UIColor(named: "bgColor")
     }
+    
     @objc func setBackgroundImageTap() {
         self.present(imagePickerController, animated: true, completion: nil)
     }
+    
     @objc func setDarkModeTap() {
         let alert = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
         let lightMode = setUpLightModeAlertAction()
@@ -138,6 +143,7 @@ final class SettingViewController: UIViewController{
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
+    
     private func setUpLightModeAlertAction() -> UIAlertAction{
         let lightMode = UIAlertAction(title: "주간모드", style: .default) {(action) in
             if let window = UIApplication.shared.windows.first {
@@ -154,6 +160,7 @@ final class SettingViewController: UIViewController{
         }
         return lightMode
     }
+    
     private func setUpDarkModeAlertAction() -> UIAlertAction{
         let darkMode = UIAlertAction(title: "야간모드", style: .default) {(action) in
             if let window = UIApplication.shared.windows.first {
@@ -170,11 +177,13 @@ final class SettingViewController: UIViewController{
         }
         return darkMode
     }
+    
     @objc func setCoupleDayTap() {
         let datePicker = setUpCoupleDayDatePicker()
         let dateChooserAlert = setUpCoupleDayDateChooserAlert(datePicker)
         present(dateChooserAlert, animated: true, completion: nil)
     }
+    
     private func setUpCoupleDayDatePicker() -> UIDatePicker {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
@@ -206,6 +215,7 @@ final class SettingViewController: UIViewController{
         
         return datePicker
     }
+    
     private func setUpCoupleDayDateChooserAlert(_ datePicker : UIDatePicker) -> UIAlertController {
         let dateChooserAlert = UIAlertController(
             title: nil,
@@ -223,7 +233,6 @@ final class SettingViewController: UIViewController{
                 }
             )
         )
-        
         dateChooserAlert.addAction(
             UIAlertAction(
                 title: "취소",
@@ -231,7 +240,6 @@ final class SettingViewController: UIViewController{
                 handler: { (action:UIAlertAction!) in }
             )
         )
-        
         dateChooserAlert.view.addConstraint(
             NSLayoutConstraint(
                 item: datePicker,
@@ -243,7 +251,6 @@ final class SettingViewController: UIViewController{
                 constant: 0
             )
         )
-        
         dateChooserAlert.view.addConstraint(
             NSLayoutConstraint(
                 item: datePicker,
@@ -255,7 +262,6 @@ final class SettingViewController: UIViewController{
                 constant: -50
             )
         ) // -50 하는 이유는 버튼 2개 높이만큼 띄워줘야하는듯..?
-        
         let alertContentHeight: NSLayoutConstraint = NSLayoutConstraint(
             item: dateChooserAlert.view!,
             attribute: .height,
@@ -265,7 +271,6 @@ final class SettingViewController: UIViewController{
             multiplier: 1, constant: 350
         )
         dateChooserAlert.view.addConstraint(alertContentHeight)
-        
         return dateChooserAlert
     }
 }
@@ -314,4 +319,3 @@ extension SettingViewController: CropViewControllerDelegate {
         dismiss(animated: true, completion: nil)
     }
 }
-

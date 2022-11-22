@@ -176,6 +176,7 @@ final class DetailDatePlaceViewController: UIViewController {
         setUpBottomSheetLayout()
         setUpGestureRecognizer()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -188,6 +189,7 @@ final class DetailDatePlaceViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.isNavigationBarHidden = true
@@ -286,6 +288,7 @@ final class DetailDatePlaceViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-50) // 이 부분이 가장 중요 -> contentView height를 마지막에 있는 뷰 기준으로 높이 설정
         }
     }
+    
     private func setUpBackBtn() {
         self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
         UIBarButtonItem.appearance().setTitleTextAttributes([
@@ -294,6 +297,7 @@ final class DetailDatePlaceViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
         self.view.backgroundColor = UIColor(named: "bgColor")
     }
+    
     private func mapZoomInAnimation() {
         guard let datePlace = datePlace else { return }
         guard let latitude = Double(datePlace.latitude) else { return }
@@ -450,9 +454,11 @@ final class DetailDatePlaceViewController: UIViewController {
             }
         }
     }
+    
     @objc private func oepnMapAppBtnTap() {
         showBottomSheet()
     }
+    
     @objc private func openGoogleMaps() {
         let alert = UIAlertController(
             title: "구글 맵스로 열기 실패",
@@ -472,6 +478,7 @@ final class DetailDatePlaceViewController: UIViewController {
             present(alert, animated: false, completion: nil)
         }
     }
+    
     @objc private func openkakaoMaps() {
         let alert = UIAlertController(
             title: "카카오맵으로 열기 실패",

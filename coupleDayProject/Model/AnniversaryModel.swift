@@ -28,6 +28,7 @@ struct AnniversaryModel {
         ["\(DateValues.GetOnlyYear())-12-25": "크리스마스"],
         ["\(DateValues.GetOnlyYear())-12-31": "\(DateValues.GetOnlyYear()) 마지막"],
     ]
+    
     let AnniversaryImageUrl = [
         "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/diary.jpg?alt=media&token=21c3b832-e66c-483e-8034-5ed98f4b80ae",
         "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/sauna.jpg?alt=media&token=70649a6e-311b-4fcb-993b-669c73b34c9c",

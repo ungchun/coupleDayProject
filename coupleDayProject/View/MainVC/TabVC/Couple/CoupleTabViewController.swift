@@ -8,17 +8,10 @@ import Kingfisher
 
 final class CoupleTabViewController: UIViewController {
     
-    private var coupleTabViewModel: CoupleTabViewModel?
-    init(coupleTabViewModel: CoupleTabViewModel) {
-        super.init(nibName: nil, bundle: nil)
-        self.coupleTabViewModel = coupleTabViewModel
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: Properties
     //
+    private var coupleTabViewModel: CoupleTabViewModel?
+
     private var mainDatePlaceList = [DatePlaceModel]()
     private let imagePickerController = UIImagePickerController()
     private var whoProfileChangeCheck = "my"
@@ -138,7 +131,14 @@ final class CoupleTabViewController: UIViewController {
     
     // MARK: Life Cycle
     //
-    override func viewWillAppear(_ animated: Bool) {}
+    init(coupleTabViewModel: CoupleTabViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.coupleTabViewModel = coupleTabViewModel
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -228,6 +228,7 @@ final class CoupleTabViewController: UIViewController {
             completion()
         }
     }
+    
     private func downloadImageAndCache(with urlString: String) {
         guard let url = URL(string: urlString) else { return }
         ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
@@ -255,6 +256,7 @@ final class CoupleTabViewController: UIViewController {
             }
         }
     }
+    
     private func coupleTabViewModelBinding() {
         guard let coupleTabViewModel = coupleTabViewModel else { return }
         coupleTabViewModel.beginCoupleDay.bind { [weak self] beginCoupleDay in
@@ -309,6 +311,7 @@ final class CoupleTabViewController: UIViewController {
         
         setUpView(imageLoadingFlag: false)
     }
+    
     private func afterImageLoadingView() {
         view.backgroundColor = UIColor(named: "bgColor")
         profileImageActivityIndicatorView.stopAnimating()
@@ -394,14 +397,17 @@ final class CoupleTabViewController: UIViewController {
             allContentStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
         ])
     }
+    
     @objc private func myProfileTap(_ gesture: UITapGestureRecognizer) {
         whoProfileChangeCheck = "my"
         self.present(imagePickerController, animated: true, completion: nil)
     }
+    
     @objc private func partnerProfileTap(_ gesture: UITapGestureRecognizer) {
         whoProfileChangeCheck = "partner"
         self.present(imagePickerController, animated: true, completion: nil)
     }
+    
     @objc private func changeDarkModeSet(notification: Notification) {
         coupleTabViewModel?.updateMyProfileIcon()
         coupleTabViewModel?.updatePartnerProfileIcon()
@@ -411,7 +417,6 @@ final class CoupleTabViewController: UIViewController {
 // MARK: Extension
 //
 extension CoupleTabViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    
     func imagePickerController(
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
@@ -421,6 +426,7 @@ extension CoupleTabViewController: UIImagePickerControllerDelegate & UINavigatio
             self?.presentCropViewController(image: imageData as! UIImage)
         }
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
@@ -453,6 +459,7 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
         detailDatePlaceViewController.datePlace = mainDatePlaceList[indexPath.item]
         self.navigationController?.pushViewController(detailDatePlaceViewController, animated: true)
     }
+    
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -463,6 +470,7 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
             height: datePlaceCollectionView.frame.height
         )
     }
+    
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -485,6 +493,7 @@ extension CoupleTabViewController: CropViewControllerDelegate {
         cropViewController.cancelButtonTitle = "취소"
         present(cropViewController, animated: true, completion: nil)
     }
+    
     func cropViewController(
         _ cropViewController: CropViewController,
         didCropToImage image: UIImage,

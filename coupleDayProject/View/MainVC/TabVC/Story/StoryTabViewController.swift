@@ -8,63 +8,10 @@ final class StoryTabViewController: UIViewController {
     // 따라서 메인인 CoupleTabViewController에만 bind 사용하고 나머지 두 곳은 주입한 coupleTabViewModel로 첫 세팅만 해주고
     // 커플 날짜 값이 바뀌면 노티피케이션 센터로 나머지 두 곳에 데이터 변경시킴
     //
-    private var coupleTabViewModel: CoupleTabViewModel?
-    init(coupleTabViewModel: CoupleTabViewModel) {
-        super.init(nibName: nil, bundle: nil)
-        self.coupleTabViewModel = coupleTabViewModel
-        
-        // Notification Center에 Observer 등록
-        //
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(receiveCoupleDayData(notification:)),
-            name: Notification.Name.coupleDay, object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(changeDarkModeSet(notification:)),
-            name: Notification.Name.darkModeCheck, object: nil
-        )
-    }
-    @objc func receiveCoupleDayData(notification: Notification) {
-        // notification.userInfo 값을 받아온다. -> 그 값을 가지고 scrollToRow 처리
-        //
-        storyTableView.register(
-            StoryTableViewCell.self,
-            forCellReuseIdentifier: "CodingCustomTableViewCell"
-        )
-        storyTableView.delegate = self
-        storyTableView.dataSource = self
-        guard let object = notification.userInfo?["coupleDay"] as? String else {
-            return
-        }
-        DispatchQueue.main.async { [weak self] in
-            self?.storyTableView.reloadData()
-            if Int(object)! >= 10950 {
-                let startIndex = IndexPath(
-                    row: StoryStandardDayModel().dayValues.count-1,
-                    section: 0
-                )
-                self?.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
-            } else {
-                let startIndex = IndexPath(
-                    row: StoryStandardDayModel().dayValues.firstIndex(
-                        of: StoryStandardDayModel().dayValues.filter {$0 > Int(object)!}.min()!)!,
-                    section: 0
-                )
-                self?.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
-            }
-        }
-    }
-    @objc private func changeDarkModeSet(notification: Notification) {
-        DispatchQueue.main.async { [weak self] in
-            self?.storyTableView.reloadData()
-        }
-    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // MARK: Properties
+    //
+    private var coupleTabViewModel: CoupleTabViewModel?
     
     // MARK: Views
     //
@@ -91,6 +38,32 @@ final class StoryTabViewController: UIViewController {
     
     // MARK: Life Cycle
     //
+    init(coupleTabViewModel: CoupleTabViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.coupleTabViewModel = coupleTabViewModel
+        
+        // Notification Center에 Observer 등록
+        //
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(receiveCoupleDayData(notification:)),
+            name: Notification.Name.coupleDay, object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(changeDarkModeSet(notification:)),
+            name: Notification.Name.darkModeCheck, object: nil
+        )
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpView()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         guard let coupleTabViewModel = coupleTabViewModel else { return }
         if Int((coupleTabViewModel.beginCoupleDay.value))! >= 10950 {
@@ -106,10 +79,6 @@ final class StoryTabViewController: UIViewController {
             )
             self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
         }
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUpView()
     }
     
     // MARK: Functions
@@ -157,6 +126,43 @@ final class StoryTabViewController: UIViewController {
                 section: 0
             )
             self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
+        }
+    }
+    
+    @objc func receiveCoupleDayData(notification: Notification) {
+        // notification.userInfo 값을 받아온다. -> 그 값을 가지고 scrollToRow 처리
+        //
+        storyTableView.register(
+            StoryTableViewCell.self,
+            forCellReuseIdentifier: "CodingCustomTableViewCell"
+        )
+        storyTableView.delegate = self
+        storyTableView.dataSource = self
+        guard let object = notification.userInfo?["coupleDay"] as? String else {
+            return
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.storyTableView.reloadData()
+            if Int(object)! >= 10950 {
+                let startIndex = IndexPath(
+                    row: StoryStandardDayModel().dayValues.count-1,
+                    section: 0
+                )
+                self?.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
+            } else {
+                let startIndex = IndexPath(
+                    row: StoryStandardDayModel().dayValues.firstIndex(
+                        of: StoryStandardDayModel().dayValues.filter {$0 > Int(object)!}.min()!)!,
+                    section: 0
+                )
+                self?.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
+            }
+        }
+    }
+    
+    @objc private func changeDarkModeSet(notification: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            self?.storyTableView.reloadData()
         }
     }
 }

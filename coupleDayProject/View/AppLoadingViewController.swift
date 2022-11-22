@@ -96,6 +96,7 @@ final class AppLoadingViewController: UIViewController {
             loadingContentStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
+    
     private func needUpdateVersion(_ marketingVersion: String) {
         let alert = UIAlertController(
             title: "업데이트 알림",

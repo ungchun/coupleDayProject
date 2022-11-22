@@ -11,6 +11,12 @@ final class DatePlaceTabManViewController: TabmanViewController {
     weak var coordinator: DatePlaceTabViewCoordinator?
     
     // MARK: Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpBackBtn()
+        setUpLayoutBar()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -28,16 +34,13 @@ final class DatePlaceTabManViewController: TabmanViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.scrollEdgeAppearance = .none
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUpBackBtn()
-        setUpLayoutBar()
-    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         coordinator?.didFinishAnniversaryView()
@@ -53,6 +56,7 @@ final class DatePlaceTabManViewController: TabmanViewController {
         self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
         self.view.backgroundColor = UIColor(named: "bgColor")
     }
+    
     private func setUpLayoutBar() {
         let seoulVC = CityTabViewController(placeName: "seoul")
         viewControllers.append(seoulVC)

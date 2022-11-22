@@ -243,6 +243,7 @@ class RealmManager {
         let minus = Int(nowDayDataDate.millisecondsSince1970)-beginCoupleDay
         return String(describing: minus / 86400000)
     }
+    
     func getMainBackgroundImage() -> Data {
         let realmImageData = realm.objects(RealmImageModel.self)
         let homeMainImage = realmImageData[0].homeMainImage

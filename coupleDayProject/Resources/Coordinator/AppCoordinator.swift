@@ -46,6 +46,7 @@ final class AppCoordinator: AppCoordinatorting, SetBeginDayViewCoordinatorDelega
         childCoordinator.append(child)
         child.start()
     }
+    
     func showMainView() {
         let child = MainViewCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
@@ -109,7 +110,7 @@ final class SetBeginDayViewCoordinator: SetBeginDayCoordinatorting, SetBeginDayV
 final class MainViewCoordinator: MainCoordinatorting {
     
     weak var parentCoordinator: AppCoordinator?
-        
+    
     var childCoordinator = [Coordinator]()
     var navigationController: UINavigationController
     
@@ -129,19 +130,21 @@ final class MainViewCoordinator: MainCoordinatorting {
         childCoordinator.append(child)
         child.start(coupleTabViewModel: coupleTabViewModel)
     }
+    
     func showAnniversaryView(vc: AnniversaryViewController) {
         let child = AnniversaryViewCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
         childCoordinator.append(child)
         child.start(vc: vc)
     }
+    
     func showDatePlaceTabView() {
         let child = DatePlaceTabViewCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
         childCoordinator.append(child)
         child.start()
     }
-
+    
     func didFinishMainView() {
         parentCoordinator?.childDidFinish(self)
     }
@@ -166,7 +169,9 @@ final class SettingViewCoordinator: SettingCoordinatorting {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+    
     func start() {}
+    
     func start(coupleTabViewModel: CoupleTabViewModel) {
         let settingViewController = SettingViewController(coupleTabViewModel: coupleTabViewModel)
         settingViewController.coordinator = self
@@ -188,7 +193,9 @@ final class AnniversaryViewCoordinator: AnniversaryCoordinatorting {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+    
     func start() {}
+    
     func start(vc: AnniversaryViewController) {
         vc.coordinator = self
         navigationController.present(vc, animated: true)
@@ -209,12 +216,13 @@ final class DatePlaceTabViewCoordinator: DatePlaceTabCoordinatorting {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+    
     func start() {
         let datePlaceTabManViewController = DatePlaceTabManViewController()
         datePlaceTabManViewController.coordinator = self
         self.navigationController.pushViewController(datePlaceTabManViewController, animated: true)
     }
-
+    
     func didFinishAnniversaryView() {
         parentCoordinator?.childDidFinish(self)
     }

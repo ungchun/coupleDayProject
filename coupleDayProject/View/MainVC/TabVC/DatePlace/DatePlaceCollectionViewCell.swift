@@ -35,7 +35,6 @@ class DatePlaceCollectionViewCell: UICollectionViewCell {
         label.textColor = .gray
         return label
     }()
-    
     private lazy var allContentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false

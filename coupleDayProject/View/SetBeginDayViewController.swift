@@ -119,6 +119,7 @@ final class SetBeginDayViewController: UIViewController {
         self.setupHideKeyboardOnTap()
         setUpView()
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         coordinator?.didFinishBeginView()
@@ -155,14 +156,7 @@ final class SetBeginDayViewController: UIViewController {
         allContentStackView.setCustomSpacing(25, after: startBtn)
         allContentStackView.setCustomSpacing(25, after: divider)
     }
-    @objc func handleDatePicker(_ sender: UIDatePicker) {
-        coupleBeginDay.text = sender.date.toString
-        handleDateValue = sender.date
-    }
-    @objc func checkButtonTap() {
-        setUpCheckBox(zeroDayStartCheck)
-        zeroDayStartCheck.toggle()
-    }
+    
     private func setUpCheckBox(_ zeroDayStartCheck: Bool) {
         let zeroDayCheckConfig = UIImage.SymbolConfiguration(
             pointSize: 15,
@@ -175,6 +169,17 @@ final class SetBeginDayViewController: UIViewController {
         )
         checkButton.setImage(zeroDayCheckBox, for: .normal)
     }
+    
+    @objc func handleDatePicker(_ sender: UIDatePicker) {
+        coupleBeginDay.text = sender.date.toString
+        handleDateValue = sender.date
+    }
+    
+    @objc func checkButtonTap() {
+        setUpCheckBox(zeroDayStartCheck)
+        zeroDayStartCheck.toggle()
+    }
+    
     @objc func startBtnTap() {
         let realmUserModel = RealmUserModel()
         let realmImageModel = RealmImageModel()

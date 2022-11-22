@@ -22,8 +22,7 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
     var count: Int = 0
     let session = WCSession.default
     
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-    }
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
     
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
         // receive transferUserInfo

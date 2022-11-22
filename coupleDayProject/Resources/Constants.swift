@@ -61,19 +61,23 @@ struct RealmManager {
     func getUserDatas() -> [RealmUserModel] {
         Array(realm.objects(RealmUserModel.self))
     }
+    
     func getImageDatas() -> [RealmImageModel] {
         Array(realm.objects(RealmImageModel.self))
     }
+    
     func writeUserData(userData: RealmUserModel) {
         try? realm.write({
             realm.add(userData)
         })
     }
+    
     func writeImageData(imageData: RealmImageModel) {
         try? realm.write({
             realm.add(imageData)
         })
     }
+    
     func updateBeginCoupleDay(datePicker: UIDatePicker) {
         try? realm.write({
             if RealmManager.shared.getUserDatas().first!.zeroDayStartCheck {
@@ -95,12 +99,14 @@ struct RealmManager {
         })
         WidgetCenter.shared.reloadAllTimelines() // 위젯 새로고침
     }
+    
     func updateMyProfileImage(myProfileImage: UIImage) {
         try? realm.write({
             RealmManager.shared.getImageDatas().first!.myProfileImage = (myProfileImage.pngData()?.count)! > 10000000
             ? resizeImage(image: myProfileImage, newWidth: 1000).pngData() : myProfileImage.jpegData(compressionQuality: 0.5)
         })
     }
+    
     func updatePartnerProfileImage(partnerProfileImage: UIImage) {
         try? realm.write({
             RealmManager.shared.getImageDatas().first!.partnerProfileImage = (partnerProfileImage.pngData()?.count)! > 10000000
@@ -202,6 +208,7 @@ struct LoadingIndicator {
             loadingIndicatorView.startAnimating()
         }
     }
+    
     static func hideLoading() {
         DispatchQueue.main.async {
             guard let window = UIApplication.shared.windows.last else { return }
@@ -258,6 +265,28 @@ struct ImagePicker {
         }
     }
 }
+
+// MARK: ViewModel DataBinding Observable
+//
+final class Observable<T> {
+    private var listener: ((T) -> Void)?
+    
+    var value: T {
+        didSet {
+            listener?(value)
+        }
+    }
+    
+    init(_ value: T) {
+        self.value = value
+    }
+    
+    func bind(_ closure: @escaping (T) -> Void) {
+        closure(value)
+        listener = closure
+    }
+}
+
 
 // MARK: SwiftUI 프리뷰
 //

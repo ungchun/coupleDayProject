@@ -11,6 +11,7 @@ extension UIViewController {
         self.view.addGestureRecognizer(self.endEditingRecognizer())
         self.navigationController?.navigationBar.addGestureRecognizer(self.endEditingRecognizer())
     }
+    
     private func endEditingRecognizer() -> UIGestureRecognizer {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(self.view.endEditing(_:)))
         tap.cancelsTouchesInView = false
@@ -24,9 +25,11 @@ extension Date {
     init(milliseconds: Int64) {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
     }
+    
     var millisecondsSince1970: Int64 {
         Int64((self.timeIntervalSince1970 * 1000.0).rounded())
     }
+    
     func adding(_ component: Calendar.Component, value: Int, using calendar: Calendar = .current) -> Date {
         calendar.date(byAdding: component, value: value, to: self)!
     }
@@ -132,6 +135,7 @@ extension UIView {
             self.alpha = 1.0
         })
     }
+    
     func fadeOut(duration: TimeInterval = 1.0) {
         UIView.animate(withDuration: duration, animations: {
             self.alpha = 0.0

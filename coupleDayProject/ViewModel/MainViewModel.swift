@@ -25,6 +25,7 @@ final class MainViewModelCombine: ObservableObject {
             name: Notification.Name.coupleDay, object: nil
         )
     }
+    
     private func changeAppNameLabel() {
         if !changeLabelInitCheck {
             changeLabelTimer = Timer.scheduledTimer(
@@ -37,10 +38,12 @@ final class MainViewModelCombine: ObservableObject {
             changeLabelInitCheck = true
         }
     }
+    
     @objc private func updateLabel() {
         self.appNameLabelValue = appNameDayToggleFlag ? "\(receivedCoupleDayData) days" : "너랑나랑"
         appNameDayToggleFlag.toggle()
     }
+    
     @objc private func receiveCoupleDayData(notification: Notification) {
         // notification.userInfo 값을 받아온다.
         //

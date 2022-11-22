@@ -34,7 +34,6 @@ final class TodayDatePlaceCollectionViewCell: UICollectionViewCell {
         label.textColor = .gray
         return label
     }()
-    
     private lazy var allContentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -65,9 +64,6 @@ final class TodayDatePlaceCollectionViewCell: UICollectionViewCell {
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    override func prepareForReuse() {
-        super.prepareForReuse()
     }
     
     // MARK: Functions
