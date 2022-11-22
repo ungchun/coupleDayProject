@@ -52,7 +52,10 @@ class DatePlaceCarouselView: UIView {
         self.addSubview(carouselCollectionView)
         self.addSubview(carouselProgressView)
         
-        carouselCollectionView.register(CarouselCollectionViewCell.self, forCellWithReuseIdentifier: CarouselCollectionViewCell.reuseIdentifier)
+        carouselCollectionView.register(
+            CarouselCollectionViewCell.self,
+            forCellWithReuseIdentifier: CarouselCollectionViewCell.reuseIdentifier
+        )
         carouselCollectionView.dataSource = self
         carouselCollectionView.delegate = self
         
@@ -69,7 +72,10 @@ class DatePlaceCarouselView: UIView {
         activateTimer()
         
         let segmentSize = self.imageUrlArray!.count
-        carouselCollectionView.scrollToItem(at: IndexPath(item: segmentSize, section: 0), at: .centeredHorizontally, animated: false)
+        carouselCollectionView.scrollToItem(
+            at: IndexPath(item: segmentSize, section: 0),
+            at: .centeredHorizontally, animated: false
+        )
     }
     
     required init?(coder: NSCoder) {
@@ -86,7 +92,11 @@ class DatePlaceCarouselView: UIView {
                 if value.image != nil { //캐시가 존재하는 경우
                 } else { //캐시가 존재하지 않는 경우
                     let resource = ImageResource(downloadURL: url)
-                    KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
+                    KingfisherManager.shared.retrieveImage(
+                        with: resource,
+                        options: nil,
+                        progressBlock: nil
+                    ) { result in
                         switch result {
                         case .success(let value):
                             print("success value.image \(value.image)")
@@ -114,7 +124,13 @@ class DatePlaceCarouselView: UIView {
     }
     
     private func activateTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(timerCallBack), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(
+            timeInterval: 5,
+            target: self,
+            selector: #selector(timerCallBack),
+            userInfo: nil,
+            repeats: true
+        )
     }
     
     // 현재 보이는 content의 IndexPath
@@ -132,7 +148,10 @@ class DatePlaceCarouselView: UIView {
         //
         guard let imageUrlArray = imageUrlArray else { return }
         if item == imageUrlArray.count * 3 - 1 {
-            carouselCollectionView.scrollToItem(at: IndexPath(item: imageUrlArray.count * 2 - 1, section: 0), at: .centeredHorizontally, animated: false)
+            carouselCollectionView.scrollToItem(
+                at: IndexPath(item: imageUrlArray.count * 2 - 1, section: 0),
+                at: .centeredHorizontally, animated: false
+            )
             item = imageUrlArray.count * 2 - 1
         }
         
@@ -144,7 +163,10 @@ class DatePlaceCarouselView: UIView {
         carouselCollectionView.reloadData()
         carouselCollectionView.layoutIfNeeded()
         
-        carouselCollectionView.scrollToItem(at: IndexPath(item: item, section: 0), at: .centeredHorizontally, animated: true)
+        carouselCollectionView.scrollToItem(
+            at: IndexPath(item: item, section: 0),
+            at: .centeredHorizontally, animated: true
+        )
         
         let unitCount: Int = item % imageUrlArray.count + 1
         progress?.completedUnitCount = Int64(unitCount)
@@ -173,7 +195,10 @@ extension DatePlaceCarouselView: UICollectionViewDelegate {
             item = imageUrlArray.count + 1
         }
         
-        carouselCollectionView.scrollToItem(at: IndexPath(item: item, section: 0), at: .centeredHorizontally, animated: false)
+        carouselCollectionView.scrollToItem(
+            at: IndexPath(item: item, section: 0),
+            at: .centeredHorizontally, animated: false
+        )
         
         let unitCount: Int = item % imageUrlArray.count + 1
         progress?.completedUnitCount = Int64(unitCount)
@@ -181,24 +206,38 @@ extension DatePlaceCarouselView: UICollectionViewDelegate {
     }
 }
 extension DatePlaceCarouselView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         guard let imageUrlArray = imageUrlArray else { return 0 }
         return imageUrlArray.count * 3
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         let imageUrlString = imageUrlArray![indexPath.item % imageUrlArray!.count]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.reuseIdentifier, for: indexPath) as! CarouselCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CarouselCollectionViewCell.reuseIdentifier,
+            for: indexPath
+        ) as! CarouselCollectionViewCell
         cell.imageView.setImage(with: imageUrlString)
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
 }
 extension DatePlaceCarouselView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: carouselCollectionView.frame.width, height: carouselCollectionView.frame.height)
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        return CGSize(
+            width: carouselCollectionView.frame.width,
+            height: carouselCollectionView.frame.height
+        )
     }
 }

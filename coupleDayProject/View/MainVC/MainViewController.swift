@@ -92,13 +92,22 @@ final class MainViewController: UIViewController {
         view.backgroundColor = UIColor(named: "bgColor")
         view.addSubview(allContentStackView)
         
-        let settingTapGesture = UITapGestureRecognizer(target: self, action: #selector(settingBtnTap(_:)))
+        let settingTapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(settingBtnTap(_:))
+        )
         settingBtn.isUserInteractionEnabled = true
         settingBtn.addGestureRecognizer(settingTapGesture)
-        let anniversaryTapGesture = UITapGestureRecognizer(target: self, action: #selector(anniversaryBtnTap(_:)))
+        let anniversaryTapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(anniversaryBtnTap(_:))
+        )
         anniversaryBtn.isUserInteractionEnabled = true
         anniversaryBtn.addGestureRecognizer(anniversaryTapGesture)
-        let datePlaceTapGesture = UITapGestureRecognizer(target: self, action: #selector(datePlaceTabBtnTap(_:)))
+        let datePlaceTapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(datePlaceTabBtnTap(_:))
+        )
         datePlaceBtn.isUserInteractionEnabled = true
         datePlaceBtn.addGestureRecognizer(datePlaceTapGesture)
         
@@ -140,14 +149,22 @@ final class MainViewController: UIViewController {
 // MARK: Extension
 //
 extension MainViewController: UIViewControllerTransitioningDelegate {
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController
+    ) -> UIPresentationController? {
         PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }
 
 extension UIView {
     func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let path = UIBezierPath(
+            roundedRect: bounds,
+            byRoundingCorners: corners,
+            cornerRadii: CGSize(width: radius, height: radius)
+        )
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
@@ -161,35 +178,53 @@ final class PresentationController: UIPresentationController {
     let blurEffectView: UIVisualEffectView!
     var tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer()
     
-    override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
+    override init(
+        presentedViewController: UIViewController,
+        presenting presentingViewController: UIViewController?
+    ) {
         let blurEffect = UIBlurEffect(style: .dark)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
-        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissController))
+        super.init(
+            presentedViewController: presentedViewController,
+            presenting: presentingViewController
+        )
+        tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissController)
+        )
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.blurEffectView.isUserInteractionEnabled = true
         self.blurEffectView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     override var frameOfPresentedViewInContainerView: CGRect {
-        CGRect(origin: CGPoint(x: 0, y: self.containerView!.frame.height * 0.15),
-               size: CGSize(width: self.containerView!.frame.width, height: self.containerView!.frame.height * 0.85))
+        CGRect(
+            origin: CGPoint(x: 0, y: self.containerView!.frame.height * 0.15),
+            size: CGSize(
+                width: self.containerView!.frame.width,
+                height: self.containerView!.frame.height * 0.85
+            )
+        )
     }
     
     override func presentationTransitionWillBegin() {
         self.blurEffectView.alpha = 0
         self.containerView?.addSubview(blurEffectView)
-        self.presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
-            self.blurEffectView.alpha = 0.7
-        }, completion: { (UIViewControllerTransitionCoordinatorContext) in })
+        self.presentedViewController.transitionCoordinator?.animate(
+            alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
+                self.blurEffectView.alpha = 0.7
+            }, completion: { (UIViewControllerTransitionCoordinatorContext) in }
+        )
     }
     
     override func dismissalTransitionWillBegin() {
-        self.presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
-            self.blurEffectView.alpha = 0
-        }, completion: { (UIViewControllerTransitionCoordinatorContext) in
-            self.blurEffectView.removeFromSuperview()
-        })
+        self.presentedViewController.transitionCoordinator?.animate(
+            alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
+                self.blurEffectView.alpha = 0
+            }, completion: { (UIViewControllerTransitionCoordinatorContext) in
+                self.blurEffectView.removeFromSuperview()
+            }
+        )
     }
     
     override func containerViewWillLayoutSubviews() {

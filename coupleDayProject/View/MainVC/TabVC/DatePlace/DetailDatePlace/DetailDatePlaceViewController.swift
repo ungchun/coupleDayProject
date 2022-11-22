@@ -69,7 +69,10 @@ final class DetailDatePlaceViewController: UIViewController {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.systemGray5.cgColor
         button.titleLabel?.font =  UIFont(name: "GangwonEduAllLight", size: 15)
-        button.setTitleColor(UserDefaults.standard.bool(forKey: "darkModeState") ? .white : .black, for: .normal)
+        button.setTitleColor(
+            UserDefaults.standard.bool(forKey: "darkModeState") ? .white : .black,
+            for: .normal
+        )
         button.layer.cornerRadius = 10
         button.setTitle("지도 앱 열기", for: .normal)
         return button
@@ -285,7 +288,9 @@ final class DetailDatePlaceViewController: UIViewController {
     }
     private func setUpBackBtn() {
         self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([
+            NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any
+        ], for: .normal)
         self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
         self.view.backgroundColor = UIColor(named: "bgColor")
     }
@@ -306,7 +311,10 @@ final class DetailDatePlaceViewController: UIViewController {
     // GestureRecognizer 세팅 작업
     private func setUpGestureRecognizer() {
         // 흐린 부분 탭할 때, 바텀시트를 내리는 TapGesture
-        let dimmedTap = UITapGestureRecognizer(target: self, action: #selector(dimmedViewTapped(_:)))
+        let dimmedTap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dimmedViewTapped(_:))
+        )
         dimmedBackView.addGestureRecognizer(dimmedTap)
         dimmedBackView.isUserInteractionEnabled = true
         
@@ -331,11 +339,17 @@ final class DetailDatePlaceViewController: UIViewController {
         bottomSheetView.addSubview(googleMapsStackView)
         bottomSheetView.addSubview(kakaoMapsStackView)
         
-        let googleMapsTapGesture = UITapGestureRecognizer(target: self, action: #selector(openGoogleMaps))
+        let googleMapsTapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(openGoogleMaps)
+        )
         googleMapsStackView.isUserInteractionEnabled = true
         googleMapsStackView.addGestureRecognizer(googleMapsTapGesture)
         
-        let kakaoMapsTapGesture = UITapGestureRecognizer(target: self, action: #selector(openkakaoMaps))
+        let kakaoMapsTapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(openkakaoMaps)
+        )
         kakaoMapsStackView.isUserInteractionEnabled = true
         kakaoMapsStackView.addGestureRecognizer(kakaoMapsTapGesture)
         
@@ -440,7 +454,11 @@ final class DetailDatePlaceViewController: UIViewController {
         showBottomSheet()
     }
     @objc private func openGoogleMaps() {
-        let alert = UIAlertController(title: "구글 맵스로 열기 실패", message: "앱 설치 상태를 확인해주세요", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(
+            title: "구글 맵스로 열기 실패",
+            message: "앱 설치 상태를 확인해주세요",
+            preferredStyle: UIAlertController.Style.alert
+        )
         let okAction = UIAlertAction(title: "OK", style: .default) { (action) in }
         alert.addAction(okAction)
         
@@ -455,7 +473,11 @@ final class DetailDatePlaceViewController: UIViewController {
         }
     }
     @objc private func openkakaoMaps() {
-        let alert = UIAlertController(title: "카카오맵으로 열기 실패", message: "앱 설치 상태를 확인해주세요", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(
+            title: "카카오맵으로 열기 실패",
+            message: "앱 설치 상태를 확인해주세요",
+            preferredStyle: UIAlertController.Style.alert
+        )
         let okAction = UIAlertAction(title: "OK", style: .default) { (action) in }
         alert.addAction(okAction)
         

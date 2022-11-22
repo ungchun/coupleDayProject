@@ -15,13 +15,24 @@ final class StoryTabViewController: UIViewController {
         
         // Notification Center에 Observer 등록
         //
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveCoupleDayData(notification:)), name: Notification.Name.coupleDay, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeDarkModeSet(notification:)), name: Notification.Name.darkModeCheck, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(receiveCoupleDayData(notification:)),
+            name: Notification.Name.coupleDay, object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(changeDarkModeSet(notification:)),
+            name: Notification.Name.darkModeCheck, object: nil
+        )
     }
     @objc func receiveCoupleDayData(notification: Notification) {
         // notification.userInfo 값을 받아온다. -> 그 값을 가지고 scrollToRow 처리
         //
-        storyTableView.register(StoryTableViewCell.self, forCellReuseIdentifier: "CodingCustomTableViewCell")
+        storyTableView.register(
+            StoryTableViewCell.self,
+            forCellReuseIdentifier: "CodingCustomTableViewCell"
+        )
         storyTableView.delegate = self
         storyTableView.dataSource = self
         guard let object = notification.userInfo?["coupleDay"] as? String else {
@@ -30,10 +41,17 @@ final class StoryTabViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             self?.storyTableView.reloadData()
             if Int(object)! >= 10950 {
-                let startIndex = IndexPath(row: StoryStandardDayModel().dayValues.count-1, section: 0)
+                let startIndex = IndexPath(
+                    row: StoryStandardDayModel().dayValues.count-1,
+                    section: 0
+                )
                 self?.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
             } else {
-                let startIndex = IndexPath(row: StoryStandardDayModel().dayValues.firstIndex(of: StoryStandardDayModel().dayValues.filter {$0 > Int(object)!}.min()!)!, section: 0)
+                let startIndex = IndexPath(
+                    row: StoryStandardDayModel().dayValues.firstIndex(
+                        of: StoryStandardDayModel().dayValues.filter {$0 > Int(object)!}.min()!)!,
+                    section: 0
+                )
                 self?.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
             }
         }
@@ -79,7 +97,13 @@ final class StoryTabViewController: UIViewController {
             let startIndex = IndexPath(row: StoryStandardDayModel().dayValues.count-1, section: 0)
             self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
         } else {
-            let startIndex = IndexPath(row: StoryStandardDayModel().dayValues.firstIndex(of: StoryStandardDayModel().dayValues.filter {$0 > Int((coupleTabViewModel.beginCoupleDay.value))!}.min()!)!, section: 0)
+            let startIndex = IndexPath(
+                row: StoryStandardDayModel().dayValues.firstIndex(
+                    of: StoryStandardDayModel().dayValues.filter {
+                        $0 > Int((coupleTabViewModel.beginCoupleDay.value))!
+                    }.min()!)!,
+                section: 0
+            )
             self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
         }
     }
@@ -95,7 +119,10 @@ final class StoryTabViewController: UIViewController {
         self.view.backgroundColor = UIColor(named: "bgColor")
         
         storyTableView.backgroundColor = UIColor(named: "bgColor")
-        storyTableView.register(StoryTableViewCell.self, forCellReuseIdentifier: "CodingCustomTableViewCell")
+        storyTableView.register(
+            StoryTableViewCell.self,
+            forCellReuseIdentifier: "CodingCustomTableViewCell"
+        )
         storyTableView.delegate = self
         storyTableView.dataSource = self
         storyTableView.separatorStyle = .none
@@ -123,7 +150,12 @@ final class StoryTabViewController: UIViewController {
             let startIndex = IndexPath(row: StoryStandardDayModel().dayValues.count-1, section: 0)
             self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
         } else {
-            let startIndex = IndexPath(row: StoryStandardDayModel().dayValues.firstIndex(of: StoryStandardDayModel().dayValues.filter {$0 > Int((coupleTabViewModel.beginCoupleDay.value))!}.min()!)!, section: 0)
+            let startIndex = IndexPath(
+                row: StoryStandardDayModel().dayValues.firstIndex(
+                    of: StoryStandardDayModel().dayValues.filter {
+                        $0 > Int((coupleTabViewModel.beginCoupleDay.value))!}.min()!)!,
+                section: 0
+            )
             self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
         }
     }
@@ -138,9 +170,15 @@ extension StoryTabViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CodingCustomTableViewCell", for: indexPath) as? StoryTableViewCell ?? StoryTableViewCell()
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "CodingCustomTableViewCell",
+            for: indexPath
+        ) as? StoryTableViewCell ?? StoryTableViewCell()
         if let coupleTabViewModel = coupleTabViewModel {
-            cell.setStoryCellText(index: StoryStandardDayModel().dayValues[indexPath.row], beginCoupleDay: coupleTabViewModel.beginCoupleDay.value)
+            cell.setStoryCellText(
+                index: StoryStandardDayModel().dayValues[indexPath.row],
+                beginCoupleDay: coupleTabViewModel.beginCoupleDay.value
+            )
             cell.selectionStyle = .none
             cell.backgroundColor = UIColor(named: "bgColor")
         }

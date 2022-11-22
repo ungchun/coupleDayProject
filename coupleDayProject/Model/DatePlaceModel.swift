@@ -9,11 +9,11 @@ struct DatePlaceModel: Codable {
     var latitude: String
     var longitude: String
     var modifyStateCheck: Bool
-
+    
     init() {
-        self.placeName  = "empty placeName"
-        self.address  = "empty address"
-        self.introduce  = []
+        self.placeName = "empty placeName"
+        self.address = "empty address"
+        self.introduce = []
         self.shortAddress = "empty shortAddress"
         self.imageUrl = []
         self.latitude = "empty latitude"
@@ -23,5 +23,11 @@ struct DatePlaceModel: Codable {
 }
 
 let LocalName: [String: String] = [
-    "seoul": "서울", "sudo": "수도권", "chungcheong": "충청", "gangwon": "강원", "gyeongsang": "경상",  "jeolla": "전라", "jeju": "제주"
+    "seoul": "서울",
+    "sudo": "수도권",
+    "chungcheong": "충청",
+    "gangwon": "강원",
+    "gyeongsang": "경상",
+    "jeolla": "전라",
+    "jeju": "제주"
 ]

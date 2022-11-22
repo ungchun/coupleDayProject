@@ -73,8 +73,16 @@ final class AppLoadingViewController: UIViewController {
         //
         guard let loadingCenterLabelText = loadingCenterLabel.text else { return }
         let attributedStr = NSMutableAttributedString(string: loadingCenterLabelText)
-        attributedStr.addAttribute(.foregroundColor, value: TrendingConstants.appMainColor, range: (loadingCenterLabelText as NSString).range(of:"너"))
-        attributedStr.addAttribute(.foregroundColor, value: TrendingConstants.appMainColor, range: (loadingCenterLabelText as NSString).range(of:"나"))
+        attributedStr.addAttribute(
+            .foregroundColor,
+            value: TrendingConstants.appMainColor,
+            range: (loadingCenterLabelText as NSString).range(of:"너")
+        )
+        attributedStr.addAttribute(
+            .foregroundColor,
+            value: TrendingConstants.appMainColor,
+            range: (loadingCenterLabelText as NSString).range(of:"나")
+        )
         loadingCenterLabel.attributedText = attributedStr
         
         lottieAnimationView.loopMode = .repeat(2.5)
@@ -89,10 +97,15 @@ final class AppLoadingViewController: UIViewController {
         ])
     }
     private func needUpdateVersion(_ marketingVersion: String) {
-        let alert = UIAlertController(title: "업데이트 알림", message: "너랑나랑의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.", preferredStyle: UIAlertController.Style.alert)
-        let destructiveAction = UIAlertAction(title: "업데이트", style: UIAlertAction.Style.default){(_) in
-            System().openAppStore()
-        }
+        let alert = UIAlertController(
+            title: "업데이트 알림",
+            message: "너랑나랑의 새로운 버전이 있습니다. \(marketingVersion) 버전으로 업데이트 해주세요.",
+            preferredStyle: .alert
+        )
+        let destructiveAction = UIAlertAction(
+            title: "업데이트",
+            style: .default
+        ){(_) in System().openAppStore()}
         alert.addAction(destructiveAction)
         self.present(alert, animated: false)
     }

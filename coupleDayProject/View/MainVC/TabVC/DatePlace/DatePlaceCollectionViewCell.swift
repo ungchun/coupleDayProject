@@ -54,8 +54,12 @@ class DatePlaceCollectionViewCell: UICollectionViewCell {
         allContentStackView.addArrangedSubview(placeShortAddress)
         
         NSLayoutConstraint.activate([
-            datePlaceImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2),
-            datePlaceImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width / 2),
+            datePlaceImageView.widthAnchor.constraint(
+                equalToConstant: UIScreen.main.bounds.size.width / 2
+            ),
+            datePlaceImageView.heightAnchor.constraint(
+                equalToConstant: UIScreen.main.bounds.size.width / 2
+            ),
         ])
         
         allContentStackView.snp.makeConstraints { make in

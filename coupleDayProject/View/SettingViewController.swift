@@ -51,7 +51,9 @@ final class SettingViewController: UIViewController{
         return view
     }()
     private lazy var allContentStackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [coupleDayText, backgroundImageText, divider, darkModeText])
+        let view = UIStackView(
+            arrangedSubviews: [coupleDayText, backgroundImageText, divider, darkModeText]
+        )
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         view.distribution = .fill
@@ -86,15 +88,24 @@ final class SettingViewController: UIViewController{
     private func setUpView() {
         self.view.addSubview(allContentStackView)
         
-        let tapGestureCoupleDayText = UITapGestureRecognizer(target: self, action: #selector(setCoupleDayTap))
+        let tapGestureCoupleDayText = UITapGestureRecognizer(
+            target: self,
+            action: #selector(setCoupleDayTap)
+        )
         coupleDayText.isUserInteractionEnabled = true
         coupleDayText.addGestureRecognizer(tapGestureCoupleDayText)
         
-        let tapGestureBackgroundImageText = UITapGestureRecognizer(target: self, action: #selector(setBackgroundImageTap))
+        let tapGestureBackgroundImageText = UITapGestureRecognizer(
+            target: self,
+            action: #selector(setBackgroundImageTap)
+        )
         backgroundImageText.isUserInteractionEnabled = true
         backgroundImageText.addGestureRecognizer(tapGestureBackgroundImageText)
         
-        let tapGestureDarkModeText = UITapGestureRecognizer(target: self, action: #selector(setDarkModeTap))
+        let tapGestureDarkModeText = UITapGestureRecognizer(
+            target: self,
+            action: #selector(setDarkModeTap)
+        )
         darkModeText.isUserInteractionEnabled = true
         darkModeText.addGestureRecognizer(tapGestureDarkModeText)
         
@@ -108,7 +119,9 @@ final class SettingViewController: UIViewController{
     }
     private func setUpBackBtn() {
         self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([
+            NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any
+        ], for: .normal)
         self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
         self.view.backgroundColor = UIColor(named: "bgColor")
     }
@@ -131,7 +144,11 @@ final class SettingViewController: UIViewController{
                 if #available(iOS 13.0, *) {
                     window.overrideUserInterfaceStyle = .light
                     self.userDefaults.set(false, forKey: "darkModeState")
-                    NotificationCenter.default.post(name: Notification.Name.darkModeCheck, object: nil, userInfo: ["darkModeCheck": "lightMode"])
+                    NotificationCenter.default.post(
+                        name: Notification.Name.darkModeCheck,
+                        object: nil,
+                        userInfo: ["darkModeCheck": "lightMode"]
+                    )
                 }
             }
         }
@@ -143,7 +160,11 @@ final class SettingViewController: UIViewController{
                 if #available(iOS 13.0, *) {
                     window.overrideUserInterfaceStyle = .dark
                     self.userDefaults.set(true, forKey: "darkModeState")
-                    NotificationCenter.default.post(name: Notification.Name.darkModeCheck, object: nil, userInfo: ["darkModeCheck": "darkMode"])
+                    NotificationCenter.default.post(
+                        name: Notification.Name.darkModeCheck,
+                        object: nil,
+                        userInfo: ["darkModeCheck": "darkMode"]
+                    )
                 }
             }
         }
@@ -186,18 +207,63 @@ final class SettingViewController: UIViewController{
         return datePicker
     }
     private func setUpCoupleDayDateChooserAlert(_ datePicker : UIDatePicker) -> UIAlertController {
-        let dateChooserAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let dateChooserAlert = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
         dateChooserAlert.view.addSubview(datePicker)
-        dateChooserAlert.addAction(UIAlertAction(title: "선택완료", style: .default, handler: { [self] (action:UIAlertAction!) in
-            RealmManager.shared.updateBeginCoupleDay(datePicker: datePicker)
-            coupleTabViewModel?.updateBeginCoupleDay()
-        }))
-        dateChooserAlert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: { (action:UIAlertAction!) in }))
+        dateChooserAlert.addAction(
+            UIAlertAction(
+                title: "선택완료",
+                style: .default,
+                handler: { [self] (action:UIAlertAction!) in
+                    RealmManager.shared.updateBeginCoupleDay(datePicker: datePicker)
+                    coupleTabViewModel?.updateBeginCoupleDay()
+                }
+            )
+        )
         
-        dateChooserAlert.view.addConstraint(NSLayoutConstraint(item: datePicker, attribute: .centerX, relatedBy: .equal, toItem: dateChooserAlert.view, attribute: .centerX, multiplier: 1, constant: 0))
-        dateChooserAlert.view.addConstraint(NSLayoutConstraint(item: datePicker, attribute: .centerY, relatedBy: .equal, toItem: dateChooserAlert.view, attribute: .centerY, multiplier: 1, constant: -50)) // -50 하는 이유는 버튼 2개 높이만큼 띄워줘야하는듯..?
+        dateChooserAlert.addAction(
+            UIAlertAction(
+                title: "취소",
+                style: .cancel,
+                handler: { (action:UIAlertAction!) in }
+            )
+        )
         
-        let alertContentHeight: NSLayoutConstraint = NSLayoutConstraint(item: dateChooserAlert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 350)
+        dateChooserAlert.view.addConstraint(
+            NSLayoutConstraint(
+                item: datePicker,
+                attribute: .centerX,
+                relatedBy: .equal,
+                toItem: dateChooserAlert.view,
+                attribute: .centerX,
+                multiplier: 1,
+                constant: 0
+            )
+        )
+        
+        dateChooserAlert.view.addConstraint(
+            NSLayoutConstraint(
+                item: datePicker,
+                attribute: .centerY,
+                relatedBy: .equal,
+                toItem: dateChooserAlert.view,
+                attribute: .centerY,
+                multiplier: 1,
+                constant: -50
+            )
+        ) // -50 하는 이유는 버튼 2개 높이만큼 띄워줘야하는듯..?
+        
+        let alertContentHeight: NSLayoutConstraint = NSLayoutConstraint(
+            item: dateChooserAlert.view!,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1, constant: 350
+        )
         dateChooserAlert.view.addConstraint(alertContentHeight)
         
         return dateChooserAlert
@@ -206,10 +272,15 @@ final class SettingViewController: UIViewController{
 
 // MARK: Extension
 //
-extension SettingViewController : UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
+extension SettingViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let imageData = info[.editedImage] is UIImage ? info[UIImagePickerController.InfoKey.editedImage] : info[UIImagePickerController.InfoKey.originalImage]
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+    ) {
+        let imageData = info[.editedImage] is UIImage ?
+        info[UIImagePickerController.InfoKey.editedImage] :
+        info[UIImagePickerController.InfoKey.originalImage]
         self.dismiss(animated: true) {
             self.presentCropViewController(image: imageData as! UIImage)
         }
@@ -217,7 +288,9 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+}
+
+extension SettingViewController: CropViewControllerDelegate {
     func presentCropViewController(image: UIImage) {
         let image: UIImage = image
         let cropViewController = CropViewController(image: image)
@@ -229,9 +302,16 @@ extension SettingViewController : UIImagePickerControllerDelegate & UINavigation
         cropViewController.cancelButtonTitle = "취소"
         present(cropViewController, animated: true, completion: nil)
     }
-    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+    
+    func cropViewController(
+        _ cropViewController: CropViewController,
+        didCropToImage image: UIImage,
+        withRect cropRect: CGRect,
+        angle: Int
+    ) {
         RealmManager.shared.updateMainImage(mainImage: image)
         coupleTabViewModel?.updateHomeMainImage()
         dismiss(animated: true, completion: nil)
     }
 }
+

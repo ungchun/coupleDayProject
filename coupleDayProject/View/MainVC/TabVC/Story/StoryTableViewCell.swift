@@ -59,7 +59,9 @@ final class StoryTableViewCell: UITableViewCell {
         return stackView
     }()
     private lazy var contentVerticalStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [stackViewTopPadding, contentHorizontalStackView, divider])
+        let stackView = UIStackView(
+            arrangedSubviews: [stackViewTopPadding, contentHorizontalStackView, divider]
+        )
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +102,11 @@ final class StoryTableViewCell: UITableViewCell {
     // MARK: Functions
     //
     func setStoryCellText(index: Int, beginCoupleDay: String) {
-        let beginCoupleFormatterDay = Date(timeIntervalSince1970: TimeInterval(RealmManager.shared.getUserDatas().first!.beginCoupleDay) / 1000).toStoryString
+        let beginCoupleFormatterDay = Date(
+            timeIntervalSince1970: TimeInterval(
+                RealmManager.shared.getUserDatas().first!.beginCoupleDay
+            ) / 1000
+        ).toStoryString
         let tempDate = Date().millisecondsSince1970 + (index).toMillisecondsSince1970 - Int(beginCoupleDay)!.toMillisecondsSince1970
         self.yyyyMMddDate = Date(timeIntervalSince1970: TimeInterval(tempDate) / 1000).toStoryString
         dayText.text = index == 0 ? "만남의 시작" : index % 365 == 0 ? "\(index/365)주년" : "\(index) 일"

@@ -72,7 +72,10 @@ final class AnniversaryViewController: UIViewController {
         view.backgroundColor = UIColor(named: "bgColor")
         
         anniversaryTableView.backgroundColor = UIColor(named: "bgColor")
-        anniversaryTableView.register(AnniversaryTableViewCell.self, forCellReuseIdentifier: "AnniversaryTableViewCell")
+        anniversaryTableView.register(
+            AnniversaryTableViewCell.self,
+            forCellReuseIdentifier: "AnniversaryTableViewCell"
+        )
         anniversaryTableView.delegate = self
         anniversaryTableView.dataSource = self
         anniversaryTableView.separatorStyle = .none
@@ -151,8 +154,14 @@ extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource 
             }
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AnniversaryTableViewCell", for: indexPath) as? AnniversaryTableViewCell ?? AnniversaryTableViewCell()
-        cell.setAnniversaryCellText(dictValue: AnniversaryModel().AnniversaryInfo[indexPath.row + (AnniversaryModel().AnniversaryInfo.count - anniversaryFilter.count)], url: AnniversaryModel().AnniversaryImageUrl[indexPath.row + (AnniversaryModel().AnniversaryInfo.count - anniversaryFilter.count)])
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "AnniversaryTableViewCell",
+            for: indexPath
+        ) as? AnniversaryTableViewCell ?? AnniversaryTableViewCell()
+        cell.setAnniversaryCellText(
+            dictValue: AnniversaryModel().AnniversaryInfo[indexPath.row + (AnniversaryModel().AnniversaryInfo.count - anniversaryFilter.count)],
+            url: AnniversaryModel().AnniversaryImageUrl[indexPath.row + (AnniversaryModel().AnniversaryInfo.count - anniversaryFilter.count)]
+        )
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor(named: "bgColor")
         return cell

@@ -47,7 +47,10 @@ final class MainTabManViewController: TabmanViewController {
         bar.buttons.customize { (button) in
             button.tintColor = UIColor(white: 0.5, alpha: 0.3)
             button.selectedTintColor = TrendingConstants.appMainColor
-            button.font = UIFont(name: "GangwonEduAllBold", size: 20) ?? UIFont.systemFont(ofSize: 20)
+            button.font = UIFont(
+                name: "GangwonEduAllBold",
+                size: 20
+            ) ?? UIFont.systemFont(ofSize: 20)
         }
         bar.layout.transitionStyle = .snap
         bar.layout.interButtonSpacing = 20
@@ -64,7 +67,7 @@ final class MainTabManViewController: TabmanViewController {
 extension MainTabManViewController: PageboyViewControllerDataSource, TMBarDataSource {
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
         let item = TMBarItem(title: "")
-//        let title: String = index == 0 ? "커플" : index == 1 ? "스토리" : "기념일"
+        //        let title: String = index == 0 ? "커플" : index == 1 ? "스토리" : "기념일"
         let title: String = index == 0 ? "커플" : "스토리"
         item.title = title
         return item
@@ -74,11 +77,16 @@ extension MainTabManViewController: PageboyViewControllerDataSource, TMBarDataSo
         return viewControllers.count
     }
     
-    func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
+    func viewController(
+        for pageboyViewController: PageboyViewController,
+        at index: PageboyViewController.PageIndex
+    ) -> UIViewController? {
         return viewControllers[index]
     }
     
-    func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
+    func defaultPage(
+        for pageboyViewController: PageboyViewController
+    ) -> PageboyViewController.Page? {
         return .at(index: 0)
     }
 }

@@ -19,11 +19,21 @@ final class MainViewModelCombine: ObservableObject {
         
         // Notification Center에 Observer 등록
         //
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveCoupleDayData(notification:)), name: Notification.Name.coupleDay, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(receiveCoupleDayData(notification:)),
+            name: Notification.Name.coupleDay, object: nil
+        )
     }
     private func changeAppNameLabel() {
         if !changeLabelInitCheck {
-            changeLabelTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updateLabel), userInfo: nil, repeats: true)
+            changeLabelTimer = Timer.scheduledTimer(
+                timeInterval: 5,
+                target: self,
+                selector: #selector(updateLabel),
+                userInfo: nil,
+                repeats: true
+            )
             changeLabelInitCheck = true
         }
     }

@@ -75,7 +75,11 @@ final class SetBeginDayViewController: UIViewController {
         button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont(name: "GangwonEduAllLight", size: 20)
         
-        let zeroDayCheckConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: UIImage.SymbolWeight.medium, scale: UIImage.SymbolScale.large)
+        let zeroDayCheckConfig = UIImage.SymbolConfiguration(
+            pointSize: 15,
+            weight: UIImage.SymbolWeight.medium,
+            scale: UIImage.SymbolScale.large
+        )
         let zeroDayCheckBox = UIImage(systemName: "square", withConfiguration: zeroDayCheckConfig)
         button.setImage(zeroDayCheckBox, for: .normal)
         let titleSize = button.titleLabel?.text!.size(withAttributes: [
@@ -160,8 +164,15 @@ final class SetBeginDayViewController: UIViewController {
         zeroDayStartCheck.toggle()
     }
     private func setUpCheckBox(_ zeroDayStartCheck: Bool) {
-        let zeroDayCheckConfig = UIImage.SymbolConfiguration(pointSize: 15, weight: UIImage.SymbolWeight.medium, scale: UIImage.SymbolScale.large)
-        let zeroDayCheckBox = UIImage(systemName: zeroDayStartCheck ? "square" : "checkmark.square", withConfiguration: zeroDayCheckConfig)
+        let zeroDayCheckConfig = UIImage.SymbolConfiguration(
+            pointSize: 15,
+            weight: UIImage.SymbolWeight.medium,
+            scale: UIImage.SymbolScale.large
+        )
+        let zeroDayCheckBox = UIImage(
+            systemName: zeroDayStartCheck ? "square" : "checkmark.square",
+            withConfiguration: zeroDayCheckConfig
+        )
         checkButton.setImage(zeroDayCheckBox, for: .normal)
     }
     @objc func startBtnTap() {
@@ -169,12 +180,22 @@ final class SetBeginDayViewController: UIViewController {
         let realmImageModel = RealmImageModel()
         
         if zeroDayStartCheck {
-            realmUserModel.beginCoupleDay = Int(handleDateValue.toString.toDate.millisecondsSince1970)
+            realmUserModel.beginCoupleDay = Int(
+                handleDateValue.toString.toDate.millisecondsSince1970
+            )
         } else {
-            realmUserModel.beginCoupleDay = Int(Calendar.current.date(byAdding: .day, value: -1, to: handleDateValue.toString.toDate)!.millisecondsSince1970)
+            realmUserModel.beginCoupleDay = Int(
+                Calendar.current.date(
+                    byAdding: .day,
+                    value: -1,
+                    to: handleDateValue.toString.toDate
+                )!.millisecondsSince1970
+            )
         }
         realmUserModel.zeroDayStartCheck = zeroDayStartCheck
-        realmImageModel.homeMainImage = UIImage(named: "coupleImg")?.jpegData(compressionQuality: 0.5)
+        realmImageModel.homeMainImage = UIImage(
+            named: "coupleImg"
+        )?.jpegData(compressionQuality: 0.5)
         
         RealmManager.shared.writeUserData(userData: realmUserModel)
         RealmManager.shared.writeImageData(imageData: realmImageModel)

@@ -43,7 +43,7 @@ class CityTabViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadFirebaseData { [weak self] in
@@ -64,7 +64,10 @@ class CityTabViewController: UIViewController {
         
         datePlaceCollectionView.dataSource = self
         datePlaceCollectionView.delegate = self
-        datePlaceCollectionView.register(DatePlaceCollectionViewCell.self, forCellWithReuseIdentifier: DatePlaceCollectionViewCell.reuseIdentifier)
+        datePlaceCollectionView.register(
+            DatePlaceCollectionViewCell.self,
+            forCellWithReuseIdentifier: DatePlaceCollectionViewCell.reuseIdentifier
+        )
         
         datePlaceCollectionView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalTo(0)
@@ -73,8 +76,8 @@ class CityTabViewController: UIViewController {
     private func loadFirebaseData(completion: @escaping () -> ()) {
         guard let placeName = placeName else { return }
         let localNameText = "\(placeName)"
-        FirebaseManager.shared.firestore.collection("\(localNameText)").getDocuments { [self] (querySnapshot, error) in
-            guard error == nil else { return }
+        FirebaseManager.shared.firestore.collection("\(localNameText)").getDocuments {
+            [weak self] (querySnapshot, error) in
             for document in querySnapshot!.documents {
                 var datePlaceValue = DatePlaceModel()
                 
@@ -89,13 +92,13 @@ class CityTabViewController: UIViewController {
                 datePlaceValue.latitude = document.data()["latitude"] as! String
                 datePlaceValue.longitude = document.data()["longitude"] as! String
                 
-                mainDatePlaceList.append(datePlaceValue)
+                self?.mainDatePlaceList.append(datePlaceValue)
                 
                 DispatchQueue.global().async { [weak self] in
                     self?.downloadImageAndCache(with: datePlaceValue.imageUrl.first!)
                 }
             }
-            mainDatePlaceList.shuffle()
+            self?.mainDatePlaceList.shuffle()
             completion()
         }
     }
@@ -105,9 +108,13 @@ class CityTabViewController: UIViewController {
             switch result {
             case .success(let value):
                 if value.image != nil { //캐시가 존재하는 경우
-                    } else { //캐시가 존재하지 않는 경우
+                } else { //캐시가 존재하지 않는 경우
                     let resource = ImageResource(downloadURL: url)
-                    KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
+                    KingfisherManager.shared.retrieveImage(
+                        with: resource,
+                        options: nil,
+                        progressBlock: nil
+                    ) { result in
                         switch result {
                         case .success(let value):
                             print("success value.image \(value.image)")
@@ -124,12 +131,21 @@ class CityTabViewController: UIViewController {
 }
 
 extension CityTabViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         return mainDatePlaceList.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DatePlaceCollectionViewCell.reuseIdentifier, for: indexPath)
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: DatePlaceCollectionViewCell.reuseIdentifier,
+            for: indexPath
+        )
         if let cell = cell as? DatePlaceCollectionViewCell {
             cell.datePlaceImageView.image = nil
             cell.datePlaceModel = mainDatePlaceList[indexPath.item]
@@ -142,12 +158,20 @@ extension CityTabViewController: UICollectionViewDataSource, UICollectionViewDel
         detailDatePlaceViewController.datePlace = mainDatePlaceList[indexPath.item]
         self.navigationController?.pushViewController(detailDatePlaceViewController, animated: true)
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         let padding: CGFloat = 60
         let collectionViewSize = datePlaceCollectionView.frame.size.width - padding
         return CGSize(width: collectionViewSize/2, height: collectionViewSize / 2 + 90)
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
         return UIEdgeInsets(top: 30, left: 20, bottom: 20, right: 20)
     }
 }

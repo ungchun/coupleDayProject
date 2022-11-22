@@ -47,7 +47,9 @@ final class DatePlaceTabManViewController: TabmanViewController {
     //
     private func setUpBackBtn() {
         self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([
+            NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any
+        ], for: .normal)
         self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
         self.view.backgroundColor = UIColor(named: "bgColor")
     }
@@ -75,7 +77,10 @@ final class DatePlaceTabManViewController: TabmanViewController {
         bar.buttons.customize { (button) in
             button.tintColor = UIColor(white: 0.5, alpha: 0.3)
             button.selectedTintColor = TrendingConstants.appMainColor
-            button.font = UIFont(name: "GangwonEduAllBold", size: 20) ?? UIFont.systemFont(ofSize: 20)
+            button.font = UIFont(
+                name: "GangwonEduAllBold",
+                size: 20
+            ) ?? UIFont.systemFont(ofSize: 20)
         }
         bar.scrollMode = .interactive
         bar.layout.transitionStyle = .snap
@@ -100,11 +105,16 @@ extension DatePlaceTabManViewController: PageboyViewControllerDataSource, TMBarD
         return viewControllers.count
     }
     
-    func viewController(for pageboyViewController: Pageboy.PageboyViewController, at index: Pageboy.PageboyViewController.PageIndex) -> UIViewController? {
+    func viewController(
+        for pageboyViewController: Pageboy.PageboyViewController,
+        at index: Pageboy.PageboyViewController.PageIndex
+    ) -> UIViewController? {
         return viewControllers[index]
     }
     
-    func defaultPage(for pageboyViewController: Pageboy.PageboyViewController) -> Pageboy.PageboyViewController.Page? {
+    func defaultPage(
+        for pageboyViewController: Pageboy.PageboyViewController
+    ) -> Pageboy.PageboyViewController.Page? {
         return .at(index: 0)
     }
 }
