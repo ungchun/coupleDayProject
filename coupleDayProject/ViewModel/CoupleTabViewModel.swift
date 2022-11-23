@@ -42,7 +42,7 @@ final class CoupleTabViewModel {
             userInfo: ["coupleDay": self.beginCoupleDay.value]
         )
     }
-    
+
     func updateHomeMainImage() {
         guard let homeMainImage = RealmManager.shared.getImageDatas().first!.homeMainImage else { return }
         self.homeMainImageData.value = homeMainImage

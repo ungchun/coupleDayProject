@@ -1,7 +1,5 @@
 import UIKit
 
-import Kingfisher
-
 class CityTabViewController: UIViewController {
     
     // MARK: Properties
@@ -47,8 +45,6 @@ class CityTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadFirebaseData { [weak self] in
-            // fadeIn Animation
-            //
             self?.setUpView()
             self?.datePlaceCollectionView.alpha = 0
             self?.datePlaceCollectionView.fadeIn()
@@ -95,39 +91,12 @@ class CityTabViewController: UIViewController {
                 
                 self?.mainDatePlaceList.append(datePlaceValue)
                 
-                DispatchQueue.global().async { [weak self] in
-                    self?.downloadImageAndCache(with: datePlaceValue.imageUrl.first!)
+                DispatchQueue.global().async {
+                    CacheImageManger().downloadImageAndCache(urlString: datePlaceValue.imageUrl.first!)
                 }
             }
             self?.mainDatePlaceList.shuffle()
             completion()
-        }
-    }
-    
-    private func downloadImageAndCache(with urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
-            switch result {
-            case .success(let value):
-                if value.image != nil { //캐시가 존재하는 경우
-                } else { //캐시가 존재하지 않는 경우
-                    let resource = ImageResource(downloadURL: url)
-                    KingfisherManager.shared.retrieveImage(
-                        with: resource,
-                        options: nil,
-                        progressBlock: nil
-                    ) { result in
-                        switch result {
-                        case .success(let value):
-                            print("success value.image \(value.image)")
-                        case .failure(let error):
-                            print("Error: \(error)")
-                        }
-                    }
-                }
-            case .failure(let error):
-                print(error)
-            }
         }
     }
 }

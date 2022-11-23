@@ -199,6 +199,7 @@ final class SetBeginDayViewController: UIViewController {
             named: "coupleImg"
         )?.jpegData(compressionQuality: 0.5)
         
+        initNotBirthDayAnniversaryModel()
         RealmManager.shared.writeUserData(userData: realmUserModel)
         RealmManager.shared.writeImageData(imageData: realmImageModel)
         

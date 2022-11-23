@@ -3,6 +3,7 @@ import UIKit
 import WidgetKit
 
 import GoogleMobileAds
+import Kingfisher
 import RealmSwift
 
 struct CommonSize {
@@ -36,8 +37,8 @@ struct CommonSize {
 // MARK: RealmManager Singleton
 //
 struct RealmManager {
-    //     try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
-
+    //         try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
+    
     static let shared: RealmManager = .init()
     
     private var realm: Realm {
@@ -77,25 +78,43 @@ struct RealmManager {
             if RealmManager.shared.getUserDatas().first!.zeroDayStartCheck {
                 RealmManager.shared.getUserDatas().first!.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
             } else {
-                RealmManager.shared.getUserDatas().first!.beginCoupleDay = Int(Calendar.current.date(byAdding: .day, value: -1, to: datePicker.date.toString.toDate)!.millisecondsSince1970)
+                RealmManager.shared.getUserDatas().first!.beginCoupleDay = Int(
+                    Calendar.current.date(
+                        byAdding: .day,
+                        value: -1,
+                        to: datePicker.date.toString.toDate
+                    )!.millisecondsSince1970
+                )
             }
-            
         })
         WidgetCenter.shared.reloadAllTimelines()
     }
-
+    
+    func updateBirthDay(datePicker: UIDatePicker) {
+        initBirthDayAnniversaryModel(
+            dateValue: Int(datePicker.date.toString.toDate.millisecondsSince1970)
+        )
+        try? realm.write({
+            RealmManager.shared.getUserDatas().first!.birthDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
+        })
+    }
+    
     func updateMainImage(mainImage: UIImage) {
         try? realm.write({
-            RealmManager.shared.getImageDatas().first!.homeMainImage = (mainImage.pngData()?.count)! > 10000000
-            ? resizeImage(image: mainImage, newWidth: 1000).pngData() : mainImage.jpegData(compressionQuality: 0.5)
+            RealmManager.shared.getImageDatas().first!.homeMainImage =
+            (mainImage.pngData()?.count)! > 10000000
+            ? resizeImage(image: mainImage, newWidth: 1000).pngData()
+            : mainImage.jpegData(compressionQuality: 0.5)
         })
         WidgetCenter.shared.reloadAllTimelines()
     }
     
     func updateMyProfileImage(myProfileImage: UIImage) {
         try? realm.write({
-            RealmManager.shared.getImageDatas().first!.myProfileImage = (myProfileImage.pngData()?.count)! > 10000000
-            ? resizeImage(image: myProfileImage, newWidth: 1000).pngData() : myProfileImage.jpegData(compressionQuality: 0.5)
+            RealmManager.shared.getImageDatas().first!.myProfileImage =
+            (myProfileImage.pngData()?.count)! > 10000000
+            ? resizeImage(image: myProfileImage, newWidth: 1000).pngData()
+            : myProfileImage.jpegData(compressionQuality: 0.5)
         })
     }
     
@@ -163,8 +182,7 @@ struct TrendingConstants {
 // MARK: return year string
 //
 struct DateValues {
-    
-    // 올해 year -> return yyyy 
+    // 올해 year -> return yyyy
     static func GetOnlyYear() -> String {
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -181,6 +199,35 @@ struct DateValues {
         let yearString = dateFormatter.string(from: date)
         let nextYearString = String(describing: Int(yearString)!+1)
         return nextYearString
+    }
+}
+
+struct CacheImageManger {
+    func downloadImageAndCache(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
+            switch result {
+            case .success(let value):
+                if value.image != nil { //캐시가 존재하는 경우
+                } else { //캐시가 존재하지 않는 경우
+                    let resource = ImageResource(downloadURL: url)
+                    KingfisherManager.shared.retrieveImage(
+                        with: resource,
+                        options: nil,
+                        progressBlock: nil
+                    ) { result in
+                        switch result {
+                        case .success(let value):
+                            print("success value.image \(value.image)")
+                        case .failure(let error):
+                            print("Error: \(error)")
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 

@@ -78,12 +78,20 @@ final class MainViewController: UIViewController {
                 self?.appNameLabel.text = updateLabel
             }
         }.store(in: &disposalbleBag)
+        
+        if RealmManager.shared.getUserDatas().first!.birthDay != 0 {
+            initBirthDayAnniversaryModel(
+                dateValue: RealmManager.shared.getUserDatas().first!.birthDay
+            )
+        } else {
+            initNotBirthDayAnniversaryModel()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
     }
-
+    
     // MARK: Functions
     //
     fileprivate func setUpView() {

@@ -1,7 +1,5 @@
 import UIKit
 
-import Kingfisher
-
 class DatePlaceCarouselView: UIView {
     
     // MARK: Properties
@@ -41,8 +39,8 @@ class DatePlaceCarouselView: UIView {
         self.imageUrlArray!.shuffle()
 
         imageUrlArray.forEach { value in
-            DispatchQueue.global().async { [weak self] in
-                self?.downloadImageAndCache(with: value)
+            DispatchQueue.global().async {
+                CacheImageManger().downloadImageAndCache(urlString: value)
             }
         }
         
@@ -80,33 +78,6 @@ class DatePlaceCarouselView: UIView {
     
     // MARK: functions
     //
-    private func downloadImageAndCache(with urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
-            switch result {
-            case .success(let value):
-                if value.image != nil { //캐시가 존재하는 경우
-                } else { //캐시가 존재하지 않는 경우
-                    let resource = ImageResource(downloadURL: url)
-                    KingfisherManager.shared.retrieveImage(
-                        with: resource,
-                        options: nil,
-                        progressBlock: nil
-                    ) { result in
-                        switch result {
-                        case .success(let value):
-                            print("success value.image \(value.image)")
-                        case .failure(let error):
-                            print("Error: \(error)")
-                        }
-                    }
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
     private func configureProgressView() {
         guard let imageUrlArray = imageUrlArray else { return }
         carouselProgressView.progress = 0.0

@@ -49,10 +49,18 @@ extension Date {
     }
     
     // date -> return string MM/dd
-    var toAnniversaryString: String {
+    var toSlashAnniversaryString: String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko-KR")
         dateFormatter.dateFormat = "MM/dd"
+        return dateFormatter.string(from: self)
+    }
+    
+    // date -> return string MM-dd
+    var toMinusAnniversaryString: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko-KR")
+        dateFormatter.dateFormat = "MM-dd"
         return dateFormatter.string(from: self)
     }
 }
@@ -81,18 +89,6 @@ extension Int {
 // MARK: UIImageView
 //
 extension UIImageView {
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
-                }
-            }
-        }
-    }
-    
     // Kingfisher 이용 캐시 값 확인하고 setImage
     func setImage(with urlString: String) {
         ImageCache.default.retrieveImage(forKey: urlString, options: nil) { result in
