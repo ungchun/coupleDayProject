@@ -1,7 +1,5 @@
 import UIKit
 
-import Kingfisher
-
 final class AnniversaryTableViewCell: UITableViewCell {
     
     // MARK: Views
@@ -92,13 +90,13 @@ final class AnniversaryTableViewCell: UITableViewCell {
     
     // MARK: Functions
     //
-    func setAnniversaryCellText(dictValue: Dictionary<String, String>, url: String) {
+    func setAnniversaryCellText(dictValue: Dictionary<String, String>, url: Dictionary<String, String>) {
         anniversaryNameText.text = dictValue.values.first!
         let minus = Int(dictValue.keys.first!.toDate.millisecondsSince1970)-Int(Date().millisecondsSince1970)
         let D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
-        anniversaryDateText.text = "\(dictValue.keys.first!.toDate.toAnniversaryString)"
+        anniversaryDateText.text = "\(dictValue.keys.first!.toDate.toSlashAnniversaryString)"
         anniversaryD_DayText.text = "D-\(D_DayValue)"
         
-        anniversaryBackGroundImage.setImage(with: url)
+        anniversaryBackGroundImage.setImage(with: url.values.first!)
     }
 }

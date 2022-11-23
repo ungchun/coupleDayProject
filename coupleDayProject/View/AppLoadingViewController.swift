@@ -46,7 +46,6 @@ final class AppLoadingViewController: UIViewController {
             let currentProjectVersion = System.appVersion!
             let splitMarketingVersion = marketingVersion.split(separator: ".").map {$0}
             let splitCurrentProjectVersion = currentProjectVersion.split(separator: ".").map {$0}
-            
             if splitCurrentProjectVersion[0] < splitMarketingVersion[0] { // 가장 앞자리가 다르면 -> 업데이트 필요
                 self?.needUpdateVersion(marketingVersion)
             } else {

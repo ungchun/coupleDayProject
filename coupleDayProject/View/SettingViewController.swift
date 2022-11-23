@@ -29,6 +29,13 @@ final class SettingViewController: UIViewController{
         label.font = UIFont(name: "GangwonEduAllLight", size: 20)
         return label
     }()
+    private let birthDayText: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "생일 설정"
+        label.font = UIFont(name: "GangwonEduAllLight", size: 20)
+        return label
+    }()
     private let darkModeText: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +52,7 @@ final class SettingViewController: UIViewController{
     }()
     private lazy var allContentStackView: UIStackView = {
         let view = UIStackView(
-            arrangedSubviews: [coupleDayText, backgroundImageText, divider, darkModeText]
+            arrangedSubviews: [coupleDayText, backgroundImageText, birthDayText, divider, darkModeText]
         )
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
@@ -101,6 +108,13 @@ final class SettingViewController: UIViewController{
         )
         backgroundImageText.isUserInteractionEnabled = true
         backgroundImageText.addGestureRecognizer(tapGestureBackgroundImageText)
+        
+        let tapGestureBirthDayText = UITapGestureRecognizer(
+            target: self,
+            action: #selector(setBirthDayTap)
+        )
+        birthDayText.isUserInteractionEnabled = true
+        birthDayText.addGestureRecognizer(tapGestureBirthDayText)
         
         let tapGestureDarkModeText = UITapGestureRecognizer(
             target: self,
@@ -220,6 +234,93 @@ final class SettingViewController: UIViewController{
                 handler: { [self] (action:UIAlertAction!) in
                     RealmManager.shared.updateBeginCoupleDay(datePicker: datePicker)
                     coupleTabViewModel?.updateBeginCoupleDay()
+                }
+            )
+        )
+        dateChooserAlert.addAction(
+            UIAlertAction(
+                title: "취소",
+                style: .cancel,
+                handler: { (action:UIAlertAction!) in }
+            )
+        )
+        dateChooserAlert.view.addConstraint(
+            NSLayoutConstraint(
+                item: datePicker,
+                attribute: .centerX,
+                relatedBy: .equal,
+                toItem: dateChooserAlert.view,
+                attribute: .centerX,
+                multiplier: 1,
+                constant: 0
+            )
+        )
+        dateChooserAlert.view.addConstraint(
+            NSLayoutConstraint(
+                item: datePicker,
+                attribute: .centerY,
+                relatedBy: .equal,
+                toItem: dateChooserAlert.view,
+                attribute: .centerY,
+                multiplier: 1,
+                constant: -50
+            )
+        )
+        let alertContentHeight: NSLayoutConstraint = NSLayoutConstraint(
+            item: dateChooserAlert.view!,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1, constant: 350
+        )
+        dateChooserAlert.view.addConstraint(alertContentHeight)
+        return dateChooserAlert
+    }
+    
+    @objc func setBirthDayTap() {
+        let datePicker = setUpBirthDayDatePicker()
+        let dateChooserAlert = setUpBirthDayDateChooserAlert(datePicker)
+        present(dateChooserAlert, animated: true, completion: nil)
+    }
+    
+    private func setUpBirthDayDatePicker() -> UIDatePicker {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.locale = NSLocale(localeIdentifier: "ko_KO") as Locale
+        
+        let calendar = Calendar(identifier: .gregorian)
+        let currentDate = Date()
+        var components = DateComponents()
+        
+        components.calendar = calendar
+        components.year = -1
+        components.month = 12
+        let maxDate = calendar.date(byAdding: components, to: currentDate)
+        components.year = -51
+        let minDate = calendar.date(byAdding: components, to: currentDate)
+        
+        datePicker.minimumDate = minDate
+        datePicker.maximumDate = maxDate
+        
+        return datePicker
+    }
+    
+    private func setUpBirthDayDateChooserAlert(_ datePicker : UIDatePicker) -> UIAlertController {
+        let dateChooserAlert = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        dateChooserAlert.view.addSubview(datePicker)
+        dateChooserAlert.addAction(
+            UIAlertAction(
+                title: "선택완료",
+                style: .default,
+                handler: { (action:UIAlertAction!) in
+                    RealmManager.shared.updateBirthDay(datePicker: datePicker)
                 }
             )
         )

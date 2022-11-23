@@ -33,7 +33,6 @@ final class AnniversaryViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
     private let topContentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -122,7 +121,7 @@ extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let nowMillisecondDate = Date().millisecondsSince1970
-        let anniversaryFilter = AnniversaryModel().AnniversaryInfo.filter {dictValue in
+        let anniversaryFilter = AnniversaryModel.AnniversaryInfo.filter {dictValue in
             let keyValue = dictValue.keys.first
             if nowMillisecondDate < (keyValue?.toDate.millisecondsSince1970)! {
                 return true
@@ -135,7 +134,7 @@ extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let nowMillisecondDate = Date().millisecondsSince1970
-        let anniversaryFilter = AnniversaryModel().AnniversaryInfo.filter { dictValue in
+        let anniversaryFilter = AnniversaryModel.AnniversaryInfo.filter { dictValue in
             let keyValue = dictValue.keys.first
             if nowMillisecondDate < (keyValue?.toDate.millisecondsSince1970)! {
                 return true
@@ -149,8 +148,12 @@ extension AnniversaryViewController: UITableViewDelegate, UITableViewDataSource 
             for: indexPath
         ) as? AnniversaryTableViewCell ?? AnniversaryTableViewCell()
         cell.setAnniversaryCellText(
-            dictValue: AnniversaryModel().AnniversaryInfo[indexPath.row + (AnniversaryModel().AnniversaryInfo.count - anniversaryFilter.count)],
-            url: AnniversaryModel().AnniversaryImageUrl[indexPath.row + (AnniversaryModel().AnniversaryInfo.count - anniversaryFilter.count)]
+            dictValue: AnniversaryModel.AnniversaryInfo[
+                indexPath.row + (AnniversaryModel.AnniversaryInfo.count - anniversaryFilter.count)
+            ],
+            url: AnniversaryModel.AnniversaryImageUrl[
+                indexPath.row + (AnniversaryModel.AnniversaryInfo.count - anniversaryFilter.count)
+            ]
         )
         cell.selectionStyle = .none
         cell.backgroundColor = UIColor(named: "bgColor")

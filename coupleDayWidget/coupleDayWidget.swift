@@ -230,6 +230,7 @@ class RealmManager {
 
 class RealmUserModel: Object {
     @objc dynamic var beginCoupleDay = 0
+    @objc dynamic var birthDay = 0
     @objc dynamic var zeroDayStartCheck = false
 }
 class RealmImageModel: Object {
