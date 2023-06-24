@@ -281,6 +281,8 @@
 		650631542A47247F00094DBF /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BCB0B16628507BEE00DE7196 /* View */,
+				BCF0443A286C36F100E9CEAD /* ViewModel */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -432,8 +434,6 @@
 				650631542A47247F00094DBF /* Presentation */,
 				650631532A47247800094DBF /* Resource */,
 				650631522A47245400094DBF /* Application */,
-				BCB0B16628507BEE00DE7196 /* View */,
-				BCF0443A286C36F100E9CEAD /* ViewModel */,
 				BCB0B16528507BE600DE7196 /* Resources */,
 			);
 			path = coupleDayProject;
