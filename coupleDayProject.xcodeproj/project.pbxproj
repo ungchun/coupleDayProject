@@ -288,6 +288,7 @@
 		650631552A47248F00094DBF /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				BCB0B16828507BF900DE7196 /* Entities */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -431,7 +432,6 @@
 				650631542A47247F00094DBF /* Presentation */,
 				650631532A47247800094DBF /* Resource */,
 				650631522A47245400094DBF /* Application */,
-				BCB0B16828507BF900DE7196 /* Model */,
 				BCB0B16628507BEE00DE7196 /* View */,
 				BCF0443A286C36F100E9CEAD /* ViewModel */,
 				BCB0B16528507BE600DE7196 /* Resources */,
@@ -458,7 +458,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		BCB0B16828507BF900DE7196 /* Model */ = {
+		BCB0B16828507BF900DE7196 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				BCB0B18A28507D2E00DE7196 /* RealmUserModel.swift */,
@@ -467,7 +467,7 @@
 				BCC9F97A2872C15600809A26 /* AnniversaryModel.swift */,
 				BCEFABFF28AA35F9004983FF /* DatePlaceModel.swift */,
 			);
-			path = Model;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		BCB0B17B28507D2300DE7196 /* MainVC */ = {
