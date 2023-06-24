@@ -298,6 +298,7 @@
 		650631562A47249C00094DBF /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				650631582A472C5D00094DBF /* Network */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -309,6 +310,14 @@
 				BCB0B17728507D0B00DE7196 /* Extensions.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		650631582A472C5D00094DBF /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				BCEFABFC28AA34A9004983FF /* Firebase */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		BC0CFD8D28803F5D000A009D /* Fonts */ = {
@@ -434,17 +443,8 @@
 				650631542A47247F00094DBF /* Presentation */,
 				650631532A47247800094DBF /* Resource */,
 				650631522A47245400094DBF /* Application */,
-				BCB0B16528507BE600DE7196 /* Resources */,
 			);
 			path = coupleDayProject;
-			sourceTree = "<group>";
-		};
-		BCB0B16528507BE600DE7196 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				BCEFABFC28AA34A9004983FF /* Firebase */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		BCB0B16628507BEE00DE7196 /* View */ = {
