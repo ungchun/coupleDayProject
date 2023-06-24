@@ -302,6 +302,8 @@
 		650631572A472B1400094DBF /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BCB0B17628507D0B00DE7196 /* Constants.swift */,
+				BCB0B17728507D0B00DE7196 /* Extensions.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -441,8 +443,6 @@
 			isa = PBXGroup;
 			children = (
 				BCEFABFC28AA34A9004983FF /* Firebase */,
-				BCB0B17628507D0B00DE7196 /* Constants.swift */,
-				BCB0B17728507D0B00DE7196 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
