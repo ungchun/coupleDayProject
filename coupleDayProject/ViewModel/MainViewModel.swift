@@ -3,17 +3,17 @@ import Foundation
 
 final class MainViewModelCombine: ObservableObject {
     
-    // MARK: Properties
-    //
+	//MARK: - Properties
+
     private var changeLabelInitCheck = false
     private var appNameDayToggleFlag = false
     private var changeLabelTimer = Timer()
     var receivedCoupleDayData = "너랑나랑"
     
     @Published var appNameLabelValue: String = "너랑나랑"
-    
-    // MARK: Functions
-    //
+    	
+	//MARK: - Functions
+
     init() {
         changeAppNameLabel()
         
