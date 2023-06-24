@@ -180,7 +180,6 @@
 		BC9493BA288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		BC9493BB288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Interface.strings; sourceTree = "<group>"; };
 		BC9493BC288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BC96D74428DAF5D8001F9B75 /* coupleDayWidgetExtension copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "coupleDayWidgetExtension copy-Info.plist"; path = "/Users/sunghun/Documents/GitHub/coupleDayProject/coupleDayWidgetExtension copy-Info.plist"; sourceTree = "<absolute>"; };
 		BCA646FB28C326E20011C8B9 /* DatePlaceCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceCarouselView.swift; sourceTree = "<group>"; };
 		BCA646FD28C328480011C8B9 /* CarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCollectionViewCell.swift; sourceTree = "<group>"; };
 		BCB0B14E285076FF00DE7196 /* coupleDayProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -354,7 +353,6 @@
 				BC78B4F6287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension */,
 				BC83F89E2876C70A0027235E /* Frameworks */,
 				BCB0B14F285076FF00DE7196 /* Products */,
-				BC96D74428DAF5D8001F9B75 /* coupleDayWidgetExtension copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
