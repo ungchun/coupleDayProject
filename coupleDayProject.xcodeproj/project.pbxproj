@@ -257,6 +257,9 @@
 		650631522A47245400094DBF /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				BC7162F128B1E7C9001480BA /* Coordinator */,
+				BCB0B151285076FF00DE7196 /* AppDelegate.swift */,
+				BCB0B153285076FF00DE7196 /* SceneDelegate.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -294,6 +297,13 @@
 			children = (
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		650631572A472B1400094DBF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		BC0CFD8D28803F5D000A009D /* Fonts */ = {
@@ -413,6 +423,7 @@
 			isa = PBXGroup;
 			children = (
 				BC83F8D828770C600027235E /* coupleDayProject.entitlements */,
+				650631572A472B1400094DBF /* Common */,
 				650631562A47249C00094DBF /* Data */,
 				650631552A47248F00094DBF /* Domain */,
 				650631542A47247F00094DBF /* Presentation */,
@@ -422,8 +433,6 @@
 				BCB0B16628507BEE00DE7196 /* View */,
 				BCF0443A286C36F100E9CEAD /* ViewModel */,
 				BCB0B16528507BE600DE7196 /* Resources */,
-				BCB0B151285076FF00DE7196 /* AppDelegate.swift */,
-				BCB0B153285076FF00DE7196 /* SceneDelegate.swift */,
 			);
 			path = coupleDayProject;
 			sourceTree = "<group>";
@@ -431,7 +440,6 @@
 		BCB0B16528507BE600DE7196 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BC7162F128B1E7C9001480BA /* Coordinator */,
 				BCEFABFC28AA34A9004983FF /* Firebase */,
 				BCB0B17628507D0B00DE7196 /* Constants.swift */,
 				BCB0B17728507D0B00DE7196 /* Extensions.swift */,
