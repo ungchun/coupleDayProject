@@ -1,6 +1,6 @@
 # 너랑나랑
 
-개발기간 : 2022.06 ~ 2022.09
+개발기간 : 2022.06 ~ 2022.09  
 리팩토링 : 2022.07 ~
 
 [![appStore](https://user-images.githubusercontent.com/50910456/173174832-7d395623-ceb3-4796-b718-22e550af6934.svg)](https://apps.apple.com/app/%EB%84%88%EB%9E%91%EB%82%98%EB%9E%91-%EC%BB%A4%ED%94%8C-%EB%94%94%EB%8D%B0%EC%9D%B4/id1635302922)
