@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PlactDTO {
+struct PlaceDTO {
 	let id: String?
 	let modifyState: Bool?
 	let address: String?
@@ -18,7 +18,7 @@ struct PlactDTO {
 	let longitude: String?
 }
 
-extension PlactDTO {
+extension PlaceDTO {
 	func toEntity() -> Place {
 		return Place(
 			placeName: id ?? "",

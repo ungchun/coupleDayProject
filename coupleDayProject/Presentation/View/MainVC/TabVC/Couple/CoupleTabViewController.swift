@@ -195,7 +195,7 @@ private extension CoupleTabViewController {
 		FirebaseService.shared.firestore.collection("\(localNameText)").getDocuments {
 			[weak self] (querySnapshot, error) in
 			for document in querySnapshot!.documents {
-				let dto = PlactDTO(
+				let dto = PlaceDTO(
 					id: document.documentID,
 					modifyState: document.data()["modifyState"] as? Bool,
 					address: document.data()["address"] as? String,
@@ -231,7 +231,7 @@ private extension CoupleTabViewController {
 			}
 			let dayData: [String: Any] = [
 				"dayData":
-					String(describing: RealmManager.shared.getUserDatas().first!.beginCoupleDay)
+					String(describing: RealmService.shared.getUserDatas().first!.beginCoupleDay)
 			]
 			try? WCSession.default.updateApplicationContext(dayData)
 		}
@@ -450,10 +450,10 @@ extension CoupleTabViewController: CropViewControllerDelegate {
 	) {
 		guard let coupleTabViewModel = coupleTabViewModel else { return }
 		if whoProfileChangeCheck == "my" {
-			RealmManager.shared.updateMyProfileImage(myProfileImage: image)
+			RealmService.shared.updateMyProfileImage(myProfileImage: image)
 			coupleTabViewModel.updateMyProfileIcon()
 		} else {
-			RealmManager.shared.updatePartnerProfileImage(partnerProfileImage: image)
+			RealmService.shared.updatePartnerProfileImage(partnerProfileImage: image)
 			coupleTabViewModel.updatePartnerProfileIcon()
 		}
 		dismiss(animated: true, completion: nil)

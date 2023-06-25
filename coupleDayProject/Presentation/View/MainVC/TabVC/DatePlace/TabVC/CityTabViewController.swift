@@ -80,7 +80,7 @@ private extension CityTabViewController {
 			[weak self] (querySnapshot, error) in
 			for document in querySnapshot!.documents {
 				
-				let dto = PlactDTO(
+				let dto = PlaceDTO(
 					id: document.documentID,
 					modifyState: document.data()["modifyState"] as? Bool,
 					address: document.data()["address"] as? String,
