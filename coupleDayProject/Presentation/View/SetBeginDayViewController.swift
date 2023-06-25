@@ -203,8 +203,8 @@ private extension SetBeginDayViewController {
 		)?.jpegData(compressionQuality: 0.5)
 		
 		initNotBirthDayAnniversaryModel()
-		RealmManager.shared.writeUserData(userData: realmUserModel)
-		RealmManager.shared.writeImageData(imageData: realmImageModel)
+		RealmService.shared.writeUserData(userData: realmUserModel)
+		RealmService.shared.writeImageData(imageData: realmImageModel)
 		
 		self.delegate?.setBegin()
 	}

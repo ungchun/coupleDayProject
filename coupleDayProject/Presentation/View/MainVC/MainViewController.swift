@@ -79,9 +79,9 @@ final class MainViewController: UIViewController {
 			}
 		}.store(in: &disposalbleBag)
 		
-		if RealmManager.shared.getUserDatas().first!.birthDay != 0 {
+		if RealmService.shared.getUserDatas().first!.birthDay != 0 {
 			initBirthDayAnniversaryModel(
-				dateValue: RealmManager.shared.getUserDatas().first!.birthDay
+				dateValue: RealmService.shared.getUserDatas().first!.birthDay
 			)
 		} else {
 			initNotBirthDayAnniversaryModel()

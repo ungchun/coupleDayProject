@@ -8,7 +8,7 @@ final class DetailDatePlaceViewController: UIViewController {
 	
 	//MARK: - Properties
 	
-	var datePlace: DatePlaceModel?
+	var datePlace: Place?
 	private var bottomSheetViewTopConstraint: NSLayoutConstraint!
 	private let bottomHeight: CGFloat = 300
 	

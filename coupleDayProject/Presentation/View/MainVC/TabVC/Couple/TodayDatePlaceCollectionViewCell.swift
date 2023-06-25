@@ -6,7 +6,7 @@ final class TodayDatePlaceCollectionViewCell: UICollectionViewCell {
 	
 	//MARK: - Properties
 	
-	var datePlaceModel: DatePlaceModel? {
+	var datePlaceModel: Place? {
 		didSet { datePlaceModelBinding() }
 	}
 	

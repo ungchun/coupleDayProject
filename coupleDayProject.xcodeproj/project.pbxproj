@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650631602A480ADB00094DBF /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6506315F2A480ADB00094DBF /* FirebaseService.swift */; };
+		650631622A480AEC00094DBF /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650631612A480AEC00094DBF /* RealmService.swift */; };
+		650631652A480E5F00094DBF /* PlaceDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650631642A480E5F00094DBF /* PlaceDTO.swift */; };
 		BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */; };
 		BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 		BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
@@ -73,8 +76,7 @@
 		BCC7569B286AA30900CD523A /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = BCC7569A286AA30900CD523A /* TOCropViewController */; };
 		BCC9F97928729B4900809A26 /* StoryStandardDayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC9F97828729B4900809A26 /* StoryStandardDayModel.swift */; };
 		BCC9F97B2872C15600809A26 /* AnniversaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC9F97A2872C15600809A26 /* AnniversaryModel.swift */; };
-		BCEFABFE28AA34C3004983FF /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFABFD28AA34C3004983FF /* FirebaseManager.swift */; };
-		BCEFAC0028AA35F9004983FF /* DatePlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFABFF28AA35F9004983FF /* DatePlaceModel.swift */; };
+		BCEFAC0028AA35F9004983FF /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFABFF28AA35F9004983FF /* Place.swift */; };
 		BCF03FE0286D6C0100C28F71 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BCF03FDF286D6C0100C28F71 /* Kingfisher */; };
 		BCF0443C286C37B100E9CEAD /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* MainViewModel.swift */; };
 		BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */; };
@@ -145,6 +147,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6506315F2A480ADB00094DBF /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		650631612A480AEC00094DBF /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		650631642A480E5F00094DBF /* PlaceDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDTO.swift; sourceTree = "<group>"; };
 		BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.otf; sourceTree = "<group>"; };
 		BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.otf; sourceTree = "<group>"; };
@@ -200,8 +205,7 @@
 		BCC041B628D9714F0043037C /* CityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTabViewController.swift; sourceTree = "<group>"; };
 		BCC9F97828729B4900809A26 /* StoryStandardDayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryStandardDayModel.swift; sourceTree = "<group>"; };
 		BCC9F97A2872C15600809A26 /* AnniversaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnniversaryModel.swift; sourceTree = "<group>"; };
-		BCEFABFD28AA34C3004983FF /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		BCEFABFF28AA35F9004983FF /* DatePlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceModel.swift; sourceTree = "<group>"; };
+		BCEFABFF28AA35F9004983FF /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		BCF0443B286C37B100E9CEAD /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTabViewModel.swift; sourceTree = "<group>"; };
 		BCF1B35F2868237D00641ABD /* RealmImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmImageModel.swift; sourceTree = "<group>"; };
@@ -298,6 +302,7 @@
 		650631562A47249C00094DBF /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				650631632A480E3D00094DBF /* DTO */,
 				650631582A472C5D00094DBF /* Network */,
 			);
 			path = Data;
@@ -315,9 +320,18 @@
 		650631582A472C5D00094DBF /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				BCEFABFC28AA34A9004983FF /* Firebase */,
+				6506315F2A480ADB00094DBF /* FirebaseService.swift */,
+				650631612A480AEC00094DBF /* RealmService.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		650631632A480E3D00094DBF /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				650631642A480E5F00094DBF /* PlaceDTO.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		BC0CFD8D28803F5D000A009D /* Fonts */ = {
@@ -465,7 +479,7 @@
 				BCF1B35F2868237D00641ABD /* RealmImageModel.swift */,
 				BCC9F97828729B4900809A26 /* StoryStandardDayModel.swift */,
 				BCC9F97A2872C15600809A26 /* AnniversaryModel.swift */,
-				BCEFABFF28AA35F9004983FF /* DatePlaceModel.swift */,
+				BCEFABFF28AA35F9004983FF /* Place.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -489,14 +503,6 @@
 				BCF03FDD286D61D500C28F71 /* Anniversary */,
 			);
 			path = TabVC;
-			sourceTree = "<group>";
-		};
-		BCEFABFC28AA34A9004983FF /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				BCEFABFD28AA34C3004983FF /* FirebaseManager.swift */,
-			);
-			path = Firebase;
 			sourceTree = "<group>";
 		};
 		BCF03FDB286D618200C28F71 /* Story */ = {
@@ -773,7 +779,6 @@
 				BC0DF1C3289278170036EC51 /* AnniversaryTableViewCell.swift in Sources */,
 				BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */,
 				BCC041B728D9714F0043037C /* CityTabViewController.swift in Sources */,
-				BCEFABFE28AA34C3004983FF /* FirebaseManager.swift in Sources */,
 				BCC9F97928729B4900809A26 /* StoryStandardDayModel.swift in Sources */,
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
 				BCB0B18428507D2300DE7196 /* MainTabManViewController.swift in Sources */,
@@ -783,16 +788,19 @@
 				BCF1B3602868237D00641ABD /* RealmImageModel.swift in Sources */,
 				BCA646FC28C326E20011C8B9 /* DatePlaceCarouselView.swift in Sources */,
 				BCA646FE28C328480011C8B9 /* CarouselCollectionViewCell.swift in Sources */,
+				650631622A480AEC00094DBF /* RealmService.swift in Sources */,
 				BC6ECEE528D860490012C818 /* DatePlaceCollectionViewCell.swift in Sources */,
+				650631602A480ADB00094DBF /* FirebaseService.swift in Sources */,
 				BC6ECED428D84B380012C818 /* DatePlaceTabManViewController.swift in Sources */,
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
 				BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */,
+				650631652A480E5F00094DBF /* PlaceDTO.swift in Sources */,
 				BC83F8982876AD210027235E /* AppLoadingViewController.swift in Sources */,
 				BCB0B18828507D2300DE7196 /* MainViewController.swift in Sources */,
 				BC2AF6E8289A9C0800A54A3D /* TodayDatePlaceCollectionViewCell.swift in Sources */,
 				BCC9F97B2872C15600809A26 /* AnniversaryModel.swift in Sources */,
-				BCEFAC0028AA35F9004983FF /* DatePlaceModel.swift in Sources */,
+				BCEFAC0028AA35F9004983FF /* Place.swift in Sources */,
 				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
 				BC8190C9286EFE6D00FAD555 /* StoryTableViewCell.swift in Sources */,
 				BCB0B18728507D2300DE7196 /* AnniversaryViewController.swift in Sources */,
