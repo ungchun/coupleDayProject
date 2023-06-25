@@ -53,7 +53,7 @@ final class AppLoadingViewController: UIViewController {
 					self?.needUpdateVersion(marketingVersion)
 				} else { // 그 이외에는 업데이트 필요 없음
 					Auth.auth().signInAnonymously { (authResult, error) in }
-					if RealmManager.shared.getUserDatas().isEmpty {
+					if RealmService.shared.getUserDatas().isEmpty {
 						self?.coordinator!.showSetBeginDayView()
 					} else {
 						self?.coordinator!.showMainView()

@@ -236,7 +236,7 @@ private extension SettingViewController {
 				title: "선택완료",
 				style: .default,
 				handler: { [self] (action:UIAlertAction!) in
-					RealmManager.shared.updateBeginCoupleDay(datePicker: datePicker)
+					RealmService.shared.updateBeginCoupleDay(datePicker: datePicker)
 					coupleTabViewModel?.updateBeginCoupleDay()
 				}
 			)
@@ -324,7 +324,7 @@ private extension SettingViewController {
 				title: "선택완료",
 				style: .default,
 				handler: { (action:UIAlertAction!) in
-					RealmManager.shared.updateBirthDay(datePicker: datePicker)
+					RealmService.shared.updateBirthDay(datePicker: datePicker)
 				}
 			)
 		)
@@ -407,7 +407,7 @@ extension SettingViewController: CropViewControllerDelegate {
 		withRect cropRect: CGRect,
 		angle: Int
 	) {
-		RealmManager.shared.updateMainImage(mainImage: image)
+		RealmService.shared.updateMainImage(mainImage: image)
 		coupleTabViewModel?.updateHomeMainImage()
 		dismiss(animated: true, completion: nil)
 	}

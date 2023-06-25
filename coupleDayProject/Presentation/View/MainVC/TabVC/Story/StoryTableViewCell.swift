@@ -108,7 +108,7 @@ extension StoryTableViewCell {
 	func setStoryCellText(index: Int, beginCoupleDay: String) {
 		let beginCoupleFormatterDay = Date(
 			timeIntervalSince1970: TimeInterval(
-				RealmManager.shared.getUserDatas().first!.beginCoupleDay
+				RealmService.shared.getUserDatas().first!.beginCoupleDay
 			) / 1000
 		).toStoryString
 		let tempDate = Date().millisecondsSince1970 + (index).toMillisecondsSince1970 - Int(beginCoupleDay)!.toMillisecondsSince1970
