@@ -6,7 +6,7 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
 	
 	//MARK: - Properties
 	
-	var datePlaceModel: DatePlaceModel? {
+	var datePlaceModel: Place? {
 		didSet { datePlaceModelBinding() }
 	}
 	static let reuseIdentifier = String(describing: DatePlaceCollectionViewCell.self)

@@ -13,7 +13,7 @@ final class CoupleTabViewController: UIViewController {
 	
 	private var coupleTabViewModel: CoupleTabViewModel?
 	
-	private var mainDatePlaceList = [DatePlaceModel]()
+	private var mainDatePlaceList = [Place]()
 	private let imagePickerController = UIImagePickerController()
 	private var whoProfileChangeCheck = "my"
 	
@@ -192,29 +192,27 @@ private extension CoupleTabViewController {
 	func loadFirebaseData(completion: @escaping () -> ()) {
 		var count = 0
 		guard let localNameText = LocalName.randomElement()?.key else { return }
-		FirebaseManager.shared.firestore.collection("\(localNameText)").getDocuments {
+		FirebaseService.shared.firestore.collection("\(localNameText)").getDocuments {
 			[weak self] (querySnapshot, error) in
 			for document in querySnapshot!.documents {
-				var datePlaceValue = DatePlaceModel()
-				
-				datePlaceValue.modifyStateCheck = document.data()["modifyState"] as! Bool
-				if datePlaceValue.modifyStateCheck == true { continue }
-				
-				datePlaceValue.placeName = document.documentID
-				datePlaceValue.address = document.data()["address"] as! String
-				datePlaceValue.shortAddress = document.data()["shortAddress"] as! String
-				datePlaceValue.introduce = document.data()["introduce"] as! Array<String>
-				datePlaceValue.imageUrl = document.data()["imageUrl"] as! Array<String>
-				datePlaceValue.latitude = document.data()["latitude"] as! String
-				datePlaceValue.longitude = document.data()["longitude"] as! String
-				
+				let dto = PlactDTO(
+					id: document.documentID,
+					modifyState: document.data()["modifyState"] as? Bool,
+					address: document.data()["address"] as? String,
+					shortAddress: document.data()["shortAddress"] as? String,
+					introduce: document.data()["introduce"] as? [String],
+					imageUrl: document.data()["imageUrl"] as? [String],
+					latitude: document.data()["latitude"] as? String,
+					longitude: document.data()["longitude"] as? String
+				)
+				let entity = dto.toEntity()
 				guard let localName = LocalName[localNameText] else { return }
 				self?.datePlaceTitle.text = "\(localName)의 오늘 장소"
-				self?.mainDatePlaceList.append(datePlaceValue)
+				self?.mainDatePlaceList.append(entity)
 				count += 1
 				
 				DispatchQueue.global().async {
-					CacheImageManger().downloadImageAndCache(urlString: datePlaceValue.imageUrl.first!)
+					CacheImageManger().downloadImageAndCache(urlString: entity.imageUrl.first!)
 				}
 				
 				if count == 5 { break }
