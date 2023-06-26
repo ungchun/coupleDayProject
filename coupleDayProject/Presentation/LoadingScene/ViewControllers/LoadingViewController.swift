@@ -22,7 +22,7 @@ final class LoadingViewController: BaseViewController {
 		animationPlay()
 	}
 	
-	override func setLayout() {
+	override func setupLayout() {
 		view.addSubview(loadingView)
 		
 		NSLayoutConstraint.activate([

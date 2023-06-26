@@ -10,11 +10,11 @@ import UIKit
 class BaseViewController: UIViewController {
 	
 	override func viewDidLoad() {
-		setLayout()
+		setupLayout()
 		setupView()
 	}
 	
-	func setLayout() { }
+	func setupLayout() { }
 	
 	func setupView() { }
 }

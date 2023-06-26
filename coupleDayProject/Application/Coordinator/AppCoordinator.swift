@@ -32,7 +32,7 @@ final class AppCoordinator: AppCoordinatorting, SetBeginDayViewCoordinatorDelega
 	}
 	
 	func start() {
-		let rootViewcontroller = AppLoadingViewController()
+		let rootViewcontroller = LoadingViewController()
 		rootViewcontroller.coordinator = self
 		navigationController.pushViewController(rootViewcontroller, animated: false)
 	}
