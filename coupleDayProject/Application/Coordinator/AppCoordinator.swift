@@ -9,11 +9,11 @@ protocol Coordinator: AnyObject {
 	func start()
 }
 protocol AppCoordinatorting: Coordinator {
-	func showSetBeginDayView()
-	func showMainView()
+	func showSetupView()
+	func showHomeView()
 }
-protocol SetBeginDayCoordinatorting: Coordinator {}
-protocol MainCoordinatorting: Coordinator {
+protocol SetupCoordinatorting: Coordinator {}
+protocol HomeCoordinatorting: Coordinator {
 	func showSettingView(coupleTabViewModel: CoupleTabViewModel)
 	func showAnniversaryView(vc: AnniversaryViewController)
 }
@@ -21,8 +21,8 @@ protocol SettingCoordinatorting: Coordinator {}
 protocol AnniversaryCoordinatorting: Coordinator {}
 protocol DatePlaceTabCoordinatorting: Coordinator {}
 
-/// AppCoordinator의 자식 -> Main, SetBeginDay 으로 이동 가능
-final class AppCoordinator: AppCoordinatorting, SetBeginDayViewCoordinatorDelegate {
+/// AppCoordinator의 자식 -> Home, Setup 으로 이동 가능
+final class AppCoordinator: AppCoordinatorting, SetupViewCoordinatorDelegate {
 	
 	var childCoordinator = [Coordinator]()
 	var navigationController: UINavigationController
@@ -37,25 +37,25 @@ final class AppCoordinator: AppCoordinatorting, SetBeginDayViewCoordinatorDelega
 		navigationController.pushViewController(rootViewcontroller, animated: false)
 	}
 	
-	func showSetBeginDayView() {
-		let child = SetBeginDayViewCoordinator(navigationController: navigationController)
+	func showSetupView() {
+		let child = SetupViewCoordinator(navigationController: navigationController)
 		child.parentCoordinator = self
 		child.delegate = self
 		childCoordinator.append(child)
 		child.start()
 	}
 	
-	func showMainView() {
+	func showHomeView() {
 		let child = MainViewCoordinator(navigationController: navigationController)
 		child.parentCoordinator = self
 		childCoordinator.append(child)
 		child.start()
 	}
 	
-	/// SetBeginDayViewCoordinator로 부터 응답을 받으면 MainView로 이동
-	func didBeginSet(_ coordinator: SetBeginDayViewCoordinator) {
+	/// SetupViewCoordinator로 부터 응답을 받으면 HomeView로 이동
+	func didSetup(_ coordinator: SetupViewCoordinator) {
 		self.childCoordinator = self.childCoordinator.filter { $0 !== coordinator }
-		self.showMainView()
+		self.showHomeView()
 	}
 	
 	func childDidFinish(_ child: Coordinator) {
@@ -68,13 +68,13 @@ final class AppCoordinator: AppCoordinatorting, SetBeginDayViewCoordinatorDelega
 	}
 }
 
-protocol SetBeginDayViewCoordinatorDelegate {
-	func didBeginSet(_ coordinator: SetBeginDayViewCoordinator)
+protocol SetupViewCoordinatorDelegate {
+	func didSetup(_ coordinator: SetupViewCoordinator)
 }
 
-final class SetBeginDayViewCoordinator: SetBeginDayCoordinatorting, SetBeginDayViewControllerDelegate {
+final class SetupViewCoordinator: SetupCoordinatorting, SetupViewControllerDelegate {
 	
-	var delegate: SetBeginDayViewCoordinatorDelegate?
+	var delegate: SetupViewCoordinatorDelegate?
 	
 	weak var parentCoordinator: AppCoordinator?
 	
@@ -86,24 +86,24 @@ final class SetBeginDayViewCoordinator: SetBeginDayCoordinatorting, SetBeginDayV
 	}
 	
 	func start() {
-		let beginViewController = SetBeginDayViewController()
-		beginViewController.coordinator = self
-		beginViewController.delegate = self
-		self.navigationController.viewControllers = [beginViewController]
+		let setupViewController = SetupViewController()
+		setupViewController.coordinator = self
+		setupViewController.delegate = self
+		self.navigationController.viewControllers = [setupViewController]
 	}
 	
 	/// AppCoordinator(부모)에 MainView로 이동하라고 알림
-	func setBegin() {
-		self.delegate?.didBeginSet(self)
+	func showHomeView() {
+		self.delegate?.didSetup(self)
 	}
 	
-	func didFinishBeginView() {
+	func didFinishSetup() {
 		parentCoordinator?.childDidFinish(self)
 	}
 }
 
 /// AppCoordinator의 자식이면서 SettingViewCoordinator의 부모
-final class MainViewCoordinator: MainCoordinatorting {
+final class MainViewCoordinator: HomeCoordinatorting {
 	
 	weak var parentCoordinator: AppCoordinator?
 	

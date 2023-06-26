@@ -13,6 +13,7 @@
 		650631722A48954700094DBF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650631712A48954700094DBF /* BaseViewController.swift */; };
 		650631742A48980300094DBF /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650631732A48980300094DBF /* BaseView.swift */; };
 		6506317D2A49AA6000094DBF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6506317C2A49AA6000094DBF /* LoadingView.swift */; };
+		650631812A49B50700094DBF /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650631802A49B50700094DBF /* SetupView.swift */; };
 		BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */; };
 		BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 		BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
@@ -67,7 +68,7 @@
 		BCB0B16B28507C2300DE7196 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = BCB0B16A28507C2300DE7196 /* Tabman */; };
 		BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17628507D0B00DE7196 /* Constants.swift */; };
 		BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17728507D0B00DE7196 /* Extensions.swift */; };
-		BCB0B18328507D2300DE7196 /* SetBeginDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17A28507D2200DE7196 /* SetBeginDayViewController.swift */; };
+		BCB0B18328507D2300DE7196 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17A28507D2200DE7196 /* SetupViewController.swift */; };
 		BCB0B18428507D2300DE7196 /* MainTabManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17C28507D2300DE7196 /* MainTabManViewController.swift */; };
 		BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */; };
 		BCB0B18728507D2300DE7196 /* AnniversaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18028507D2300DE7196 /* AnniversaryViewController.swift */; };
@@ -156,6 +157,7 @@
 		650631712A48954700094DBF /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		650631732A48980300094DBF /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		6506317C2A49AA6000094DBF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		650631802A49B50700094DBF /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.otf; sourceTree = "<group>"; };
 		BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.otf; sourceTree = "<group>"; };
@@ -201,7 +203,7 @@
 		BCB0B15F2850770000DE7196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCB0B17628507D0B00DE7196 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BCB0B17728507D0B00DE7196 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		BCB0B17A28507D2200DE7196 /* SetBeginDayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetBeginDayViewController.swift; sourceTree = "<group>"; };
+		BCB0B17A28507D2200DE7196 /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		BCB0B17C28507D2300DE7196 /* MainTabManViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabManViewController.swift; sourceTree = "<group>"; };
 		BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoupleTabViewController.swift; sourceTree = "<group>"; };
 		BCB0B18028507D2300DE7196 /* AnniversaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnniversaryViewController.swift; sourceTree = "<group>"; };
@@ -360,6 +362,8 @@
 		650631672A488FB600094DBF /* SetupScene */ = {
 			isa = PBXGroup;
 			children = (
+				6506317F2A49B1CC00094DBF /* Views */,
+				6506317E2A49B1C300094DBF /* ViewControllers */,
 			);
 			path = SetupScene;
 			sourceTree = "<group>";
@@ -436,6 +440,22 @@
 			isa = PBXGroup;
 			children = (
 				6506317C2A49AA6000094DBF /* LoadingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6506317E2A49B1C300094DBF /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BCB0B17A28507D2200DE7196 /* SetupViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		6506317F2A49B1CC00094DBF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				650631802A49B50700094DBF /* SetupView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -570,7 +590,6 @@
 		BCB0B16628507BEE00DE7196 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BCB0B17A28507D2200DE7196 /* SetBeginDayViewController.swift */,
 				BCB0B18228507D2300DE7196 /* SettingViewController.swift */,
 				BCB0B17B28507D2300DE7196 /* MainVC */,
 			);
@@ -880,7 +899,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB0B18B28507D2E00DE7196 /* RealmUserModel.swift in Sources */,
-				BCB0B18328507D2300DE7196 /* SetBeginDayViewController.swift in Sources */,
+				BCB0B18328507D2300DE7196 /* SetupViewController.swift in Sources */,
 				650631722A48954700094DBF /* BaseViewController.swift in Sources */,
 				650631742A48980300094DBF /* BaseView.swift in Sources */,
 				BC0DF1C3289278170036EC51 /* AnniversaryTableViewCell.swift in Sources */,
@@ -901,6 +920,7 @@
 				BC6ECED428D84B380012C818 /* DatePlaceTabManViewController.swift in Sources */,
 				BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */,
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
+				650631812A49B50700094DBF /* SetupView.swift in Sources */,
 				BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */,
 				650631652A480E5F00094DBF /* PlaceDTO.swift in Sources */,
 				BC83F8982876AD210027235E /* LoadingViewController.swift in Sources */,

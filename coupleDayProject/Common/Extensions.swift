@@ -3,6 +3,7 @@ import UIKit
 import Kingfisher
 
 extension UIViewController {
+	///	키보드 내리는 로직 같은데 view.endEditing(true) 이걸로도 대체 가능한걸로 암
 	func setupHideKeyboardOnTap() {
 		self.view.addGestureRecognizer(self.endEditingRecognizer())
 		self.navigationController?.navigationBar.addGestureRecognizer(self.endEditingRecognizer())

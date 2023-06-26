@@ -120,6 +120,8 @@ final class SetupView: BaseView {
 		return btn
 	}()
 	
+	//MARK: - Functions
+	
 	override func setupLayout() {
 		self.addSubview(allContentStackView)
 		

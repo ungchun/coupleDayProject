@@ -57,9 +57,9 @@ private extension LoadingViewController {
 				} else { // 그 이외에는 업데이트 필요 없음
 					Auth.auth().signInAnonymously { (authResult, error) in }
 					if RealmService.shared.getUserDatas().isEmpty {
-						self?.coordinator!.showSetBeginDayView()
+						self?.coordinator!.showSetupView()
 					} else {
-						self?.coordinator!.showMainView()
+						self?.coordinator!.showHomeView()
 					}
 				}
 			}

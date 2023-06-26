@@ -11,13 +11,15 @@ import Lottie
 
 final class LoadingView: BaseView {
 	
+	//MARK: - Views
+	
 	let lottieAnimationView: AnimationView = {
 		let lottieView = AnimationView(name: "lottieFile")
 		lottieView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
 		return lottieView
 	}()
 	
-	private let loadingCenterLabel: UILabel = {
+	private let loadingCenterText: UILabel = {
 		let label = UILabel()
 		label.text = "너랑나랑"
 		label.font = UIFont(name: "GangwonEduAllLight", size: 50)
@@ -34,10 +36,10 @@ final class LoadingView: BaseView {
 		return stackView
 	}()
 	
+	//MARK: - Functions
+	
 	override func setupLayout() {
-		self.translatesAutoresizingMaskIntoConstraints = false
-		
-		loadingContentStackView.addArrangedSubview(loadingCenterLabel)
+		loadingContentStackView.addArrangedSubview(loadingCenterText)
 		loadingContentStackView.addArrangedSubview(lottieAnimationView)
 		
 		self.addSubview(loadingContentStackView)
@@ -51,7 +53,7 @@ final class LoadingView: BaseView {
 	}
 	
 	override func setupView() {
-		guard let loadingCenterLabelText = loadingCenterLabel.text else { return }
+		guard let loadingCenterLabelText = loadingCenterText.text else { return }
 		let attributedStr = NSMutableAttributedString(string: loadingCenterLabelText)
 		attributedStr.addAttribute(
 			.foregroundColor,
@@ -64,7 +66,7 @@ final class LoadingView: BaseView {
 			range: (loadingCenterLabelText as NSString).range(of:"나")
 		)
 		
-		loadingCenterLabel.attributedText = attributedStr
+		loadingCenterText.attributedText = attributedStr
 		
 		lottieAnimationView.loopMode = .repeat(2.5)
 	}
