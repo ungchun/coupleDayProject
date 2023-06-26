@@ -1,16 +1,21 @@
+//
+//  SetupView.swift
+//  coupleDayProject
+//
+//  Created by Kim SungHun on 2023/06/26.
+//
+
 import UIKit
 
-protocol SetBeginDayViewControllerDelegate {
-	func setBegin()
+protocol SetupViewDelegate: AnyObject {
+	func didStartBtnTap()
 }
 
-final class SetBeginDayViewController: UIViewController {
+final class SetupView: BaseView {
 	
 	//MARK: - Properties
 	
-	weak var coordinator: SetBeginDayViewCoordinator?
-	var delegate: SetBeginDayViewControllerDelegate?
-	
+	weak var delegate: SetupViewDelegate?
 	private var handleDateValue = Date()
 	private var zeroDayStartCheck = false
 	
@@ -25,6 +30,7 @@ final class SetBeginDayViewController: UIViewController {
 		label.textColor = TrendingConstants.appMainColor
 		return label
 	}()
+	
 	private let datePicker: UIDatePicker = {
 		let datePicker = UIDatePicker()
 		datePicker.preferredDatePickerStyle = .wheels
@@ -51,13 +57,7 @@ final class SetBeginDayViewController: UIViewController {
 		
 		return datePicker
 	}()
-	private let startBtn: UIButton = {
-		let btn = UIButton()
-		btn.setTitle("시작하기", for: .normal)
-		btn.titleLabel?.font = UIFont(name: "GangwonEduAllLight", size: 25)
-		btn.setTitleColor(UIColor.gray, for: .normal)
-		return btn
-	}()
+
 	private let divider: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
@@ -65,6 +65,7 @@ final class SetBeginDayViewController: UIViewController {
 		view.backgroundColor = TrendingConstants.appMainColor
 		return view
 	}()
+	
 	private let checkButton: UIButton = {
 		let button = UIButton()
 		button.translatesAutoresizingMaskIntoConstraints = false
@@ -91,6 +92,7 @@ final class SetBeginDayViewController: UIViewController {
 		button.titleEdgeInsets = UIEdgeInsets(top:0, left:10, bottom:0, right:0)
 		return button
 	}()
+	
 	private let coupleBeginDay: UITextField = {
 		let textField = UITextField()
 		textField.translatesAutoresizingMaskIntoConstraints = false
@@ -101,6 +103,7 @@ final class SetBeginDayViewController: UIViewController {
 		textField.font = UIFont(name: "GangwonEduAllBold", size: 40)
 		return textField
 	}()
+	
 	private lazy var allContentStackView: UIStackView = {
 		var stackView = UIStackView()
 		stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -109,54 +112,51 @@ final class SetBeginDayViewController: UIViewController {
 		return stackView
 	}()
 	
-	//MARK: - Life Cycle
+	private let startBtn: UIButton = {
+		let btn = UIButton()
+		btn.setTitle("시작하기", for: .normal)
+		btn.titleLabel?.font = UIFont(name: "GangwonEduAllLight", size: 25)
+		btn.setTitleColor(UIColor.gray, for: .normal)
+		return btn
+	}()
 	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		self.setupHideKeyboardOnTap()
-		setUpView()
-	}
-	
-	override func viewDidDisappear(_ animated: Bool) {
-		super.viewDidDisappear(animated)
-		coordinator?.didFinishBeginView()
-	}
-}
-
-private extension SetBeginDayViewController {
-	
-	//MARK: - Functions
-	
-	func setUpView() {
-		datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
-		checkButton.addTarget(self, action: #selector(checkButtonTap), for: .touchUpInside)
-		startBtn.addTarget(self, action: #selector(startBtnTap), for: .touchUpInside)
+	override func setupLayout() {
+		self.addSubview(allContentStackView)
 		
-		view.backgroundColor = TrendingConstants.appMainColorAlaph40
-		
-		coupleBeginDay.inputView = datePicker
-		coupleBeginDay.tintColor = .clear
-		coupleBeginDay.textAlignment = .center
-		guideText.textAlignment = .center
-		
-		view.addSubview(allContentStackView)
-		NSLayoutConstraint.activate([
-			allContentStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			allContentStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-		])
 		allContentStackView.addArrangedSubview(guideText)
 		allContentStackView.addArrangedSubview(coupleBeginDay)
 		allContentStackView.addArrangedSubview(startBtn)
 		allContentStackView.addArrangedSubview(divider)
 		allContentStackView.addArrangedSubview(checkButton)
 		
-		divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
-		
 		allContentStackView.setCustomSpacing(25, after: coupleBeginDay)
 		allContentStackView.setCustomSpacing(25, after: startBtn)
 		allContentStackView.setCustomSpacing(25, after: divider)
+		
+		NSLayoutConstraint.activate([
+			allContentStackView.topAnchor.constraint(equalTo: self.topAnchor),
+			allContentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+			allContentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			allContentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+		])
+		
+		divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
 	}
 	
+	override func setupView() {
+		datePicker.addTarget(self, action: #selector(handleDatePicker), for: .valueChanged)
+		checkButton.addTarget(self, action: #selector(checkButtonTap), for: .touchUpInside)
+		startBtn.addTarget(self, action: #selector(startBtnTap), for: .touchUpInside)
+		
+		coupleBeginDay.inputView = datePicker
+		coupleBeginDay.tintColor = .clear
+		coupleBeginDay.textAlignment = .center
+		
+		guideText.textAlignment = .center
+	}
+}
+
+private extension SetupView {
 	func setUpCheckBox(_ zeroDayStartCheck: Bool) {
 		let zeroDayCheckConfig = UIImage.SymbolConfiguration(
 			pointSize: 15,
@@ -206,6 +206,6 @@ private extension SetBeginDayViewController {
 		RealmService.shared.writeUserData(userData: realmUserModel)
 		RealmService.shared.writeImageData(imageData: realmImageModel)
 		
-		self.delegate?.setBegin()
+		self.delegate?.didStartBtnTap()
 	}
 }
