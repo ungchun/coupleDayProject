@@ -4,64 +4,18 @@ import UIKit
 import CropViewController
 import TOCropViewController
 
-final class SettingViewController: UIViewController{
+final class SettingViewController: BaseViewController {
 	
 	//MARK: - Properties
 	
+	weak var coordinator: SettingViewCoordinator?
 	private var coupleTabViewModel: CoupleTabViewModel?
 	private let imagePickerController = UIImagePickerController()
 	private let userDefaults = UserDefaults.standard
-	weak var coordinator: SettingViewCoordinator?
 	
 	//MARK: - Views
 	
-	private let coupleDayText: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.text = "커플 날짜"
-		label.font = UIFont(name: "GangwonEduAllLight", size: 20)
-		return label
-	}()
-	private let backgroundImageText: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.text = "배경 사진"
-		label.font = UIFont(name: "GangwonEduAllLight", size: 20)
-		return label
-	}()
-	private let birthDayText: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.text = "생일 설정"
-		label.font = UIFont(name: "GangwonEduAllLight", size: 20)
-		return label
-	}()
-	private let darkModeText: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.text = "화면 설정"
-		label.font = UIFont(name: "GangwonEduAllLight", size: 20)
-		return label
-	}()
-	private let divider: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.contentMode = .scaleToFill
-		view.backgroundColor = UIColor(named: "reversebgColor")
-		return view
-	}()
-	private lazy var allContentStackView: UIStackView = {
-		let view = UIStackView(
-			arrangedSubviews: [coupleDayText, backgroundImageText, birthDayText,
-							   divider, darkModeText]
-		)
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.axis = .vertical
-		view.distribution = .fill
-		view.alignment = .center
-		view.spacing = 50
-		return view
-	}()
+	private let settingView = SettingView()
 	
 	//MARK: - Life Cycle
 	
@@ -75,10 +29,6 @@ final class SettingViewController: UIViewController{
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		imagePickerController.delegate = self
-		
-		setUpBackBtn()
-		setUpView()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -90,53 +40,27 @@ final class SettingViewController: UIViewController{
 		super.viewDidDisappear(animated)
 		coordinator?.didFinishSettingView()
 	}
-}
-
-private extension SettingViewController {
 	
 	//MARK: - Functions
 	
-	private func setUpView() {
-		self.view.addSubview(allContentStackView)
-		
-		let tapGestureCoupleDayText = UITapGestureRecognizer(
-			target: self,
-			action: #selector(setCoupleDayTap)
-		)
-		coupleDayText.isUserInteractionEnabled = true
-		coupleDayText.addGestureRecognizer(tapGestureCoupleDayText)
-		
-		let tapGestureBackgroundImageText = UITapGestureRecognizer(
-			target: self,
-			action: #selector(setBackgroundImageTap)
-		)
-		backgroundImageText.isUserInteractionEnabled = true
-		backgroundImageText.addGestureRecognizer(tapGestureBackgroundImageText)
-		
-		let tapGestureBirthDayText = UITapGestureRecognizer(
-			target: self,
-			action: #selector(setBirthDayTap)
-		)
-		birthDayText.isUserInteractionEnabled = true
-		birthDayText.addGestureRecognizer(tapGestureBirthDayText)
-		
-		let tapGestureDarkModeText = UITapGestureRecognizer(
-			target: self,
-			action: #selector(setDarkModeTap)
-		)
-		darkModeText.isUserInteractionEnabled = true
-		darkModeText.addGestureRecognizer(tapGestureDarkModeText)
+	override func setupLayout() {
+		view.addSubview(settingView)
 		
 		NSLayoutConstraint.activate([
-			divider.widthAnchor.constraint(equalToConstant: 10),
-			divider.heightAnchor.constraint(equalToConstant: 1),
-			
-			allContentStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-			allContentStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+			settingView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+			settingView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
 		])
 	}
 	
-	private func setUpBackBtn() {
+	override func setupView() {
+		settingView.delegate = self
+		imagePickerController.delegate = self
+		setupBackBtn()
+	}
+}
+
+private extension SettingViewController {
+	func setupBackBtn() {
 		self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
 		UIBarButtonItem.appearance().setTitleTextAttributes([
 			NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any
@@ -144,63 +68,39 @@ private extension SettingViewController {
 		self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
 		self.view.backgroundColor = UIColor(named: "bgColor")
 	}
+}
+
+extension SettingViewController: SettingViewDelegate {
+	func didCoupleDayTap() {
+		let datePicker = setupCoupleDayDatePicker()
+		let dateChooserAlert = setupCoupleDayDateChooserAlert(datePicker)
+		present(dateChooserAlert, animated: true, completion: nil)
+	}
 	
-	@objc func setBackgroundImageTap() {
+	func didBackgroundImageTap() {
 		self.present(imagePickerController, animated: true, completion: nil)
 	}
 	
-	@objc func setDarkModeTap() {
+	func didBirthDayTap() {
+		let datePicker = setupBirthDayDatePicker()
+		let dateChooserAlert = setupBirthDayDateChooserAlert(datePicker)
+		present(dateChooserAlert, animated: true, completion: nil)
+	}
+	
+	func didDarkModeTap() {
 		let alert = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
-		let lightMode = setUpLightModeAlertAction()
-		let darkMode = setUpDarkModeAlertAction()
+		let lightMode = setupLightModeAlertAction()
+		let darkMode = setupDarkModeAlertAction()
 		let cancelAction = UIAlertAction(title: "취소", style: .cancel) {(action) in }
 		alert.addAction(lightMode)
 		alert.addAction(darkMode)
 		alert.addAction(cancelAction)
 		present(alert, animated: true, completion: nil)
 	}
-	
-	private func setUpLightModeAlertAction() -> UIAlertAction{
-		let lightMode = UIAlertAction(title: "주간모드", style: .default) {(action) in
-			if let window = UIApplication.shared.windows.first {
-				if #available(iOS 13.0, *) {
-					window.overrideUserInterfaceStyle = .light
-					self.userDefaults.set(false, forKey: "darkModeState")
-					NotificationCenter.default.post(
-						name: Notification.Name.darkModeCheck,
-						object: nil,
-						userInfo: ["darkModeCheck": "lightMode"]
-					)
-				}
-			}
-		}
-		return lightMode
-	}
-	
-	private func setUpDarkModeAlertAction() -> UIAlertAction{
-		let darkMode = UIAlertAction(title: "야간모드", style: .default) {(action) in
-			if let window = UIApplication.shared.windows.first {
-				if #available(iOS 13.0, *) {
-					window.overrideUserInterfaceStyle = .dark
-					self.userDefaults.set(true, forKey: "darkModeState")
-					NotificationCenter.default.post(
-						name: Notification.Name.darkModeCheck,
-						object: nil,
-						userInfo: ["darkModeCheck": "darkMode"]
-					)
-				}
-			}
-		}
-		return darkMode
-	}
-	
-	@objc func setCoupleDayTap() {
-		let datePicker = setUpCoupleDayDatePicker()
-		let dateChooserAlert = setUpCoupleDayDateChooserAlert(datePicker)
-		present(dateChooserAlert, animated: true, completion: nil)
-	}
-	
-	private func setUpCoupleDayDatePicker() -> UIDatePicker {
+}
+
+private extension SettingViewController {
+	func setupCoupleDayDatePicker() -> UIDatePicker {
 		let datePicker = UIDatePicker()
 		datePicker.datePickerMode = .date
 		datePicker.preferredDatePickerStyle = .wheels
@@ -224,7 +124,7 @@ private extension SettingViewController {
 		return datePicker
 	}
 	
-	private func setUpCoupleDayDateChooserAlert(_ datePicker : UIDatePicker) -> UIAlertController {
+	func setupCoupleDayDateChooserAlert(_ datePicker : UIDatePicker) -> UIAlertController {
 		let dateChooserAlert = UIAlertController(
 			title: nil,
 			message: nil,
@@ -282,13 +182,7 @@ private extension SettingViewController {
 		return dateChooserAlert
 	}
 	
-	@objc func setBirthDayTap() {
-		let datePicker = setUpBirthDayDatePicker()
-		let dateChooserAlert = setUpBirthDayDateChooserAlert(datePicker)
-		present(dateChooserAlert, animated: true, completion: nil)
-	}
-	
-	private func setUpBirthDayDatePicker() -> UIDatePicker {
+	func setupBirthDayDatePicker() -> UIDatePicker {
 		let datePicker = UIDatePicker()
 		datePicker.datePickerMode = .date
 		datePicker.preferredDatePickerStyle = .wheels
@@ -312,7 +206,7 @@ private extension SettingViewController {
 		return datePicker
 	}
 	
-	private func setUpBirthDayDateChooserAlert(_ datePicker : UIDatePicker) -> UIAlertController {
+	func setupBirthDayDateChooserAlert(_ datePicker : UIDatePicker) -> UIAlertController {
 		let dateChooserAlert = UIAlertController(
 			title: nil,
 			message: nil,
@@ -368,10 +262,43 @@ private extension SettingViewController {
 		dateChooserAlert.view.addConstraint(alertContentHeight)
 		return dateChooserAlert
 	}
+	
+	func setupLightModeAlertAction() -> UIAlertAction{
+		let lightMode = UIAlertAction(title: "주간모드", style: .default) {(action) in
+			if let window = UIApplication.shared.windows.first {
+				if #available(iOS 13.0, *) {
+					window.overrideUserInterfaceStyle = .light
+					self.userDefaults.set(false, forKey: "darkModeState")
+					NotificationCenter.default.post(
+						name: Notification.Name.darkModeCheck,
+						object: nil,
+						userInfo: ["darkModeCheck": "lightMode"]
+					)
+				}
+			}
+		}
+		return lightMode
+	}
+	
+	func setupDarkModeAlertAction() -> UIAlertAction{
+		let darkMode = UIAlertAction(title: "야간모드", style: .default) {(action) in
+			if let window = UIApplication.shared.windows.first {
+				if #available(iOS 13.0, *) {
+					window.overrideUserInterfaceStyle = .dark
+					self.userDefaults.set(true, forKey: "darkModeState")
+					NotificationCenter.default.post(
+						name: Notification.Name.darkModeCheck,
+						object: nil,
+						userInfo: ["darkModeCheck": "darkMode"]
+					)
+				}
+			}
+		}
+		return darkMode
+	}
 }
 
 extension SettingViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-	
 	func imagePickerController(
 		_ picker: UIImagePickerController,
 		didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
@@ -383,6 +310,7 @@ extension SettingViewController: UIImagePickerControllerDelegate & UINavigationC
 			self.presentCropViewController(image: imageData as! UIImage)
 		}
 	}
+	
 	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
 		self.dismiss(animated: true, completion: nil)
 	}
