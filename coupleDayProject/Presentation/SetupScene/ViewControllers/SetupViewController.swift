@@ -1,6 +1,6 @@
 import UIKit
 
-protocol SetupViewControllerDelegate {
+protocol SetupViewControllerDelegate: AnyObject {
 	func showHomeView()
 }
 
@@ -9,7 +9,7 @@ final class SetupViewController: BaseViewController {
 	//MARK: - Properties
 	
 	weak var coordinator: SetupViewCoordinator?
-	var delegate: SetupViewControllerDelegate?
+	weak var delegate: SetupViewControllerDelegate?
 	
 	//MARK: - Views
 	
