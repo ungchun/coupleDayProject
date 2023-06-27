@@ -46,6 +46,10 @@ final class MainViewController: UIViewController {
 		imageView.contentMode = .center
 		return imageView
 	}()
+	
+	// btnStackView 하나
+	// allContentStackView 하나 만들어서 custom View 2개 만들기
+	
 	private lazy var btnStackView: UIStackView = {
 		let stackView = UIStackView(arrangedSubviews: [datePlaceBtn, anniversaryBtn, settingBtn])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
