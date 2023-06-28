@@ -3,13 +3,12 @@ import UIKit
 import Pageboy
 import Tabman
 
-final class MainTabManViewController: TabmanViewController {
+final class HomeTabViewController: TabmanViewController {
 	
 	//MARK: - Properties
 	
 	private var coupleTabViewModel: CoupleTabViewModel?
 	private var viewControllers: Array<UIViewController> = []
-	
 	
 	//MARK: - Life Cycle
 	
@@ -17,26 +16,27 @@ final class MainTabManViewController: TabmanViewController {
 		super.init(nibName: nil, bundle: nil)
 		self.coupleTabViewModel = coupleTabViewModel
 	}
+	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setUpLayoutBar()
+		setupLayout()
 	}
 }
 
-private extension MainTabManViewController {
+private extension HomeTabViewController {
 	
 	//MARK: - Functions
 	
-	private func setUpLayoutBar() {
+	private func setupLayout() {
 		guard let coupleTabViewModel = coupleTabViewModel else { return }
-		let coupleVC = CoupleTabViewController(coupleTabViewModel: coupleTabViewModel)
-		let storyVC = StoryTabViewController(coupleTabViewModel: coupleTabViewModel)
-		viewControllers.append(coupleVC)
-		viewControllers.append(storyVC)
+		let coupleTabViewController = CoupleTabViewController(coupleTabViewModel: coupleTabViewModel)
+		let storyTabViewController = StoryTabViewController(coupleTabViewModel: coupleTabViewModel)
+		viewControllers.append(coupleTabViewController)
+		viewControllers.append(storyTabViewController)
 		
 		self.dataSource = self
 		
@@ -61,7 +61,7 @@ private extension MainTabManViewController {
 	}
 }
 
-extension MainTabManViewController: PageboyViewControllerDataSource, TMBarDataSource {
+extension HomeTabViewController: PageboyViewControllerDataSource, TMBarDataSource {
 	func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
 		let item = TMBarItem(title: "")
 		let title: String = index == 0 ? "커플" : "스토리"
@@ -73,14 +73,14 @@ extension MainTabManViewController: PageboyViewControllerDataSource, TMBarDataSo
 		return viewControllers.count
 	}
 	
-	func viewController(
+	func viewController (
 		for pageboyViewController: PageboyViewController,
 		at index: PageboyViewController.PageIndex
 	) -> UIViewController? {
 		return viewControllers[index]
 	}
 	
-	func defaultPage(
+	func defaultPage (
 		for pageboyViewController: PageboyViewController
 	) -> PageboyViewController.Page? {
 		return .at(index: 0)

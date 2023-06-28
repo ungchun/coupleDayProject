@@ -115,7 +115,7 @@ final class MainViewCoordinator: HomeCoordinatorting {
 	}
 	
 	func start() {
-		let mainViewController = MainViewController()
+		let mainViewController = HomeViewController()
 		mainViewController.coordinator = self
 		self.navigationController.viewControllers = [mainViewController]
 	}

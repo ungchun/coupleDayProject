@@ -15,6 +15,7 @@
 		6506317D2A49AA6000094DBF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6506317C2A49AA6000094DBF /* LoadingView.swift */; };
 		650631812A49B50700094DBF /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650631802A49B50700094DBF /* SetupView.swift */; };
 		65C076372A4AF6D3003E6D92 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076362A4AF6D3003E6D92 /* SettingView.swift */; };
+		65C076472A4BCD2D003E6D92 /* HomeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076462A4BCD2D003E6D92 /* HomeNavigationBarView.swift */; };
 		BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */; };
 		BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 		BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
@@ -70,10 +71,10 @@
 		BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17628507D0B00DE7196 /* Constants.swift */; };
 		BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17728507D0B00DE7196 /* Extensions.swift */; };
 		BCB0B18328507D2300DE7196 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17A28507D2200DE7196 /* SetupViewController.swift */; };
-		BCB0B18428507D2300DE7196 /* MainTabManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17C28507D2300DE7196 /* MainTabManViewController.swift */; };
+		BCB0B18428507D2300DE7196 /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17C28507D2300DE7196 /* HomeTabViewController.swift */; };
 		BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */; };
 		BCB0B18728507D2300DE7196 /* AnniversaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18028507D2300DE7196 /* AnniversaryViewController.swift */; };
-		BCB0B18828507D2300DE7196 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18128507D2300DE7196 /* MainViewController.swift */; };
+		BCB0B18828507D2300DE7196 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18128507D2300DE7196 /* HomeViewController.swift */; };
 		BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18228507D2300DE7196 /* SettingViewController.swift */; };
 		BCB0B18B28507D2E00DE7196 /* RealmUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18A28507D2E00DE7196 /* RealmUserModel.swift */; };
 		BCC041B728D9714F0043037C /* CityTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC041B628D9714F0043037C /* CityTabViewController.swift */; };
@@ -160,6 +161,7 @@
 		6506317C2A49AA6000094DBF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		650631802A49B50700094DBF /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		65C076362A4AF6D3003E6D92 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		65C076462A4BCD2D003E6D92 /* HomeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationBarView.swift; sourceTree = "<group>"; };
 		BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.otf; sourceTree = "<group>"; };
 		BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.otf; sourceTree = "<group>"; };
@@ -206,10 +208,10 @@
 		BCB0B17628507D0B00DE7196 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BCB0B17728507D0B00DE7196 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BCB0B17A28507D2200DE7196 /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
-		BCB0B17C28507D2300DE7196 /* MainTabManViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabManViewController.swift; sourceTree = "<group>"; };
+		BCB0B17C28507D2300DE7196 /* HomeTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoupleTabViewController.swift; sourceTree = "<group>"; };
 		BCB0B18028507D2300DE7196 /* AnniversaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnniversaryViewController.swift; sourceTree = "<group>"; };
-		BCB0B18128507D2300DE7196 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		BCB0B18128507D2300DE7196 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BCB0B18228507D2300DE7196 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		BCB0B18A28507D2E00DE7196 /* RealmUserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmUserModel.swift; sourceTree = "<group>"; };
 		BCC041B628D9714F0043037C /* CityTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTabViewController.swift; sourceTree = "<group>"; };
@@ -486,8 +488,8 @@
 		65C076402A4B0B96003E6D92 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				BCB0B17C28507D2300DE7196 /* MainTabManViewController.swift */,
-				BCB0B18128507D2300DE7196 /* MainViewController.swift */,
+				BCB0B17C28507D2300DE7196 /* HomeTabViewController.swift */,
+				BCB0B18128507D2300DE7196 /* HomeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -495,6 +497,7 @@
 		65C076412A4B0BA0003E6D92 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				65C076462A4BCD2D003E6D92 /* HomeNavigationBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -951,7 +954,7 @@
 				BCC041B728D9714F0043037C /* CityTabViewController.swift in Sources */,
 				BCC9F97928729B4900809A26 /* StoryStandardDayModel.swift in Sources */,
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
-				BCB0B18428507D2300DE7196 /* MainTabManViewController.swift in Sources */,
+				BCB0B18428507D2300DE7196 /* HomeTabViewController.swift in Sources */,
 				BC24929828BE08B4003FC64A /* DetailDatePlaceViewController.swift in Sources */,
 				BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */,
 				BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */,
@@ -968,7 +971,8 @@
 				BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */,
 				650631652A480E5F00094DBF /* PlaceDTO.swift in Sources */,
 				BC83F8982876AD210027235E /* LoadingViewController.swift in Sources */,
-				BCB0B18828507D2300DE7196 /* MainViewController.swift in Sources */,
+				65C076472A4BCD2D003E6D92 /* HomeNavigationBarView.swift in Sources */,
+				BCB0B18828507D2300DE7196 /* HomeViewController.swift in Sources */,
 				BC2AF6E8289A9C0800A54A3D /* TodayDatePlaceCollectionViewCell.swift in Sources */,
 				BCC9F97B2872C15600809A26 /* AnniversaryModel.swift in Sources */,
 				BCEFAC0028AA35F9004983FF /* Place.swift in Sources */,
