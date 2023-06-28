@@ -104,7 +104,7 @@ final class SetupView: BaseView {
 		return textField
 	}()
 	
-	private lazy var allContentStackView: UIStackView = {
+	private lazy var contentView: UIStackView = {
 		var stackView = UIStackView()
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
@@ -123,23 +123,23 @@ final class SetupView: BaseView {
 	//MARK: - Functions
 	
 	override func setupLayout() {
-		self.addSubview(allContentStackView)
+		self.addSubview(contentView)
 		
-		allContentStackView.addArrangedSubview(guideText)
-		allContentStackView.addArrangedSubview(coupleBeginDay)
-		allContentStackView.addArrangedSubview(startBtn)
-		allContentStackView.addArrangedSubview(divider)
-		allContentStackView.addArrangedSubview(checkButton)
+		contentView.addArrangedSubview(guideText)
+		contentView.addArrangedSubview(coupleBeginDay)
+		contentView.addArrangedSubview(startBtn)
+		contentView.addArrangedSubview(divider)
+		contentView.addArrangedSubview(checkButton)
 		
-		allContentStackView.setCustomSpacing(25, after: coupleBeginDay)
-		allContentStackView.setCustomSpacing(25, after: startBtn)
-		allContentStackView.setCustomSpacing(25, after: divider)
+		contentView.setCustomSpacing(25, after: coupleBeginDay)
+		contentView.setCustomSpacing(25, after: startBtn)
+		contentView.setCustomSpacing(25, after: divider)
 		
 		NSLayoutConstraint.activate([
-			allContentStackView.topAnchor.constraint(equalTo: self.topAnchor),
-			allContentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-			allContentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-			allContentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+			contentView.topAnchor.constraint(equalTo: self.topAnchor),
+			contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+			contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
 		])
 		
 		divider.heightAnchor.constraint(equalToConstant: 1).isActive = true

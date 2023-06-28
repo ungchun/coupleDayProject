@@ -62,7 +62,7 @@ final class SettingView: BaseView {
 		return view
 	}()
 	
-	private lazy var allContentStackView: UIStackView = {
+	private lazy var contentView: UIStackView = {
 		let view = UIStackView(
 			arrangedSubviews: [coupleDayText, backgroundImageText, birthDayText,
 							   divider, darkModeText]
@@ -78,13 +78,13 @@ final class SettingView: BaseView {
 	//MARK: - Functions
 	
 	override func setupLayout() {
-		self.addSubview(allContentStackView)
+		self.addSubview(contentView)
 		
 		NSLayoutConstraint.activate([
-			allContentStackView.topAnchor.constraint(equalTo: self.topAnchor),
-			allContentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-			allContentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-			allContentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+			contentView.topAnchor.constraint(equalTo: self.topAnchor),
+			contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+			contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
 			
 			divider.widthAnchor.constraint(equalToConstant: 10),
 			divider.heightAnchor.constraint(equalToConstant: 1),

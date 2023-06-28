@@ -46,7 +46,7 @@ final class HomeNavigationBarView: BaseView {
 		return imageView
 	}()
 	
-	private let datePlaceBtn: UIImageView = {
+	private let placeBtn: UIImageView = {
 		let imageView = UIImageView()
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.image = UIImage(systemName: "map")
@@ -55,8 +55,8 @@ final class HomeNavigationBarView: BaseView {
 		return imageView
 	}()
 	
-	private lazy var btnStackView: UIStackView = {
-		let stackView = UIStackView(arrangedSubviews: [datePlaceBtn, anniversaryBtn, settingBtn])
+	private lazy var btnViews: UIStackView = {
+		let stackView = UIStackView(arrangedSubviews: [placeBtn, anniversaryBtn, settingBtn])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .horizontal
 		stackView.distribution = .equalSpacing
@@ -64,8 +64,8 @@ final class HomeNavigationBarView: BaseView {
 		return stackView
 	}()
 	
-	private lazy var allContentStackView: UIStackView = {
-		let stackView = UIStackView(arrangedSubviews: [appNameText, btnStackView])
+	private lazy var contentView: UIStackView = {
+		let stackView = UIStackView(arrangedSubviews: [appNameText, btnViews])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .horizontal
 		stackView.distribution = .equalSpacing
@@ -76,13 +76,13 @@ final class HomeNavigationBarView: BaseView {
 	
 	override func setupLayout() {
 		print("???")
-		self.addSubview(allContentStackView)
+		self.addSubview(contentView)
 		
 		NSLayoutConstraint.activate([
-			allContentStackView.topAnchor.constraint(equalTo: self.topAnchor),
-			allContentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-			allContentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-			allContentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+			contentView.topAnchor.constraint(equalTo: self.topAnchor),
+			contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+			contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
 		])
 	}
 	
@@ -103,8 +103,8 @@ final class HomeNavigationBarView: BaseView {
 			target: self,
 			action: #selector(placeBtnTap(_:))
 		)
-		datePlaceBtn.isUserInteractionEnabled = true
-		datePlaceBtn.addGestureRecognizer(datePlaceTapGesture)
+		placeBtn.isUserInteractionEnabled = true
+		placeBtn.addGestureRecognizer(datePlaceTapGesture)
 	}
 }
 

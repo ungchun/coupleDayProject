@@ -27,7 +27,7 @@ final class LoadingView: BaseView {
 		return label
 	}()
 	
-	private let loadingContentStackView: UIStackView = {
+	private let contentView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.axis = .vertical
 		stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,16 +39,16 @@ final class LoadingView: BaseView {
 	//MARK: - Functions
 	
 	override func setupLayout() {
-		loadingContentStackView.addArrangedSubview(loadingCenterText)
-		loadingContentStackView.addArrangedSubview(lottieAnimationView)
+		contentView.addArrangedSubview(loadingCenterText)
+		contentView.addArrangedSubview(lottieAnimationView)
 		
-		self.addSubview(loadingContentStackView)
+		self.addSubview(contentView)
 		
 		NSLayoutConstraint.activate([
-			loadingContentStackView.topAnchor.constraint(equalTo: self.topAnchor),
-			loadingContentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-			loadingContentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-			loadingContentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+			contentView.topAnchor.constraint(equalTo: self.topAnchor),
+			contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+			contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
 		])
 	}
 	
