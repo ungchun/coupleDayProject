@@ -2,12 +2,12 @@ import UIKit
 
 import Kingfisher
 
-final class TodayDatePlaceCollectionViewCell: UICollectionViewCell {
+final class TodayPlaceCollectionViewCell: UICollectionViewCell {
 	
 	//MARK: - Properties
 	
-	var datePlaceModel: Place? {
-		didSet { datePlaceModelBinding() }
+	var placeModel: Place? {
+		didSet { placeModelBinding() }
 	}
 	
 	//MARK: - Views
@@ -20,6 +20,7 @@ final class TodayDatePlaceCollectionViewCell: UICollectionViewCell {
 		imageView.clipsToBounds = true
 		return imageView
 	}()
+	
 	private var placeName: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
@@ -27,6 +28,7 @@ final class TodayDatePlaceCollectionViewCell: UICollectionViewCell {
 		label.text = "장소"
 		return label
 	}()
+	
 	private var placeShortAddress: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +37,8 @@ final class TodayDatePlaceCollectionViewCell: UICollectionViewCell {
 		label.textColor = .gray
 		return label
 	}()
-	private lazy var allContentStackView: UIStackView = {
+	
+	private lazy var _contentView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
@@ -48,33 +51,35 @@ final class TodayDatePlaceCollectionViewCell: UICollectionViewCell {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
-		addSubview(allContentStackView)
-		allContentStackView.addArrangedSubview(datePlaceImageView)
-		allContentStackView.addArrangedSubview(placeName)
-		allContentStackView.addArrangedSubview(placeShortAddress)
+		addSubview(_contentView)
 		
-		allContentStackView.setCustomSpacing(15, after: datePlaceImageView)
+		_contentView.addArrangedSubview(datePlaceImageView)
+		_contentView.addArrangedSubview(placeName)
+		_contentView.addArrangedSubview(placeShortAddress)
+		
+		_contentView.setCustomSpacing(15, after: datePlaceImageView)
 		
 		NSLayoutConstraint.activate([
 			datePlaceImageView.widthAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
 			datePlaceImageView.heightAnchor.constraint(equalToConstant: CommonSize.coupleCellImageSize),
 			
-			allContentStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-			allContentStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+			_contentView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+			_contentView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
 		])
 	}
+	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 }
 
-private extension TodayDatePlaceCollectionViewCell {
+private extension TodayPlaceCollectionViewCell {
 	
 	//MARK: - Functions
 	
-	func datePlaceModelBinding() {
-		placeName.text = datePlaceModel?.placeName
-		placeShortAddress.text = datePlaceModel?.shortAddress
-		datePlaceImageView.setImage(with: (datePlaceModel?.imageUrl.first)!)
+	func placeModelBinding() {
+		placeName.text = placeModel?.placeName
+		placeShortAddress.text = placeModel?.shortAddress
+		datePlaceImageView.setImage(with: (placeModel?.imageUrl.first)!)
 	}
 }

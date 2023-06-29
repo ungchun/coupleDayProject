@@ -15,13 +15,13 @@ final class CoupleTodayPlaceView: BaseView {
 	
 	//MARK: - Views
 	
-	lazy var datePlaceTitle: UILabel = {
+	let todayPlaceText: UILabel = {
 		var label = UILabel()
 		label.font = UIFont(name: "GangwonEduAllBold", size: CommonSize.coupleTextBigSize)
 		return label
 	}()
 	
-	lazy var datePlaceCollectionView: UICollectionView = {
+	lazy var todayPlaceCollectionView: UICollectionView = {
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.scrollDirection = .horizontal
 		flowLayout.minimumLineSpacing = 0
@@ -33,8 +33,8 @@ final class CoupleTodayPlaceView: BaseView {
 		return collectionView
 	}()
 	
-	lazy var datePlaceStackView: UIStackView = {
-		var stackView = UIStackView(arrangedSubviews: [datePlaceTitle, datePlaceCollectionView])
+	lazy var contentView: UIStackView = {
+		var stackView = UIStackView(arrangedSubviews: [todayPlaceText, todayPlaceCollectionView])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.distribution = .fill
 		stackView.axis = .vertical
@@ -46,21 +46,21 @@ final class CoupleTodayPlaceView: BaseView {
 	//MARK: - Functions
 	
 	override func setupLayout() {
-		self.addSubview(datePlaceStackView)
+		self.addSubview(contentView)
 		
 		NSLayoutConstraint.activate([
-			datePlaceStackView.topAnchor.constraint(equalTo: self.topAnchor),
-			datePlaceStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-			datePlaceStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-			datePlaceStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+			contentView.topAnchor.constraint(equalTo: self.topAnchor),
+			contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+			contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
 		])
 	}
 	
 	override func setupView() {
-		datePlaceCollectionView.dataSource = self
-		datePlaceCollectionView.delegate = self
-		datePlaceCollectionView.register(
-			TodayDatePlaceCollectionViewCell.self,
+		todayPlaceCollectionView.dataSource = self
+		todayPlaceCollectionView.delegate = self
+		todayPlaceCollectionView.register(
+			TodayPlaceCollectionViewCell.self,
 			forCellWithReuseIdentifier: "cell"
 		)
 	}
@@ -81,7 +81,7 @@ extension CoupleTodayPlaceView: UICollectionViewDataSource, UICollectionViewDele
 	) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
 		if self.mainDatePlaceList.count > indexPath.item {
-			if let cell = cell as? TodayDatePlaceCollectionViewCell {
+			if let cell = cell as? TodayPlaceCollectionViewCell {
 				cell.datePlaceImageView.image = nil
 				cell.placeModel = mainDatePlaceList[indexPath.item]
 			}
@@ -104,7 +104,7 @@ extension CoupleTodayPlaceView: UICollectionViewDataSource, UICollectionViewDele
 	) -> CGSize {
 		return CGSize(
 			width: CommonSize.coupleCellImageSize + 10,
-			height: datePlaceCollectionView.frame.height
+			height: todayPlaceCollectionView.frame.height
 		)
 	}
 	

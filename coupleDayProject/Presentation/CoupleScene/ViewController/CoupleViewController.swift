@@ -124,7 +124,7 @@ private extension CoupleViewController {
 				)
 				let entity = dto.toEntity()
 				guard let localName = LocalName[localNameText] else { return }
-				self?.coupleTodayPlaceView.datePlaceTitle.text = "\(localName)의 오늘 장소"
+				self?.coupleTodayPlaceView.todayPlaceText.text = "\(localName)의 오늘 장소"
 				self?.coupleTodayPlaceView.mainDatePlaceList.append(entity)
 				count += 1
 				

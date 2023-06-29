@@ -33,7 +33,7 @@ private extension HomeTabViewController {
 	
 	private func setupLayout() {
 		guard let coupleTabViewModel = coupleTabViewModel else { return }
-		let coupleTabViewController = CoupleTabViewController(coupleTabViewModel: coupleTabViewModel)
+		let coupleTabViewController = CoupleViewController(coupleTabViewModel: coupleTabViewModel)
 		let storyTabViewController = StoryTabViewController(coupleTabViewModel: coupleTabViewModel)
 		viewControllers.append(coupleTabViewController)
 		viewControllers.append(storyTabViewController)

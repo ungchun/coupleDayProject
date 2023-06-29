@@ -18,6 +18,9 @@
 		65C076472A4BCD2D003E6D92 /* HomeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076462A4BCD2D003E6D92 /* HomeNavigationBarView.swift */; };
 		65C0764B2A4C71AB003E6D92 /* AnniversaryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0764A2A4C71AB003E6D92 /* AnniversaryTitleView.swift */; };
 		65C0764D2A4C71C0003E6D92 /* AnniversaryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0764C2A4C71C0003E6D92 /* AnniversaryTableView.swift */; };
+		65C076562A4D1D5E003E6D92 /* CoupleBackgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076552A4D1D5E003E6D92 /* CoupleBackgroundImageView.swift */; };
+		65C076582A4D1E0A003E6D92 /* CoupleProfileImageAndDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076572A4D1E0A003E6D92 /* CoupleProfileImageAndDayView.swift */; };
+		65C0765A2A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076592A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift */; };
 		BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */; };
 		BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 		BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
@@ -35,7 +38,7 @@
 		BC0DF1C1289267240036EC51 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = BC0DF1C0289267240036EC51 /* FirebaseStorage */; };
 		BC0DF1C3289278170036EC51 /* AnniversaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0DF1C2289278170036EC51 /* AnniversaryTableViewCell.swift */; };
 		BC24929828BE08B4003FC64A /* DetailDatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC24929728BE08B4003FC64A /* DetailDatePlaceViewController.swift */; };
-		BC2AF6E8289A9C0800A54A3D /* TodayDatePlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AF6E7289A9C0800A54A3D /* TodayDatePlaceCollectionViewCell.swift */; };
+		BC2AF6E8289A9C0800A54A3D /* TodayPlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AF6E7289A9C0800A54A3D /* TodayPlaceCollectionViewCell.swift */; };
 		BC2CDEFB287C32EA002433DC /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = BC2CDEFA287C32EA002433DC /* GoogleMobileAds */; };
 		BC6ECED428D84B380012C818 /* DatePlaceTabManViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6ECED328D84B380012C818 /* DatePlaceTabManViewController.swift */; };
 		BC6ECEE528D860490012C818 /* DatePlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6ECEE428D860490012C818 /* DatePlaceCollectionViewCell.swift */; };
@@ -74,7 +77,7 @@
 		BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17728507D0B00DE7196 /* Extensions.swift */; };
 		BCB0B18328507D2300DE7196 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17A28507D2200DE7196 /* SetupViewController.swift */; };
 		BCB0B18428507D2300DE7196 /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17C28507D2300DE7196 /* HomeTabViewController.swift */; };
-		BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */; };
+		BCB0B18628507D2300DE7196 /* CoupleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B17F28507D2300DE7196 /* CoupleViewController.swift */; };
 		BCB0B18728507D2300DE7196 /* AnniversaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18028507D2300DE7196 /* AnniversaryViewController.swift */; };
 		BCB0B18828507D2300DE7196 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18128507D2300DE7196 /* HomeViewController.swift */; };
 		BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B18228507D2300DE7196 /* SettingViewController.swift */; };
@@ -166,13 +169,16 @@
 		65C076462A4BCD2D003E6D92 /* HomeNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationBarView.swift; sourceTree = "<group>"; };
 		65C0764A2A4C71AB003E6D92 /* AnniversaryTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnniversaryTitleView.swift; sourceTree = "<group>"; };
 		65C0764C2A4C71C0003E6D92 /* AnniversaryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnniversaryTableView.swift; sourceTree = "<group>"; };
+		65C076552A4D1D5E003E6D92 /* CoupleBackgroundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleBackgroundImageView.swift; sourceTree = "<group>"; };
+		65C076572A4D1E0A003E6D92 /* CoupleProfileImageAndDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleProfileImageAndDayView.swift; sourceTree = "<group>"; };
+		65C076592A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTodayPlaceView.swift; sourceTree = "<group>"; };
 		BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.otf; sourceTree = "<group>"; };
 		BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.otf; sourceTree = "<group>"; };
 		BC0DF1912892595E0036EC51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BC0DF1C2289278170036EC51 /* AnniversaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnniversaryTableViewCell.swift; sourceTree = "<group>"; };
 		BC24929728BE08B4003FC64A /* DetailDatePlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDatePlaceViewController.swift; sourceTree = "<group>"; };
-		BC2AF6E7289A9C0800A54A3D /* TodayDatePlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayDatePlaceCollectionViewCell.swift; sourceTree = "<group>"; };
+		BC2AF6E7289A9C0800A54A3D /* TodayPlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC6ECED328D84B380012C818 /* DatePlaceTabManViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceTabManViewController.swift; sourceTree = "<group>"; };
 		BC6ECEE428D860490012C818 /* DatePlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC78B4E7287D7B1A00DF10C6 /* coupleDayWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,7 +219,7 @@
 		BCB0B17728507D0B00DE7196 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BCB0B17A28507D2200DE7196 /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		BCB0B17C28507D2300DE7196 /* HomeTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
-		BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoupleTabViewController.swift; sourceTree = "<group>"; };
+		BCB0B17F28507D2300DE7196 /* CoupleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoupleViewController.swift; sourceTree = "<group>"; };
 		BCB0B18028507D2300DE7196 /* AnniversaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnniversaryViewController.swift; sourceTree = "<group>"; };
 		BCB0B18128507D2300DE7196 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BCB0B18228507D2300DE7196 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -423,6 +429,8 @@
 		6506316D2A48923C00094DBF /* CoupleScene */ = {
 			isa = PBXGroup;
 			children = (
+				65C076542A4D18BE003E6D92 /* View */,
+				65C076532A4D18B7003E6D92 /* ViewController */,
 			);
 			path = CoupleScene;
 			sourceTree = "<group>";
@@ -529,6 +537,25 @@
 				65C0764C2A4C71C0003E6D92 /* AnniversaryTableView.swift */,
 				BC0DF1C2289278170036EC51 /* AnniversaryTableViewCell.swift */,
 				65C0764A2A4C71AB003E6D92 /* AnniversaryTitleView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		65C076532A4D18B7003E6D92 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BCB0B17F28507D2300DE7196 /* CoupleViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		65C076542A4D18BE003E6D92 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC2AF6E7289A9C0800A54A3D /* TodayPlaceCollectionViewCell.swift */,
+				65C076552A4D1D5E003E6D92 /* CoupleBackgroundImageView.swift */,
+				65C076572A4D1E0A003E6D92 /* CoupleProfileImageAndDayView.swift */,
+				65C076592A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -711,8 +738,6 @@
 		BCF03FDC286D618B00C28F71 /* Couple */ = {
 			isa = PBXGroup;
 			children = (
-				BCB0B17F28507D2300DE7196 /* CoupleTabViewController.swift */,
-				BC2AF6E7289A9C0800A54A3D /* TodayDatePlaceCollectionViewCell.swift */,
 			);
 			path = Couple;
 			sourceTree = "<group>";
@@ -973,7 +998,7 @@
 				650631742A48980300094DBF /* BaseView.swift in Sources */,
 				65C076372A4AF6D3003E6D92 /* SettingView.swift in Sources */,
 				BC0DF1C3289278170036EC51 /* AnniversaryTableViewCell.swift in Sources */,
-				BCB0B18628507D2300DE7196 /* CoupleTabViewController.swift in Sources */,
+				BCB0B18628507D2300DE7196 /* CoupleViewController.swift in Sources */,
 				BCC041B728D9714F0043037C /* CityTabViewController.swift in Sources */,
 				BCC9F97928729B4900809A26 /* StoryStandardDayModel.swift in Sources */,
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
@@ -992,11 +1017,14 @@
 				BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */,
 				650631812A49B50700094DBF /* SetupView.swift in Sources */,
 				BC8190C7286EFE3600FAD555 /* StoryTabViewController.swift in Sources */,
+				65C0765A2A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift in Sources */,
 				650631652A480E5F00094DBF /* PlaceDTO.swift in Sources */,
+				65C076562A4D1D5E003E6D92 /* CoupleBackgroundImageView.swift in Sources */,
 				BC83F8982876AD210027235E /* LoadingViewController.swift in Sources */,
 				65C076472A4BCD2D003E6D92 /* HomeNavigationBarView.swift in Sources */,
 				BCB0B18828507D2300DE7196 /* HomeViewController.swift in Sources */,
-				BC2AF6E8289A9C0800A54A3D /* TodayDatePlaceCollectionViewCell.swift in Sources */,
+				65C076582A4D1E0A003E6D92 /* CoupleProfileImageAndDayView.swift in Sources */,
+				BC2AF6E8289A9C0800A54A3D /* TodayPlaceCollectionViewCell.swift in Sources */,
 				BCC9F97B2872C15600809A26 /* AnniversaryModel.swift in Sources */,
 				BCEFAC0028AA35F9004983FF /* Place.swift in Sources */,
 				BCB0B17828507D0B00DE7196 /* Constants.swift in Sources */,
