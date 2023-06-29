@@ -15,6 +15,7 @@ final class StoryTableViewCell: UITableViewCell {
 		label.font = UIFont(name: "GangwonEduAllBold", size: 20)
 		return label
 	}()
+	
 	private let yyyyMMddDayText: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
@@ -23,6 +24,7 @@ final class StoryTableViewCell: UITableViewCell {
 		label.textColor = .gray
 		return label
 	}()
+	
 	private let D_DayText: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,36 +33,41 @@ final class StoryTableViewCell: UITableViewCell {
 		label.textColor = TrendingConstants.appMainColor
 		return label
 	}()
+	
 	private let divider: UILabel = {
 		let view = UILabel()
 		view.translatesAutoresizingMaskIntoConstraints = false
 		view.backgroundColor = .systemGray5
 		return view
 	}()
+	
 	private let stackViewTopPadding: UILabel = {
 		let view = UILabel()
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
-	private lazy var textStackView: UIStackView = {
-		let stackView = UIStackView(arrangedSubviews: [dayText,yyyyMMddDayText])
+	
+	private lazy var dayAndyyyyMMddDayView: UIStackView = {
+		let stackView = UIStackView(arrangedSubviews: [dayText, yyyyMMddDayText])
 		stackView.axis = .vertical
 		stackView.spacing = 2
 		stackView.alignment = .fill
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		return stackView
 	}()
-	private lazy var contentHorizontalStackView: UIStackView = {
-		let stackView = UIStackView(arrangedSubviews: [textStackView, D_DayText])
+	
+	private lazy var _contentView: UIStackView = {
+		let stackView = UIStackView(arrangedSubviews: [dayAndyyyyMMddDayView, D_DayText])
 		stackView.axis = .horizontal
 		stackView.alignment = .center
 		stackView.distribution = .equalCentering
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		return stackView
 	}()
-	private lazy var contentVerticalStackView: UIStackView = {
+	
+	private lazy var contentViewWithPadding: UIStackView = {
 		let stackView = UIStackView(
-			arrangedSubviews: [stackViewTopPadding, contentHorizontalStackView, divider]
+			arrangedSubviews: [stackViewTopPadding, _contentView, divider]
 		)
 		stackView.axis = .vertical
 		stackView.alignment = .fill
@@ -71,6 +78,26 @@ final class StoryTableViewCell: UITableViewCell {
 	
 	//MARK: - Life Cycle
 	
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		contentView.addSubview(contentViewWithPadding)
+		
+		self.contentViewWithPadding.backgroundColor = UIColor(named: "bgColor")
+		
+		NSLayoutConstraint.activate([
+			divider.heightAnchor.constraint(equalToConstant: 1),
+			
+			contentViewWithPadding.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30),
+			contentViewWithPadding.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -30),
+			contentViewWithPadding.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+			contentViewWithPadding.topAnchor.constraint(equalTo: contentView.topAnchor),
+		])
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
@@ -79,25 +106,6 @@ final class StoryTableViewCell: UITableViewCell {
 		} else {
 			self.dayText.textColor = .black
 		}
-	}
-	
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		contentView.addSubview(contentVerticalStackView)
-		
-		self.contentVerticalStackView.backgroundColor = UIColor(named: "bgColor")
-		
-		NSLayoutConstraint.activate([
-			divider.heightAnchor.constraint(equalToConstant: 1),
-			
-			contentVerticalStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30),
-			contentVerticalStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -30),
-			contentVerticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-			contentVerticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-		])
-	}
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
 	}
 }
 

@@ -21,6 +21,7 @@
 		65C076562A4D1D5E003E6D92 /* CoupleBackgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076552A4D1D5E003E6D92 /* CoupleBackgroundImageView.swift */; };
 		65C076582A4D1E0A003E6D92 /* CoupleProfileImageAndDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076572A4D1E0A003E6D92 /* CoupleProfileImageAndDayView.swift */; };
 		65C0765A2A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076592A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift */; };
+		65C0765E2A4DB85B003E6D92 /* StoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0765D2A4DB85B003E6D92 /* StoryTableView.swift */; };
 		BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */; };
 		BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 		BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
@@ -172,6 +173,7 @@
 		65C076552A4D1D5E003E6D92 /* CoupleBackgroundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleBackgroundImageView.swift; sourceTree = "<group>"; };
 		65C076572A4D1E0A003E6D92 /* CoupleProfileImageAndDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleProfileImageAndDayView.swift; sourceTree = "<group>"; };
 		65C076592A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTodayPlaceView.swift; sourceTree = "<group>"; };
+		65C0765D2A4DB85B003E6D92 /* StoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTableView.swift; sourceTree = "<group>"; };
 		BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.otf; sourceTree = "<group>"; };
 		BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.otf; sourceTree = "<group>"; };
@@ -438,6 +440,8 @@
 		6506316E2A48924200094DBF /* StoryScene */ = {
 			isa = PBXGroup;
 			children = (
+				65C0765C2A4DB15C003E6D92 /* View */,
+				65C0765B2A4DB151003E6D92 /* ViewController */,
 			);
 			path = StoryScene;
 			sourceTree = "<group>";
@@ -552,10 +556,27 @@
 		65C076542A4D18BE003E6D92 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				65C076592A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift */,
 				BC2AF6E7289A9C0800A54A3D /* TodayPlaceCollectionViewCell.swift */,
 				65C076552A4D1D5E003E6D92 /* CoupleBackgroundImageView.swift */,
 				65C076572A4D1E0A003E6D92 /* CoupleProfileImageAndDayView.swift */,
-				65C076592A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		65C0765B2A4DB151003E6D92 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		65C0765C2A4DB15C003E6D92 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC8190C8286EFE6D00FAD555 /* StoryTableViewCell.swift */,
+				65C0765D2A4DB85B003E6D92 /* StoryTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -729,8 +750,6 @@
 		BCF03FDB286D618200C28F71 /* Story */ = {
 			isa = PBXGroup;
 			children = (
-				BC8190C6286EFE3600FAD555 /* StoryTabViewController.swift */,
-				BC8190C8286EFE6D00FAD555 /* StoryTableViewCell.swift */,
 			);
 			path = Story;
 			sourceTree = "<group>";
@@ -1002,6 +1021,7 @@
 				BCC041B728D9714F0043037C /* CityTabViewController.swift in Sources */,
 				BCC9F97928729B4900809A26 /* StoryStandardDayModel.swift in Sources */,
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
+				65C0765E2A4DB85B003E6D92 /* StoryTableView.swift in Sources */,
 				BCB0B18428507D2300DE7196 /* HomeTabViewController.swift in Sources */,
 				BC24929828BE08B4003FC64A /* DetailDatePlaceViewController.swift in Sources */,
 				BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */,
