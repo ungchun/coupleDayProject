@@ -7,7 +7,7 @@ import GoogleMobileAds
 import Kingfisher
 import TOCropViewController
 
-final class CoupleTabViewController: UIViewController {
+final class CoupleViewController: BaseViewController {
 	
 	//MARK: - Properties
 	
@@ -32,21 +32,28 @@ final class CoupleTabViewController: UIViewController {
 		view.distribution = .fill
 		return view
 	}()
+	
 	private let topTabBackView: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
+		view.backgroundColor = .red
 		return view
 	}()
-	private let mainImageView: UIImageView = {
-		let view = UIImageView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		return view
-	}()
-	private let bottomEmptyView: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		return view
-	}()
+	
+//	private let mainImageView: UIImageView = {
+//		let view = UIImageView()
+//		view.translatesAutoresizingMaskIntoConstraints = false
+//		return view
+//	}()
+	private let coupleBackgroundImageView = CoupleBackgroundImageView()
+	
+//	private let bottomEmptyView: UIView = {
+//		let view = UIView()
+//		view.translatesAutoresizingMaskIntoConstraints = false
+//		view.backgroundColor = .blue
+//		return view
+//	}()
+	
 	private let profileImageDayStackView: UIStackView = {
 		let view = UIStackView()
 		view.axis = .horizontal
@@ -90,6 +97,8 @@ final class CoupleTabViewController: UIViewController {
 		label.font = UIFont(name: "GangwonEduAllLight", size: 25)
 		return label
 	}()
+	
+	
 	private lazy var datePlaceTitle: UILabel = {
 		var label = UILabel()
 		label.font = UIFont(name: "GangwonEduAllBold", size: CommonSize.coupleTextBigSize)
@@ -114,11 +123,6 @@ final class CoupleTabViewController: UIViewController {
 		activityIndicator.style = UIActivityIndicatorView.Style.medium
 		activityIndicator.startAnimating()
 		return activityIndicator
-	}()
-	private let admobView: GADBannerView = {
-		var view = GADBannerView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		return view
 	}()
 	private lazy var DatePlaceStackView: UIStackView = {
 		var stackView = UIStackView(arrangedSubviews: [datePlaceTitle, datePlaceCollectionView])
@@ -185,7 +189,7 @@ final class CoupleTabViewController: UIViewController {
 	}
 }
 
-private extension CoupleTabViewController {
+private extension CoupleViewController {
 	
 	//MARK: - Functions
 	
@@ -238,7 +242,7 @@ private extension CoupleTabViewController {
 		
 		coupleTabViewModel.homeMainImageData.bind { [weak self] imageData in
 			DispatchQueue.main.async {
-				self?.mainImageView.image = UIImage(data: imageData)
+				self?.coupleBackgroundImageView.backgroundImageView.image = UIImage(data: imageData)
 				guard let loadingCheck = self?.loadingCheck else { return }
 				if !loadingCheck {
 					self?.afterImageLoadingView()
@@ -303,7 +307,7 @@ private extension CoupleTabViewController {
 		partnerProfileUIImageView.layer.cornerRadius = CommonSize.coupleProfileSize / 2
 		partnerProfileUIImageView.clipsToBounds = true
 		
-		let imagePartView = imageLoadingFlag ? self.mainImageView : self.mainImageActivityIndicatorView
+		let imagePartView = imageLoadingFlag ? self.coupleBackgroundImageView.backgroundImageView : self.mainImageActivityIndicatorView
 		
 		view.addSubview(allContentStackView)
 		allContentStackView.addArrangedSubview(topTabBackView)
@@ -365,7 +369,7 @@ private extension CoupleTabViewController {
 	}
 }
 
-extension CoupleTabViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+extension CoupleViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 	func imagePickerController(
 		_ picker: UIImagePickerController,
 		didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
@@ -381,7 +385,7 @@ extension CoupleTabViewController: UIImagePickerControllerDelegate & UINavigatio
 	}
 }
 
-extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension CoupleViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 	func collectionView(
 		_ collectionView: UICollectionView,
 		numberOfItemsInSection section: Int
@@ -429,9 +433,9 @@ extension CoupleTabViewController: UICollectionViewDataSource, UICollectionViewD
 	}
 }
 
-extension CoupleTabViewController: UICollectionViewDelegate {}
+extension CoupleViewController: UICollectionViewDelegate {}
 
-extension CoupleTabViewController: CropViewControllerDelegate {
+extension CoupleViewController: CropViewControllerDelegate {
 	func presentCropViewController(image: UIImage) {
 		let image: UIImage = image
 		let cropViewController = CropViewController(croppingStyle: .circular, image: image)
@@ -460,7 +464,7 @@ extension CoupleTabViewController: CropViewControllerDelegate {
 	}
 }
 
-extension CoupleTabViewController : GADBannerViewDelegate {
+extension CoupleViewController : GADBannerViewDelegate {
 	public func adViewDidReceiveAd(_ bannerView: GADBannerView) {
 		bannerView.alpha = 0
 		UIView.animate(withDuration: 1) {
