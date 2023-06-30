@@ -2,18 +2,18 @@ import UIKit
 
 import SnapKit
 
-final class DatePlaceCollectionViewCell: UICollectionViewCell {
+final class PlaceCollectionViewCell: UICollectionViewCell {
 	
 	//MARK: - Properties
 	
 	var datePlaceModel: Place? {
 		didSet { datePlaceModelBinding() }
 	}
-	static let reuseIdentifier = String(describing: DatePlaceCollectionViewCell.self)
+	static let reuseIdentifier = String(describing: PlaceCollectionViewCell.self)
 	
 	//MARK: - Views
 	
-	var datePlaceImageView: UIImageView = {
+	var placeImageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.contentMode = .scaleAspectFill
@@ -21,6 +21,7 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
 		imageView.clipsToBounds = true
 		return imageView
 	}()
+	
 	private var placeName: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,6 +29,7 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
 		label.text = "장소"
 		return label
 	}()
+	
 	private var placeShortAddress: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +38,8 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
 		label.textColor = .gray
 		return label
 	}()
-	private lazy var allContentStackView: UIStackView = {
+	
+	private lazy var _contentView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
@@ -48,36 +51,37 @@ final class DatePlaceCollectionViewCell: UICollectionViewCell {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		addSubview(allContentStackView)
-		allContentStackView.addArrangedSubview(datePlaceImageView)
-		allContentStackView.addArrangedSubview(placeName)
-		allContentStackView.addArrangedSubview(placeShortAddress)
+		addSubview(_contentView)
+		_contentView.addArrangedSubview(placeImageView)
+		_contentView.addArrangedSubview(placeName)
+		_contentView.addArrangedSubview(placeShortAddress)
 		
 		NSLayoutConstraint.activate([
-			datePlaceImageView.widthAnchor.constraint(
+			placeImageView.widthAnchor.constraint(
 				equalToConstant: UIScreen.main.bounds.size.width / 2
 			),
-			datePlaceImageView.heightAnchor.constraint(
+			placeImageView.heightAnchor.constraint(
 				equalToConstant: UIScreen.main.bounds.size.width / 2
 			),
 		])
 		
-		allContentStackView.snp.makeConstraints { make in
+		_contentView.snp.makeConstraints { make in
 			make.top.bottom.left.right.equalTo(0)
 		}
 	}
+	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 }
 
-private extension DatePlaceCollectionViewCell {
+private extension PlaceCollectionViewCell {
 	
 	//MARK: - Functions
 	
 	func datePlaceModelBinding() {
 		placeName.text = datePlaceModel?.placeName
 		placeShortAddress.text = datePlaceModel?.shortAddress
-		datePlaceImageView.setImage(with: (datePlaceModel?.imageUrl.first)!)
+		placeImageView.setImage(with: (datePlaceModel?.imageUrl.first)!)
 	}
 }

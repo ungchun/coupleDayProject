@@ -3,7 +3,7 @@ import UIKit
 import Pageboy
 import Tabman
 
-final class DatePlaceTabManViewController: TabmanViewController {
+final class PlaceListTabViewController: TabmanViewController {
 	
 	//MARK: - Properties
 	
@@ -15,8 +15,8 @@ final class DatePlaceTabManViewController: TabmanViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setUpBackBtn()
-		setUpLayoutBar()
+		setupBackBtn()
+		setupLayout()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -45,11 +45,11 @@ final class DatePlaceTabManViewController: TabmanViewController {
 	}
 }
 
-private extension DatePlaceTabManViewController {
+private extension PlaceListTabViewController {
 	
 	//MARK: - Functions
 	
-	private func setUpBackBtn() {
+	func setupBackBtn() {
 		self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
 		UIBarButtonItem.appearance().setTitleTextAttributes([
 			NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any
@@ -58,21 +58,21 @@ private extension DatePlaceTabManViewController {
 		self.view.backgroundColor = UIColor(named: "bgColor")
 	}
 	
-	private func setUpLayoutBar() {
-		let seoulVC = CityTabViewController(placeName: "seoul")
-		viewControllers.append(seoulVC)
-		let sudoVC = CityTabViewController(placeName: "sudo")
-		viewControllers.append(sudoVC)
-		let chungcheongVC = CityTabViewController(placeName: "chungcheong")
-		viewControllers.append(chungcheongVC)
-		let gangwonVC = CityTabViewController(placeName: "gangwon")
-		viewControllers.append(gangwonVC)
-		let gyeongsangVC = CityTabViewController(placeName: "gyeongsang")
-		viewControllers.append(gyeongsangVC)
-		let jeollaVC = CityTabViewController(placeName: "jeolla")
-		viewControllers.append(jeollaVC)
-		let jejuVC = CityTabViewController(placeName: "jeju")
-		viewControllers.append(jejuVC)
+	func setupLayout() {
+		let seoul = PlaceListViewController(placeName: "seoul")
+		viewControllers.append(seoul)
+		let sudo = PlaceListViewController(placeName: "sudo")
+		viewControllers.append(sudo)
+		let chungcheong = PlaceListViewController(placeName: "chungcheong")
+		viewControllers.append(chungcheong)
+		let gangwon = PlaceListViewController(placeName: "gangwon")
+		viewControllers.append(gangwon)
+		let gyeongsang = PlaceListViewController(placeName: "gyeongsang")
+		viewControllers.append(gyeongsang)
+		let jeolla = PlaceListViewController(placeName: "jeolla")
+		viewControllers.append(jeolla)
+		let jeju = PlaceListViewController(placeName: "jeju")
+		viewControllers.append(jeju)
 		
 		self.dataSource = self
 		
@@ -98,7 +98,7 @@ private extension DatePlaceTabManViewController {
 	}
 }
 
-extension DatePlaceTabManViewController: PageboyViewControllerDataSource, TMBarDataSource {
+extension PlaceListTabViewController: PageboyViewControllerDataSource, TMBarDataSource {
 	func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
 		let item = TMBarItem(title: "")
 		let title: String = tabTitleArray[index]

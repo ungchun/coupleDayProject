@@ -26,7 +26,6 @@ final class AnniversaryTitleView: BaseView {
 		stackView.alignment = .center
 		stackView.distribution = .fill
 		stackView.isUserInteractionEnabled = true
-		stackView.backgroundColor = .green
 		return stackView
 	}()
 	

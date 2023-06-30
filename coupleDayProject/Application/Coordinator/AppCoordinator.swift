@@ -214,9 +214,9 @@ final class DatePlaceTabViewCoordinator: DatePlaceTabCoordinatorting {
 	}
 	
 	func start() {
-		let datePlaceTabManViewController = DatePlaceTabManViewController()
-		datePlaceTabManViewController.coordinator = self
-		self.navigationController.pushViewController(datePlaceTabManViewController, animated: true)
+		let placeListTabViewController = PlaceListTabViewController()
+		placeListTabViewController.coordinator = self
+		self.navigationController.pushViewController(placeListTabViewController, animated: true)
 	}
 	
 	func didFinishAnniversaryView() {
