@@ -4,7 +4,7 @@ import UIKit
 import Kingfisher
 import SnapKit
 
-final class DetailDatePlaceViewController: UIViewController {
+final class PlaceInfoViewController: UIViewController {
 	
 	//MARK: - Properties
 	
@@ -203,7 +203,7 @@ final class DetailDatePlaceViewController: UIViewController {
 	}
 }
 
-private extension DetailDatePlaceViewController {
+private extension PlaceInfoViewController {
 	
 	//MARK: - Functions
 	
@@ -492,7 +492,7 @@ private extension DetailDatePlaceViewController {
 	}
 }
 
-extension DetailDatePlaceViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+extension PlaceInfoViewController: MKMapViewDelegate, CLLocationManagerDelegate {
 	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 		guard annotation is MKPointAnnotation else { print("no mkpointannotaions"); return nil }
 		let reuseId = "pin"

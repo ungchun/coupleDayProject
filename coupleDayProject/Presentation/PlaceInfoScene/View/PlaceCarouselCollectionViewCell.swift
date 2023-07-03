@@ -2,11 +2,11 @@ import UIKit
 
 import SnapKit
 
-final class CarouselCollectionViewCell: UICollectionViewCell {
+final class PlaceCarouselCollectionViewCell: UICollectionViewCell {
 	
 	//MARK: - Properties
 	
-	static let reuseIdentifier = String(describing: CarouselCollectionViewCell.self)
+	static let reuseIdentifier = String(describing: PlaceCarouselCollectionViewCell.self)
 	
 	//MARK: - Views
 	

@@ -23,6 +23,8 @@
 		65C0765A2A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076592A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift */; };
 		65C0765E2A4DB85B003E6D92 /* StoryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0765D2A4DB85B003E6D92 /* StoryTableView.swift */; };
 		65C076662A4E6BC7003E6D92 /* PlaceCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076652A4E6BC7003E6D92 /* PlaceCollectionView.swift */; };
+		65C0766A2A4EFF70003E6D92 /* PlaceCarouselCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076692A4EFF70003E6D92 /* PlaceCarouselCollectionView.swift */; };
+		65C0766E2A5288DB003E6D92 /* PlaceInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0766D2A5288DB003E6D92 /* PlaceInformationView.swift */; };
 		BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */; };
 		BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 		BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
@@ -39,7 +41,7 @@
 		BC0DF1BF289267240036EC51 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = BC0DF1BE289267240036EC51 /* FirebaseMessaging */; };
 		BC0DF1C1289267240036EC51 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = BC0DF1C0289267240036EC51 /* FirebaseStorage */; };
 		BC0DF1C3289278170036EC51 /* AnniversaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0DF1C2289278170036EC51 /* AnniversaryTableViewCell.swift */; };
-		BC24929828BE08B4003FC64A /* DetailDatePlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC24929728BE08B4003FC64A /* DetailDatePlaceViewController.swift */; };
+		BC24929828BE08B4003FC64A /* PlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC24929728BE08B4003FC64A /* PlaceInfoViewController.swift */; };
 		BC2AF6E8289A9C0800A54A3D /* TodayPlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2AF6E7289A9C0800A54A3D /* TodayPlaceCollectionViewCell.swift */; };
 		BC2CDEFB287C32EA002433DC /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = BC2CDEFA287C32EA002433DC /* GoogleMobileAds */; };
 		BC6ECED428D84B380012C818 /* PlaceListTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6ECED328D84B380012C818 /* PlaceListTabViewController.swift */; };
@@ -68,8 +70,8 @@
 		BC8B6251285087B000D46416 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC8B6250285087B000D46416 /* RealmSwift */; };
 		BC9493B7288142E9003FF1DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC9493B9288142E9003FF1DB /* InfoPlist.strings */; };
 		BC96D74828DAF9ED001F9B75 /* coupleDayWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BC78B4F2287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		BCA646FC28C326E20011C8B9 /* DatePlaceCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA646FB28C326E20011C8B9 /* DatePlaceCarouselView.swift */; };
-		BCA646FE28C328480011C8B9 /* CarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA646FD28C328480011C8B9 /* CarouselCollectionViewCell.swift */; };
+		BCA646FC28C326E20011C8B9 /* PlaceCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA646FB28C326E20011C8B9 /* PlaceCarouselView.swift */; };
+		BCA646FE28C328480011C8B9 /* PlaceCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA646FD28C328480011C8B9 /* PlaceCarouselCollectionViewCell.swift */; };
 		BCB0B152285076FF00DE7196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B151285076FF00DE7196 /* AppDelegate.swift */; };
 		BCB0B154285076FF00DE7196 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0B153285076FF00DE7196 /* SceneDelegate.swift */; };
 		BCB0B15B2850770000DE7196 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB0B15A2850770000DE7196 /* Assets.xcassets */; };
@@ -176,12 +178,14 @@
 		65C076592A4D1E1D003E6D92 /* CoupleTodayPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTodayPlaceView.swift; sourceTree = "<group>"; };
 		65C0765D2A4DB85B003E6D92 /* StoryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTableView.swift; sourceTree = "<group>"; };
 		65C076652A4E6BC7003E6D92 /* PlaceCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionView.swift; sourceTree = "<group>"; };
+		65C076692A4EFF70003E6D92 /* PlaceCarouselCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCarouselCollectionView.swift; sourceTree = "<group>"; };
+		65C0766D2A5288DB003E6D92 /* PlaceInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInformationView.swift; sourceTree = "<group>"; };
 		BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.otf; sourceTree = "<group>"; };
 		BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.otf; sourceTree = "<group>"; };
 		BC0DF1912892595E0036EC51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BC0DF1C2289278170036EC51 /* AnniversaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnniversaryTableViewCell.swift; sourceTree = "<group>"; };
-		BC24929728BE08B4003FC64A /* DetailDatePlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDatePlaceViewController.swift; sourceTree = "<group>"; };
+		BC24929728BE08B4003FC64A /* PlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoViewController.swift; sourceTree = "<group>"; };
 		BC2AF6E7289A9C0800A54A3D /* TodayPlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC6ECED328D84B380012C818 /* PlaceListTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListTabViewController.swift; sourceTree = "<group>"; };
 		BC6ECEE428D860490012C818 /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -211,8 +215,8 @@
 		BC9493BA288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		BC9493BB288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Interface.strings; sourceTree = "<group>"; };
 		BC9493BC288143D4003FF1DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BCA646FB28C326E20011C8B9 /* DatePlaceCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePlaceCarouselView.swift; sourceTree = "<group>"; };
-		BCA646FD28C328480011C8B9 /* CarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCollectionViewCell.swift; sourceTree = "<group>"; };
+		BCA646FB28C326E20011C8B9 /* PlaceCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCarouselView.swift; sourceTree = "<group>"; };
+		BCA646FD28C328480011C8B9 /* PlaceCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
 		BCB0B14E285076FF00DE7196 /* coupleDayProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coupleDayProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB0B151285076FF00DE7196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB0B153285076FF00DE7196 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -321,7 +325,6 @@
 				650631682A488FE900094DBF /* SettingScene */,
 				650631672A488FB600094DBF /* SetupScene */,
 				650631662A488F9C00094DBF /* LoadingScene */,
-				BCB0B16628507BEE00DE7196 /* View */,
 				BCF0443A286C36F100E9CEAD /* ViewModel */,
 			);
 			path = Presentation;
@@ -419,6 +422,8 @@
 		6506316B2A4891C600094DBF /* PlaceInfoScene */ = {
 			isa = PBXGroup;
 			children = (
+				65C076682A4EFA41003E6D92 /* View */,
+				65C076672A4EFA39003E6D92 /* ViewController */,
 			);
 			path = PlaceInfoScene;
 			sourceTree = "<group>";
@@ -603,6 +608,25 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		65C076672A4EFA39003E6D92 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BC24929728BE08B4003FC64A /* PlaceInfoViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		65C076682A4EFA41003E6D92 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BCA646FB28C326E20011C8B9 /* PlaceCarouselView.swift */,
+				BCA646FD28C328480011C8B9 /* PlaceCarouselCollectionViewCell.swift */,
+				65C076692A4EFF70003E6D92 /* PlaceCarouselCollectionView.swift */,
+				65C0766D2A5288DB003E6D92 /* PlaceInformationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		BC0CFD8D28803F5D000A009D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -610,32 +634,6 @@
 				BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */,
 			);
 			path = Fonts;
-			sourceTree = "<group>";
-		};
-		BC24929628BE089B003FC64A /* DetailDatePlace */ = {
-			isa = PBXGroup;
-			children = (
-				BC24929728BE08B4003FC64A /* DetailDatePlaceViewController.swift */,
-				BCA646FB28C326E20011C8B9 /* DatePlaceCarouselView.swift */,
-				BCA646FD28C328480011C8B9 /* CarouselCollectionViewCell.swift */,
-			);
-			path = DetailDatePlace;
-			sourceTree = "<group>";
-		};
-		BC6ECED228D84AFF0012C818 /* DatePlace */ = {
-			isa = PBXGroup;
-			children = (
-				BC6ECED528D84DAB0012C818 /* TabVC */,
-				BC24929628BE089B003FC64A /* DetailDatePlace */,
-			);
-			path = DatePlace;
-			sourceTree = "<group>";
-		};
-		BC6ECED528D84DAB0012C818 /* TabVC */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TabVC;
 			sourceTree = "<group>";
 		};
 		BC7162F128B1E7C9001480BA /* Coordinator */ = {
@@ -727,14 +725,6 @@
 			path = coupleDayProject;
 			sourceTree = "<group>";
 		};
-		BCB0B16628507BEE00DE7196 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BCB0B17B28507D2300DE7196 /* MainVC */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		BCB0B16828507BF900DE7196 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -745,46 +735,6 @@
 				BCEFABFF28AA35F9004983FF /* Place.swift */,
 			);
 			path = Entities;
-			sourceTree = "<group>";
-		};
-		BCB0B17B28507D2300DE7196 /* MainVC */ = {
-			isa = PBXGroup;
-			children = (
-				BCB0B17D28507D2300DE7196 /* TabVC */,
-			);
-			path = MainVC;
-			sourceTree = "<group>";
-		};
-		BCB0B17D28507D2300DE7196 /* TabVC */ = {
-			isa = PBXGroup;
-			children = (
-				BC6ECED228D84AFF0012C818 /* DatePlace */,
-				BCF03FDC286D618B00C28F71 /* Couple */,
-				BCF03FDB286D618200C28F71 /* Story */,
-				BCF03FDD286D61D500C28F71 /* Anniversary */,
-			);
-			path = TabVC;
-			sourceTree = "<group>";
-		};
-		BCF03FDB286D618200C28F71 /* Story */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Story;
-			sourceTree = "<group>";
-		};
-		BCF03FDC286D618B00C28F71 /* Couple */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Couple;
-			sourceTree = "<group>";
-		};
-		BCF03FDD286D61D500C28F71 /* Anniversary */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Anniversary;
 			sourceTree = "<group>";
 		};
 		BCF0443A286C36F100E9CEAD /* ViewModel */ = {
@@ -1030,6 +980,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB0B18B28507D2E00DE7196 /* RealmUserModel.swift in Sources */,
+				65C0766E2A5288DB003E6D92 /* PlaceInformationView.swift in Sources */,
 				BCB0B18328507D2300DE7196 /* SetupViewController.swift in Sources */,
 				65C0764D2A4C71C0003E6D92 /* AnniversaryTableView.swift in Sources */,
 				650631722A48954700094DBF /* BaseViewController.swift in Sources */,
@@ -1041,13 +992,14 @@
 				BCC9F97928729B4900809A26 /* StoryStandardDayModel.swift in Sources */,
 				BCB0B17928507D0B00DE7196 /* Extensions.swift in Sources */,
 				65C0765E2A4DB85B003E6D92 /* StoryTableView.swift in Sources */,
+				65C0766A2A4EFF70003E6D92 /* PlaceCarouselCollectionView.swift in Sources */,
 				BCB0B18428507D2300DE7196 /* HomeTabViewController.swift in Sources */,
-				BC24929828BE08B4003FC64A /* DetailDatePlaceViewController.swift in Sources */,
+				BC24929828BE08B4003FC64A /* PlaceInfoViewController.swift in Sources */,
 				BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */,
 				BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */,
 				BCF1B3602868237D00641ABD /* RealmImageModel.swift in Sources */,
-				BCA646FC28C326E20011C8B9 /* DatePlaceCarouselView.swift in Sources */,
-				BCA646FE28C328480011C8B9 /* CarouselCollectionViewCell.swift in Sources */,
+				BCA646FC28C326E20011C8B9 /* PlaceCarouselView.swift in Sources */,
+				BCA646FE28C328480011C8B9 /* PlaceCarouselCollectionViewCell.swift in Sources */,
 				650631622A480AEC00094DBF /* RealmService.swift in Sources */,
 				BC6ECEE528D860490012C818 /* PlaceCollectionViewCell.swift in Sources */,
 				650631602A480ADB00094DBF /* FirebaseService.swift in Sources */,
