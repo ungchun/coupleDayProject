@@ -26,32 +26,19 @@ final class PlaceInfoViewController: UIViewController {
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
-	let datePlaceImageView: UIImageView = {
-		let imageView = UIImageView()
-		imageView.contentMode = .scaleAspectFill
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		return imageView
-	}()
-	lazy var datePlaceCarouselView: DatePlaceCarouselView = {
+	
+	private let placeImageNameAddressView = PlaceImageNameAddressView()
+
+	// CarouselView
+	lazy var datePlaceCarouselView: PlaceCarouselView = {
 		var copyDatePlaceImageUrl = datePlace!.imageUrl
 		copyDatePlaceImageUrl.removeFirst()
-		let view = DatePlaceCarouselView(imageUrlArray: copyDatePlaceImageUrl)
+		let view = PlaceCarouselView(imageUrlArray: copyDatePlaceImageUrl)
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
-	let datePlaceName: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = UIFont(name: "GangwonEduAllBold", size: 25)
-		return label
-	}()
-	let datePlaceAddress: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = UIFont(name: "GangwonEduAllLight", size: 15)
-		label.textColor = .gray
-		return label
-	}()
+	
+	// map
 	let mapAddressTitle: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
@@ -59,6 +46,7 @@ final class PlaceInfoViewController: UIViewController {
 		label.font = UIFont(name: "GangwonEduAllBold", size: 25)
 		return label
 	}()
+	
 	let mapView: MKMapView = {
 		let view = MKMapView()
 		view.translatesAutoresizingMaskIntoConstraints = false
@@ -78,6 +66,8 @@ final class PlaceInfoViewController: UIViewController {
 		button.setTitle("지도 앱 열기", for: .normal)
 		return button
 	}()
+	
+	// bottomSheet
 	private let bottomSheetView: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +86,6 @@ final class PlaceInfoViewController: UIViewController {
 		let view = UIView()
 		view.backgroundColor = .systemGray2
 		view.layer.cornerRadius = 3
-		
 		return view
 	}()
 	private let openMapsTitleText: UILabel = {
@@ -152,6 +141,8 @@ final class PlaceInfoViewController: UIViewController {
 		stackView.spacing = 20
 		return stackView
 	}()
+	
+	// introduce
 	let introduceTitle: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
@@ -199,7 +190,7 @@ final class PlaceInfoViewController: UIViewController {
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
-		datePlaceCarouselView.invalidateTimer()
+		datePlaceCarouselView.placeCarouselCollectionView.invalidateTimer()
 	}
 }
 
@@ -215,13 +206,21 @@ private extension PlaceInfoViewController {
 		view.addSubview(scrollView)
 		scrollView.addSubview(contentView)
 		
-		datePlaceImageView.setImage(with: (datePlace?.imageUrl.first)!)
-		contentView.addSubview(datePlaceImageView)
+		placeImageNameAddressView.datePlaceImageView.setImage(with: (datePlace?.imageUrl.first)!)
+		placeImageNameAddressView.datePlaceName.text = datePlace?.placeName
+		placeImageNameAddressView.datePlaceAddress.text = datePlace?.address
 		
-		datePlaceName.text = datePlace?.placeName
-		contentView.addSubview(datePlaceName)
-		datePlaceAddress.text = datePlace?.address
-		contentView.addSubview(datePlaceAddress)
+		contentView.addSubview(placeImageNameAddressView)
+//		placeImageNameAddressView.translatesAutoresizingMaskIntoConstraints = false
+		
+//		datePlaceImageView.setImage(with: (datePlace?.imageUrl.first)!)
+//		contentView.addSubview(datePlaceImageView)
+		
+//		datePlaceName.text = datePlace?.placeName
+//		contentView.addSubview(datePlaceName)
+//		datePlaceAddress.text = datePlace?.address
+//		contentView.addSubview(datePlaceAddress)
+		
 		
 		contentView.addSubview(mapAddressTitle)
 		contentView.addSubview(mapView)
@@ -243,20 +242,14 @@ private extension PlaceInfoViewController {
 			make.width.equalToSuperview()
 			make.centerX.top.bottom.equalToSuperview()
 		}
-		datePlaceImageView.snp.makeConstraints { make in
+		
+		placeImageNameAddressView.snp.makeConstraints { make in
 			make.top.left.right.equalTo(contentView)
-			make.height.equalTo(400)
+			make.height.equalTo(480)
 		}
-		datePlaceName.snp.makeConstraints { make in
-			make.top.equalTo(datePlaceImageView.snp.bottom).offset(30)
-			make.left.equalTo(contentView.snp.left).offset(20)
-		}
-		datePlaceAddress.snp.makeConstraints { make in
-			make.top.equalTo(datePlaceName.snp.bottom).offset(10)
-			make.left.equalTo(contentView.snp.left).offset(20)
-		}
+		
 		mapAddressTitle.snp.makeConstraints { make in
-			make.top.equalTo(datePlaceAddress.snp.bottom).offset(30)
+			make.top.equalTo(placeImageNameAddressView.snp.bottom).offset(30)
 			make.left.equalTo(contentView.snp.left).offset(20)
 		}
 		mapView.snp.makeConstraints { make in
