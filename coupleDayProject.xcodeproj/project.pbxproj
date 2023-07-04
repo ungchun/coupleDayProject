@@ -321,16 +321,16 @@
 		650631542A47247F00094DBF /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				650631702A48953900094DBF /* Common */,
+				650631662A488F9C00094DBF /* LoadingScene */,
+				650631672A488FB600094DBF /* SetupScene */,
+				650631692A4891AA00094DBF /* HomeScene */,
 				6506316E2A48924200094DBF /* StoryScene */,
 				6506316D2A48923C00094DBF /* CoupleScene */,
-				650631702A48953900094DBF /* Common */,
 				6506316C2A48921600094DBF /* AnniversaryScene */,
-				6506316B2A4891C600094DBF /* PlaceInfoScene */,
 				6506316A2A4891B200094DBF /* PlaceListScene */,
-				650631692A4891AA00094DBF /* HomeScene */,
+				6506316B2A4891C600094DBF /* PlaceInfoScene */,
 				650631682A488FE900094DBF /* SettingScene */,
-				650631672A488FB600094DBF /* SetupScene */,
-				650631662A488F9C00094DBF /* LoadingScene */,
 				BCF0443A286C36F100E9CEAD /* ViewModel */,
 			);
 			path = Presentation;
@@ -590,8 +590,8 @@
 		65C0765C2A4DB15C003E6D92 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BC8190C8286EFE6D00FAD555 /* StoryTableViewCell.swift */,
 				65C0765D2A4DB85B003E6D92 /* StoryTableView.swift */,
+				BC8190C8286EFE6D00FAD555 /* StoryTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -608,8 +608,8 @@
 		65C076642A4E67BB003E6D92 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BC6ECEE428D860490012C818 /* PlaceCollectionViewCell.swift */,
 				65C076652A4E6BC7003E6D92 /* PlaceCollectionView.swift */,
+				BC6ECEE428D860490012C818 /* PlaceCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -626,8 +626,8 @@
 			isa = PBXGroup;
 			children = (
 				BCA646FB28C326E20011C8B9 /* PlaceCarouselView.swift */,
-				BCA646FD28C328480011C8B9 /* PlaceCarouselCollectionViewCell.swift */,
 				65C076692A4EFF70003E6D92 /* PlaceCarouselCollectionView.swift */,
+				BCA646FD28C328480011C8B9 /* PlaceCarouselCollectionViewCell.swift */,
 				65C0766D2A5288DB003E6D92 /* PlaceImageNameAddressView.swift */,
 				65C0766F2A52EB2F003E6D92 /* PlaceMapView.swift */,
 				65C076712A52F7E2003E6D92 /* PlaceMapBottomSheetView.swift */,
