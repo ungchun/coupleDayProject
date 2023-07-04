@@ -55,19 +55,19 @@ final class SettingViewController: BaseViewController {
 	override func setupView() {
 		settingView.delegate = self
 		imagePickerController.delegate = self
-		setupBackBtn()
+		setupBackButton()
 	}
 }
 
 private extension SettingViewController {
-	func setupBackBtn() {
-		self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
-		UIBarButtonItem.appearance().setTitleTextAttributes([
-			NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any
-		], for: .normal)
-		self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
-		self.view.backgroundColor = UIColor(named: "bgColor")
-	}
+//	func setupBackBtn() {
+//		self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
+//		UIBarButtonItem.appearance().setTitleTextAttributes([
+//			NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any
+//		], for: .normal)
+//		self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
+//		self.view.backgroundColor = UIColor(named: "bgColor")
+//	}
 }
 
 extension SettingViewController: SettingViewDelegate {

@@ -15,7 +15,7 @@ final class PlaceListTabViewController: TabmanViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setupBackBtn()
+		setupBackButton()
 		setupLayout()
 	}
 	
@@ -49,7 +49,7 @@ private extension PlaceListTabViewController {
 	
 	//MARK: - Functions
 	
-	func setupBackBtn() {
+	func setupBackButton() {
 		self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
 		UIBarButtonItem.appearance().setTitleTextAttributes([
 			NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any

@@ -133,7 +133,7 @@ final class PlaceInfoViewController: BaseViewController {
 	}
 	
 	override func setupView() {
-		setUpBackBtn()
+		setupBackButton()
 		setUpGestureRecognizer()
 		
 		placeMapView.datePlace = self.datePlace
@@ -154,14 +154,14 @@ final class PlaceInfoViewController: BaseViewController {
 }
 
 private extension PlaceInfoViewController {
-	func setUpBackBtn() {
-		self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
-		UIBarButtonItem.appearance().setTitleTextAttributes([
-			NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any
-		], for: .normal)
-		self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
-		self.view.backgroundColor = UIColor(named: "bgColor")
-	}
+//	func setUpBackBtn() {
+//		self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
+//		UIBarButtonItem.appearance().setTitleTextAttributes([
+//			NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any
+//		], for: .normal)
+//		self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
+//		self.view.backgroundColor = UIColor(named: "bgColor")
+//	}
 	
 	func setUpGestureRecognizer() {
 		let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(panGesture))
