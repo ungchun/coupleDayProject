@@ -2,7 +2,6 @@ import Photos
 import UIKit
 import WidgetKit
 
-import GoogleMobileAds
 import Kingfisher
 import RealmSwift
 

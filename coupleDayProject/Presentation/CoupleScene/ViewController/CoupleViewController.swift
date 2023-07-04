@@ -3,7 +3,6 @@ import UIKit
 import WatchConnectivity
 
 import CropViewController
-import GoogleMobileAds
 import Kingfisher
 import TOCropViewController
 
