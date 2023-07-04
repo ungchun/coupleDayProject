@@ -2,7 +2,6 @@ import UIKit
 import WatchConnectivity
 
 import FirebaseCore
-import GoogleMobileAds
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
@@ -17,9 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
-        
-        // google ads init -> 단 한번 호출, 빨리 호출하는게 좋음
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         // watchKit init
         assert(WCSession.isSupported(), "watch")

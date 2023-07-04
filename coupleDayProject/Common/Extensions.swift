@@ -2,7 +2,21 @@ import UIKit
 
 import Kingfisher
 
+extension UIView {
+	func roundCorners(_ corners: UIRectCorner, radius: CGFloat) {
+		let path = UIBezierPath(
+			roundedRect: bounds,
+			byRoundingCorners: corners,
+			cornerRadii: CGSize(width: radius, height: radius)
+		)
+		let mask = CAShapeLayer()
+		mask.path = path.cgPath
+		layer.mask = mask
+	}
+}
+
 extension UIViewController {
+	///	키보드 내리는 로직 같은데 view.endEditing(true) 이걸로도 대체 가능한걸로 암
 	func setupHideKeyboardOnTap() {
 		self.view.addGestureRecognizer(self.endEditingRecognizer())
 		self.navigationController?.navigationBar.addGestureRecognizer(self.endEditingRecognizer())
