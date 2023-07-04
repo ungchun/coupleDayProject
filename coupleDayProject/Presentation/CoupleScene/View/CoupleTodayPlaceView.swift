@@ -90,10 +90,10 @@ extension CoupleTodayPlaceView: UICollectionViewDataSource, UICollectionViewDele
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		let detailDatePlaceViewController = DetailDatePlaceViewController()
-		detailDatePlaceViewController.datePlace = mainDatePlaceList[indexPath.item]
+		let placeInfoViewController = PlaceInfoViewController()
+		placeInfoViewController.datePlace = mainDatePlaceList[indexPath.item]
 		if let viewController = window?.rootViewController as? UINavigationController {
-			viewController.pushViewController(detailDatePlaceViewController, animated: true)
+			viewController.pushViewController(placeInfoViewController, animated: true)
 		}
 	}
 	

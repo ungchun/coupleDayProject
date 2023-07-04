@@ -79,8 +79,8 @@ private extension PlaceListViewController {
 
 extension PlaceListViewController: PlaceCollectionViewDelegate {
 	func didPlaceTap(place: Place) {
-		let detailDatePlaceViewController = DetailDatePlaceViewController()
-		detailDatePlaceViewController.datePlace = place
-		self.navigationController?.pushViewController(detailDatePlaceViewController, animated: true)
+		let placeInfoViewController = PlaceInfoViewController()
+		placeInfoViewController.datePlace = place
+		self.navigationController?.pushViewController(placeInfoViewController, animated: true)
 	}
 }
