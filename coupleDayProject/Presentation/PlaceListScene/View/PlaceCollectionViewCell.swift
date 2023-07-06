@@ -1,7 +1,5 @@
 import UIKit
 
-import SnapKit
-
 final class PlaceCollectionViewCell: UICollectionViewCell {
 	
 	//MARK: - Properties
