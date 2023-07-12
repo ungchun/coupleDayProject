@@ -1,7 +1,5 @@
 import UIKit
 
-import SnapKit
-
 final class PlaceCarouselCollectionViewCell: UICollectionViewCell {
 	
 	//MARK: - Properties
@@ -12,6 +10,7 @@ final class PlaceCarouselCollectionViewCell: UICollectionViewCell {
 	
 	var imageView: UIImageView = {
 		let view = UIImageView()
+		view.translatesAutoresizingMaskIntoConstraints = false
 		view.contentMode = .scaleAspectFill
 		return view
 	}()
@@ -21,9 +20,13 @@ final class PlaceCarouselCollectionViewCell: UICollectionViewCell {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addSubview(imageView)
-		imageView.snp.makeConstraints { make in
-			make.top.left.right.bottom.equalTo(0)
-		}
+		
+		NSLayoutConstraint.activate([
+			imageView.topAnchor.constraint(equalTo: self.topAnchor),
+			imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+			imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+		])
 	}
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
