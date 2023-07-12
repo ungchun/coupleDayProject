@@ -63,9 +63,12 @@ final class PlaceCollectionViewCell: UICollectionViewCell {
 			),
 		])
 		
-		_contentView.snp.makeConstraints { make in
-			make.top.bottom.left.right.equalTo(0)
-		}
+		NSLayoutConstraint.activate([
+			_contentView.topAnchor.constraint(equalTo: self.topAnchor),
+			_contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+			_contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			_contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+		])
 	}
 	
 	required init?(coder: NSCoder) {
