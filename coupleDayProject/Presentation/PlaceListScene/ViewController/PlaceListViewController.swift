@@ -28,9 +28,12 @@ final class PlaceListViewController: BaseViewController {
 	override func setupLayout() {
 		view.addSubview(self.placeCollectionView)
 		
-		placeCollectionView.snp.makeConstraints { make in
-			make.top.left.right.bottom.equalTo(0)
-		}
+		NSLayoutConstraint.activate([
+			placeCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+			placeCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			placeCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			placeCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+		])
 	}
 	
 	override func setupView() {
