@@ -98,7 +98,6 @@
 		BCF0443C286C37B100E9CEAD /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* MainViewModel.swift */; };
 		BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */; };
 		BCF1B3602868237D00641ABD /* RealmImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1B35F2868237D00641ABD /* RealmImageModel.swift */; };
-		BCF4267528C0CC6D00043887 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BCF4267428C0CC6D00043887 /* SnapKit */; };
 		BCF7984A285732780009A78C /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
 		BCF7984C285732850009A78C /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 /* End PBXBuildFile section */
@@ -272,7 +271,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCF03FE0286D6C0100C28F71 /* Kingfisher in Frameworks */,
-				BCF4267528C0CC6D00043887 /* SnapKit in Frameworks */,
 				BC0DF1B7289267240036EC51 /* FirebaseAuth in Frameworks */,
 				BC0DF1BF289267240036EC51 /* FirebaseMessaging in Frameworks */,
 				BC83F8942876AC170027235E /* Lottie in Frameworks */,
@@ -852,7 +850,6 @@
 				BC0DF1BC289267240036EC51 /* FirebaseFunctions */,
 				BC0DF1BE289267240036EC51 /* FirebaseMessaging */,
 				BC0DF1C0289267240036EC51 /* FirebaseStorage */,
-				BCF4267428C0CC6D00043887 /* SnapKit */,
 			);
 			productName = coupleDayProject;
 			productReference = BCB0B14E285076FF00DE7196 /* coupleDayProject.app */;
@@ -898,7 +895,6 @@
 				BCF03FDE286D6C0100C28F71 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				BC83F8922876AC170027235E /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				BC0DF1B3289267240036EC51 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				BCF4267328C0CC6D00043887 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = BCB0B14F285076FF00DE7196 /* Products */;
 			projectDirPath = "";
@@ -1538,14 +1534,6 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		BCF4267328C0CC6D00043887 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1628,11 +1616,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BCF03FDE286D6C0100C28F71 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		BCF4267428C0CC6D00043887 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BCF4267328C0CC6D00043887 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
