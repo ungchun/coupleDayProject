@@ -59,17 +59,6 @@ final class SettingViewController: BaseViewController {
 	}
 }
 
-private extension SettingViewController {
-//	func setupBackBtn() {
-//		self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
-//		UIBarButtonItem.appearance().setTitleTextAttributes([
-//			NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any
-//		], for: .normal)
-//		self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
-//		self.view.backgroundColor = UIColor(named: "bgColor")
-//	}
-}
-
 extension SettingViewController: SettingViewDelegate {
 	func didCoupleDayTap() {
 		let datePicker = setupCoupleDayDatePicker()

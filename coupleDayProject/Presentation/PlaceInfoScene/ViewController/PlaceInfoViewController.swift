@@ -2,7 +2,6 @@ import MapKit
 import UIKit
 
 import Kingfisher
-import SnapKit
 
 final class PlaceInfoViewController: BaseViewController {
 	
@@ -89,26 +88,33 @@ final class PlaceInfoViewController: BaseViewController {
 		
 		view.addSubview(placeMapBottomSheetView)
 		
-		scrollView.snp.makeConstraints { (make) in
-			make.edges.equalToSuperview()
-		}
+		NSLayoutConstraint.activate([
+			scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+			scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+		])
 		
-		contentView.snp.makeConstraints { (make) in
-			make.width.equalToSuperview()
-			make.centerX.top.bottom.equalToSuperview()
-		}
+		NSLayoutConstraint.activate([
+			contentView.widthAnchor.constraint(equalToConstant: view.bounds.width),
+			contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+			contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+			contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+		])
 		
-		placeImageNameAddressView.snp.makeConstraints { make in
-			make.top.left.right.equalTo(contentView)
-			make.height.equalTo(480)
-		}
+		NSLayoutConstraint.activate([
+			placeImageNameAddressView.topAnchor.constraint(equalTo: contentView.topAnchor),
+			placeImageNameAddressView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			placeImageNameAddressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			placeImageNameAddressView.heightAnchor.constraint(equalToConstant: 480)
+		])
 		
-		placeMapView.snp.makeConstraints { make in
-			make.top.equalTo(placeImageNameAddressView.snp.bottom).offset(30)
-			make.left.equalTo(contentView.snp.left).offset(20)
-			make.right.equalTo(contentView.snp.right).offset(-20)
-			make.height.equalTo(320)
-		}
+		NSLayoutConstraint.activate([
+			placeMapView.topAnchor.constraint(equalTo: placeImageNameAddressView.bottomAnchor, constant: 30),
+			placeMapView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+			placeMapView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+			placeMapView.heightAnchor.constraint(equalToConstant: 320)
+		])
 		
 		NSLayoutConstraint.activate([
 			placeMapBottomSheetView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -117,19 +123,19 @@ final class PlaceInfoViewController: BaseViewController {
 			placeMapBottomSheetView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		])
 		
-		datePlaceCarouselView.snp.makeConstraints { make in
-			make.top.equalTo(placeMapView.snp.bottom).offset(20)
-			make.left.equalTo(contentView.snp.left).offset(20)
-			make.right.equalTo(contentView.snp.right).offset(-20)
-			make.height.equalTo(300)
-		}
+		NSLayoutConstraint.activate([
+			datePlaceCarouselView.topAnchor.constraint(equalTo: placeMapView.bottomAnchor, constant: 20),
+			datePlaceCarouselView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+			datePlaceCarouselView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+			datePlaceCarouselView.heightAnchor.constraint(equalToConstant: 300)
+		])
 		
-		placeIntroduceView.snp.makeConstraints { make in
-			make.top.equalTo(datePlaceCarouselView.snp.bottom).offset(40)
-			make.right.equalTo(contentView.snp.right).offset(-20)
-			make.left.equalTo(contentView.snp.left).offset(20)
-			make.bottom.equalToSuperview().offset(-50)
-		}
+		NSLayoutConstraint.activate([
+			placeIntroduceView.topAnchor.constraint(equalTo: datePlaceCarouselView.bottomAnchor, constant: 40),
+			placeIntroduceView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+			placeIntroduceView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+			placeIntroduceView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -50)
+		])
 	}
 	
 	override func setupView() {
@@ -154,15 +160,6 @@ final class PlaceInfoViewController: BaseViewController {
 }
 
 private extension PlaceInfoViewController {
-//	func setUpBackBtn() {
-//		self.navigationController?.navigationBar.tintColor = TrendingConstants.appMainColor
-//		UIBarButtonItem.appearance().setTitleTextAttributes([
-//			NSAttributedString.Key.font: UIFont(name: "GangwonEduAllBold", size: 18) as Any
-//		], for: .normal)
-//		self.navigationController?.navigationBar.topItem?.title = "뒤로가기"
-//		self.view.backgroundColor = UIColor(named: "bgColor")
-//	}
-	
 	func setUpGestureRecognizer() {
 		let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(panGesture))
 		swipeGesture.direction = .down

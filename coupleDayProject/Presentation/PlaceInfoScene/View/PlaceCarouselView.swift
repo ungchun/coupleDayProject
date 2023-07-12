@@ -42,14 +42,18 @@ final class PlaceCarouselView: BaseView {
 		self.addSubview(placeCarouselCollectionView)
 		self.addSubview(carouselProgressView)
 		
-		placeCarouselCollectionView.snp.makeConstraints { make in
-			make.top.left.right.bottom.equalTo(0)
-		}
-		carouselProgressView.snp.makeConstraints { make in
-			make.centerX.equalTo(self)
-			make.width.equalTo((UIScreen.main.bounds.size.width - 40) * 0.6)
-			make.bottom.equalTo(placeCarouselCollectionView.snp.bottom).offset(-20)
-		}
+		NSLayoutConstraint.activate([
+			placeCarouselCollectionView.topAnchor.constraint(equalTo: self.topAnchor),
+			placeCarouselCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+			placeCarouselCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			placeCarouselCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+		])
+		
+		NSLayoutConstraint.activate([
+			carouselProgressView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+			carouselProgressView.bottomAnchor.constraint(equalTo: placeCarouselCollectionView.bottomAnchor, constant: -20),
+			carouselProgressView.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.size.width - 40) * 0.6)
+		])
 	}
 	
 	override func setupView() {
