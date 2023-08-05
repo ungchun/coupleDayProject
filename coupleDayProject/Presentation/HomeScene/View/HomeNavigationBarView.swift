@@ -75,7 +75,6 @@ final class HomeNavigationBarView: BaseView {
 	//MARK: - Functions
 	
 	override func setupLayout() {
-		print("???")
 		self.addSubview(contentView)
 		
 		NSLayoutConstraint.activate([
