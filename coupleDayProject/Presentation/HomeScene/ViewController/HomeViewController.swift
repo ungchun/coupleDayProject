@@ -14,7 +14,7 @@ final class HomeViewController: BaseViewController {
 	private let disposeBag = DisposeBag()
 	
 	private let coupleTabViewModel = CoupleTabViewModel()
-	private let mainViewModel = MainViewModel()
+	private let homeViewModel = HomeViewModel()
 	
 	//MARK: - Views
 	
@@ -61,7 +61,7 @@ final class HomeViewController: BaseViewController {
 		
 		homeNavigationBarView.delegate = self
 		
-		mainViewModel.output.appNameLabelOutput
+		homeViewModel.output.appNameLabelOutput
 			.bind { [weak self] updateLabel in
 				DispatchQueue.main.async {
 					let transition = CATransition()

@@ -4,7 +4,7 @@ import RxSwift
 import RxCocoa
 import RxRelay
 
-final class MainViewModel {
+final class HomeViewModel {
 	
 	struct Input {
 		var appNameLabelTrigger = PublishSubject<String>()

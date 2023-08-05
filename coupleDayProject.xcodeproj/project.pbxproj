@@ -100,7 +100,7 @@
 		BCC9F97B2872C15600809A26 /* Anniversary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC9F97A2872C15600809A26 /* Anniversary.swift */; };
 		BCEFAC0028AA35F9004983FF /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEFABFF28AA35F9004983FF /* Place.swift */; };
 		BCF03FE0286D6C0100C28F71 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BCF03FDF286D6C0100C28F71 /* Kingfisher */; };
-		BCF0443C286C37B100E9CEAD /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* MainViewModel.swift */; };
+		BCF0443C286C37B100E9CEAD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443B286C37B100E9CEAD /* HomeViewModel.swift */; };
 		BCF0443E286C55FC00E9CEAD /* CoupleTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */; };
 		BCF1B3602868237D00641ABD /* HomeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1B35F2868237D00641ABD /* HomeImage.swift */; };
 		BCF7984A285732780009A78C /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
@@ -247,7 +247,7 @@
 		BCC9F97828729B4900809A26 /* StoryStandardDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryStandardDay.swift; sourceTree = "<group>"; };
 		BCC9F97A2872C15600809A26 /* Anniversary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anniversary.swift; sourceTree = "<group>"; };
 		BCEFABFF28AA35F9004983FF /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
-		BCF0443B286C37B100E9CEAD /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		BCF0443B286C37B100E9CEAD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTabViewModel.swift; sourceTree = "<group>"; };
 		BCF1B35F2868237D00641ABD /* HomeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeImage.swift; sourceTree = "<group>"; };
 		BCF79849285732780009A78C /* GangwonEduAllBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.ttf; sourceTree = "<group>"; };
@@ -454,6 +454,7 @@
 		6506316D2A48923C00094DBF /* CoupleScene */ = {
 			isa = PBXGroup;
 			children = (
+				6555B5572A7E63B400069964 /* ViewModel */,
 				65C076542A4D18BE003E6D92 /* View */,
 				65C076532A4D18B7003E6D92 /* ViewController */,
 			);
@@ -510,6 +511,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		6555B5572A7E63B400069964 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		65C076342A4AF652003E6D92 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -546,6 +555,7 @@
 		65C076422A4B0CB5003E6D92 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				BCF0443B286C37B100E9CEAD /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -757,8 +767,6 @@
 		BCF0443A286C36F100E9CEAD /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				BCF0443B286C37B100E9CEAD /* MainViewModel.swift */,
-				BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1045,7 +1053,7 @@
 				BC8190C9286EFE6D00FAD555 /* StoryTableViewCell.swift in Sources */,
 				65C0764B2A4C71AB003E6D92 /* AnniversaryTitleView.swift in Sources */,
 				BCB0B18728507D2300DE7196 /* AnniversaryViewController.swift in Sources */,
-				BCF0443C286C37B100E9CEAD /* MainViewModel.swift in Sources */,
+				BCF0443C286C37B100E9CEAD /* HomeViewModel.swift in Sources */,
 				6506317D2A49AA6000094DBF /* LoadingView.swift in Sources */,
 				BCB0B18928507D2300DE7196 /* SettingViewController.swift in Sources */,
 			);
