@@ -1,6 +1,7 @@
-import Combine
 import UIKit
 
+import RxSwift
+import RxCocoa
 import FirebaseFirestore
 import Kingfisher
 
@@ -10,9 +11,10 @@ final class HomeViewController: BaseViewController {
 	
 	weak var coordinator: MainViewCoordinator?
 	
+	private let disposeBag = DisposeBag()
+	
 	private let coupleTabViewModel = CoupleTabViewModel()
-	private let mainViewModelCombine = MainViewModelCombine()
-	private var disposalbleBag = Set<AnyCancellable>()
+	private let mainViewModel = MainViewModel()
 	
 	//MARK: - Views
 	
@@ -59,17 +61,18 @@ final class HomeViewController: BaseViewController {
 		
 		homeNavigationBarView.delegate = self
 		
-		mainViewModelCombine.receivedCoupleDayData = coupleTabViewModel.beginCoupleDay.value
-		self.mainViewModelCombine.$appNameLabelValue.sink { [weak self] updateLabel in
-			DispatchQueue.main.async {
-				let transition = CATransition()
-				transition.duration = 1
-				transition.timingFunction = .init(name: .easeIn)
-				transition.type = .fade
-				self?.homeNavigationBarView.appNameText.layer.add(transition, forKey: CATransitionType.fade.rawValue)
-				self?.homeNavigationBarView.appNameText.text = updateLabel
+		mainViewModel.output.appNameLabelOutput
+			.bind { [weak self] updateLabel in
+				DispatchQueue.main.async {
+					let transition = CATransition()
+					transition.duration = 1
+					transition.timingFunction = .init(name: .easeIn)
+					transition.type = .fade
+					self?.homeNavigationBarView.appNameText.layer.add(transition, forKey: CATransitionType.fade.rawValue)
+					self?.homeNavigationBarView.appNameText.text = updateLabel
+				}
 			}
-		}.store(in: &disposalbleBag)
+			.disposed(by: disposeBag)
 		
 		if RealmService.shared.getUserDatas().first!.birthDay != 0 {
 			initBirthDayAnniversaryModel(

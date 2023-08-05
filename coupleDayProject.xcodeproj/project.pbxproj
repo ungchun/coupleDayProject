@@ -14,6 +14,9 @@
 		650631742A48980300094DBF /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650631732A48980300094DBF /* BaseView.swift */; };
 		6506317D2A49AA6000094DBF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6506317C2A49AA6000094DBF /* LoadingView.swift */; };
 		650631812A49B50700094DBF /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650631802A49B50700094DBF /* SetupView.swift */; };
+		65AEDEF92A7E0FD200234215 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 65AEDEF82A7E0FD200234215 /* RxCocoa */; };
+		65AEDEFB2A7E0FD200234215 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 65AEDEFA2A7E0FD200234215 /* RxRelay */; };
+		65AEDEFD2A7E0FD200234215 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 65AEDEFC2A7E0FD200234215 /* RxSwift */; };
 		65C076372A4AF6D3003E6D92 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076362A4AF6D3003E6D92 /* SettingView.swift */; };
 		65C076472A4BCD2D003E6D92 /* HomeNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076462A4BCD2D003E6D92 /* HomeNavigationBarView.swift */; };
 		65C0764B2A4C71AB003E6D92 /* AnniversaryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0764A2A4C71AB003E6D92 /* AnniversaryTitleView.swift */; };
@@ -278,11 +281,14 @@
 				BCC7569B286AA30900CD523A /* TOCropViewController in Frameworks */,
 				BC0DF1BB289267240036EC51 /* FirebaseFirestore in Frameworks */,
 				BC0DF1C1289267240036EC51 /* FirebaseStorage in Frameworks */,
+				65AEDEFD2A7E0FD200234215 /* RxSwift in Frameworks */,
 				BCC75699286AA30900CD523A /* CropViewController in Frameworks */,
 				BC8B624F285087B000D46416 /* Realm in Frameworks */,
 				BC0DF1BD289267240036EC51 /* FirebaseFunctions in Frameworks */,
 				BC0DF1B9289267240036EC51 /* FirebaseDatabase in Frameworks */,
+				65AEDEF92A7E0FD200234215 /* RxCocoa in Frameworks */,
 				BCB0B16B28507C2300DE7196 /* Tabman in Frameworks */,
+				65AEDEFB2A7E0FD200234215 /* RxRelay in Frameworks */,
 				BC0DF1B5289267240036EC51 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -850,6 +856,9 @@
 				BC0DF1BC289267240036EC51 /* FirebaseFunctions */,
 				BC0DF1BE289267240036EC51 /* FirebaseMessaging */,
 				BC0DF1C0289267240036EC51 /* FirebaseStorage */,
+				65AEDEF82A7E0FD200234215 /* RxCocoa */,
+				65AEDEFA2A7E0FD200234215 /* RxRelay */,
+				65AEDEFC2A7E0FD200234215 /* RxSwift */,
 			);
 			productName = coupleDayProject;
 			productReference = BCB0B14E285076FF00DE7196 /* coupleDayProject.app */;
@@ -895,6 +904,7 @@
 				BCF03FDE286D6C0100C28F71 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				BC83F8922876AC170027235E /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				BC0DF1B3289267240036EC51 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				65AEDEF72A7E0FD200234215 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = BCB0B14F285076FF00DE7196 /* Products */;
 			projectDirPath = "";
@@ -1486,6 +1496,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		65AEDEF72A7E0FD200234215 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		BC0DF1B3289267240036EC51 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1537,6 +1555,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		65AEDEF82A7E0FD200234215 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65AEDEF72A7E0FD200234215 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		65AEDEFA2A7E0FD200234215 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65AEDEF72A7E0FD200234215 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		65AEDEFC2A7E0FD200234215 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65AEDEF72A7E0FD200234215 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
 		BC0DF1B4289267240036EC51 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC0DF1B3289267240036EC51 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
