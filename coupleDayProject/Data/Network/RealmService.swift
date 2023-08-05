@@ -12,17 +12,19 @@ import WidgetKit
 import RealmSwift
 
 protocol RealmInterface {
-	
-}
-
-enum RealmError: Error {
-	case noData
-	case noRealmavailable
-	case exception(errorMessage: String)
+	func getUserDatas() -> [RealmUserModel]
+	func getImageDatas() -> [RealmImageModel]
+	func writeUserData(userData: RealmUserModel) -> Void
+	func writeImageData(imageData: RealmImageModel) -> Void
+	func updateBeginCoupleDay(datePicker: UIDatePicker) -> Void
+	func updateBirthDay(datePicker: UIDatePicker) -> Void
+	func updateMainImage(mainImage: UIImage) -> Void
+	func updateMyProfileImage(myProfileImage: UIImage) -> Void
+	func updatePartnerProfileImage(partnerProfileImage: UIImage) -> Void
 }
 
 final class RealmService: RealmInterface {
-	//         try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
+	// try! FileManager.default.removeItem(at:Realm.Configuration.defaultConfiguration.fileURL!)
 	
 	static let shared = RealmService()
 	
