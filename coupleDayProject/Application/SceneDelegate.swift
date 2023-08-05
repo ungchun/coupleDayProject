@@ -2,7 +2,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
-    let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
+	let isDarkMode = UserDefaultsSetting.isDarkMode
     
     var window: UIWindow?
     var coordinator: AppCoordinator!
@@ -20,11 +20,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
 
-        // check darkMode
         guard let _ = (scene as? UIWindowScene) else { return }
         if let window = UIApplication.shared.windows.first {
             if #available(iOS 13.0, *) {
-                window.overrideUserInterfaceStyle = isDark == true ? .dark : .light
+                window.overrideUserInterfaceStyle = isDarkMode == true ? .dark : .light
             } else {
                 window.overrideUserInterfaceStyle = .light
             }

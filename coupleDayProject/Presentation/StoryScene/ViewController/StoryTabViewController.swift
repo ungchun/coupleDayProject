@@ -106,12 +106,12 @@ private extension StoryTabViewController {
 		}
 		
 		if coupleDayToInt >= 10950 {
-			let startIndex = IndexPath(row: StoryStandardDayModel().dayValues.count-1, section: 0)
+			let startIndex = IndexPath(row: StoryStandardDay().dayValues.count-1, section: 0)
 			self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)
 		} else {
 			let startIndex = IndexPath(
-				row: StoryStandardDayModel().dayValues.firstIndex(
-					of: StoryStandardDayModel().dayValues.filter {
+				row: StoryStandardDay().dayValues.firstIndex(
+					of: StoryStandardDay().dayValues.filter {
 						$0 > coupleDayToInt
 					}.min()!)!,
 				section: 0

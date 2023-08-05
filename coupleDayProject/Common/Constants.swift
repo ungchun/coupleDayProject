@@ -117,7 +117,7 @@ struct CacheImageManger {
 			case .success(let value):
 				if value.image != nil { //캐시가 존재하는 경우
 				} else { //캐시가 존재하지 않는 경우
-					let resource = ImageResource(downloadURL: url)
+					let resource = KF.ImageResource(downloadURL: url)
 					KingfisherManager.shared.retrieveImage(
 						with: resource,
 						options: nil,

@@ -69,22 +69,19 @@ final class CoupleViewController: BaseViewController {
 			object: nil
 		)
 		
-		loadFirebaseData { [weak self] in
-			guard let activityIndicator = self?.activityIndicator else { return }
-			guard let coupleTodayPlaceView = self?.coupleTodayPlaceView else { return }
-			self?.contentView.removeArrangedSubview(activityIndicator)
-			self?.contentView.addArrangedSubview(coupleTodayPlaceView)
+		Task {
+			try await fetchPlace()
 			
-			self?.coupleTodayPlaceView.alpha = 0
-			self?.coupleTodayPlaceView.fadeIn()
+			self.coupleTodayPlaceView.alpha = 0
+			self.coupleTodayPlaceView.fadeIn()
 			
 			NSLayoutConstraint.activate([
 				coupleTodayPlaceView.leftAnchor.constraint(
-					equalTo: (self?.view.safeAreaLayoutGuide.leftAnchor)!,
+					equalTo: (self.view.safeAreaLayoutGuide.leftAnchor),
 					constant: 20
 				),
 				coupleTodayPlaceView.rightAnchor.constraint(
-					equalTo: (self?.view.safeAreaLayoutGuide.rightAnchor)!,
+					equalTo: (self.view.safeAreaLayoutGuide.rightAnchor),
 					constant: -20
 				),
 			])
@@ -105,37 +102,19 @@ final class CoupleViewController: BaseViewController {
 }
 
 private extension CoupleViewController {
-	func loadFirebaseData(completion: @escaping () -> ()) {
-		var count = 0
+	
+	func fetchPlace() async throws {
+		var placeArray: [Place] = []
 		guard let localNameText = LocalName.randomElement()?.key else { return }
-		FirebaseService.shared.firestore.collection("\(localNameText)").getDocuments {
-			[weak self] (querySnapshot, error) in
-			for document in querySnapshot!.documents {
-				let dto = PlaceDTO(
-					id: document.documentID,
-					modifyState: document.data()["modifyState"] as? Bool,
-					address: document.data()["address"] as? String,
-					shortAddress: document.data()["shortAddress"] as? String,
-					introduce: document.data()["introduce"] as? [String],
-					imageUrl: document.data()["imageUrl"] as? [String],
-					latitude: document.data()["latitude"] as? String,
-					longitude: document.data()["longitude"] as? String
-				)
-				let entity = dto.toEntity()
-				guard let localName = LocalName[localNameText] else { return }
-				self?.coupleTodayPlaceView.todayPlaceText.text = "\(localName)의 오늘 장소"
-				self?.coupleTodayPlaceView.mainDatePlaceList.append(entity)
-				count += 1
-				
-				DispatchQueue.global().async {
-					CacheImageManger().downloadImageAndCache(urlString: entity.imageUrl.first!)
-				}
-				
-				if count == 5 { break }
-			}
-			self?.coupleTodayPlaceView.mainDatePlaceList.shuffle()
-			completion()
-		}
+		placeArray = try await FirebaseService.fetchPlace(localNameText: localNameText,
+														  fetchKind: .couple)
+		guard let localName = LocalName[localNameText] else { return }
+		self.coupleTodayPlaceView.todayPlaceText.text = "\(localName)의 오늘 장소"
+		self.coupleTodayPlaceView.mainDatePlaceList.append(contentsOf: placeArray)
+		self.coupleTodayPlaceView.mainDatePlaceList.shuffle()
+		
+		self.contentView.removeArrangedSubview(activityIndicator)
+		self.contentView.addArrangedSubview(coupleTodayPlaceView)
 	}
 	
 	func coupleTabViewModelBinding() {
@@ -201,7 +180,9 @@ private extension CoupleViewController {
 	}
 	
 	func setupLayout(imageLoadingFlag: Bool) {
-		let imagePartView = imageLoadingFlag ? self.coupleBackgroundImageView.backgroundImageView : self.backgroundImageActivityIndicatorView
+		let imagePartView = imageLoadingFlag ?
+		self.coupleBackgroundImageView.backgroundImageView :
+		self.backgroundImageActivityIndicatorView
 		
 		view.addSubview(contentView)
 		contentView.addArrangedSubview(topEmptyView)

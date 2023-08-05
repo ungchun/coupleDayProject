@@ -53,7 +53,7 @@ extension AnniversaryTableView: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		let nowMillisecondDate = Date().millisecondsSince1970
 		
-		let anniversaryFilter = AnniversaryModel.AnniversaryInfo.filter {dictValue in
+		let anniversaryFilter = Anniversary.AnniversaryInfo.filter {dictValue in
 			let keyValue = dictValue.keys.first
 			if nowMillisecondDate < (keyValue?.toDate.millisecondsSince1970)! {
 				return true
@@ -67,7 +67,7 @@ extension AnniversaryTableView: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let nowMillisecondDate = Date().millisecondsSince1970
 		
-		let anniversaryFilter = AnniversaryModel.AnniversaryInfo.filter { dictValue in
+		let anniversaryFilter = Anniversary.AnniversaryInfo.filter { dictValue in
 			let keyValue = dictValue.keys.first
 			if nowMillisecondDate < (keyValue?.toDate.millisecondsSince1970)! {
 				return true
@@ -81,11 +81,11 @@ extension AnniversaryTableView: UITableViewDelegate, UITableViewDataSource {
 			for: indexPath
 		) as? AnniversaryTableViewCell ?? AnniversaryTableViewCell()
 		cell.setAnniversaryCellText(
-			dictValue: AnniversaryModel.AnniversaryInfo[
-				indexPath.row + (AnniversaryModel.AnniversaryInfo.count - anniversaryFilter.count)
+			dictValue: Anniversary.AnniversaryInfo[
+				indexPath.row + (Anniversary.AnniversaryInfo.count - anniversaryFilter.count)
 			],
-			url: AnniversaryModel.AnniversaryImageUrl[
-				indexPath.row + (AnniversaryModel.AnniversaryInfo.count - anniversaryFilter.count)
+			url: Anniversary.AnniversaryImageUrl[
+				indexPath.row + (Anniversary.AnniversaryInfo.count - anniversaryFilter.count)
 			]
 		)
 		cell.selectionStyle = .none

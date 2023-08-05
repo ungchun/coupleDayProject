@@ -54,7 +54,7 @@ private extension StoryTableView {
 extension StoryTableView: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return StoryStandardDayModel().dayValues.count
+		return StoryStandardDay().dayValues.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -63,7 +63,7 @@ extension StoryTableView: UITableViewDelegate, UITableViewDataSource {
 			for: indexPath
 		) as? StoryTableViewCell ?? StoryTableViewCell()
 		cell.setStoryCellText(
-			index: StoryStandardDayModel().dayValues[indexPath.row],
+			index: StoryStandardDay().dayValues[indexPath.row],
 			beginCoupleDay: (coupleTabViewModel?.beginCoupleDay.value)!
 		)
 		cell.selectionStyle = .none

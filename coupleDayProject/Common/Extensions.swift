@@ -102,7 +102,7 @@ extension UIImageView {
 					self.image = image
 				} else { //캐시가 존재하지 않는 경우
 					guard let url = URL(string: urlString) else { return }
-					let resource = ImageResource(downloadURL: url, cacheKey: urlString)
+					let resource = KF.ImageResource(downloadURL: url, cacheKey: urlString)
 					self.kf.indicatorType = .activity
 					self.kf.setImage(with: resource, options: [.transition(.fade(1.5)), .forceTransition])
 				}

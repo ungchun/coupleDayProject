@@ -11,7 +11,6 @@ final class SettingViewController: BaseViewController {
 	weak var coordinator: SettingViewCoordinator?
 	private var coupleTabViewModel: CoupleTabViewModel?
 	private let imagePickerController = UIImagePickerController()
-	private let userDefaults = UserDefaults.standard
 	
 	//MARK: - Views
 	
@@ -257,7 +256,7 @@ private extension SettingViewController {
 			if let window = UIApplication.shared.windows.first {
 				if #available(iOS 13.0, *) {
 					window.overrideUserInterfaceStyle = .light
-					self.userDefaults.set(false, forKey: "darkModeState")
+					UserDefaultsSetting.isDarkMode = false
 					NotificationCenter.default.post(
 						name: Notification.Name.darkModeCheck,
 						object: nil,
@@ -274,7 +273,7 @@ private extension SettingViewController {
 			if let window = UIApplication.shared.windows.first {
 				if #available(iOS 13.0, *) {
 					window.overrideUserInterfaceStyle = .dark
-					self.userDefaults.set(true, forKey: "darkModeState")
+					UserDefaultsSetting.isDarkMode = true
 					NotificationCenter.default.post(
 						name: Notification.Name.darkModeCheck,
 						object: nil,

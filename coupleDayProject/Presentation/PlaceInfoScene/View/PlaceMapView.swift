@@ -42,7 +42,7 @@ final class PlaceMapView: BaseView {
 		button.layer.borderColor = UIColor.systemGray5.cgColor
 		button.titleLabel?.font =  UIFont(name: "GangwonEduAllLight", size: 15)
 		button.setTitleColor(
-			UserDefaults.standard.bool(forKey: "darkModeState") ? .white : .black,
+			UserDefaultsSetting.isDarkMode ? .white : .black,
 			for: .normal
 		)
 		button.layer.cornerRadius = 10

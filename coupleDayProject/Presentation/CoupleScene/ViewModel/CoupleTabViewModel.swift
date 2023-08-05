@@ -49,9 +49,9 @@ final class CoupleTabViewModel {
 	}
 	
 	func updateMyProfileIcon() {
-		let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
+		let isDarkMode = UserDefaultsSetting.isDarkMode
 		if RealmService.shared.getImageDatas().first!.myProfileImage == nil {
-			if isDark {
+			if isDarkMode {
 				self.myProfileImageData.value = (UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5))!
 			} else {
 				self.myProfileImageData.value = (UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5))!
@@ -62,9 +62,9 @@ final class CoupleTabViewModel {
 	}
 	
 	func updatePartnerProfileIcon() {
-		let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
+		let isDarkMode = UserDefaultsSetting.isDarkMode
 		if RealmService.shared.getImageDatas().first!.partnerProfileImage == nil {
-			if isDark {
+			if isDarkMode {
 				self.partnerProfileImageData.value = (UIImage(named: "smile_dark")?.jpegData(compressionQuality: 0.5))!
 			} else {
 				self.partnerProfileImageData.value = (UIImage(named: "smile_white")?.jpegData(compressionQuality: 0.5))!

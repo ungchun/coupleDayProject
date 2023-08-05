@@ -39,10 +39,11 @@ final class PlaceListViewController: BaseViewController {
 	override func setupView() {
 		placeCollectionView._delegate = self
 		
-		loadFirebaseData { [weak self] in
-			self?.placeCollectionView.reloadData()
-			self?.placeCollectionView.alpha = 0
-			self?.placeCollectionView.fadeIn()
+		Task {
+			try await fetchPlace()
+			placeCollectionView.reloadData()
+			placeCollectionView.alpha = 0
+			placeCollectionView.fadeIn()
 			NSLayoutConstraint.activate([])
 		}
 	}
@@ -52,31 +53,14 @@ private extension PlaceListViewController {
 	
 	//MARK: - Functions
 	
-	func loadFirebaseData(completion: @escaping () -> ()) {
+	func fetchPlace() async throws {
+		var placeArray: [Place] = []
 		guard let placeName = placeName else { return }
 		let localNameText = "\(placeName)"
-		FirebaseService.shared.firestore.collection("\(localNameText)").getDocuments {
-			[weak self] (querySnapshot, error) in
-			for document in querySnapshot!.documents {
-				let dto = PlaceDTO(
-					id: document.documentID,
-					modifyState: document.data()["modifyState"] as? Bool,
-					address: document.data()["address"] as? String,
-					shortAddress: document.data()["shortAddress"] as? String,
-					introduce: document.data()["introduce"] as? [String],
-					imageUrl: document.data()["imageUrl"] as? [String],
-					latitude: document.data()["latitude"] as? String,
-					longitude: document.data()["longitude"] as? String
-				)
-				let entity = dto.toEntity()
-				self?.placeCollectionView.mainDatePlaceList.append(entity)
-				DispatchQueue.global().async {
-					CacheImageManger().downloadImageAndCache(urlString: entity.imageUrl.first!)
-				}
-			}
-			self?.placeCollectionView.mainDatePlaceList.shuffle()
-			completion()
-		}
+		placeArray = try await FirebaseService.fetchPlace(localNameText: localNameText,
+														  fetchKind: .placeList)
+		placeCollectionView.mainDatePlaceList.append(contentsOf: placeArray)
+		placeCollectionView.mainDatePlaceList.shuffle()
 	}
 }
 
