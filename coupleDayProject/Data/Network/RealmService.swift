@@ -12,10 +12,10 @@ import WidgetKit
 import RealmSwift
 
 protocol RealmInterface {
-	func getUserDatas() -> [RealmUserModel]
-	func getImageDatas() -> [RealmImageModel]
-	func writeUserData(userData: RealmUserModel) -> Void
-	func writeImageData(imageData: RealmImageModel) -> Void
+	func getUserDatas() -> [User]
+	func getImageDatas() -> [HomeImage]
+	func writeUserData(userData: User) -> Void
+	func writeImageData(imageData: HomeImage) -> Void
 	func updateBeginCoupleDay(datePicker: UIDatePicker) -> Void
 	func updateBirthDay(datePicker: UIDatePicker) -> Void
 	func updateMainImage(mainImage: UIImage) -> Void
@@ -39,21 +39,21 @@ final class RealmService: RealmInterface {
 		}
 	}
 	
-	func getUserDatas() -> [RealmUserModel] {
-		Array(realm.objects(RealmUserModel.self))
+	func getUserDatas() -> [User] {
+		Array(realm.objects(User.self))
 	}
 	
-	func getImageDatas() -> [RealmImageModel] {
-		Array(realm.objects(RealmImageModel.self))
+	func getImageDatas() -> [HomeImage] {
+		Array(realm.objects(HomeImage.self))
 	}
 	
-	func writeUserData(userData: RealmUserModel) {
+	func writeUserData(userData: User) {
 		try? realm.write({
 			realm.add(userData)
 		})
 	}
 	
-	func writeImageData(imageData: RealmImageModel) {
+	func writeImageData(imageData: HomeImage) {
 		try? realm.write({
 			realm.add(imageData)
 		})
@@ -77,7 +77,7 @@ final class RealmService: RealmInterface {
 	}
 	
 	func updateBirthDay(datePicker: UIDatePicker) {
-		initBirthDayAnniversaryModel(
+		initBirthDayAnniversary(
 			dateValue: Int(datePicker.date.toString.toDate.millisecondsSince1970)
 		)
 		try? realm.write({

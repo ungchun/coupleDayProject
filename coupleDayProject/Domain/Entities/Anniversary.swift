@@ -1,12 +1,12 @@
 import UIKit
 
-final class AnniversaryModel {
+final class Anniversary {
     static var AnniversaryInfo: [[String:String]] = [[:]]
     static var AnniversaryImageUrl: [[String:String]] = [[:]]
 }
 
-func initNotBirthDayAnniversaryModel() {
-    AnniversaryModel.AnniversaryInfo = [
+func initNotBirthDayAnniversary() {
+    Anniversary.AnniversaryInfo = [
         ["\(DateValues.GetOnlyYear())-01-14": "다이어리데이"],
         ["\(DateValues.GetOnlyYear())-01-19": "찜질방데이"],
         ["\(DateValues.GetOnlyYear())-02-02": "액자데이"],
@@ -34,7 +34,7 @@ func initNotBirthDayAnniversaryModel() {
         ["\(DateValues.GetOnlyYear())-12-31": "\(DateValues.GetOnlyYear()) 마지막"],
     ]
     
-    AnniversaryModel.AnniversaryImageUrl = [
+    Anniversary.AnniversaryImageUrl = [
         ["\(DateValues.GetOnlyYear())-01-14": "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/diary.jpg?alt=media&token=21c3b832-e66c-483e-8034-5ed98f4b80ae"],
         ["\(DateValues.GetOnlyYear())-01-19": "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/sauna.jpg?alt=media&token=70649a6e-311b-4fcb-993b-669c73b34c9c"],
         ["\(DateValues.GetOnlyYear())-02-02": "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/frame.jpg?alt=media&token=67869f70-f0b4-4352-8dac-be48b9407311"],
@@ -62,18 +62,18 @@ func initNotBirthDayAnniversaryModel() {
         ["\(DateValues.GetOnlyYear())-12-31": "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/newYear.jpg?alt=media&token=db38d39e-ad33-44e1-8ba4-804cbdbd5ad9"]
     ]
     
-    AnniversaryModel.AnniversaryInfo.sort {$0.keys.first!.toDate < $1.keys.first!.toDate}
-    AnniversaryModel.AnniversaryImageUrl.sort {$0.keys.first!.toDate < $1.keys.first!.toDate}
+    Anniversary.AnniversaryInfo.sort {$0.keys.first!.toDate < $1.keys.first!.toDate}
+    Anniversary.AnniversaryImageUrl.sort {$0.keys.first!.toDate < $1.keys.first!.toDate}
     
     DispatchQueue.global().async {
-        AnniversaryModel.AnniversaryImageUrl.forEach { values in
+        Anniversary.AnniversaryImageUrl.forEach { values in
             CacheImageManger().downloadImageAndCache(urlString: values.values.first!)
         }
     }
 }
 
-func initBirthDayAnniversaryModel(dateValue: Int) {
-    AnniversaryModel.AnniversaryInfo = [
+func initBirthDayAnniversary(dateValue: Int) {
+    Anniversary.AnniversaryInfo = [
         ["\(DateValues.GetOnlyYear())-\(Date(timeIntervalSince1970: TimeInterval(dateValue) / 1000).toMinusAnniversaryString)": "생일"],
         ["\(DateValues.GetOnlyYear())-01-14": "다이어리데이"],
         ["\(DateValues.GetOnlyYear())-01-19": "찜질방데이"],
@@ -102,7 +102,7 @@ func initBirthDayAnniversaryModel(dateValue: Int) {
         ["\(DateValues.GetOnlyYear())-12-31": "\(DateValues.GetOnlyYear()) 마지막"],
     ]
     
-    AnniversaryModel.AnniversaryImageUrl = [
+    Anniversary.AnniversaryImageUrl = [
         ["\(DateValues.GetOnlyYear())-\(Date(timeIntervalSince1970: TimeInterval(dateValue) / 1000).toMinusAnniversaryString)": "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/birthday.jpg?alt=media&token=ee79ef6a-136b-449e-959a-2368afa45c99"],
         ["\(DateValues.GetOnlyYear())-01-14": "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/diary.jpg?alt=media&token=21c3b832-e66c-483e-8034-5ed98f4b80ae"],
         ["\(DateValues.GetOnlyYear())-01-19": "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/sauna.jpg?alt=media&token=70649a6e-311b-4fcb-993b-669c73b34c9c"],
@@ -131,11 +131,11 @@ func initBirthDayAnniversaryModel(dateValue: Int) {
         ["\(DateValues.GetOnlyYear())-12-31": "https://firebasestorage.googleapis.com/v0/b/coupledayproject.appspot.com/o/newYear.jpg?alt=media&token=db38d39e-ad33-44e1-8ba4-804cbdbd5ad9"]
     ]
     
-    AnniversaryModel.AnniversaryInfo.sort {$0.keys.first!.toDate < $1.keys.first!.toDate}
-    AnniversaryModel.AnniversaryImageUrl.sort {$0.keys.first!.toDate < $1.keys.first!.toDate}
+    Anniversary.AnniversaryInfo.sort {$0.keys.first!.toDate < $1.keys.first!.toDate}
+    Anniversary.AnniversaryImageUrl.sort {$0.keys.first!.toDate < $1.keys.first!.toDate}
     
     DispatchQueue.global().async {
-        AnniversaryModel.AnniversaryImageUrl.forEach { values in
+        Anniversary.AnniversaryImageUrl.forEach { values in
             CacheImageManger().downloadImageAndCache(urlString: values.values.first!)
         }
     }

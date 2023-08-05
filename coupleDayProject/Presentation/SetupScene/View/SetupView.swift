@@ -183,8 +183,8 @@ private extension SetupView {
 	}
 	
 	@objc func startBtnTap() {
-		let realmUserModel = RealmUserModel()
-		let realmImageModel = RealmImageModel()
+		let realmUserModel = User()
+		let realmImageModel = HomeImage()
 		
 		if zeroDayStartCheck {
 			realmUserModel.beginCoupleDay = Int(
@@ -204,7 +204,7 @@ private extension SetupView {
 			named: "coupleImg"
 		)?.jpegData(compressionQuality: 0.5)
 		
-		initNotBirthDayAnniversaryModel()
+		initNotBirthDayAnniversary()
 		RealmService.shared.writeUserData(userData: realmUserModel)
 		RealmService.shared.writeImageData(imageData: realmImageModel)
 		

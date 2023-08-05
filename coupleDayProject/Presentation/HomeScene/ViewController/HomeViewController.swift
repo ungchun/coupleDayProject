@@ -75,11 +75,11 @@ final class HomeViewController: BaseViewController {
 			.disposed(by: disposeBag)
 		
 		if RealmService.shared.getUserDatas().first!.birthDay != 0 {
-			initBirthDayAnniversaryModel(
+			initBirthDayAnniversary(
 				dateValue: RealmService.shared.getUserDatas().first!.birthDay
 			)
 		} else {
-			initNotBirthDayAnniversaryModel()
+			initNotBirthDayAnniversary()
 		}
 	}
 }
