@@ -14,6 +14,8 @@
 		650631742A48980300094DBF /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650631732A48980300094DBF /* BaseView.swift */; };
 		6506317D2A49AA6000094DBF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6506317C2A49AA6000094DBF /* LoadingView.swift */; };
 		650631812A49B50700094DBF /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650631802A49B50700094DBF /* SetupView.swift */; };
+		6555B55B2A7E64B500069964 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6555B55A2A7E64B500069964 /* UserDefaultsWrapper.swift */; };
+		6555B55D2A7E64C900069964 /* UserDefaultsSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6555B55C2A7E64C900069964 /* UserDefaultsSetting.swift */; };
 		65AEDEF92A7E0FD200234215 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 65AEDEF82A7E0FD200234215 /* RxCocoa */; };
 		65AEDEFB2A7E0FD200234215 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 65AEDEFA2A7E0FD200234215 /* RxRelay */; };
 		65AEDEFD2A7E0FD200234215 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 65AEDEFC2A7E0FD200234215 /* RxSwift */; };
@@ -175,6 +177,8 @@
 		650631732A48980300094DBF /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		6506317C2A49AA6000094DBF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		650631802A49B50700094DBF /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		6555B55A2A7E64B500069964 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		6555B55C2A7E64C900069964 /* UserDefaultsSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSetting.swift; sourceTree = "<group>"; };
 		65AEDEFE2A7E371200234215 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		65AEDF002A7E371D00234215 /* RealmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
 		65C076362A4AF6D3003E6D92 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -337,7 +341,6 @@
 				6506316A2A4891B200094DBF /* PlaceListScene */,
 				6506316B2A4891C600094DBF /* PlaceInfoScene */,
 				650631682A488FE900094DBF /* SettingScene */,
-				BCF0443A286C36F100E9CEAD /* ViewModel */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 		650631562A47249C00094DBF /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				6555B5582A7E648E00069964 /* Storage */,
 				650631632A480E3D00094DBF /* DTO */,
 				650631582A472C5D00094DBF /* Network */,
 			);
@@ -517,6 +521,23 @@
 				BCF0443D286C55FC00E9CEAD /* CoupleTabViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6555B5582A7E648E00069964 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				6555B5592A7E649900069964 /* UserDefaults */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		6555B5592A7E649900069964 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				6555B55A2A7E64B500069964 /* UserDefaultsWrapper.swift */,
+				6555B55C2A7E64C900069964 /* UserDefaultsSetting.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		65C076342A4AF652003E6D92 /* ViewController */ = {
@@ -764,13 +785,6 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		BCF0443A286C36F100E9CEAD /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		BCF79835285710920009A78C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1011,6 +1025,7 @@
 				650631722A48954700094DBF /* BaseViewController.swift in Sources */,
 				650631742A48980300094DBF /* BaseView.swift in Sources */,
 				65C076372A4AF6D3003E6D92 /* SettingView.swift in Sources */,
+				6555B55D2A7E64C900069964 /* UserDefaultsSetting.swift in Sources */,
 				BC0DF1C3289278170036EC51 /* AnniversaryTableViewCell.swift in Sources */,
 				BCB0B18628507D2300DE7196 /* CoupleViewController.swift in Sources */,
 				BCC041B728D9714F0043037C /* PlaceListViewController.swift in Sources */,
@@ -1045,6 +1060,7 @@
 				65C076472A4BCD2D003E6D92 /* HomeNavigationBarView.swift in Sources */,
 				65C076722A52F7E2003E6D92 /* PlaceMapBottomSheetView.swift in Sources */,
 				BCB0B18828507D2300DE7196 /* HomeViewController.swift in Sources */,
+				6555B55B2A7E64B500069964 /* UserDefaultsWrapper.swift in Sources */,
 				65C076582A4D1E0A003E6D92 /* CoupleProfileImageAndDayView.swift in Sources */,
 				BC2AF6E8289A9C0800A54A3D /* TodayPlaceCollectionViewCell.swift in Sources */,
 				BCC9F97B2872C15600809A26 /* Anniversary.swift in Sources */,

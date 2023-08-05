@@ -100,8 +100,8 @@ final class StoryTableViewCell: UITableViewCell {
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		let isDark = UserDefaults.standard.bool(forKey: "darkModeState")
-		if isDark {
+		let isDarkMode = UserDefaultsSetting.isDarkMode
+		if isDarkMode {
 			self.dayText.textColor = .white
 		} else {
 			self.dayText.textColor = .black
