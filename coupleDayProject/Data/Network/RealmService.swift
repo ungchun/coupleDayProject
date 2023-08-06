@@ -59,18 +59,21 @@ final class RealmService: RealmInterface {
 		})
 	}
 	
+	// 확인
 	func updateBeginCoupleDay(datePicker: UIDatePicker) {
 		try? realm.write({
-			if RealmService.shared.getUserDatas().first!.zeroDayStartCheck {
-				RealmService.shared.getUserDatas().first!.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
-			} else {
-				RealmService.shared.getUserDatas().first!.beginCoupleDay = Int(
-					Calendar.current.date(
-						byAdding: .day,
-						value: -1,
-						to: datePicker.date.toString.toDate
-					)!.millisecondsSince1970
-				)
+			if let userDatas = RealmService.shared.getUserDatas().first {
+				if userDatas.zeroDayStartCheck {
+					userDatas.beginCoupleDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
+				} else {
+					userDatas.beginCoupleDay = Int(
+						Calendar.current.date(
+							byAdding: .day,
+							value: -1,
+							to: datePicker.date.toString.toDate
+						)?.millisecondsSince1970 ?? 0
+					)
+				}
 			}
 		})
 		WidgetCenter.shared.reloadAllTimelines()
@@ -81,33 +84,43 @@ final class RealmService: RealmInterface {
 			dateValue: Int(datePicker.date.toString.toDate.millisecondsSince1970)
 		)
 		try? realm.write({
-			RealmService.shared.getUserDatas().first!.birthDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
+			if let userDatas = RealmService.shared.getUserDatas().first {
+				userDatas.birthDay = Int(datePicker.date.toString.toDate.millisecondsSince1970)
+			}
 		})
 	}
 	
 	func updateMainImage(mainImage: UIImage) {
 		try? realm.write({
-			RealmService.shared.getImageDatas().first!.homeMainImage =
-			(mainImage.pngData()?.count)! > 10000000
-			? resizeImage(image: mainImage, newWidth: 1000).pngData()
-			: mainImage.jpegData(compressionQuality: 0.5)
+			if let imageDatas = RealmService.shared.getImageDatas().first {
+				imageDatas.homeMainImage =
+				(mainImage.pngData()?.count) ?? 0 > 10000000
+				? resizeImage(image: mainImage, newWidth: 1000).pngData()
+				: mainImage.jpegData(compressionQuality: 0.5)
+			}
 		})
 		WidgetCenter.shared.reloadAllTimelines()
 	}
 	
 	func updateMyProfileImage(myProfileImage: UIImage) {
 		try? realm.write({
-			RealmService.shared.getImageDatas().first!.myProfileImage =
-			(myProfileImage.pngData()?.count)! > 10000000
-			? resizeImage(image: myProfileImage, newWidth: 1000).pngData()
-			: myProfileImage.jpegData(compressionQuality: 0.5)
+			if let imageDatas = RealmService.shared.getImageDatas().first {
+				imageDatas.myProfileImage =
+				(myProfileImage.pngData()?.count) ?? 0 > 10000000
+				? resizeImage(image: myProfileImage, newWidth: 1000).pngData()
+				: myProfileImage.jpegData(compressionQuality: 0.5)
+			}
 		})
 	}
 	
 	func updatePartnerProfileImage(partnerProfileImage: UIImage) {
 		try? realm.write({
-			RealmService.shared.getImageDatas().first!.partnerProfileImage = (partnerProfileImage.pngData()?.count)! > 10000000
-			? resizeImage(image: partnerProfileImage, newWidth: 1000).pngData() : partnerProfileImage.jpegData(compressionQuality: 0.5)
+			if let imageDatas = RealmService.shared.getImageDatas().first {
+				imageDatas.partnerProfileImage =
+				(partnerProfileImage.pngData()?.count) ?? 0 > 10000000
+				? resizeImage(image: partnerProfileImage, newWidth: 1000).pngData()
+				: partnerProfileImage.jpegData(compressionQuality: 0.5)
+			}
 		})
 	}
 }

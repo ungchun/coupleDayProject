@@ -74,12 +74,14 @@ final class HomeViewController: BaseViewController {
 			}
 			.disposed(by: disposeBag)
 		
-		if RealmService.shared.getUserDatas().first!.birthDay != 0 {
-			initBirthDayAnniversary(
-				dateValue: RealmService.shared.getUserDatas().first!.birthDay
-			)
-		} else {
-			initNotBirthDayAnniversary()
+		if let userDatas = RealmService.shared.getUserDatas().first {
+			if userDatas.birthDay != 0 {
+				initBirthDayAnniversary(
+					dateValue: userDatas.birthDay
+				)
+			} else {
+				initNotBirthDayAnniversary()
+			}
 		}
 	}
 }

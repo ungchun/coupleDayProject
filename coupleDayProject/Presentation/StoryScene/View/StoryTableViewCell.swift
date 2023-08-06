@@ -114,19 +114,19 @@ extension StoryTableViewCell {
 	//MARK: - Functions
 	
 	func setStoryCellText(index: Int, beginCoupleDay: String) {
-		let beginCoupleFormatterDay = Date(
-			timeIntervalSince1970: TimeInterval(
-				RealmService.shared.getUserDatas().first!.beginCoupleDay
-			) / 1000
-		).toStoryString
-		let tempDate = Date().millisecondsSince1970 + (index).toMillisecondsSince1970 - Int(beginCoupleDay)!.toMillisecondsSince1970
-		self.yyyyMMddDate = Date(timeIntervalSince1970: TimeInterval(tempDate) / 1000).toStoryString
-		dayText.text = index == 0 ? "만남의 시작" : index % 365 == 0 ? "\(index/365)주년" : "\(index) 일"
-		yyyyMMddDayText.text = index == 0 ? beginCoupleFormatterDay : "\(yyyyMMddDate)"
-		D_DayText.text = index == 0 || (index)-Int(beginCoupleDay)! <= 0 ? "" : "D-\((index)-Int(beginCoupleDay)!)"
-		
-		if index <= Int(beginCoupleDay)! {
-			dayText.textColor = UIColor(white: 0.5, alpha: 0.3)
+		if let userDatas = RealmService.shared.getUserDatas().first {
+			let beginCoupleFormatterDay = Date(
+				timeIntervalSince1970: TimeInterval(userDatas.beginCoupleDay) / 1000
+			).toStoryString
+			let tempDate = Date().millisecondsSince1970 + (index).toMillisecondsSince1970 - (Int(beginCoupleDay)?.toMillisecondsSince1970 ?? 0)
+			self.yyyyMMddDate = Date(timeIntervalSince1970: TimeInterval(tempDate) / 1000).toStoryString
+			dayText.text = index == 0 ? "만남의 시작" : index % 365 == 0 ? "\(index/365)주년" : "\(index) 일"
+			yyyyMMddDayText.text = index == 0 ? beginCoupleFormatterDay : "\(yyyyMMddDate)"
+			D_DayText.text = index == 0 || (index)-(Int(beginCoupleDay) ?? 0) <= 0 ? "" : "D-\((index)-(Int(beginCoupleDay) ?? 0))"
+			
+			if index <= Int(beginCoupleDay) ?? 0 {
+				dayText.textColor = UIColor(white: 0.5, alpha: 0.3)
+			}
 		}
 	}
 }

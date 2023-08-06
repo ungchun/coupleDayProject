@@ -126,14 +126,15 @@ private extension CoupleViewController {
 		
 		coupleTabViewModel.output.beginCoupleDayOutput
 			.bind { [weak self] beginCoupleDay in
-				DispatchQueue.main.async {
-					self?.coupleProfileImageAndDayView.dayText.text = beginCoupleDay
+				if let userDatas = RealmService.shared.getUserDatas().first {
+					DispatchQueue.main.async {
+						self?.coupleProfileImageAndDayView.dayText.text = beginCoupleDay
+					}
+					let dayData: [String: Any] = [
+						"dayData": String(describing: userDatas.beginCoupleDay)
+					]
+					try? WCSession.default.updateApplicationContext(dayData)
 				}
-				let dayData: [String: Any] = [
-					"dayData":
-						String(describing: RealmService.shared.getUserDatas().first!.beginCoupleDay)
-				]
-				try? WCSession.default.updateApplicationContext(dayData)
 			}
 			.disposed(by: disposeBag)
 		
@@ -249,7 +250,7 @@ extension CoupleViewController: UIImagePickerControllerDelegate & UINavigationCo
 	) {
 		let imageData = info[.editedImage] is UIImage ? info[.editedImage] : info[.originalImage]
 		dismiss(animated: true) { [weak self] in
-			self?.presentCropViewController(image: imageData as! UIImage)
+			self?.presentCropViewController(image: imageData as? UIImage ?? UIImage())
 		}
 	}
 	

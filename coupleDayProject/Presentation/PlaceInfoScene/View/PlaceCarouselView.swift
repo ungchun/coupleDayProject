@@ -23,7 +23,7 @@ final class PlaceCarouselView: BaseView {
 	
 	init(imageUrlArray: Array<String>){
 		self.imageUrlArray = imageUrlArray
-		self.imageUrlArray!.shuffle()
+		self.imageUrlArray?.shuffle()
 		imageUrlArray.forEach { value in
 			DispatchQueue.global().async {
 				CacheImageManger().downloadImageAndCache(urlString: value)
@@ -71,13 +71,13 @@ private extension PlaceCarouselView {
 		carouselProgressView.progress = 0.0
 		progress = Progress(totalUnitCount: Int64(imageUrlArray.count))
 		progress?.completedUnitCount = 1
-		carouselProgressView.setProgress(Float(progress!.fractionCompleted), animated: false)
+		carouselProgressView.setProgress(Float(progress?.fractionCompleted ?? 0), animated: false)
 	}
 }
 
 extension PlaceCarouselView: PlaceCarouselCollectionViewDelegate {
 	func didProgressViewSetProgress(unitCount: Int) {
 		progress?.completedUnitCount = Int64(unitCount)
-		carouselProgressView.setProgress(Float(progress!.fractionCompleted), animated: false)
+		carouselProgressView.setProgress(Float(progress?.fractionCompleted ?? 0), animated: false)
 	}
 }

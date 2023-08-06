@@ -202,8 +202,9 @@ final class PlaceMapBottomSheetView: BaseView {
 
 private extension PlaceMapBottomSheetView {
 	@objc func openGoogleMaps() {
-		guard let latitude = Double(datePlace!.latitude) else { return }
-		guard let longitude = Double(datePlace!.longitude) else { return }
+		guard let datePlace else { return }
+		guard let latitude = Double(datePlace.latitude) else { return }
+		guard let longitude = Double(datePlace.longitude) else { return }
 		let url = URL(string: "comgooglemaps://?center=\(latitude),\(longitude)&zoom=17&mapmode=standard")
 		
 		if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
@@ -214,8 +215,9 @@ private extension PlaceMapBottomSheetView {
 	}
 	
 	@objc func openkakaoMaps() {
-		guard let latitude = Double(datePlace!.latitude) else { return }
-		guard let longitude = Double(datePlace!.longitude) else { return }
+		guard let datePlace else { return }
+		guard let latitude = Double(datePlace.latitude) else { return }
+		guard let longitude = Double(datePlace.longitude) else { return }
 		let url = URL(string: "kakaomap://look?p=\(latitude),\(longitude)")
 		if UIApplication.shared.canOpenURL(URL(string:"kakaomap://")!){
 			UIApplication.shared.open(url!, options: [:], completionHandler: nil)

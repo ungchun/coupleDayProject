@@ -40,12 +40,14 @@ final class HomeViewModel {
 	}
 	
 	private func changeAppNameLabel() {
-		let nowDayDataString = Date().toString
-		let nowDayDataDate: Date = nowDayDataString.toDate
-		let minus = Int(nowDayDataDate.millisecondsSince1970)-RealmService.shared.getUserDatas().first!.beginCoupleDay
-		receivedCoupleDayData = String(describing: minus / 86400000)
-		
-		if !changeLabelInitCheck {
+		if let userDatas = RealmService.shared.getUserDatas().first {
+			let nowDayDataString = Date().toString
+			let nowDayDataDate: Date = nowDayDataString.toDate
+			let minus = Int(nowDayDataDate.millisecondsSince1970)-userDatas.beginCoupleDay
+			receivedCoupleDayData = String(describing: minus / 86400000)
+		}
+
+		if changeLabelInitCheck == false {
 			changeLabelTimer = Timer.scheduledTimer(
 				timeInterval: 5,
 				target: self,

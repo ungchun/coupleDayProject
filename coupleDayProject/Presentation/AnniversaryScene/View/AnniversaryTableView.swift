@@ -55,7 +55,7 @@ extension AnniversaryTableView: UITableViewDelegate, UITableViewDataSource {
 		
 		let anniversaryFilter = Anniversary.AnniversaryInfo.filter {dictValue in
 			let keyValue = dictValue.keys.first
-			if nowMillisecondDate < (keyValue?.toDate.millisecondsSince1970)! {
+			if nowMillisecondDate < keyValue?.toDate.millisecondsSince1970 ?? 0 {
 				return true
 			} else {
 				return false
@@ -69,7 +69,7 @@ extension AnniversaryTableView: UITableViewDelegate, UITableViewDataSource {
 		
 		let anniversaryFilter = Anniversary.AnniversaryInfo.filter { dictValue in
 			let keyValue = dictValue.keys.first
-			if nowMillisecondDate < (keyValue?.toDate.millisecondsSince1970)! {
+			if nowMillisecondDate < keyValue?.toDate.millisecondsSince1970 ?? 0 {
 				return true
 			} else {
 				return false

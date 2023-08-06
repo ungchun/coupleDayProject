@@ -80,7 +80,7 @@ final class SetupView: BaseView {
 		)
 		let zeroDayCheckBox = UIImage(systemName: "square", withConfiguration: zeroDayCheckConfig)
 		button.setImage(zeroDayCheckBox, for: .normal)
-		let titleSize = button.titleLabel?.text!.size(withAttributes: [
+		let titleSize = button.titleLabel?.text?.size(withAttributes: [
 			NSAttributedString.Key.font: button.titleLabel?.font as Any
 		])
 		button.imageView?.contentMode = .scaleAspectFit
@@ -196,7 +196,7 @@ private extension SetupView {
 					byAdding: .day,
 					value: -1,
 					to: handleDateValue.toString.toDate
-				)!.millisecondsSince1970
+				)?.millisecondsSince1970 ?? 0
 			)
 		}
 		realmUserModel.zeroDayStartCheck = zeroDayStartCheck

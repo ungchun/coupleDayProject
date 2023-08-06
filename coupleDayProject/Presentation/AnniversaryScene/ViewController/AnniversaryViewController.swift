@@ -57,8 +57,9 @@ final class AnniversaryViewController: BaseViewController {
 			
 			anniversaryTitleView.heightAnchor.constraint(equalToConstant: 50),
 			
-			contentView.topAnchor.constraint(equalTo: self.view.topAnchor ,constant: 5),
+			contentView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 5),
 			contentView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+//			contentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
 			contentView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
 			contentView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
 		])
