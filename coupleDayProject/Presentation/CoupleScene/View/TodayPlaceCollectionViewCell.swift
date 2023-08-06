@@ -80,6 +80,7 @@ private extension TodayPlaceCollectionViewCell {
 	func placeModelBinding() {
 		placeName.text = placeModel?.placeName
 		placeShortAddress.text = placeModel?.shortAddress
-		datePlaceImageView.setImage(with: (placeModel?.imageUrl.first)!)
+		guard let imageUrl = placeModel?.imageUrl.first else { return }
+		datePlaceImageView.setImage(with: imageUrl)
 	}
 }

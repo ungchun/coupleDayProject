@@ -295,7 +295,7 @@ extension SettingViewController: UIImagePickerControllerDelegate & UINavigationC
 		info[UIImagePickerController.InfoKey.editedImage] :
 		info[UIImagePickerController.InfoKey.originalImage]
 		self.dismiss(animated: true) {
-			self.presentCropViewController(image: imageData as! UIImage)
+			self.presentCropViewController(image: imageData as? UIImage ?? UIImage())
 		}
 	}
 	

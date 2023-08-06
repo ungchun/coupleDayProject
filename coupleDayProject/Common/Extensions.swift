@@ -39,7 +39,7 @@ extension Date {
 	}
 	
 	func adding(_ component: Calendar.Component, value: Int, using calendar: Calendar = .current) -> Date {
-		calendar.date(byAdding: component, value: value, to: self)!
+		calendar.date(byAdding: component, value: value, to: self) ?? Date()
 	}
 	
 	/// date -> return string yyyy-MM-dd
@@ -82,7 +82,7 @@ extension String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy-MM-dd"
 		dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-		return dateFormatter.date(from: self)!
+		return dateFormatter.date(from: self) ?? Date()
 	}
 }
 

@@ -117,7 +117,7 @@ extension PlaceMapView {
 
 extension PlaceMapView: MKMapViewDelegate, CLLocationManagerDelegate {
 	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-		guard annotation is MKPointAnnotation else { print("no mkpointannotaions"); return nil }
+		guard annotation is MKPointAnnotation else { return nil }
 		let reuseId = "pin"
 		var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView // pin 모양 변경
 		if pinView == nil {

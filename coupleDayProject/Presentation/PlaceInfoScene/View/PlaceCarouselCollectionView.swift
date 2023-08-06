@@ -76,13 +76,14 @@ extension PlaceCarouselCollectionView: UICollectionViewDataSource {
 		_ collectionView: UICollectionView,
 		cellForItemAt indexPath: IndexPath
 	) -> UICollectionViewCell {
-		let imageUrlString = imageUrlArray![indexPath.item % imageUrlArray!.count]
+		guard let imageUrlArray = imageUrlArray else { return UICollectionViewCell() }
+		let imageUrlString = imageUrlArray[indexPath.item % imageUrlArray.count]
 		let cell = collectionView.dequeueReusableCell(
 			withReuseIdentifier: PlaceCarouselCollectionViewCell.reuseIdentifier,
 			for: indexPath
-		) as! PlaceCarouselCollectionViewCell
-		cell.imageView.setImage(with: imageUrlString)
-		return cell
+		) as? PlaceCarouselCollectionViewCell
+		cell?.imageView.setImage(with: imageUrlString)
+		return cell ?? UICollectionViewCell()
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}

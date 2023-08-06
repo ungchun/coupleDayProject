@@ -42,7 +42,7 @@ func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
 	image.draw(in: CGRectMake(0, 0, newWidth, newHeight))
 	let newImage = UIGraphicsGetImageFromCurrentImageContext()
 	UIGraphicsEndImageContext()
-	return newImage!
+	return newImage ?? UIImage()
 }
 
 // app version 확인, 앱 업데이트 관련
@@ -104,7 +104,7 @@ struct DateValues {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy"
 		let yearString = dateFormatter.string(from: date)
-		let nextYearString = String(describing: Int(yearString)!+1)
+		let nextYearString = String(describing: Int(yearString) ?? 0 + 1)
 		return nextYearString
 	}
 }

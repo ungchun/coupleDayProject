@@ -34,9 +34,9 @@ final class PlaceInfoViewController: BaseViewController {
 	private let placeMapBottomSheetView = PlaceMapBottomSheetView()
 	
 	lazy var datePlaceCarouselView: PlaceCarouselView = {
-		var copyDatePlaceImageUrl = datePlace!.imageUrl
-		copyDatePlaceImageUrl.removeFirst()
-		let view = PlaceCarouselView(imageUrlArray: copyDatePlaceImageUrl)
+		var copyDatePlaceImageUrl = self.datePlace?.imageUrl
+		copyDatePlaceImageUrl?.removeFirst()
+		let view = PlaceCarouselView(imageUrlArray: copyDatePlaceImageUrl ?? [])
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -149,12 +149,15 @@ final class PlaceInfoViewController: BaseViewController {
 		
 		placeMapBottomSheetView.alpha = 0.0
 		
-		placeImageNameAddressView.datePlaceImageView.setImage(with: (datePlace?.imageUrl.first)!)
-		placeImageNameAddressView.datePlaceName.text = datePlace?.placeName
-		placeImageNameAddressView.datePlaceAddress.text = datePlace?.address
 		
-		placeIntroduceView.introduceTitle.text = datePlace!.introduce[0]
-		let introduceContentValue = NSAttributedString(string: datePlace!.introduce[1]).withLineSpacing(10)
+		guard let datePlace else { return }
+		guard let url = datePlace.imageUrl.first else { return }
+		placeImageNameAddressView.datePlaceImageView.setImage(with: url)
+		placeImageNameAddressView.datePlaceName.text = datePlace.placeName
+		placeImageNameAddressView.datePlaceAddress.text = datePlace.address
+		
+		placeIntroduceView.introduceTitle.text = datePlace.introduce[0]
+		let introduceContentValue = NSAttributedString(string: datePlace.introduce[1]).withLineSpacing(10)
 		placeIntroduceView.introduceContent.attributedText = introduceContentValue
 	}
 }

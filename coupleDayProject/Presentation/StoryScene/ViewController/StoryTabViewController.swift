@@ -100,9 +100,9 @@ private extension StoryTabViewController {
 		guard let coupleTabViewModel = coupleTabViewModel else { return }
 		var coupleDayToInt = 0
 		if coupleDay == nil {
-			coupleDayToInt = Int((coupleTabViewModel.output.beginCoupleDayOutput.value))!
+			coupleDayToInt = Int((coupleTabViewModel.output.beginCoupleDayOutput.value)) ?? 0
 		} else {
-			coupleDayToInt = Int(coupleDay!)!
+			coupleDayToInt = Int(coupleDay ?? "") ?? 0
 		}
 		
 		if coupleDayToInt >= 10950 {
@@ -113,7 +113,7 @@ private extension StoryTabViewController {
 				row: StoryStandardDay().dayValues.firstIndex(
 					of: StoryStandardDay().dayValues.filter {
 						$0 > coupleDayToInt
-					}.min()!)!,
+					}.min() ?? 0) ?? 0,
 				section: 0
 			)
 			self.storyTableView.scrollToRow(at: startIndex, at: .top, animated: false)

@@ -94,12 +94,16 @@ extension AnniversaryTableViewCell {
 	//MARK: - Functions
 	
 	func setAnniversaryCellText(dictValue: Dictionary<String, String>, url: Dictionary<String, String>) {
-		anniversaryNameText.text = dictValue.values.first!
-		let minus = Int(dictValue.keys.first!.toDate.millisecondsSince1970)-Int(Date().millisecondsSince1970)
-		let D_DayValue = String(describing: (minus / 86400000)) == "0" ? "DAY" : String(describing: (minus / 86400000))
-		anniversaryDateText.text = "\(dictValue.keys.first!.toDate.toSlashAnniversaryString)"
+		guard let anniversaryName = dictValue.values.first else { return }
+		anniversaryNameText.text = anniversaryName
+		guard let anniversaryDate = dictValue.keys.first else { return }
+		let minus = Int(anniversaryDate.toDate.millisecondsSince1970)-Int(Date().millisecondsSince1970)
+		let D_DayValue = String(describing: (minus / 86400000)) == "0" ?
+		"DAY" :
+		String(describing: (minus / 86400000))
+		anniversaryDateText.text = "\(anniversaryDate.toDate.toSlashAnniversaryString)"
 		anniversaryD_DayText.text = "D-\(D_DayValue)"
-		
-		anniversaryBackGroundImage.setImage(with: url.values.first!)
+		guard let url = url.values.first else { return }
+		anniversaryBackGroundImage.setImage(with: url)
 	}
 }
