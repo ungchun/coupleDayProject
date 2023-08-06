@@ -2,6 +2,8 @@ import Photos
 import UIKit
 import WatchConnectivity
 
+import RxSwift
+import RxCocoa
 import CropViewController
 import Kingfisher
 import TOCropViewController
@@ -9,6 +11,8 @@ import TOCropViewController
 final class CoupleViewController: BaseViewController {
 	
 	//MARK: - Properties
+	
+	private let disposeBag = DisposeBag()
 	
 	private var coupleTabViewModel: CoupleTabViewModel?
 	private let imagePickerController = UIImagePickerController()
@@ -120,42 +124,50 @@ private extension CoupleViewController {
 	func coupleTabViewModelBinding() {
 		guard let coupleTabViewModel = coupleTabViewModel else { return }
 		
-		coupleTabViewModel.beginCoupleDay.bind { [weak self] beginCoupleDay in
-			DispatchQueue.main.async {
-				self?.coupleProfileImageAndDayView.dayText.text = beginCoupleDay
-			}
-			let dayData: [String: Any] = [
-				"dayData":
-					String(describing: RealmService.shared.getUserDatas().first!.beginCoupleDay)
-			]
-			try? WCSession.default.updateApplicationContext(dayData)
-		}
-		
-		coupleTabViewModel.homeMainImageData.bind { [weak self] imageData in
-			DispatchQueue.main.async {
-				self?.coupleBackgroundImageView.backgroundImageView.image = UIImage(data: imageData)
-				guard let loadingCheck = self?.loadingCheck else { return }
-				if !loadingCheck {
-					self?.afterImageLoadingView()
-					self?.loadingCheck = true
+		coupleTabViewModel.output.beginCoupleDayOutput
+			.bind { [weak self] beginCoupleDay in
+				DispatchQueue.main.async {
+					self?.coupleProfileImageAndDayView.dayText.text = beginCoupleDay
 				}
-				guard let data = UIImage(data: coupleTabViewModel.homeMainImageData.value)?.jpegData(compressionQuality: 0.1) else { return }
-				let imageData: [String: Any] = ["imageData": data]
-				WCSession.default.transferUserInfo(imageData)
+				let dayData: [String: Any] = [
+					"dayData":
+						String(describing: RealmService.shared.getUserDatas().first!.beginCoupleDay)
+				]
+				try? WCSession.default.updateApplicationContext(dayData)
 			}
-		}
+			.disposed(by: disposeBag)
 		
-		coupleTabViewModel.myProfileImageData.bind({ [weak self] imageData in
-			DispatchQueue.main.async {
-				self?.coupleProfileImageAndDayView.myProfileImageView.image = UIImage(data: imageData)
+		coupleTabViewModel.output.homeMainImageDataOutput
+			.bind { [weak self] imageData in
+				DispatchQueue.main.async {
+					self?.coupleBackgroundImageView.backgroundImageView.image = UIImage(data: imageData)
+					guard let loadingCheck = self?.loadingCheck else { return }
+					if !loadingCheck {
+						self?.afterImageLoadingView()
+						self?.loadingCheck = true
+					}
+					guard let data = UIImage(data: coupleTabViewModel.output.homeMainImageDataOutput.value)?.jpegData(compressionQuality: 0.1) else { return }
+					let imageData: [String: Any] = ["imageData": data]
+					WCSession.default.transferUserInfo(imageData)
+				}
 			}
-		})
+			.disposed(by: disposeBag)
 		
-		coupleTabViewModel.partnerProfileImageData.bind({ [weak self] imageData in
-			DispatchQueue.main.async {
-				self?.coupleProfileImageAndDayView.partnerProfileImageView.image = UIImage(data: imageData)
+		coupleTabViewModel.output.myProfileImageDataOutput
+			.bind { [weak self] imageData in
+				DispatchQueue.main.async {
+					self?.coupleProfileImageAndDayView.myProfileImageView.image = UIImage(data: imageData)
+				}
 			}
-		})
+			.disposed(by: disposeBag)
+		
+		coupleTabViewModel.output.partnerProfileImageDataOutput
+			.bind { [weak self] imageData in
+				DispatchQueue.main.async {
+					self?.coupleProfileImageAndDayView.partnerProfileImageView.image = UIImage(data: imageData)
+				}
+			}
+			.disposed(by: disposeBag)
 	}
 	
 	func beforeImageLoadingView() {
@@ -213,8 +225,8 @@ private extension CoupleViewController {
 	}
 	
 	@objc func changeDarkModeSet(notification: Notification) {
-		coupleTabViewModel?.updateMyProfileIcon()
-		coupleTabViewModel?.updatePartnerProfileIcon()
+		coupleTabViewModel?.input.myProfileImageDataTrigger.onNext(())
+		coupleTabViewModel?.input.partnerProfileImageDataTrigger.onNext(())
 	}
 }
 
@@ -266,10 +278,10 @@ extension CoupleViewController: CropViewControllerDelegate {
 		guard let coupleTabViewModel = coupleTabViewModel else { return }
 		if whoProfileChangeCheck == "my" {
 			RealmService.shared.updateMyProfileImage(myProfileImage: image)
-			coupleTabViewModel.updateMyProfileIcon()
+			coupleTabViewModel.input.myProfileImageDataTrigger.onNext(())
 		} else {
 			RealmService.shared.updatePartnerProfileImage(partnerProfileImage: image)
-			coupleTabViewModel.updatePartnerProfileIcon()
+			coupleTabViewModel.input.partnerProfileImageDataTrigger.onNext(())
 		}
 		dismiss(animated: true, completion: nil)
 	}

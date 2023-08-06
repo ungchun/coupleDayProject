@@ -211,27 +211,6 @@ struct ImagePicker {
 	}
 }
 
-// ViewModel DataBinding Observable
-
-final class Observable<T> {
-	private var listener: ((T) -> Void)?
-	
-	var value: T {
-		didSet {
-			listener?(value)
-		}
-	}
-	
-	init(_ value: T) {
-		self.value = value
-	}
-	
-	func bind(_ closure: @escaping (T) -> Void) {
-		closure(value)
-		listener = closure
-	}
-}
-
 /// 기념일 present 할 때 위에 어느정도 띄워주는 custom modal
 final class PresentationController: UIPresentationController {
 	

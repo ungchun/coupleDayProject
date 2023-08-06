@@ -64,7 +64,7 @@ extension StoryTableView: UITableViewDelegate, UITableViewDataSource {
 		) as? StoryTableViewCell ?? StoryTableViewCell()
 		cell.setStoryCellText(
 			index: StoryStandardDay().dayValues[indexPath.row],
-			beginCoupleDay: (coupleTabViewModel?.beginCoupleDay.value)!
+			beginCoupleDay: (coupleTabViewModel?.output.beginCoupleDayOutput.value)!
 		)
 		cell.selectionStyle = .none
 		cell.backgroundColor = UIColor(named: "bgColor")

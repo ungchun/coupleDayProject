@@ -125,7 +125,7 @@ private extension SettingViewController {
 				style: .default,
 				handler: { [self] (action:UIAlertAction!) in
 					RealmService.shared.updateBeginCoupleDay(datePicker: datePicker)
-					coupleTabViewModel?.updateBeginCoupleDay()
+					coupleTabViewModel?.input.beginCoupleDayTrigger.onNext(())
 				}
 			)
 		)
@@ -324,7 +324,7 @@ extension SettingViewController: CropViewControllerDelegate {
 		angle: Int
 	) {
 		RealmService.shared.updateMainImage(mainImage: image)
-		coupleTabViewModel?.updateHomeMainImage()
+		coupleTabViewModel?.input.homeMainImageDataTrigger.onNext(())
 		dismiss(animated: true, completion: nil)
 	}
 }

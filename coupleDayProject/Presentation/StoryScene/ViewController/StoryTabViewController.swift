@@ -100,7 +100,7 @@ private extension StoryTabViewController {
 		guard let coupleTabViewModel = coupleTabViewModel else { return }
 		var coupleDayToInt = 0
 		if coupleDay == nil {
-			coupleDayToInt = Int((coupleTabViewModel.beginCoupleDay.value))!
+			coupleDayToInt = Int((coupleTabViewModel.output.beginCoupleDayOutput.value))!
 		} else {
 			coupleDayToInt = Int(coupleDay!)!
 		}
