@@ -44,16 +44,14 @@
 - ClockKit
 - MVVM
 - Coordinator
-- Swift Package Manager
-- GCD  
 
 ## [ Library ]
 
 ### SPM
 
+- RxSwift
 - Realm
 - Tabman
 - TOCropViewController
 - Lottie
-- GoogleMobileAds
 - Firebase
