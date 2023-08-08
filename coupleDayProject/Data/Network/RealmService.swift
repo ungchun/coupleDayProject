@@ -59,7 +59,6 @@ final class RealmService: RealmInterface {
 		})
 	}
 	
-	// 확인
 	func updateBeginCoupleDay(datePicker: UIDatePicker) {
 		try? realm.write({
 			if let userDatas = RealmService.shared.getUserDatas().first {

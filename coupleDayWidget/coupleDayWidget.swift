@@ -213,7 +213,7 @@ class RealmManager {
     }
 
     func getBeginCoupleDay() -> String {
-        let realmUserData = realm.objects(RealmUserModel.self)
+        let realmUserData = realm.objects(User.self)
         let beginCoupleDay = realmUserData[0].beginCoupleDay
         let nowDayDataString = Date().toString
         let nowDayDataDate: Date = nowDayDataString.toDate
@@ -222,18 +222,18 @@ class RealmManager {
     }
     
     func getMainBackgroundImage() -> Data {
-        let realmImageData = realm.objects(RealmImageModel.self)
+        let realmImageData = realm.objects(HomeImage.self)
         let homeMainImage = realmImageData[0].homeMainImage
         return homeMainImage!
     }
 }
 
-class RealmUserModel: Object {
+class User: Object {
     @objc dynamic var beginCoupleDay = 0
     @objc dynamic var birthDay = 0
     @objc dynamic var zeroDayStartCheck = false
 }
-class RealmImageModel: Object {
+class HomeImage: Object {
     @objc dynamic var homeMainImage: Data? = nil
     @objc dynamic var myProfileImage: Data? = nil
     @objc dynamic var partnerProfileImage: Data? = nil
