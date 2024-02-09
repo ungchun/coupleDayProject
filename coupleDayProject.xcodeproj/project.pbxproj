@@ -35,6 +35,7 @@
 		65C076702A52EB2F003E6D92 /* PlaceMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0766F2A52EB2F003E6D92 /* PlaceMapView.swift */; };
 		65C076722A52F7E2003E6D92 /* PlaceMapBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076712A52F7E2003E6D92 /* PlaceMapBottomSheetView.swift */; };
 		65C076762A53B93F003E6D92 /* PlaceIntroduceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C076752A53B93F003E6D92 /* PlaceIntroduceView.swift */; };
+		65E60FF72B761A76001B9E47 /* coupleDayProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E60FF62B761A76001B9E47 /* coupleDayProjectTests.swift */; };
 		BC05F82C28B09F4C003AB01E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */; };
 		BC07971028781A9B00E7AC93 /* GangwonEduAllLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF7984B285732850009A78C /* GangwonEduAllLight.ttf */; };
 		BC07971128781A9B00E7AC93 /* GangwonEduAllBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCF79849285732780009A78C /* GangwonEduAllBold.ttf */; };
@@ -110,6 +111,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		65E60FF82B761A76001B9E47 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BCB0B146285076FF00DE7196 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BCB0B14D285076FF00DE7196;
+			remoteInfo = coupleDayProject;
+		};
 		BC78B503287D7B1B00DF10C6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BCB0B146285076FF00DE7196 /* Project object */;
@@ -195,6 +203,8 @@
 		65C0766F2A52EB2F003E6D92 /* PlaceMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMapView.swift; sourceTree = "<group>"; };
 		65C076712A52F7E2003E6D92 /* PlaceMapBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMapBottomSheetView.swift; sourceTree = "<group>"; };
 		65C076752A53B93F003E6D92 /* PlaceIntroduceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceIntroduceView.swift; sourceTree = "<group>"; };
+		65E60FF42B761A76001B9E47 /* coupleDayProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = coupleDayProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		65E60FF62B761A76001B9E47 /* coupleDayProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coupleDayProjectTests.swift; sourceTree = "<group>"; };
 		BC05F82B28B09F4C003AB01E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BC0CFD8E28804011000A009D /* GangwonEduAllBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllBold.otf; sourceTree = "<group>"; };
 		BC0CFD8F28804011000A009D /* GangwonEduAllLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GangwonEduAllLight.otf; sourceTree = "<group>"; };
@@ -259,6 +269,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		65E60FF12B761A76001B9E47 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC78B4EF287D7B1A00DF10C6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -675,6 +692,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		65E60FF52B761A76001B9E47 /* coupleDayProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				65E60FF62B761A76001B9E47 /* coupleDayProjectTests.swift */,
+			);
+			path = coupleDayProjectTests;
+			sourceTree = "<group>";
+		};
 		BC0CFD8D28803F5D000A009D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -743,6 +768,7 @@
 				BC83F8CC2876D2200027235E /* coupleDayWidget */,
 				BC78B4E8287D7B1A00DF10C6 /* coupleDayWatch */,
 				BC78B4F6287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension */,
+				65E60FF52B761A76001B9E47 /* coupleDayProjectTests */,
 				BC83F89E2876C70A0027235E /* Frameworks */,
 				BCB0B14F285076FF00DE7196 /* Products */,
 			);
@@ -755,6 +781,7 @@
 				BC83F8C92876D2200027235E /* coupleDayWidgetExtension.appex */,
 				BC78B4E7287D7B1A00DF10C6 /* coupleDayWatch.app */,
 				BC78B4F2287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension.appex */,
+				65E60FF42B761A76001B9E47 /* coupleDayProjectTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -797,6 +824,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		65E60FF32B761A76001B9E47 /* coupleDayProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65E60FFC2B761A76001B9E47 /* Build configuration list for PBXNativeTarget "coupleDayProjectTests" */;
+			buildPhases = (
+				65E60FF02B761A76001B9E47 /* Sources */,
+				65E60FF12B761A76001B9E47 /* Frameworks */,
+				65E60FF22B761A76001B9E47 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65E60FF92B761A76001B9E47 /* PBXTargetDependency */,
+			);
+			name = coupleDayProjectTests;
+			productName = coupleDayProjectTests;
+			productReference = 65E60FF42B761A76001B9E47 /* coupleDayProjectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		BC78B4E6287D7B1A00DF10C6 /* coupleDayWatch */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC78B50D287D7B1B00DF10C6 /* Build configuration list for PBXNativeTarget "coupleDayWatch" */;
@@ -899,9 +944,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1340;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
+					65E60FF32B761A76001B9E47 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = BCB0B14D285076FF00DE7196;
+					};
 					BC78B4E6287D7B1A00DF10C6 = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
@@ -942,11 +991,19 @@
 				BC83F8C82876D2200027235E /* coupleDayWidgetExtension */,
 				BC78B4E6287D7B1A00DF10C6 /* coupleDayWatch */,
 				BC78B4F1287D7B1A00DF10C6 /* coupleDayWatch WatchKit Extension */,
+				65E60FF32B761A76001B9E47 /* coupleDayProjectTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		65E60FF22B761A76001B9E47 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC78B4E5287D7B1A00DF10C6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -995,6 +1052,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		65E60FF02B761A76001B9E47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65E60FF72B761A76001B9E47 /* coupleDayProjectTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC78B4EE287D7B1A00DF10C6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1078,6 +1143,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		65E60FF92B761A76001B9E47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BCB0B14D285076FF00DE7196 /* coupleDayProject */;
+			targetProxy = 65E60FF82B761A76001B9E47 /* PBXContainerItemProxy */;
+		};
 		BC78B504287D7B1B00DF10C6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = BC78B4E6287D7B1A00DF10C6 /* coupleDayWatch */;
@@ -1125,6 +1195,53 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		65E60FFA2B761A76001B9E47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ungchun.coupleDayProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/coupleDayProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/coupleDayProject";
+			};
+			name = Debug;
+		};
+		65E60FFB2B761A76001B9E47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ungchun.coupleDayProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/coupleDayProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/coupleDayProject";
+			};
+			name = Release;
+		};
 		BC78B507287D7B1B00DF10C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1480,6 +1597,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		65E60FFC2B761A76001B9E47 /* Build configuration list for PBXNativeTarget "coupleDayProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65E60FFA2B761A76001B9E47 /* Debug */,
+				65E60FFB2B761A76001B9E47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BC78B50C287D7B1B00DF10C6 /* Build configuration list for PBXNativeTarget "coupleDayWatch WatchKit Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1540,8 +1666,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = exactVersion;
+				version = 10.0.0;
 			};
 		};
 		BC83F8922876AC170027235E /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
