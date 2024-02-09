@@ -23,4 +23,4 @@ jobs:
       run: |
         xcodebuild clean test -project coupleDayProject.xcodeproj \
         -scheme coupleDayProject \
-        -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.0'
+        -destination 'platform=iOS Simulator,name=iPhone 13,OS=16.2'
